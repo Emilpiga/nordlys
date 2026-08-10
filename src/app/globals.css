@@ -1,0 +1,285 @@
+@import "tailwindcss";
+
+:root {
+  --background: #eef2f4;
+  --foreground: #14201c;
+  --muted: #5a6661;
+  --surface: rgba(255, 255, 255, 0.7);
+  --border: rgba(20, 32, 28, 0.12);
+  --accent: #16352d;
+  --accent-strong: #0f241f;
+  --accent-soft: #2a5348;
+  --on-accent: #ffffff;
+  --blush: #9a6f69;
+  --mist: #d5e0e4;
+  --frost: #f7f9fa;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-blush: var(--blush);
+  --color-mist: var(--mist);
+  --color-frost: var(--frost);
+  --font-sans: var(--font-outfit);
+  --font-display: var(--font-cormorant);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+body {
+  background: linear-gradient(180deg, #e9eef1 0%, var(--background) 45%, #e6ecee 100%);
+  color: var(--foreground);
+  font-family: var(--font-outfit), sans-serif;
+  min-height: 100%;
+  overflow-x: clip;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 22%, white);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--on-accent);
+  padding: 0.9rem 1.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.btn-primary:hover {
+  background: var(--accent-strong);
+  color: var(--on-accent);
+}
+
+.btn-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.btn-primary-block {
+  width: 100%;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes soft-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes veil {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 0.55;
+  }
+}
+
+@keyframes image-in {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-rise {
+  animation: rise-in 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade {
+  animation: fade-in 1100ms ease both;
+}
+
+.animate-image-in {
+  animation: image-in 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-soft-zoom {
+  animation: soft-zoom 18s ease-in-out infinite alternate;
+}
+
+.animate-veil {
+  animation: veil 8s ease-in-out infinite alternate;
+}
+
+.delay-1 {
+  animation-delay: 140ms;
+}
+
+.delay-2 {
+  animation-delay: 280ms;
+}
+
+.delay-3 {
+  animation-delay: 420ms;
+}
+
+/*
+ * Page-level aurora field. Fixed behind all content, so sections never need
+ * their own background and no seams appear between them.
+ */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora__veil {
+  position: absolute;
+  will-change: transform;
+}
+
+.aurora__veil--one {
+  top: -30vh;
+  left: -20vw;
+  width: 95vw;
+  height: 110vh;
+  background: radial-gradient(
+    closest-side ellipse,
+    rgba(58, 142, 120, 0.22) 0%,
+    rgba(58, 142, 120, 0.1) 40%,
+    rgba(58, 142, 120, 0) 72%
+  );
+  animation: aurora-one 46s ease-in-out infinite alternate;
+}
+
+.aurora__veil--two {
+  top: 8vh;
+  right: -25vw;
+  width: 85vw;
+  height: 95vh;
+  background: radial-gradient(
+    closest-side ellipse,
+    rgba(112, 172, 186, 0.2) 0%,
+    rgba(112, 172, 186, 0.08) 44%,
+    rgba(112, 172, 186, 0) 74%
+  );
+  animation: aurora-two 58s ease-in-out infinite alternate;
+}
+
+.aurora__veil--three {
+  bottom: -35vh;
+  left: 10vw;
+  width: 80vw;
+  height: 90vh;
+  background: radial-gradient(
+    closest-side ellipse,
+    rgba(154, 111, 105, 0.14) 0%,
+    rgba(154, 111, 105, 0.06) 45%,
+    rgba(154, 111, 105, 0) 74%
+  );
+  animation: aurora-three 52s ease-in-out infinite alternate;
+}
+
+/* Breaks up gradient banding on wide flat washes */
+.aurora__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes aurora-one {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(6vw, 4vh, 0) scale(1.12);
+  }
+}
+
+@keyframes aurora-two {
+  from {
+    transform: translate3d(0, 0, 0) scale(1.06);
+  }
+  to {
+    transform: translate3d(-7vw, -5vh, 0) scale(1);
+  }
+}
+
+@keyframes aurora-three {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(5vw, -4vh, 0) scale(1.1);
+  }
+}
+
+.ambient-section {
+  position: relative;
+}
+
+.section-rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--accent) 20%, transparent) 12%,
+    color-mix(in oklab, var(--accent) 20%, transparent) 88%,
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora__veil,
+  .animate-soft-zoom,
+  .animate-veil {
+    animation: none;
+  }
+}
