@@ -8,6 +8,7 @@ export const shopifyConfig = {
   ),
   apiVersion: process.env.SHOPIFY_STOREFRONT_API_VERSION ?? "2026-04",
   storeName: process.env.NEXT_PUBLIC_STORE_NAME ?? "Nordlys",
+  supportEmail: cleanEnv(process.env.NEXT_PUBLIC_SUPPORT_EMAIL),
 };
 
 function cleanEnv(value: string | undefined) {

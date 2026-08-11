@@ -3,8 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AmbientSection, SectionRule } from "@/components/section";
 import { ProductCard } from "@/components/product-card";
+import { ProductDescription } from "@/components/product-description";
 import { ProductForm } from "@/components/product-form";
 import { ProductGallery } from "@/components/product-gallery";
+import {
+  descriptionPlainPreview,
+  sanitizeDescriptionHtml,
+} from "@/lib/description";
 import { getProductByHandle, getProducts } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
 
@@ -42,10 +47,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
     .filter((item) => item.id !== product.id)
     .slice(0, 4);
 
-  const shortDescription = product.description
-    .replace(/\s+/g, " ")
-    .trim()
-    .slice(0, 160);
+  const shortDescription = descriptionPlainPreview(product.description, 160);
+  const detailsHtml = sanitizeDescriptionHtml(product.descriptionHtml);
 
   return (
     <div>
@@ -91,7 +94,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 Shipping
               </dt>
               <dd className="mt-1.5 font-light text-foreground">
-                Worldwide delivery with tracking on every order
+                <Link
+                  href="/returns"
+                  className="underline-offset-4 transition hover:text-accent hover:underline"
+                >
+                  Worldwide delivery with tracking on every order
+                </Link>
               </dd>
             </div>
             <div>
@@ -107,25 +115,22 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 Questions
               </dt>
               <dd className="mt-1.5 font-light text-foreground">
-                We’re here if you need help choosing a ritual
+                <Link
+                  href="/contact"
+                  className="underline-offset-4 transition hover:text-accent hover:underline"
+                >
+                  We’re here if you need help choosing a ritual
+                </Link>
               </dd>
             </div>
           </dl>
         </div>
       </section>
 
-      {product.descriptionHtml ? (
+      {detailsHtml ? (
         <>
           <SectionRule />
-          <AmbientSection className="mx-auto grid w-full max-w-6xl gap-8 px-5 py-20 sm:px-8 sm:py-24 lg:grid-cols-[0.8fr_1.2fr]">
-            <h2 className="font-display text-3xl font-medium tracking-tight sm:text-4xl">
-              About this formula
-            </h2>
-            <div
-              className="max-w-2xl space-y-4 text-base font-light leading-[1.75] text-muted [&_a]:text-accent [&_a]:underline-offset-4 hover:[&_a]:underline [&_li]:mt-1 [&_p]:mb-4 [&_strong]:font-medium [&_strong]:text-foreground [&_ul]:list-disc [&_ul]:pl-5"
-              dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
-            />
-          </AmbientSection>
+          <ProductDescription html={detailsHtml} />
         </>
       ) : null}
 

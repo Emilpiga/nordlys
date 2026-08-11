@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Outfit } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { getCartAction } from "@/app/actions/cart";
+import { AdPixels } from "@/components/ad-pixels";
 import { AuroraBackdrop } from "@/components/aurora-backdrop";
+import { ConsentProvider } from "@/components/consent-provider";
+import { CookieBanner } from "@/components/cookie-banner";
 import { SetupBanner } from "@/components/setup-banner";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -27,8 +31,8 @@ export const metadata: Metadata = {
   },
   description: `${shopifyConfig.storeName} — Nordic skincare for clear, calm skin.`,
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: [{ url: "/logo-ikon.png", type: "image/png" }],
+    apple: [{ url: "/logo-ikon.png", type: "image/png" }],
   },
 };
 
@@ -43,11 +47,16 @@ export default async function RootLayout({
       className={`${cormorant.variable} ${outfit.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <AuroraBackdrop />
-        <SetupBanner />
-        <SiteHeader cartCount={cart?.totalQuantity ?? 0} />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+        <ConsentProvider>
+          <AuroraBackdrop />
+          <SetupBanner />
+          <Analytics />
+          <AdPixels />
+          <SiteHeader cartCount={cart?.totalQuantity ?? 0} />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+          <CookieBanner />
+        </ConsentProvider>
       </body>
     </html>
   );

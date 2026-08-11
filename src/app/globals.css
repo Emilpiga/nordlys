@@ -86,6 +86,27 @@ a {
   width: 100%;
 }
 
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid color-mix(in oklab, var(--border) 90%, var(--foreground));
+  padding: 0.9rem 1.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: border-color 180ms ease, background-color 180ms ease,
+    color 180ms ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--foreground);
+  background: color-mix(in oklab, var(--frost) 70%, white);
+}
+
 @keyframes rise-in {
   from {
     opacity: 0;
@@ -274,6 +295,60 @@ a {
     color-mix(in oklab, var(--accent) 20%, transparent) 88%,
     transparent 100%
   );
+}
+
+.product-description :where(p + p) {
+  margin-top: 1.1em;
+}
+
+.product-description :where(ul, ol) {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-left: 1.2rem;
+}
+
+.product-description :where(ul) {
+  list-style: disc;
+}
+
+.product-description :where(ol) {
+  list-style: decimal;
+}
+
+.product-description :where(li + li) {
+  margin-top: 0.35em;
+}
+
+.product-description :where(strong, b) {
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.product-description :where(a) {
+  color: var(--accent);
+  text-underline-offset: 4px;
+}
+
+.product-description :where(a:hover) {
+  text-decoration: underline;
+}
+
+.product-description :where(h1, h2, h3, h4) {
+  margin-top: 1.6em;
+  margin-bottom: 0.5em;
+  font-family: var(--font-cormorant), serif;
+  font-size: 1.55rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+}
+
+.product-description :where(h1:first-child, h2:first-child, h3:first-child, h4:first-child) {
+  margin-top: 0;
+}
+
+.product-description :where(img, picture, figure, video, iframe) {
+  display: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

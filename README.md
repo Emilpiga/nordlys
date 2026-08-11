@@ -60,6 +60,9 @@ Fill `.env.local`:
 | Variable | Example |
 |----------|---------|
 | `NEXT_PUBLIC_STORE_NAME` | Your brand name |
+| `NEXT_PUBLIC_SUPPORT_EMAIL` | Public support inbox (Contact / legal pages) |
+| `NEXT_PUBLIC_META_PIXEL_ID` | Meta Pixel ID (loads only after cookie consent) |
+| `NEXT_PUBLIC_GOOGLE_ADS_ID` | Google Ads tag ID `AW-…` (same consent gate) |
 | `SHOPIFY_STORE_DOMAIN` | `your-store.myshopify.com` |
 | `SHOPIFY_STOREFRONT_ACCESS_TOKEN` | Public token from Headless channel |
 | `SHOPIFY_STOREFRONT_PRIVATE_ACCESS_TOKEN` | Private token from Headless channel |
@@ -72,6 +75,8 @@ Open [http://localhost:3000](http://localhost:3000).
 - Home, product grid, product detail, cart
 - Cookie-backed Shopify Cart
 - Checkout redirect to Shopify Checkout URL
+- Privacy, Terms, Shipping & returns, Contact
+- Cookie consent banner gating Meta / Google ad pixels
 - Graceful empty state when Shopify credentials are missing
 
 ## What’s not in v1 (on purpose)
