@@ -33,42 +33,42 @@ export function SiteFooter() {
               <SiteLogo size="footer" />
             </Link>
             <p className="mt-7 font-display text-3xl font-medium leading-[1.2] tracking-tight text-foreground sm:text-4xl">
-              Soft formulas for northern light.
+              Mjuka formler för nordiskt ljus.
             </p>
             <p className="mt-4 max-w-sm text-sm font-light leading-relaxed text-muted">
-              Everyday skincare with a quieter glow — moisture, clarity, and
-              calm skin.
+              Vardaglig hudvård med en lugnare lyster — fukt, klarhet och
+              balanserad hy.
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 sm:gap-8">
             <div>
-              <p className={headingClass}>Shop</p>
+              <p className={headingClass}>Shoppa</p>
               <ul className="mt-4 space-y-3">
                 <li>
                   <Link href="/products" className={linkClass}>
-                    Collection
+                    Kollektion
                   </Link>
                 </li>
                 <li>
                   <Link href="/cart" className={linkClass}>
-                    Bag
+                    Kasse
                   </Link>
                 </li>
               </ul>
             </div>
 
             <div>
-              <p className={headingClass}>Help</p>
+              <p className={headingClass}>Hjälp</p>
               <ul className="mt-4 space-y-3">
                 <li>
                   <Link href="/returns" className={linkClass}>
-                    Shipping & returns
+                    Frakt & returer
                   </Link>
                 </li>
                 <li>
                   <Link href="/contact" className={linkClass}>
-                    Contact
+                    Kontakt
                   </Link>
                 </li>
                 <CookieSettingsButton
@@ -79,16 +79,16 @@ export function SiteFooter() {
             </div>
 
             <div className="col-span-2 sm:col-span-1">
-              <p className={headingClass}>Legal</p>
+              <p className={headingClass}>Juridiskt</p>
               <ul className="mt-4 space-y-3">
                 <li>
                   <Link href="/privacy" className={linkClass}>
-                    Privacy
+                    Integritet
                   </Link>
                 </li>
                 <li>
                   <Link href="/terms" className={linkClass}>
-                    Terms
+                    Villkor
                   </Link>
                 </li>
               </ul>
@@ -100,7 +100,9 @@ export function SiteFooter() {
           <p>
             © {year} {shopifyConfig.storeName}
           </p>
-          <p className="uppercase">Ships worldwide · Tracking on every order</p>
+          <p className="uppercase">
+            Frakt världen över · Spårning på varje order
+          </p>
         </div>
       </div>
     </footer>

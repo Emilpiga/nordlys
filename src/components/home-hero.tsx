@@ -12,7 +12,7 @@ export function HomeHero({ storeName }: HomeHeroProps) {
       <div className="absolute inset-0">
         <Image
           src="/hero.png"
-          alt={`${storeName} — Nordic skincare ritual`}
+          alt={`${storeName} — Nordisk hudvårdsritual`}
           fill
           priority
           className="animate-soft-zoom object-cover object-[72%_center] sm:object-[60%_40%]"
@@ -33,16 +33,16 @@ export function HomeHero({ storeName }: HomeHeroProps) {
           <SiteLogo size="hero" priority className="animate-rise" />
 
           <h1 className="animate-rise delay-1 mt-6 max-w-md font-display text-[1.85rem] font-medium leading-[1.15] tracking-tight text-foreground sm:text-[2.15rem]">
-            Skincare for northern light and quiet mornings.
+            Hudvård för nordiskt ljus och lugna morgnar.
           </h1>
 
           <p className="animate-rise delay-2 mt-5 max-w-sm text-base font-light leading-relaxed text-muted">
-            Soft formulas. Honest ingredients. A calmer glow.
+            Mjuka formler. Ärliga ingredienser. En lugnare lyster.
           </p>
 
           <div className="animate-rise delay-3 mt-10">
             <Link href="/products" className="btn-primary">
-              Shop the collection
+              Handla kollektionen
             </Link>
           </div>
         </div>

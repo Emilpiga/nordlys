@@ -7,7 +7,7 @@ import { getProducts } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
 
 export const metadata: Metadata = {
-  title: "Bag",
+  title: "Kasse",
 };
 
 export default async function CartPage() {
@@ -18,9 +18,9 @@ export default async function CartPage() {
   const isEmpty = !cart || cart.totalQuantity === 0;
   const itemLabel =
     !isEmpty && cart.totalQuantity === 1
-      ? "1 item"
+      ? "1 vara"
       : !isEmpty
-        ? `${cart.totalQuantity} items`
+        ? `${cart.totalQuantity} varor`
         : null;
 
   return (
@@ -31,7 +31,7 @@ export default async function CartPage() {
         </p>
         <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
           <h1 className="font-display text-5xl font-medium tracking-tight sm:text-6xl">
-            Your bag
+            Din kasse
           </h1>
           {itemLabel ? (
             <p className="pb-1 text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
@@ -45,18 +45,14 @@ export default async function CartPage() {
         <section className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
           <div className="relative overflow-hidden bg-[linear-gradient(145deg,#d5e0e4_0%,#e8eef1_48%,#ddd4d0_100%)] px-6 py-20 text-center sm:px-10 sm:py-28">
             <p className="animate-rise font-display text-4xl font-medium tracking-tight sm:text-5xl">
-              Nothing here yet
+              Inget här ännu
             </p>
             <p className="animate-rise delay-1 mx-auto mt-4 max-w-md text-base font-light leading-relaxed text-muted">
-              Build a small ritual — cleanser, moisture, something soft for the
-              evening.
+              Bygg en liten ritual — rengöring, fukt, något mjukt till kvällen.
             </p>
             <div className="animate-rise delay-2 mt-9">
-              <Link
-                href="/products"
-                className="btn-primary"
-              >
-                Browse the collection
+              <Link href="/products" className="btn-primary">
+                Bläddra i kollektionen
               </Link>
             </div>
           </div>
@@ -64,7 +60,7 @@ export default async function CartPage() {
           {products.length > 0 ? (
             <div className="mt-20">
               <h2 className="font-display text-3xl font-medium tracking-tight sm:text-4xl">
-                Start with these
+                Börja med dessa
               </h2>
               <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-4 lg:gap-x-7">
                 {products.map((product) => (
@@ -82,7 +78,7 @@ export default async function CartPage() {
               href="/products"
               className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted transition hover:text-foreground"
             >
-              ← Continue shopping
+              ← Fortsätt handla
             </Link>
           </div>
         </section>

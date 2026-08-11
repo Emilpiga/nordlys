@@ -43,23 +43,23 @@ export function isShopifyConfigured() {
 export function getStorefrontCredentialHint(token: string): string | null {
   if (token.startsWith("shpss_")) {
     return (
-      "SHOPIFY_STOREFRONT_ACCESS_TOKEN looks like a Dev Dashboard client secret (shpss_…). " +
-      "That is not a Storefront API token. Install the Headless sales channel in Shopify Admin → " +
-      "Create storefront → copy the Public and/or Private Storefront API tokens."
+      "SHOPIFY_STOREFRONT_ACCESS_TOKEN ser ut som en Dev Dashboard-klienthemlighet (shpss_…). " +
+      "Det är inte en Storefront API-token. Installera försäljningskanalen Headless i Shopify Admin → " +
+      "Skapa storefront → kopiera de publika och/eller privata Storefront API-tokens."
     );
   }
 
   if (token.startsWith("shpat_")) {
     return (
-      "SHOPIFY_STOREFRONT_ACCESS_TOKEN looks like an Admin API token (shpat_…). " +
-      "Use a Storefront API token from the Headless sales channel instead."
+      "SHOPIFY_STOREFRONT_ACCESS_TOKEN ser ut som en Admin API-token (shpat_…). " +
+      "Använd en Storefront API-token från försäljningskanalen Headless i stället."
     );
   }
 
   if (token.startsWith("shpca_") || token.startsWith("shpcf_")) {
     return (
-      "That token type is not a Storefront API access token. " +
-      "Use tokens from Sales channels → Headless → Manage API access."
+      "Den tokentypen är inte en Storefront API-åtkomsttoken. " +
+      "Använd tokens från Försäljningskanaler → Headless → Hantera API-åtkomst."
     );
   }
 

@@ -64,14 +64,14 @@ export function ProductCard({ product }: ProductCardProps) {
   }
 
   const addLabel = isPending
-    ? "Adding…"
+    ? "Lägger till…"
     : status === "added"
-      ? "Added"
+      ? "Tillagd"
       : status === "error"
-        ? "Try again"
+        ? "Försök igen"
         : needsOptions
-          ? "Choose options"
-          : "Add to bag";
+          ? "Välj alternativ"
+          : "Lägg i kassen";
 
   return (
     <>
@@ -92,7 +92,7 @@ export function ProductCard({ product }: ProductCardProps) {
               />
             ) : (
               <div className="flex h-full items-center justify-center text-sm text-muted">
-                No image
+                Ingen bild
               </div>
             )}
           </Link>
@@ -114,14 +114,14 @@ export function ProductCard({ product }: ProductCardProps) {
                 disabled={!canQuickAdd || isPending}
                 className="bg-[color-mix(in_oklab,var(--frost)_92%,white)] px-2 py-2.5 text-[0.62rem] font-semibold tracking-[0.12em] uppercase text-foreground transition hover:bg-foreground hover:text-on-accent disabled:cursor-not-allowed disabled:opacity-45"
               >
-                {canQuickAdd ? addLabel : "Sold out"}
+                {canQuickAdd ? addLabel : "Slutsåld"}
               </button>
               <button
                 type="button"
                 onClick={onQuickView}
                 className="bg-[color-mix(in_oklab,var(--frost)_92%,white)] px-2 py-2.5 text-[0.62rem] font-semibold tracking-[0.12em] uppercase text-foreground transition hover:bg-foreground hover:text-on-accent"
               >
-                Quick view
+                Snabbvy
               </button>
             </div>
           </div>

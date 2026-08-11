@@ -1,6 +1,6 @@
 import type { Money } from "./shopify/types";
 
-export function formatMoney(money: Money, locale = "en-US") {
+export function formatMoney(money: Money, locale = "sv-SE") {
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency: money.currencyCode,

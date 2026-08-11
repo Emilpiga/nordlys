@@ -48,7 +48,7 @@ export function ProductGallery({ images, productTitle }: ProductGalleryProps) {
                 key={`${image.url}-${index}`}
                 type="button"
                 onClick={() => setActiveIndex(index)}
-                aria-label={`View image ${index + 1}`}
+                aria-label={`Visa bild ${index + 1}`}
                 className={`relative aspect-square overflow-hidden rounded-lg bg-mist transition ${
                   selected
                     ? "ring-1 ring-accent ring-offset-2 ring-offset-background"

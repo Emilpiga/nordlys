@@ -47,12 +47,14 @@ export function ProductForm({ product }: ProductFormProps) {
       try {
         const result = await addToCartAction(selectedVariant.id, quantity);
         if (!result?.ok) {
-          setError("Could not add to bag.");
+          setError("Kunde inte lägga till i kassen.");
           return;
         }
         window.location.assign("/cart");
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Could not add to bag.");
+        setError(
+          err instanceof Error ? err.message : "Kunde inte lägga till i kassen.",
+        );
       }
     });
   }
@@ -120,12 +122,12 @@ export function ProductForm({ product }: ProductFormProps) {
 
       <div className="space-y-3">
         <p className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-muted">
-          Quantity
+          Antal
         </p>
         <div className="inline-flex items-center border border-border/80">
           <button
             type="button"
-            aria-label="Decrease quantity"
+            aria-label="Minska antal"
             disabled={quantity <= 1}
             onClick={() => setQuantity((value) => Math.max(1, value - 1))}
             className="px-4 py-2.5 text-sm disabled:opacity-40"
@@ -137,7 +139,7 @@ export function ProductForm({ product }: ProductFormProps) {
           </span>
           <button
             type="button"
-            aria-label="Increase quantity"
+            aria-label="Öka antal"
             onClick={() => setQuantity((value) => value + 1)}
             className="px-4 py-2.5 text-sm"
           >
@@ -154,13 +156,13 @@ export function ProductForm({ product }: ProductFormProps) {
           className="btn-primary btn-primary-block w-full disabled:cursor-not-allowed disabled:opacity-45"
         >
           {!selectedVariant?.availableForSale
-            ? "Sold out"
+            ? "Slutsåld"
             : isPending
-              ? "Adding…"
-              : "Add to bag"}
+              ? "Lägger till…"
+              : "Lägg i kassen"}
         </button>
         <p className="text-center text-xs font-light leading-relaxed text-muted">
-          Secure checkout · Tracking on every order
+          Säker kassa · Spårning på varje order
         </p>
       </div>
 

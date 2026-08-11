@@ -20,11 +20,11 @@ export function SetupBanner() {
           credentialHint
         ) : (
           <>
-            Shopify is not connected yet. Copy{" "}
-            <code className="font-mono text-xs">.env.example</code> to{" "}
-            <code className="font-mono text-xs">.env.local</code>, add Headless
-            channel Storefront API tokens, then import products with CJ
-            Dropshipping. See the README. Store name placeholder:{" "}
+            Shopify är inte kopplat ännu. Kopiera{" "}
+            <code className="font-mono text-xs">.env.example</code> till{" "}
+            <code className="font-mono text-xs">.env.local</code>, lägg till
+            Storefront API-tokens från Headless-kanalen och importera produkter
+            med CJ Dropshipping. Se README. Butiksnamn (placeholder):{" "}
             <strong>{shopifyConfig.storeName}</strong>.
           </>
         )}
@@ -37,17 +37,16 @@ export function EmptyCatalog() {
   return (
     <div className="border border-dashed border-border/80 px-6 py-16 text-center">
       <h2 className="font-display text-3xl font-medium tracking-tight">
-        Collection coming soon
+        Kollektionen kommer snart
       </h2>
       <p className="mx-auto mt-3 max-w-md text-sm font-light text-muted">
-        Products appear here once they are published to your Headless sales
-        channel.
+        Produkter visas här när de publicerats till din Headless-försäljningskanal.
       </p>
       <Link
         href="/products"
         className="mt-6 inline-flex text-sm font-medium text-accent underline-offset-4 hover:underline"
       >
-        Refresh
+        Uppdatera
       </Link>
     </div>
   );

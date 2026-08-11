@@ -27,22 +27,22 @@ export function CookieBanner() {
             id="cookie-banner-title"
             className="font-display text-2xl font-medium tracking-tight text-foreground"
           >
-            Cookies & ads
+            Cookies & annonser
           </p>
           <p
             id="cookie-banner-desc"
             className="mt-2 text-sm font-light leading-relaxed text-muted"
           >
-            We use essential cookies to keep your bag working. With your OK, we
-            also use Meta and Google advertising cookies to measure and improve
-            our ads. See our{" "}
+            Vi använder nödvändiga cookies för att din kasse ska fungera. Med
+            ditt godkännande använder vi även Meta- och Google-annonscookies för
+            att mäta och förbättra våra annonser. Se vår{" "}
             <Link
               href="/privacy"
               className="text-accent underline-offset-4 hover:underline"
             >
-              Privacy
+              Integritetssida
             </Link>{" "}
-            page for details.
+            för mer information.
           </p>
         </div>
 
@@ -52,14 +52,14 @@ export function CookieBanner() {
             onClick={rejectMarketing}
             className="btn-secondary"
           >
-            Essential only
+            Endast nödvändiga
           </button>
           <button
             type="button"
             onClick={acceptMarketing}
             className="btn-primary"
           >
-            Accept ads cookies
+            Acceptera annonscookies
           </button>
         </div>
       </div>

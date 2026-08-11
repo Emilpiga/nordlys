@@ -16,11 +16,11 @@ export default async function HomePage() {
       <AmbientSection className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
         <div className="mb-14 max-w-xl">
           <h2 className="font-display text-4xl font-medium tracking-tight sm:text-5xl">
-            The collection
+            Kollektionen
           </h2>
           <p className="mt-3 text-base font-light leading-relaxed text-muted">
-            Essentials chosen for everyday care — clean textures, soft scent,
-            skin that feels settled.
+            Basprodukter för vardagsvård — rena texturer, mjuk doft, hy som känns
+            i balans.
           </p>
         </div>
 
@@ -40,20 +40,20 @@ export default async function HomePage() {
       <AmbientSection className="mx-auto grid w-full max-w-6xl gap-12 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16">
         <div>
           <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-blush">
-            The ritual
+            Ritualen
           </p>
           <h2 className="mt-4 font-display text-4xl font-medium tracking-tight sm:text-5xl">
-            Made for long winters
+            Gjort för långa vintrar
           </h2>
           <p className="mt-5 max-w-md text-base font-light leading-relaxed text-muted">
-            Nordic air asks for moisture, patience, and formulas that do not
-            shout. {shopifyConfig.storeName} keeps the ritual simple.
+            Nordisk luft kräver fukt, tålamod och formler som inte skriker.
+            {shopifyConfig.storeName} håller ritualen enkel.
           </p>
         </div>
         <div className="relative min-h-[300px] overflow-hidden rounded-2xl sm:min-h-[420px]">
           <Image
             src="/winter.png"
-            alt="Soft skincare ritual in winter light"
+            alt="Mjuk hudvårdsritual i vinterljus"
             fill
             className="object-cover object-center"
             sizes="(max-width: 1024px) 100vw, 55vw"

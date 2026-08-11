@@ -74,11 +74,13 @@ export function SiteHeader({ cartCount }: SiteHeaderProps) {
 
         <nav className="flex items-center gap-7 text-[0.8rem] font-medium tracking-[0.14em] uppercase text-muted">
           <Link href="/products" className="transition hover:text-foreground">
-            Shop
+            Shoppa
           </Link>
           <Link
             href="/cart"
-            aria-label={cartCount > 0 ? `Bag, ${cartCount} items` : "Bag"}
+            aria-label={
+              cartCount > 0 ? `Kasse, ${cartCount} varor` : "Kasse"
+            }
             className="relative inline-flex h-9 w-9 items-center justify-center text-foreground transition hover:text-accent"
           >
             <BagIcon className="h-[1.35rem] w-[1.35rem]" />

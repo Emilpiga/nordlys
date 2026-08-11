@@ -4,8 +4,8 @@ import { LegalPage, LegalSection } from "@/components/legal-page";
 import { shopifyConfig } from "@/lib/shopify/config";
 
 export const metadata: Metadata = {
-  title: "Shipping & returns",
-  description: `How ${shopifyConfig.storeName} ships orders and handles returns.`,
+  title: "Frakt & returer",
+  description: `Hur ${shopifyConfig.storeName} skickar ordrar och hanterar returer.`,
 };
 
 export default function ReturnsPage() {
@@ -14,87 +14,86 @@ export default function ReturnsPage() {
 
   return (
     <LegalPage
-      title="Shipping & returns"
-      description={`Delivery expectations and how to get help if something is not right.`}
-      updated="August 2026"
+      title="Frakt & returer"
+      description="Vad du kan förvänta dig vid leverans och hur du får hjälp om något inte stämmer."
+      updated="augusti 2026"
     >
-      <LegalSection title="Shipping">
+      <LegalSection title="Frakt">
         <p>
-          We ship worldwide where our carriers and payment providers allow.
-          Shipping cost and options are calculated at checkout based on your
-          address and the items in your bag.
+          Vi skickar världen över där våra transportörer och
+          betalningsleverantörer tillåter. Fraktkostnad och alternativ beräknas
+          i kassan utifrån din adress och varorna i din kasse.
         </p>
         <p>
-          Orders are packed by our fulfillment partners. Most orders leave the
-          warehouse within a few business days after payment clears. Transit
-          time then depends on destination — domestic deliveries are usually
-          faster than international.
+          Ordrar packas av våra fullföljandepartners. De flesta ordrar lämnar
+          lagret inom några arbetsdagar efter att betalningen gått igenom.
+          Transittiden beror sedan på destination — inrikesleveranser är
+          vanligtvis snabbare än internationella.
         </p>
         <p>
-          You will receive tracking when the carrier scan is available. If
-          tracking has not appeared several business days after your order
-          confirmation,{" "}
+          Du får spårning när transportörens skanning finns tillgänglig. Om
+          spårning saknas flera arbetsdagar efter din orderbekräftelse,{" "}
           <Link
             href="/contact"
             className="text-accent underline-offset-4 hover:underline"
           >
-            contact us
+            kontakta oss
           </Link>{" "}
-          with your order number.
+          med ditt ordernummer.
         </p>
       </LegalSection>
 
-      <LegalSection title="Customs & duties">
+      <LegalSection title="Tull & avgifter">
         <p>
-          International orders may be subject to import duties, taxes, or
-          clearance fees charged by your country. Those charges are your
-          responsibility unless checkout explicitly states otherwise.
+          Internationella ordrar kan beläggas med importtullar, skatter eller
+          klareringsavgifter från ditt land. Dessa avgifter är ditt ansvar om
+          inte kassan uttryckligen anger något annat.
         </p>
       </LegalSection>
 
-      <LegalSection title="Returns">
+      <LegalSection title="Returer">
         <p>
-          If an item arrives damaged, incorrect, or defective, email us within
-          14 days of delivery with your order number and photos. We will arrange
-          a replacement or refund once we confirm the issue.
+          Om en vara anländer skadad, felaktig eller defekt, mejla oss inom 14
+          dagar från leverans med ordernummer och foton. Vi ordnar ersättning
+          eller återbetalning när vi bekräftat problemet.
         </p>
         <p>
-          For change-of-mind returns, unopened products in original condition
-          may be eligible within 14 days of delivery, subject to local consumer
-          law. Because {brand} sells skincare, opened or used hygiene and
-          cosmetic products generally cannot be restocked for health and safety
-          reasons — unless the product is faulty.
+          Vid ångerrätt kan oöppnade produkter i originalskick vara berättigade
+          inom 14 dagar från leverans, med förbehåll för lokal konsumentlag.
+          Eftersom {brand} säljer hudvård kan öppnade eller använda hygien- och
+          kosmetikaprodukter i regel inte återföras till lager av
+          hälsoskäl — om inte produkten är felaktig.
         </p>
         <p>
-          Approved returns must be sent with a trackable method. Original
-          outbound shipping is typically non-refundable unless we made an error.
-        </p>
-      </LegalSection>
-
-      <LegalSection title="Refunds">
-        <p>
-          Refunds are issued to the original payment method after we receive and
-          inspect an approved return, or sooner when we agree a refund without
-          return. Processing can take several business days depending on your
-          bank or card provider.
+          Godkända returer ska skickas med spårbar metod. Ursprunglig utgående
+          frakt återbetalas vanligtvis inte om vi inte gjort ett fel.
         </p>
       </LegalSection>
 
-      <LegalSection title="Lost or delayed parcels">
+      <LegalSection title="Återbetalningar">
         <p>
-          If tracking stalls for an extended period, contact us and we will
-          investigate with the carrier. Outcomes depend on the investigation —
-          replacement, refund, or continued transit — and we will keep you
-          updated.
+          Återbetalningar görs till ursprunglig betalningsmetod efter att vi
+          mottagit och granskat en godkänd retur, eller tidigare när vi
+          överenskommer om återbetalning utan retur. Behandlingen kan ta flera
+          arbetsdagar beroende på din bank eller kortleverantör.
         </p>
       </LegalSection>
 
-      <LegalSection title="Need help?">
+      <LegalSection title="Förlorade eller försenade paket">
         <p>
-          Reach {brand} support{" "}
+          Om spårningen står stilla under längre tid, kontakta oss så
+          undersöker vi med transportören. Utfallet beror på undersökningen —
+          ersättning, återbetalning eller fortsatt leverans — och vi håller dig
+          uppdaterad.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="Behöver du hjälp?">
+        <p>
+          Nå {brand} support{" "}
           {email ? (
             <>
-              at{" "}
+              på{" "}
               <a
                 href={`mailto:${email}`}
                 className="text-accent underline-offset-4 hover:underline"
@@ -104,16 +103,16 @@ export default function ReturnsPage() {
             </>
           ) : (
             <>
-              on our{" "}
+              via vår{" "}
               <Link
                 href="/contact"
                 className="text-accent underline-offset-4 hover:underline"
               >
-                contact page
+                kontaktsida
               </Link>
             </>
           )}
-          . Include your order number so we can help quickly.
+          . Ange ditt ordernummer så att vi kan hjälpa dig snabbt.
         </p>
       </LegalSection>
     </LegalPage>

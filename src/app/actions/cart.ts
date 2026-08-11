@@ -102,13 +102,13 @@ export async function addToCartAction(merchandiseId: string, quantity = 1) {
     console.error("addToCartAction failed:", error);
     throw error instanceof Error
       ? error
-      : new Error("Could not add to bag.");
+      : new Error("Kunde inte lägga till i kassen.");
   }
 }
 
 export async function updateCartLineAction(lineId: string, quantity: number) {
   const cartId = await readCartId();
-  if (!cartId) throw new Error("Cart not found.");
+  if (!cartId) throw new Error("Kassan hittades inte.");
 
   const cart =
     quantity <= 0

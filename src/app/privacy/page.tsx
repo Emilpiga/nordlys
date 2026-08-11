@@ -4,8 +4,8 @@ import { LegalPage, LegalSection } from "@/components/legal-page";
 import { shopifyConfig } from "@/lib/shopify/config";
 
 export const metadata: Metadata = {
-  title: "Privacy",
-  description: `How ${shopifyConfig.storeName} collects, uses, and protects your information.`,
+  title: "Integritet",
+  description: `Hur ${shopifyConfig.storeName} samlar in, använder och skyddar din information.`,
 };
 
 export default function PrivacyPage() {
@@ -14,95 +14,99 @@ export default function PrivacyPage() {
 
   return (
     <LegalPage
-      title="Privacy"
-      description={`How ${brand} handles your information when you browse, shop, and receive orders.`}
-      updated="August 2026"
+      title="Integritet"
+      description={`Hur ${brand} hanterar din information när du surfar, handlar och tar emot ordrar.`}
+      updated="augusti 2026"
     >
-      <LegalSection title="Who we are">
+      <LegalSection title="Vilka vi är">
         <p>
-          {brand} is an online skincare storefront. Checkout and order
-          processing run through Shopify. Orders may be fulfilled by our
-          logistics partners on our behalf.
+          {brand} är en webbutik för hudvård. Kassa och orderhantering sker via
+          Shopify. Ordrar kan fullföljas av våra logistikpartners å våra vägnar.
         </p>
       </LegalSection>
 
-      <LegalSection title="What we collect">
-        <p>Depending on how you use the site, we may process:</p>
+      <LegalSection title="Vad vi samlar in">
+        <p>Beroende på hur du använder webbplatsen kan vi behandla:</p>
         <ul className="list-disc space-y-2 pl-5">
           <li>
-            Contact and shipping details you provide at checkout (name, email,
-            address, phone)
+            Kontakt- och leveransuppgifter som du lämnar i kassan (namn, e-post,
+            adress, telefon)
           </li>
-          <li>Order history, payment status, and delivery updates</li>
+          <li>Orderhistorik, betalningsstatus och leveransuppdateringar</li>
           <li>
-            Technical data such as device type, browser, and approximate
-            location needed to run the storefront
+            Tekniska uppgifter som enhetstyp, webbläsare och ungefärlig plats som
+            behövs för att driva butiken
           </li>
           <li>
-            Cart information stored in a cookie on your device so your bag can
-            persist while you browse
+            Kassainformation som lagras i en cookie på din enhet så att din
+            kasse sparas medan du surfar
           </li>
         </ul>
         <p>
-          Card payments are handled by Shopify and its payment providers. We do
-          not store full card numbers on our servers.
+          Kortbetalningar hanteras av Shopify och deras betalningsleverantörer.
+          Vi lagrar inte fullständiga kortnummer på våra servrar.
         </p>
       </LegalSection>
 
-      <LegalSection title="Why we use it">
+      <LegalSection title="Varför vi använder det">
         <ul className="list-disc space-y-2 pl-5">
-          <li>To complete and deliver your orders</li>
-          <li>To send order, shipping, and support messages</li>
-          <li>To prevent fraud and keep the storefront secure</li>
-          <li>To improve the site and understand general shopping patterns</li>
+          <li>För att fullfölja och leverera dina ordrar</li>
+          <li>För att skicka order-, frakt- och supportmeddelanden</li>
+          <li>För att förebygga bedrägerier och hålla butiken säker</li>
           <li>
-            To meet legal, tax, and accounting requirements where they apply
+            För att förbättra webbplatsen och förstå allmänna köpmönster
+          </li>
+          <li>
+            För att uppfylla juridiska, skattemässiga och bokföringskrav där de
+            gäller
           </li>
         </ul>
       </LegalSection>
 
-      <LegalSection title="Partners who help us">
+      <LegalSection title="Partners som hjälper oss">
         <p>
-          We share only what is needed with services that help operate the
-          store — for example Shopify (checkout, payments, order management)
-          and fulfillment partners who pack and ship your order. They process
-          data under their own policies and our instructions.
+          Vi delar endast det som behövs med tjänster som hjälper till att driva
+          butiken — till exempel Shopify (kassa, betalningar, orderhantering)
+          och fullföljandepartners som packar och skickar din order. De
+          behandlar uppgifter enligt sina egna policyer och våra instruktioner.
         </p>
       </LegalSection>
 
       <LegalSection title="Cookies">
         <p>
-          We use essential cookies to keep your shopping bag and session working,
-          and to remember your cookie preferences. Shopify may set cookies
-          required for secure checkout. If you block essential cookies, cart or
-          checkout may not work correctly.
+          Vi använder nödvändiga cookies för att din kasse och session ska
+          fungera, och för att komma ihåg dina cookieinställningar. Shopify kan
+          sätta cookies som krävs för säker utcheckning. Om du blockerar
+          nödvändiga cookies kanske kassen eller utcheckningen inte fungerar
+          korrekt.
         </p>
         <p>
-          With your consent, we also load Meta (Facebook) and Google advertising
-          pixels to measure campaigns and show more relevant ads. These only run
-          after you choose “Accept ads cookies.” You can change your mind anytime
-          via the Cookies link in the footer.
-        </p>
-      </LegalSection>
-
-      <LegalSection title="How long we keep it">
-        <p>
-          Order and customer records are kept as long as needed to fulfill
-          purchases, handle returns or disputes, and meet legal retention rules.
-          Cart cookies expire when cleared or after they age out in your
-          browser.
+          Med ditt samtycke laddar vi även Meta- (Facebook) och
+          Google-annonspixlar för att mäta kampanjer och visa mer relevanta
+          annonser. Dessa körs först efter att du väljer ”Acceptera
+          annonscookies.” Du kan ändra dig när som helst via Cookies-länken i
+          sidfoten.
         </p>
       </LegalSection>
 
-      <LegalSection title="Your choices">
+      <LegalSection title="Hur länge vi sparar det">
         <p>
-          Depending on where you live, you may have rights to access, correct,
-          delete, or restrict certain personal data, or to object to some
-          processing. You can also ask us where your data has been shared for
-          order fulfillment.
+          Order- och kunduppgifter sparas så länge det behövs för att fullfölja
+          köp, hantera returer eller tvister och uppfylla lagstadgade
+          sparkrav. Kasscookies upphör när de raderas eller åldras ut i din
+          webbläsare.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="Dina val">
+        <p>
+          Beroende på var du bor kan du ha rätt att få tillgång till, rätta,
+          radera eller begränsa viss personuppgift, eller invända mot viss
+          behandling. Du kan också fråga oss var dina uppgifter har delats för
+          orderfullföljande.
         </p>
         <p>
-          To make a privacy request, email{" "}
+          För en integritetsförfrågan, mejla{" "}
           {email ? (
             <a
               href={`mailto:${email}`}
@@ -112,30 +116,30 @@ export default function PrivacyPage() {
             </a>
           ) : (
             <>
-              us via the address on our{" "}
+              oss via adressen på vår{" "}
               <Link
                 href="/contact"
                 className="text-accent underline-offset-4 hover:underline"
               >
-                contact page
+                kontaktsida
               </Link>
             </>
           )}
-          . We may need to verify your identity before responding.
+          . Vi kan behöva verifiera din identitet innan vi svarar.
         </p>
       </LegalSection>
 
-      <LegalSection title="Children">
+      <LegalSection title="Barn">
         <p>
-          {brand} is not directed at children under 16. We do not knowingly
-          collect personal information from children.
+          {brand} riktar sig inte till barn under 16 år. Vi samlar inte
+          medvetet in personuppgifter från barn.
         </p>
       </LegalSection>
 
-      <LegalSection title="Updates">
+      <LegalSection title="Uppdateringar">
         <p>
-          We may update this policy as the store or our partners change. The
-          date at the top of this page will change when we do.
+          Vi kan uppdatera denna policy när butiken eller våra partners
+          förändras. Datumet högst upp på sidan ändras när vi gör det.
         </p>
       </LegalSection>
     </LegalPage>

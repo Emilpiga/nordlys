@@ -16,7 +16,7 @@ export async function generateMetadata({
 }: ProductPageProps): Promise<Metadata> {
   const { handle } = await params;
   const product = await getProductByHandle(handle);
-  if (!product) return { title: "Product" };
+  if (!product) return { title: "Produkt" };
   return {
     title: product.title,
     description: product.description.slice(0, 160),
@@ -53,7 +53,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           href="/products"
           className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted transition hover:text-foreground"
         >
-          ← Back to shop
+          ← Tillbaka till shoppen
         </Link>
       </div>
 
@@ -64,7 +64,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
         <div className="animate-rise lg:sticky lg:top-28 lg:self-start lg:py-4">
           <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-blush">
-            {shopifyConfig.storeName} · Skincare
+            {shopifyConfig.storeName} · Hudvård
           </p>
           <h1 className="mt-4 font-display text-[2.75rem] font-medium leading-[1.05] tracking-tight sm:text-6xl">
             {product.title}
@@ -80,7 +80,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </p>
           ) : (
             <p className="mt-5 max-w-md text-base font-light leading-relaxed text-muted">
-              A quiet essential for everyday skin — soft texture, calm finish.
+              En stillsam basprodukt för vardagshuden — mjuk textur, lugn finish.
             </p>
           )}
 
@@ -91,35 +91,35 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <dl className="mt-10 grid gap-5 border-t border-border/70 pt-8 text-sm">
             <div>
               <dt className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
-                Shipping
+                Frakt
               </dt>
               <dd className="mt-1.5 font-light text-foreground">
                 <Link
                   href="/returns"
                   className="underline-offset-4 transition hover:text-accent hover:underline"
                 >
-                  Worldwide delivery with tracking on every order
+                  Leverans världen över med spårning på varje order
                 </Link>
               </dd>
             </div>
             <div>
               <dt className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
-                Care
+                Skötsel
               </dt>
               <dd className="mt-1.5 font-light text-foreground">
-                Patch test before first use · For external use only
+                Lapptestest före första användning · Endast för utvärtes bruk
               </dd>
             </div>
             <div>
               <dt className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
-                Questions
+                Frågor
               </dt>
               <dd className="mt-1.5 font-light text-foreground">
                 <Link
                   href="/contact"
                   className="underline-offset-4 transition hover:text-accent hover:underline"
                 >
-                  We’re here if you need help choosing a ritual
+                  Vi finns här om du behöver hjälp att välja ritual
                 </Link>
               </dd>
             </div>
@@ -133,13 +133,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <AmbientSection className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
             <div className="mb-10 flex items-end justify-between gap-4">
               <h2 className="font-display text-3xl font-medium tracking-tight sm:text-4xl">
-                Also in the collection
+                Mer ur kollektionen
               </h2>
               <Link
                 href="/products"
                 className="hidden text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted transition hover:text-foreground sm:inline"
               >
-                View all
+                Visa alla
               </Link>
             </div>
             <div className="grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-4 lg:gap-x-7">

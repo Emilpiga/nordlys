@@ -82,7 +82,7 @@ export function CartView({ cart }: CartViewProps) {
                       </p>
                     ) : null}
                     <p className="mt-2 text-sm font-light text-muted">
-                      {formatMoney(line.merchandise.price)} each
+                      {formatMoney(line.merchandise.price)} styck
                     </p>
                   </div>
                   <p className="shrink-0 font-display text-xl font-medium tracking-tight">
@@ -99,7 +99,7 @@ export function CartView({ cart }: CartViewProps) {
                         updateQuantity(line.id, Math.max(0, line.quantity - 1))
                       }
                       className="px-3.5 py-2 text-sm disabled:opacity-50"
-                      aria-label="Decrease quantity"
+                      aria-label="Minska antal"
                     >
                       −
                     </button>
@@ -113,7 +113,7 @@ export function CartView({ cart }: CartViewProps) {
                         updateQuantity(line.id, line.quantity + 1)
                       }
                       className="px-3.5 py-2 text-sm disabled:opacity-50"
-                      aria-label="Increase quantity"
+                      aria-label="Öka antal"
                     >
                       +
                     </button>
@@ -124,7 +124,7 @@ export function CartView({ cart }: CartViewProps) {
                     onClick={() => removeLine(line.id)}
                     className="text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted underline-offset-4 transition hover:text-foreground hover:underline disabled:opacity-50"
                   >
-                    Remove
+                    Ta bort
                   </button>
                 </div>
               </div>
@@ -136,20 +136,20 @@ export function CartView({ cart }: CartViewProps) {
       <aside className="h-fit lg:sticky lg:top-28">
         <div className="border border-border/70 bg-[linear-gradient(180deg,rgba(247,249,250,0.9)_0%,rgba(232,238,241,0.55)_100%)] p-7 sm:p-8">
           <h2 className="font-display text-3xl font-medium tracking-tight">
-            Order summary
+            Ordersammanfattning
           </h2>
 
           <dl className="mt-8 space-y-4 text-sm font-light">
             <div className="flex justify-between gap-4">
-              <dt className="text-muted">Subtotal</dt>
+              <dt className="text-muted">Delsumma</dt>
               <dd>{formatMoney(cart.cost.subtotalAmount)}</dd>
             </div>
             <div className="flex justify-between gap-4">
-              <dt className="text-muted">Shipping</dt>
-              <dd className="text-muted">Calculated at checkout</dd>
+              <dt className="text-muted">Frakt</dt>
+              <dd className="text-muted">Beräknas i kassan</dd>
             </div>
             <div className="flex justify-between gap-4 border-t border-border/70 pt-4 text-base font-medium">
-              <dt>Total</dt>
+              <dt>Totalt</dt>
               <dd className="font-display text-2xl tracking-tight">
                 {formatMoney(cart.cost.totalAmount)}
               </dd>
@@ -160,17 +160,17 @@ export function CartView({ cart }: CartViewProps) {
             href={cart.checkoutUrl}
             className="btn-primary btn-primary-block mt-8"
           >
-            Checkout
+            Till kassan
           </a>
 
           <p className="mt-4 text-center text-xs font-light leading-relaxed text-muted">
-            Secure payment · Tracking on every order
+            Säker betalning · Spårning på varje order
           </p>
         </div>
 
         <p className="mt-5 text-sm font-light leading-relaxed text-muted">
-          Need a moment? Your bag is saved on this device while you keep
-          browsing.
+          Behöver du en stund? Din kasse sparas på den här enheten medan du
+          fortsätter handla.
         </p>
       </aside>
     </div>

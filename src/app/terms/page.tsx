@@ -4,8 +4,8 @@ import { LegalPage, LegalSection } from "@/components/legal-page";
 import { shopifyConfig } from "@/lib/shopify/config";
 
 export const metadata: Metadata = {
-  title: "Terms",
-  description: `Terms of use and sale for shopping with ${shopifyConfig.storeName}.`,
+  title: "Villkor",
+  description: `Användar- och köpvillkor för handel hos ${shopifyConfig.storeName}.`,
 };
 
 export default function TermsPage() {
@@ -14,100 +14,102 @@ export default function TermsPage() {
 
   return (
     <LegalPage
-      title="Terms"
-      description={`The basics of browsing and buying from ${brand}.`}
-      updated="August 2026"
+      title="Villkor"
+      description={`Grunderna för att surfa och handla hos ${brand}.`}
+      updated="augusti 2026"
     >
-      <LegalSection title="Agreement">
+      <LegalSection title="Avtal">
         <p>
-          By using this website or placing an order, you agree to these terms
-          and our{" "}
+          Genom att använda denna webbplats eller lägga en order godkänner du
+          dessa villkor och vår{" "}
           <Link
             href="/privacy"
             className="text-accent underline-offset-4 hover:underline"
           >
-            Privacy
-          </Link>{" "}
-          policy. If you do not agree, please do not use the store.
+            Integritetspolicy
+          </Link>
+          . Om du inte godkänner, använd inte butiken.
         </p>
       </LegalSection>
 
-      <LegalSection title="The store">
+      <LegalSection title="Butiken">
         <p>
-          {brand} sells skincare and related products online. Product pages,
-          prices, and availability are shown through our Shopify-powered
-          catalog and may change without notice. We do our best to keep
-          descriptions accurate; small differences in packaging or imagery can
-          occur.
+          {brand} säljer hudvård och relaterade produkter online.
+          Produktsidor, priser och tillgänglighet visas via vår
+          Shopify-drivna katalog och kan ändras utan föregående meddelande. Vi
+          gör vårt bästa för att hålla beskrivningar korrekta; små skillnader i
+          förpackning eller bilder kan förekomma.
         </p>
       </LegalSection>
 
-      <LegalSection title="Orders & payment">
+      <LegalSection title="Ordrar & betalning">
         <p>
-          Placing an order is an offer to buy. We (or Shopify on our behalf)
-          confirm acceptance by email after payment succeeds. Prices are shown
-          before checkout; taxes and shipping are calculated at checkout where
-          applicable.
+          Att lägga en order är ett erbjudande att köpa. Vi (eller Shopify å
+          våra vägnar) bekräftar acceptans via e-post när betalningen lyckas.
+          Priser visas före utcheckning; skatter och frakt beräknas i kassan där
+          det är tillämpligt.
         </p>
         <p>
-          Payment is processed securely by Shopify and its payment providers.
-          We reserve the right to refuse or cancel an order for suspected
-          fraud, pricing errors, stock issues, or shipping restrictions.
-        </p>
-      </LegalSection>
-
-      <LegalSection title="Fulfillment">
-        <p>
-          Orders are fulfilled through our logistics partners. Processing and
-          delivery times vary by destination and product. Tracking is provided
-          when available. Risk of loss passes to you when the carrier marks the
-          package as delivered, unless local consumer law says otherwise.
+          Betalning behandlas säkert av Shopify och deras betalningsleverantörer.
+          Vi förbehåller oss rätten att neka eller avbryta en order vid
+          misstänkt bedrägeri, prisfel, lagerproblem eller fraktbegränsningar.
         </p>
       </LegalSection>
 
-      <LegalSection title="Personal use">
+      <LegalSection title="Fullföljande">
         <p>
-          Products are sold for personal use. Do not misuse content from this
-          site, attempt to disrupt the storefront, or scrape the catalog for
-          commercial reuse without permission.
+          Ordrar fullföljs via våra logistikpartners. Behandlings- och
+          leveranstider varierar beroende på destination och produkt. Spårning
+          tillhandahålls när den finns tillgänglig. Risken för förlust övergår
+          till dig när transportören markerar paketet som levererat, om inte
+          lokal konsumentlag säger annat.
         </p>
       </LegalSection>
 
-      <LegalSection title="Product care">
+      <LegalSection title="Personligt bruk">
         <p>
-          Skincare affects everyone differently. Follow on-label directions,
-          patch test when starting something new, and discontinue use if
-          irritation occurs. {brand} is not a substitute for medical advice.
-          Contact a healthcare professional if you have concerns.
+          Produkter säljs för personligt bruk. Missbruka inte innehåll från
+          denna webbplats, försök inte störa butiken eller skrapa katalogen för
+          kommersiell återanvändning utan tillstånd.
         </p>
       </LegalSection>
 
-      <LegalSection title="Returns">
+      <LegalSection title="Produktskötsel">
         <p>
-          Shipping, returns, and refunds are described on our{" "}
+          Hudvård påverkar alla olika. Följ anvisningarna på förpackningen,
+          gör lapptestest när du börjar med något nytt och avbryt användningen om
+          irritation uppstår. {brand} ersätter inte medicinsk rådgivning.
+          Kontakta en vårdgivare om du har frågor.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="Returer">
+        <p>
+          Frakt, returer och återbetalningar beskrivs på vår sida om{" "}
           <Link
             href="/returns"
             className="text-accent underline-offset-4 hover:underline"
           >
-            Shipping & returns
-          </Link>{" "}
-          page. Local consumer rights that cannot be waived still apply.
+            Frakt & returer
+          </Link>
+          . Lokala konsumenträttigheter som inte kan avtalas bort gäller
+          fortfarande.
         </p>
       </LegalSection>
 
-      <LegalSection title="Liability">
+      <LegalSection title="Ansvar">
         <p>
-          To the fullest extent allowed by law, {brand} is not liable for
-          indirect or consequential losses arising from use of the site or
-          products. Nothing in these terms limits liability for death or
-          personal injury caused by negligence, fraud, or other rights that
-          cannot be limited by law.
+          I den utsträckning lagen tillåter är {brand} inte ansvarig för
+          indirekta eller följdskador som uppstår vid användning av webbplatsen
+          eller produkterna. Ingenting i dessa villkor begränsar ansvar för
+          dödsfall eller personskada orsakad av vårdslöshet, bedrägeri eller
+          andra rättigheter som inte får begränsas enligt lag.
         </p>
       </LegalSection>
 
-      <LegalSection title="Contact">
+      <LegalSection title="Kontakt">
         <p>
-          Questions about these terms:{" "}
+          Frågor om dessa villkor:{" "}
           {email ? (
             <a
               href={`mailto:${email}`}
@@ -117,12 +119,12 @@ export default function TermsPage() {
             </a>
           ) : (
             <>
-              see{" "}
+              se{" "}
               <Link
                 href="/contact"
                 className="text-accent underline-offset-4 hover:underline"
               >
-                Contact
+                Kontakt
               </Link>
             </>
           )}

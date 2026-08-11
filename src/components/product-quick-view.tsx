@@ -94,13 +94,15 @@ export function ProductQuickView({
       try {
         const result = await addToCartAction(selectedVariant.id, quantity);
         if (!result?.ok) {
-          setError("Could not add to bag.");
+          setError("Kunde inte lägga till i kassen.");
           return;
         }
         onClose();
         router.refresh();
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Could not add to bag.");
+        setError(
+          err instanceof Error ? err.message : "Kunde inte lägga till i kassen.",
+        );
       }
     });
   }
@@ -111,7 +113,7 @@ export function ProductQuickView({
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-6">
       <button
         type="button"
-        aria-label="Close quick view"
+        aria-label="Stäng snabbvy"
         className="absolute inset-0 bg-[rgba(20,32,28,0.38)] backdrop-blur-[2px]"
         onClick={onClose}
       />
@@ -124,14 +126,14 @@ export function ProductQuickView({
       >
         <div className="flex items-center justify-between border-b border-border/60 px-5 py-4 sm:px-6">
           <p className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-blush">
-            Quick view
+            Snabbvy
           </p>
           <button
             type="button"
             onClick={onClose}
             className="text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground"
           >
-            Close
+            Stäng
           </button>
         </div>
 
@@ -197,12 +199,12 @@ export function ProductQuickView({
 
             <div className="mt-7 space-y-3">
               <p className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-muted">
-                Quantity
+                Antal
               </p>
               <div className="inline-flex items-center border border-border/80">
                 <button
                   type="button"
-                  aria-label="Decrease quantity"
+                  aria-label="Minska antal"
                   disabled={quantity <= 1}
                   onClick={() => setQuantity((value) => Math.max(1, value - 1))}
                   className="px-4 py-2.5 text-sm disabled:opacity-40"
@@ -214,7 +216,7 @@ export function ProductQuickView({
                 </span>
                 <button
                   type="button"
-                  aria-label="Increase quantity"
+                  aria-label="Öka antal"
                   onClick={() => setQuantity((value) => value + 1)}
                   className="px-4 py-2.5 text-sm"
                 >
@@ -231,17 +233,17 @@ export function ProductQuickView({
                 className="btn-primary btn-primary-block disabled:cursor-not-allowed disabled:opacity-45"
               >
                 {!selectedVariant?.availableForSale
-                  ? "Sold out"
+                  ? "Slutsåld"
                   : isPending
-                    ? "Adding…"
-                    : "Add to bag"}
+                    ? "Lägger till…"
+                    : "Lägg i kassen"}
               </button>
               <Link
                 href={`/products/${product.handle}`}
                 onClick={onClose}
                 className="block text-center text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground"
               >
-                View full details
+                Visa fullständig info
               </Link>
             </div>
 

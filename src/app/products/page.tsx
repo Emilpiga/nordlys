@@ -4,7 +4,7 @@ import { ProductCard } from "@/components/product-card";
 import { getProducts } from "@/lib/shopify";
 
 export const metadata: Metadata = {
-  title: "Shop",
+  title: "Shoppa",
 };
 
 export default async function ProductsPage() {
@@ -14,11 +14,10 @@ export default async function ProductsPage() {
     <div className="mx-auto w-full max-w-6xl px-5 pb-14 pt-28 sm:px-8 sm:pb-20 sm:pt-32">
       <div className="mb-12 max-w-xl">
         <h1 className="font-display text-5xl font-medium tracking-tight sm:text-6xl">
-          Shop
+          Shoppa
         </h1>
         <p className="mt-4 text-base font-light leading-relaxed text-muted">
-          Everyday skincare with a Nordic quiet — moisture, clarity, and soft
-          skin.
+          Vardaglig hudvård med nordisk stillhet — fukt, klarhet och mjuk hy.
         </p>
       </div>
 

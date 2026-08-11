@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     default: shopifyConfig.storeName,
     template: `%s · ${shopifyConfig.storeName}`,
   },
-  description: `${shopifyConfig.storeName} — Nordic skincare for clear, calm skin.`,
+  description: `${shopifyConfig.storeName} — Nordisk hudvård för klar, lugn hy.`,
   icons: {
     icon: [{ url: "/logo-ikon.png", type: "image/png" }],
     apple: [{ url: "/logo-ikon.png", type: "image/png" }],
@@ -43,7 +43,7 @@ export default async function RootLayout({
 
   return (
     <html
-      lang="en"
+      lang="sv"
       className={`${cormorant.variable} ${outfit.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">

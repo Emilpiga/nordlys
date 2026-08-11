@@ -4,8 +4,8 @@ import { LegalPage, LegalSection } from "@/components/legal-page";
 import { shopifyConfig } from "@/lib/shopify/config";
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description: `Get in touch with ${shopifyConfig.storeName} about orders, shipping, or products.`,
+  title: "Kontakt",
+  description: `Kontakta ${shopifyConfig.storeName} om ordrar, frakt eller produkter.`,
 };
 
 export default function ContactPage() {
@@ -14,62 +14,62 @@ export default function ContactPage() {
 
   return (
     <LegalPage
-      title="Contact"
-      description={`Questions about an order, a formula, or the ritual — we are here.`}
-      updated="August 2026"
+      title="Kontakt"
+      description="Frågor om en order, en formel eller ritualen — vi finns här."
+      updated="augusti 2026"
     >
-      <LegalSection title="Email">
+      <LegalSection title="E-post">
         {email ? (
           <>
             <p>
-              Write to{" "}
+              Skriv till{" "}
               <a
                 href={`mailto:${email}?subject=${encodeURIComponent(`${brand} support`)}`}
                 className="text-accent underline-offset-4 hover:underline"
               >
                 {email}
               </a>
-              . We aim to reply within 1–2 business days.
+              . Vi strävar efter att svara inom 1–2 arbetsdagar.
             </p>
             <p>
               <a
                 href={`mailto:${email}?subject=${encodeURIComponent(`${brand} support`)}`}
                 className="btn-primary mt-2"
               >
-                Email support
+                Mejla support
               </a>
             </p>
           </>
         ) : (
           <p>
-            Reply to your Shopify order confirmation email, or use the contact
-            details in your shipping notification. To show a public support
-            address here, set{" "}
+            Svara på din Shopify-orderbekräftelse, eller använd
+            kontaktuppgifterna i ditt fraktmeddelande. För att visa en offentlig
+            supportadress här, sätt{" "}
             <code className="font-mono text-sm text-foreground">
               NEXT_PUBLIC_SUPPORT_EMAIL
             </code>{" "}
-            in your environment.
+            i din miljö.
           </p>
         )}
       </LegalSection>
 
-      <LegalSection title="Before you write">
-        <p>Including these details helps us respond faster:</p>
+      <LegalSection title="Innan du skriver">
+        <p>Om du inkluderar följande svarar vi snabbare:</p>
         <ul className="list-disc space-y-2 pl-5">
-          <li>Order number (from your confirmation email)</li>
-          <li>The product or issue you need help with</li>
-          <li>Photos, if something arrived damaged or incorrect</li>
+          <li>Ordernummer (från din bekräftelsemejl)</li>
+          <li>Produkten eller problemet du behöver hjälp med</li>
+          <li>Foton, om något anlänt skadat eller felaktigt</li>
         </ul>
       </LegalSection>
 
-      <LegalSection title="Quick links">
+      <LegalSection title="Snabblänkar">
         <ul className="list-disc space-y-2 pl-5">
           <li>
             <Link
               href="/returns"
               className="text-accent underline-offset-4 hover:underline"
             >
-              Shipping & returns
+              Frakt & returer
             </Link>
           </li>
           <li>
@@ -77,7 +77,7 @@ export default function ContactPage() {
               href="/privacy"
               className="text-accent underline-offset-4 hover:underline"
             >
-              Privacy
+              Integritet
             </Link>
           </li>
           <li>
@@ -85,7 +85,7 @@ export default function ContactPage() {
               href="/terms"
               className="text-accent underline-offset-4 hover:underline"
             >
-              Terms
+              Villkor
             </Link>
           </li>
           <li>
@@ -93,7 +93,7 @@ export default function ContactPage() {
               href="/products"
               className="text-accent underline-offset-4 hover:underline"
             >
-              Shop the collection
+              Handla kollektionen
             </Link>
           </li>
         </ul>
