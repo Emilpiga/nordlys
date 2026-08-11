@@ -26,7 +26,7 @@ export function socialMetadata({
   url?: string;
   images?: OgImageInput[];
   type?: "website" | "article";
-}): Pick<Metadata, "openGraph" | "twitter" | "other"> {
+}): Pick<Metadata, "openGraph" | "twitter" | "facebook"> {
   const ogImages = images?.map((image) => ({
     url: image.url,
     width: image.width,
@@ -54,12 +54,8 @@ export function socialMetadata({
         ? { images: ogImages.map((image) => image.url) }
         : {}),
     },
-    ...(facebookAppId
-      ? {
-          other: {
-            "fb:app_id": facebookAppId,
-          },
-        }
-      : {}),
+    // Must use `facebook.appId` (renders property="fb:app_id").
+    // `other["fb:app_id"]` incorrectly renders name= which Facebook ignores.
+    ...(facebookAppId ? { facebook: { appId: facebookAppId } } : {}),
   };
 }
