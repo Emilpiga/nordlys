@@ -29,7 +29,3 @@ export function sanitizeDescriptionHtml(html: string): string {
 
   return cleaned;
 }
-
-export function descriptionPlainPreview(text: string, max = 160): string {
-  return text.replace(/\s+/g, " ").trim().slice(0, max);
-}

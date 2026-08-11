@@ -95,6 +95,7 @@ export async function getCart(cartId: string): Promise<Cart | null> {
     return data.cart ? mapCart(data.cart) : null;
   } catch (error) {
     if (error instanceof ShopifyNotConfiguredError) return null;
+    console.error("Failed to load cart:", error);
     return null;
   }
 }
@@ -136,12 +137,18 @@ export async function addCartLines(
     cache: "no-store",
   });
 
-  assertNoUserErrors(data.cartLinesAdd.userErrors);
-  if (!data.cartLinesAdd.cart) {
-    throw new Error("Failed to add lines to cart.");
+  const userErrors = data.cartLinesAdd.userErrors ?? [];
+  const cartGone = userErrors.some((error) =>
+    /cart does not exist/i.test(error.message),
+  );
+
+  // Shopify may return a replacement cart when the old id is invalid — use it.
+  if (data.cartLinesAdd.cart && (userErrors.length === 0 || cartGone)) {
+    return mapCart(data.cartLinesAdd.cart);
   }
 
-  return mapCart(data.cartLinesAdd.cart);
+  assertNoUserErrors(userErrors);
+  throw new Error("Failed to add lines to cart.");
 }
 
 export async function updateCartLines(

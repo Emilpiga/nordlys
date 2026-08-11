@@ -21,6 +21,18 @@ type ShopifyProductCard = {
     minVariantPrice: ShopifyMoney;
     maxVariantPrice: ShopifyMoney;
   };
+  options?: { id: string; name: string; values: string[] }[];
+  variants?: {
+    nodes: {
+      id: string;
+      title: string;
+      availableForSale: boolean;
+      selectedOptions: { name: string; value: string }[];
+      price: ShopifyMoney;
+      compareAtPrice: ShopifyMoney | null;
+      image: ShopifyImage;
+    }[];
+  };
 };
 
 type ShopifyProduct = ShopifyProductCard & {
@@ -80,6 +92,18 @@ function mapImage(image: ShopifyImage): ProductImage | null {
 }
 
 export function mapProductCard(product: ShopifyProductCard): Product {
+  const variants: ProductVariant[] = (product.variants?.nodes ?? []).map(
+    (variant) => ({
+      id: variant.id,
+      title: variant.title,
+      availableForSale: variant.availableForSale,
+      price: variant.price,
+      compareAtPrice: variant.compareAtPrice,
+      selectedOptions: variant.selectedOptions,
+      image: mapImage(variant.image),
+    }),
+  );
+
   return {
     id: product.id,
     handle: product.handle,
@@ -89,8 +113,8 @@ export function mapProductCard(product: ShopifyProductCard): Product {
     featuredImage: mapImage(product.featuredImage),
     images: product.featuredImage ? [mapImage(product.featuredImage)!] : [],
     priceRange: product.priceRange,
-    options: [],
-    variants: [],
+    options: product.options ?? [],
+    variants,
   };
 }
 

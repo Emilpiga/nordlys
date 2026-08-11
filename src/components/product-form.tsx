@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
 import { addToCartAction } from "@/app/actions/cart";
 import { formatMoney } from "@/lib/format";
 import type { Product } from "@/lib/shopify/types";
@@ -11,7 +10,6 @@ type ProductFormProps = {
 };
 
 export function ProductForm({ product }: ProductFormProps) {
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState<string | null>(null);
@@ -47,11 +45,14 @@ export function ProductForm({ product }: ProductFormProps) {
 
     startTransition(async () => {
       try {
-        await addToCartAction(selectedVariant.id, quantity);
-        router.push("/cart");
-        router.refresh();
+        const result = await addToCartAction(selectedVariant.id, quantity);
+        if (!result?.ok) {
+          setError("Could not add to bag.");
+          return;
+        }
+        window.location.assign("/cart");
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Could not add to cart.");
+        setError(err instanceof Error ? err.message : "Could not add to bag.");
       }
     });
   }

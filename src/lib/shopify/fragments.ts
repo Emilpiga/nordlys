@@ -30,6 +30,31 @@ export const PRODUCT_CARD_FRAGMENT = /* GraphQL */ `
         ...MoneyFields
       }
     }
+    options {
+      id
+      name
+      values
+    }
+    variants(first: 40) {
+      nodes {
+        id
+        title
+        availableForSale
+        selectedOptions {
+          name
+          value
+        }
+        price {
+          ...MoneyFields
+        }
+        compareAtPrice {
+          ...MoneyFields
+        }
+        image {
+          ...ImageFields
+        }
+      }
+    }
   }
   ${IMAGE_FRAGMENT}
   ${MONEY_FRAGMENT}

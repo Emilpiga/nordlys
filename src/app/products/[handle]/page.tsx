@@ -3,13 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AmbientSection, SectionRule } from "@/components/section";
 import { ProductCard } from "@/components/product-card";
-import { ProductDescription } from "@/components/product-description";
 import { ProductForm } from "@/components/product-form";
 import { ProductGallery } from "@/components/product-gallery";
-import {
-  descriptionPlainPreview,
-  sanitizeDescriptionHtml,
-} from "@/lib/description";
+import { sanitizeDescriptionHtml } from "@/lib/description";
 import { getProductByHandle, getProducts } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
 
@@ -47,8 +43,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
     .filter((item) => item.id !== product.id)
     .slice(0, 4);
 
-  const shortDescription = descriptionPlainPreview(product.description, 160);
   const detailsHtml = sanitizeDescriptionHtml(product.descriptionHtml);
+  const plainDescription = product.description.replace(/\s+/g, " ").trim();
 
   return (
     <div>
@@ -73,10 +69,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <h1 className="mt-4 font-display text-[2.75rem] font-medium leading-[1.05] tracking-tight sm:text-6xl">
             {product.title}
           </h1>
-          {shortDescription ? (
+          {detailsHtml ? (
+            <div
+              className="product-description mt-5 max-w-md text-base font-light leading-relaxed text-muted"
+              dangerouslySetInnerHTML={{ __html: detailsHtml }}
+            />
+          ) : plainDescription ? (
             <p className="mt-5 max-w-md text-base font-light leading-relaxed text-muted">
-              {shortDescription}
-              {product.description.length > 160 ? "…" : ""}
+              {plainDescription}
             </p>
           ) : (
             <p className="mt-5 max-w-md text-base font-light leading-relaxed text-muted">
@@ -126,13 +126,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </dl>
         </div>
       </section>
-
-      {detailsHtml ? (
-        <>
-          <SectionRule />
-          <ProductDescription html={detailsHtml} />
-        </>
-      ) : null}
 
       {related.length > 0 ? (
         <>
