@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SiteLogo } from "@/components/site-logo";
+import { NordlysWordmark } from "@/components/nordlys-wordmark";
 
 type HomeHeroProps = {
   storeName: string;
@@ -30,9 +30,11 @@ export function HomeHero({ storeName }: HomeHeroProps) {
 
       <div className="relative mx-auto grid min-h-[100svh] w-full max-w-6xl items-center px-5 pb-16 pt-28 sm:px-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
         <div className="max-w-xl py-8 lg:py-0">
-          <SiteLogo size="hero" priority className="animate-rise" />
+          <div className="animate-rise">
+            <NordlysWordmark size="display" />
+          </div>
 
-          <h1 className="animate-rise delay-1 mt-6 max-w-md font-display text-[1.85rem] font-medium leading-[1.15] tracking-tight text-foreground sm:text-[2.15rem]">
+          <h1 className="animate-rise delay-1 mt-8 max-w-md font-display text-[1.85rem] font-medium leading-[1.15] tracking-tight text-foreground sm:mt-10 sm:text-[2.15rem]">
             Hudvård för nordiskt ljus och lugna morgnar.
           </h1>
 

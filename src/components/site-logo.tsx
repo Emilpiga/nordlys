@@ -1,39 +1,42 @@
 import Image from "next/image";
+import { NordlysWordmark } from "@/components/nordlys-wordmark";
 import { shopifyConfig } from "@/lib/shopify/config";
 
-const LOGO_SIZES = {
+const ICON_SIZES = {
   header: {
-    src: "/logo-ikon.png",
     className: "w-[4.25rem] sm:w-[5rem]",
     sizes: "80px",
   },
   footer: {
-    src: "/logo-ikon.png",
     className: "w-[4.75rem] sm:w-[5.5rem]",
     sizes: "88px",
-  },
-  hero: {
-    src: "/logo.png",
-    className: "w-full max-w-[20rem] sm:max-w-[28rem]",
-    sizes: "(max-width: 640px) 90vw, 448px",
   },
 } as const;
 
 type SiteLogoProps = {
-  size: keyof typeof LOGO_SIZES;
+  size: "header" | "footer" | "hero";
   priority?: boolean;
   className?: string;
 };
 
 export function SiteLogo({ size, priority = false, className }: SiteLogoProps) {
-  const preset = LOGO_SIZES[size];
+  if (size === "hero") {
+    return (
+      <NordlysWordmark
+        size="display"
+        className={className}
+      />
+    );
+  }
+
+  const preset = ICON_SIZES[size];
 
   return (
     <span
       className={`relative block leading-none ${preset.className}${className ? ` ${className}` : ""}`}
     >
       <Image
-        src={preset.src}
+        src="/logo-ikon.png"
         alt={shopifyConfig.storeName}
         width={1536}
         height={1024}
