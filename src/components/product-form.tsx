@@ -1,16 +1,24 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { addToCartAction } from "@/app/actions/cart";
 import { formatMoney } from "@/lib/format";
 import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
-import type { Product } from "@/lib/shopify/types";
+import type { Product, ProductVariant } from "@/lib/shopify/types";
+import {
+  findVariant,
+  hasSelectableOptions,
+  isOptionValueAvailable,
+  optionsFromVariant,
+  selectOptionValue,
+} from "@/lib/shopify/variants";
 
 type ProductFormProps = {
   product: Product;
+  onVariantChange?: (variant: ProductVariant | null) => void;
 };
 
-export function ProductForm({ product }: ProductFormProps) {
+export function ProductForm({ product, onVariantChange }: ProductFormProps) {
   const [isPending, startTransition] = useTransition();
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState<string | null>(null);
@@ -19,26 +27,19 @@ export function ProductForm({ product }: ProductFormProps) {
     const firstAvailable =
       product.variants.find((variant) => variant.availableForSale) ??
       product.variants[0];
-
-    return Object.fromEntries(
-      (firstAvailable?.selectedOptions ?? []).map((option) => [
-        option.name,
-        option.value,
-      ]),
-    );
+    return optionsFromVariant(firstAvailable);
   }, [product.variants]);
 
   const [selectedOptions, setSelectedOptions] = useState(initialOptions);
 
-  const selectedVariant = useMemo(() => {
-    return (
-      product.variants.find((variant) =>
-        variant.selectedOptions.every(
-          (option) => selectedOptions[option.name] === option.value,
-        ),
-      ) ?? null
-    );
-  }, [product.variants, selectedOptions]);
+  const selectedVariant = useMemo(
+    () => findVariant(product.variants, selectedOptions),
+    [product.variants, selectedOptions],
+  );
+
+  useEffect(() => {
+    onVariantChange?.(selectedVariant);
+  }, [selectedVariant, onVariantChange]);
 
   function onAddToCart() {
     if (!selectedVariant) return;
@@ -68,11 +69,7 @@ export function ProductForm({ product }: ProductFormProps) {
     });
   }
 
-  const showOptions = product.options.some(
-    (option) =>
-      !(option.name === "Title" && option.values.length === 1) &&
-      option.values.some((value) => value !== "Default Title"),
-  );
+  const showOptions = hasSelectableOptions(product);
 
   const compareAt = selectedVariant?.compareAtPrice;
   const showCompare =
@@ -96,37 +93,67 @@ export function ProductForm({ product }: ProductFormProps) {
       </div>
 
       {showOptions
-        ? product.options.map((option) => (
-            <fieldset key={option.id} className="space-y-3">
-              <legend className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-muted">
-                {option.name}
-              </legend>
-              <div className="flex flex-wrap gap-2">
-                {option.values.map((value) => {
-                  const active = selectedOptions[option.name] === value;
-                  return (
-                    <button
-                      key={value}
-                      type="button"
-                      onClick={() =>
-                        setSelectedOptions((current) => ({
-                          ...current,
-                          [option.name]: value,
-                        }))
-                      }
-                      className={`min-w-12 border px-4 py-2.5 text-sm transition ${
-                        active
-                          ? "border-foreground bg-foreground text-on-accent"
-                          : "border-border/80 bg-transparent text-foreground hover:border-foreground/50"
-                      }`}
-                    >
-                      {value}
-                    </button>
-                  );
-                })}
-              </div>
-            </fieldset>
-          ))
+        ? product.options.map((option) => {
+            if (
+              option.name === "Title" &&
+              option.values.length === 1 &&
+              option.values[0] === "Default Title"
+            ) {
+              return null;
+            }
+
+            return (
+              <fieldset key={option.id} className="space-y-3">
+                <legend className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-muted">
+                  {option.name}
+                  {selectedOptions[option.name] ? (
+                    <span className="ml-2 font-normal normal-case tracking-normal text-foreground/70">
+                      {selectedOptions[option.name]}
+                    </span>
+                  ) : null}
+                </legend>
+                <div className="flex flex-wrap gap-2">
+                  {option.values.map((value) => {
+                    if (value === "Default Title") return null;
+                    const active = selectedOptions[option.name] === value;
+                    const available = isOptionValueAvailable(
+                      product.variants,
+                      option.name,
+                      value,
+                      selectedOptions,
+                    );
+                    return (
+                      <button
+                        key={value}
+                        type="button"
+                        disabled={!available && !active}
+                        aria-pressed={active}
+                        onClick={() =>
+                          setSelectedOptions((current) =>
+                            selectOptionValue(
+                              product.variants,
+                              current,
+                              option.name,
+                              value,
+                            ),
+                          )
+                        }
+                        className={`min-w-12 border px-4 py-2.5 text-sm transition ${
+                          active
+                            ? "border-foreground bg-foreground text-on-accent"
+                            : available
+                              ? "border-border/80 bg-transparent text-foreground hover:border-foreground/50"
+                              : "cursor-not-allowed border-border/50 text-muted/55 line-through opacity-55"
+                        }`}
+                      >
+                        {value}
+                      </button>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            );
+          })
         : null}
 
       <div className="space-y-3">

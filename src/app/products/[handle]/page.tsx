@@ -4,8 +4,7 @@ import { notFound } from "next/navigation";
 import { AmbientSection, SectionRule } from "@/components/section";
 import { JsonLd } from "@/components/json-ld";
 import { ProductCard } from "@/components/product-card";
-import { ProductForm } from "@/components/product-form";
-import { ProductGallery } from "@/components/product-gallery";
+import { ProductPurchase } from "@/components/product-purchase";
 import { ProductViewTracker } from "@/components/product-view-tracker";
 import { sanitizeDescriptionHtml } from "@/lib/description";
 import { buildProductJsonLd } from "@/lib/json-ld";
@@ -13,6 +12,7 @@ import { getProductByHandle, getProducts } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
 import { socialMetadata } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
+import { categoryParamFromId } from "@/lib/shopify/taxonomy";
 
 type ProductPageProps = PageProps<"/products/[handle]">;
 
@@ -74,6 +74,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const detailsHtml = sanitizeDescriptionHtml(product.descriptionHtml);
   const plainDescription = product.description.replace(/\s+/g, " ").trim();
+  const categoryHref = product.category
+    ? `/categories/${encodeURIComponent(categoryParamFromId(product.category.id))}`
+    : null;
 
   return (
     <div>
@@ -88,37 +91,53 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </Link>
       </div>
 
-      <section className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:py-12 sm:px-8">
-        <div className="animate-fade">
-          <ProductGallery images={gallery} productTitle={product.title} />
-        </div>
-
-        <div className="animate-rise lg:sticky lg:top-28 lg:self-start lg:py-4">
-          <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
-            {shopifyConfig.storeName} · Belysning
-          </p>
-          <h1 className="mt-4 font-display text-[2.75rem] font-medium leading-[1.05] tracking-tight sm:text-6xl">
-            {product.title}
-          </h1>
-          {detailsHtml ? (
-            <div
-              className="product-description mt-5 max-w-md text-base font-light leading-relaxed text-muted"
-              dangerouslySetInnerHTML={{ __html: detailsHtml }}
-            />
-          ) : plainDescription ? (
-            <p className="mt-5 max-w-md text-base font-light leading-relaxed text-muted">
-              {plainDescription}
+      <ProductPurchase
+        product={product}
+        gallery={gallery}
+        header={
+          <>
+            <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
+              {product.category ? (
+                <>
+                  {shopifyConfig.storeName}
+                  {" · "}
+                  {categoryHref ? (
+                    <Link
+                      href={categoryHref}
+                      className="underline-offset-4 transition hover:text-foreground hover:underline"
+                    >
+                      {product.category.name}
+                    </Link>
+                  ) : (
+                    product.category.name
+                  )}
+                </>
+              ) : (
+                <>
+                  {shopifyConfig.storeName} · Belysning
+                </>
+              )}
             </p>
-          ) : (
-            <p className="mt-5 max-w-md text-base font-light leading-relaxed text-muted">
-              En stillsam lampa för vardagsrummet — varmt sken, ren form.
-            </p>
-          )}
-
-          <div className="mt-10 border-t border-border/70 pt-8">
-            <ProductForm product={product} />
-          </div>
-
+            <h1 className="mt-4 font-display text-[2.75rem] font-medium leading-[1.05] tracking-tight sm:text-6xl">
+              {product.title}
+            </h1>
+            {detailsHtml ? (
+              <div
+                className="product-description mt-5 max-w-md text-base font-light leading-relaxed text-muted"
+                dangerouslySetInnerHTML={{ __html: detailsHtml }}
+              />
+            ) : plainDescription ? (
+              <p className="mt-5 max-w-md text-base font-light leading-relaxed text-muted">
+                {plainDescription}
+              </p>
+            ) : (
+              <p className="mt-5 max-w-md text-base font-light leading-relaxed text-muted">
+                En stillsam lampa för vardagsrummet — varmt sken, ren form.
+              </p>
+            )}
+          </>
+        }
+        footer={
           <dl className="mt-10 grid gap-5 border-t border-border/70 pt-8 text-sm">
             <div>
               <dt className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
@@ -138,7 +157,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 Skötsel
               </dt>
               <dd className="mt-1.5 font-light text-foreground">
-                Torka av med torr eller lätt fuktig trasa · Endast för inomhusbruk
+                Torka av med torr eller lätt fuktig trasa · Endast för
+                inomhusbruk
               </dd>
             </div>
             <div>
@@ -155,8 +175,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </dd>
             </div>
           </dl>
-        </div>
-      </section>
+        }
+      />
 
       {related.length > 0 ? (
         <>

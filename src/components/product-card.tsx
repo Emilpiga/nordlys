@@ -5,13 +5,11 @@ import Link from "next/link";
 import { useState, useTransition, type MouseEvent } from "react";
 import { useRouter } from "next/navigation";
 import { addToCartAction } from "@/app/actions/cart";
-import {
-  ProductQuickView,
-  hasSelectableOptions,
-} from "@/components/product-quick-view";
+import { ProductQuickView } from "@/components/product-quick-view";
 import { formatMoney } from "@/lib/format";
 import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
 import type { Product } from "@/lib/shopify/types";
+import { hasSelectableOptions } from "@/lib/shopify/variants";
 
 type ProductCardProps = {
   product: Product;
