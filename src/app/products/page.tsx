@@ -1,24 +1,31 @@
 import type { Metadata } from "next";
+import { CategoryChips } from "@/components/category-chips";
 import { EmptyCatalog } from "@/components/setup-banner";
 import { ProductCard } from "@/components/product-card";
 import { getProducts } from "@/lib/shopify";
+import { categoriesFromProducts } from "@/lib/shopify/taxonomy";
 
 export const metadata: Metadata = {
   title: "Shoppa",
 };
 
 export default async function ProductsPage() {
-  const products = await getProducts(48);
+  const products = await getProducts(100);
+  const categories = categoriesFromProducts(products);
 
   return (
     <div className="mx-auto w-full max-w-6xl px-5 pb-14 pt-28 sm:px-8 sm:pb-20 sm:pt-32">
-      <div className="mb-12 max-w-xl">
+      <div className="mb-8 max-w-xl">
         <h1 className="font-display text-5xl font-medium tracking-tight sm:text-6xl">
           Shoppa
         </h1>
         <p className="mt-4 text-base font-light leading-relaxed text-muted">
           Vardaglig hudvård med nordisk stillhet — fukt, klarhet och mjuk hy.
         </p>
+      </div>
+
+      <div className="mb-12">
+        <CategoryChips categories={categories} allCount={products.length} />
       </div>
 
       {products.length === 0 ? (

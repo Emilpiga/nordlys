@@ -61,7 +61,7 @@ export function CartView({ cart }: CartViewProps) {
                     src={image.url}
                     alt={image.altText || line.merchandise.product.title}
                     fill
-                    className="object-contain p-1.5"
+                    className="object-cover"
                     sizes="88px"
                   />
                 ) : null}

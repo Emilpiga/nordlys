@@ -1,4 +1,11 @@
-import type { Cart, Product, ProductImage, ProductVariant } from "./types";
+import type {
+  Cart,
+  Collection,
+  CollectionSummary,
+  Product,
+  ProductImage,
+  ProductVariant,
+} from "./types";
 
 type ShopifyImage = {
   url: string;
@@ -12,10 +19,16 @@ type ShopifyMoney = {
   currencyCode: string;
 };
 
+type ShopifyCategory = {
+  id: string;
+  name: string;
+} | null;
+
 type ShopifyProductCard = {
   id: string;
   handle: string;
   title: string;
+  category?: ShopifyCategory;
   featuredImage: ShopifyImage;
   priceRange: {
     minVariantPrice: ShopifyMoney;
@@ -110,6 +123,9 @@ export function mapProductCard(product: ShopifyProductCard): Product {
     title: product.title,
     description: "",
     descriptionHtml: "",
+    category: product.category
+      ? { id: product.category.id, name: product.category.name }
+      : null,
     featuredImage: mapImage(product.featuredImage),
     images: product.featuredImage ? [mapImage(product.featuredImage)!] : [],
     priceRange: product.priceRange,
@@ -135,11 +151,47 @@ export function mapProduct(product: ShopifyProduct): Product {
     title: product.title,
     description: product.description,
     descriptionHtml: product.descriptionHtml,
+    category: product.category
+      ? { id: product.category.id, name: product.category.name }
+      : null,
     featuredImage: mapImage(product.featuredImage),
     images: product.images.nodes.map((image) => mapImage(image)!),
     priceRange: product.priceRange,
     options: product.options,
     variants,
+  };
+}
+
+type ShopifyCollectionCard = {
+  id: string;
+  handle: string;
+  title: string;
+  description: string;
+  image: ShopifyImage;
+};
+
+type ShopifyCollection = ShopifyCollectionCard & {
+  descriptionHtml: string;
+  products: { nodes: ShopifyProductCard[] };
+};
+
+export function mapCollectionCard(
+  collection: ShopifyCollectionCard,
+): CollectionSummary {
+  return {
+    id: collection.id,
+    handle: collection.handle,
+    title: collection.title,
+    description: collection.description,
+    image: mapImage(collection.image),
+  };
+}
+
+export function mapCollection(collection: ShopifyCollection): Collection {
+  return {
+    ...mapCollectionCard(collection),
+    descriptionHtml: collection.descriptionHtml,
+    products: collection.products.nodes.map(mapProductCard),
   };
 }
 

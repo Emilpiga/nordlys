@@ -19,6 +19,10 @@ export const PRODUCT_CARD_FRAGMENT = /* GraphQL */ `
     id
     handle
     title
+    category {
+      id
+      name
+    }
     featuredImage {
       ...ImageFields
     }
@@ -67,6 +71,10 @@ export const PRODUCT_FRAGMENT = /* GraphQL */ `
     title
     description
     descriptionHtml
+    category {
+      id
+      name
+    }
     featuredImage {
       ...ImageFields
     }
@@ -111,6 +119,38 @@ export const PRODUCT_FRAGMENT = /* GraphQL */ `
   }
   ${IMAGE_FRAGMENT}
   ${MONEY_FRAGMENT}
+`;
+
+export const COLLECTION_CARD_FRAGMENT = /* GraphQL */ `
+  fragment CollectionCardFields on Collection {
+    id
+    handle
+    title
+    description
+    image {
+      ...ImageFields
+    }
+  }
+  ${IMAGE_FRAGMENT}
+`;
+
+export const COLLECTION_FRAGMENT = /* GraphQL */ `
+  fragment CollectionFields on Collection {
+    id
+    handle
+    title
+    description
+    descriptionHtml
+    image {
+      ...ImageFields
+    }
+    products(first: 48) {
+      nodes {
+        ...ProductCardFields
+      }
+    }
+  }
+  ${PRODUCT_CARD_FRAGMENT}
 `;
 
 export const CART_FRAGMENT = /* GraphQL */ `

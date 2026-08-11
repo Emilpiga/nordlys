@@ -20,12 +20,22 @@ export type ProductVariant = {
   image: ProductImage | null;
 };
 
+export type ProductCategoryRef = {
+  id: string;
+  name: string;
+};
+
+export type ProductCategory = ProductCategoryRef & {
+  productCount: number;
+};
+
 export type Product = {
   id: string;
   handle: string;
   title: string;
   description: string;
   descriptionHtml: string;
+  category: ProductCategoryRef | null;
   featuredImage: ProductImage | null;
   images: ProductImage[];
   priceRange: {
@@ -64,4 +74,17 @@ export type Cart = {
     totalAmount: Money;
   };
   lines: CartLine[];
+};
+
+export type CollectionSummary = {
+  id: string;
+  handle: string;
+  title: string;
+  description: string;
+  image: ProductImage | null;
+};
+
+export type Collection = CollectionSummary & {
+  descriptionHtml: string;
+  products: Product[];
 };

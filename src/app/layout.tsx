@@ -9,6 +9,7 @@ import { CookieBanner } from "@/components/cookie-banner";
 import { SetupBanner } from "@/components/setup-banner";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { getProductCategories } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
 import "./globals.css";
 
@@ -39,7 +40,10 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: LayoutProps<"/">) {
-  const cart = await getCartAction();
+  const [cart, categories] = await Promise.all([
+    getCartAction(),
+    getProductCategories(),
+  ]);
 
   return (
     <html
@@ -52,7 +56,10 @@ export default async function RootLayout({
           <SetupBanner />
           <Analytics />
           <AdPixels />
-          <SiteHeader cartCount={cart?.totalQuantity ?? 0} />
+          <SiteHeader
+            cartCount={cart?.totalQuantity ?? 0}
+            categories={categories}
+          />
           <main className="flex-1">{children}</main>
           <SiteFooter />
           <CookieBanner />
