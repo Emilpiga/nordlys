@@ -6,9 +6,14 @@ import { AdPixels } from "@/components/ad-pixels";
 import { AuroraBackdrop } from "@/components/aurora-backdrop";
 import { ConsentProvider } from "@/components/consent-provider";
 import { CookieBanner } from "@/components/cookie-banner";
+import { JsonLd } from "@/components/json-ld";
 import { SetupBanner } from "@/components/setup-banner";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import {
+  buildOrganizationJsonLd,
+  buildWebSiteJsonLd,
+} from "@/lib/json-ld";
 import { getProductCategories } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
 import { siteDescription, siteTitle, socialMetadata } from "@/lib/seo";
@@ -35,6 +40,9 @@ export const metadata: Metadata = {
   },
   description: siteDescription,
   applicationName: shopifyConfig.storeName,
+  alternates: {
+    canonical: getSiteUrl(),
+  },
   icons: {
     icon: [{ url: "/logo-ikon.png", type: "image/png" }],
     apple: [{ url: "/logo-ikon.png", type: "image/png" }],
@@ -60,6 +68,7 @@ export default async function RootLayout({
       className={`${cormorant.variable} ${outfit.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <JsonLd data={[buildOrganizationJsonLd(), buildWebSiteJsonLd()]} />
         <ConsentProvider>
           <AuroraBackdrop />
           <SetupBanner />

@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AmbientSection, SectionRule } from "@/components/section";
+import { JsonLd } from "@/components/json-ld";
 import { ProductCard } from "@/components/product-card";
 import { ProductForm } from "@/components/product-form";
 import { ProductGallery } from "@/components/product-gallery";
 import { sanitizeDescriptionHtml } from "@/lib/description";
+import { buildProductJsonLd } from "@/lib/json-ld";
 import { getProductByHandle, getProducts } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
 import { socialMetadata } from "@/lib/seo";
@@ -74,6 +76,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <div>
+      <JsonLd data={buildProductJsonLd(product)} />
       <div className="mx-auto w-full max-w-6xl px-5 pt-28 sm:px-8 sm:pt-32">
         <Link
           href="/products"
