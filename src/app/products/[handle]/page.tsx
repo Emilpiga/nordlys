@@ -8,6 +8,8 @@ import { ProductGallery } from "@/components/product-gallery";
 import { sanitizeDescriptionHtml } from "@/lib/description";
 import { getProductByHandle, getProducts } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
+import { socialMetadata } from "@/lib/seo";
+import { getSiteUrl } from "@/lib/site-url";
 
 type ProductPageProps = PageProps<"/products/[handle]">;
 
@@ -17,9 +19,33 @@ export async function generateMetadata({
   const { handle } = await params;
   const product = await getProductByHandle(handle);
   if (!product) return { title: "Produkt" };
+
+  const description =
+    product.description.replace(/\s+/g, " ").trim().slice(0, 160) ||
+    `${product.title} från ${shopifyConfig.storeName}.`;
+  const image = product.featuredImage ?? product.images[0] ?? null;
+  const title = product.title;
+  const url = `${getSiteUrl()}/products/${product.handle}`;
+
   return {
-    title: product.title,
-    description: product.description.slice(0, 160),
+    title,
+    description,
+    ...socialMetadata({
+      title: `${title} · ${shopifyConfig.storeName}`,
+      description,
+      url,
+      type: "website",
+      images: image
+        ? [
+            {
+              url: image.url,
+              width: image.width,
+              height: image.height,
+              alt: image.altText || title,
+            },
+          ]
+        : undefined,
+    }),
   };
 }
 

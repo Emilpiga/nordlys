@@ -11,6 +11,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getProductCategories } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
+import { siteDescription, siteTitle, socialMetadata } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
@@ -29,14 +30,20 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: shopifyConfig.storeName,
+    default: siteTitle,
     template: `%s · ${shopifyConfig.storeName}`,
   },
-  description: `${shopifyConfig.storeName} — Nordisk hudvård för klar, lugn hy.`,
+  description: siteDescription,
+  applicationName: shopifyConfig.storeName,
   icons: {
     icon: [{ url: "/logo-ikon.png", type: "image/png" }],
     apple: [{ url: "/logo-ikon.png", type: "image/png" }],
   },
+  ...socialMetadata({
+    title: siteTitle,
+    description: siteDescription,
+    url: getSiteUrl(),
+  }),
 };
 
 export default async function RootLayout({

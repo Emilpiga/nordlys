@@ -8,6 +8,10 @@ import { shopifyConfig } from "@/lib/shopify/config";
 
 export const metadata: Metadata = {
   title: "Kasse",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default async function CartPage() {

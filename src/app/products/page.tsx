@@ -3,10 +3,22 @@ import { CategoryChips } from "@/components/category-chips";
 import { EmptyCatalog } from "@/components/setup-banner";
 import { ProductCard } from "@/components/product-card";
 import { getProducts } from "@/lib/shopify";
+import { shopifyConfig } from "@/lib/shopify/config";
+import { socialMetadata } from "@/lib/seo";
+import { getSiteUrl } from "@/lib/site-url";
 import { categoriesFromProducts } from "@/lib/shopify/taxonomy";
+
+const shopDescription =
+  "Vardaglig hudvård med nordisk stillhet — fukt, klarhet och mjuk hy.";
 
 export const metadata: Metadata = {
   title: "Shoppa",
+  description: shopDescription,
+  ...socialMetadata({
+    title: `Shoppa · ${shopifyConfig.storeName}`,
+    description: shopDescription,
+    url: `${getSiteUrl()}/products`,
+  }),
 };
 
 export default async function ProductsPage() {

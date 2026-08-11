@@ -8,6 +8,10 @@ import {
   getProductCategories,
   getProductsByCategory,
 } from "@/lib/shopify";
+import { shopifyConfig } from "@/lib/shopify/config";
+import { socialMetadata } from "@/lib/seo";
+import { getSiteUrl } from "@/lib/site-url";
+import { categoryParamFromId } from "@/lib/shopify/taxonomy";
 
 type CategoryPageProps = {
   params: Promise<{ id: string }>;
@@ -17,9 +21,32 @@ export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
   const { id } = await params;
-  const { category } = await getProductsByCategory(id);
+  const { category, products } = await getProductsByCategory(id);
   if (!category) return { title: "Kategori" };
-  return { title: category.name };
+
+  const description = `${category.name} hos ${shopifyConfig.storeName} — ${category.productCount} ${category.productCount === 1 ? "produkt" : "produkter"} inom nordisk hudvård.`;
+  const image = products.find((product) => product.featuredImage)?.featuredImage;
+  const url = `${getSiteUrl()}/categories/${encodeURIComponent(categoryParamFromId(category.id))}`;
+
+  return {
+    title: category.name,
+    description,
+    ...socialMetadata({
+      title: `${category.name} · ${shopifyConfig.storeName}`,
+      description,
+      url,
+      images: image
+        ? [
+            {
+              url: image.url,
+              width: image.width,
+              height: image.height,
+              alt: category.name,
+            },
+          ]
+        : undefined,
+    }),
+  };
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
