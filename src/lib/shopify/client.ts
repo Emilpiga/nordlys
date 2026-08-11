@@ -67,12 +67,20 @@ export async function shopifyFetch<T>({
   const client = getClient();
   const usePrivate = Boolean(shopifyConfig.privateStorefrontToken);
 
+  // Translate & Adapt content is only returned when @inContext(language) is set.
+  // Admin "default language" alone does not change headless Storefront API responses.
+  const contextualVariables = {
+    country: shopifyConfig.country,
+    language: shopifyConfig.language,
+    ...variables,
+  };
+
   const response = await fetch(client.getStorefrontApiUrl(), {
     method: "POST",
     headers: usePrivate
       ? client.getPrivateTokenHeaders({ contentType: "json" })
       : client.getPublicTokenHeaders({ contentType: "json" }),
-    body: JSON.stringify({ query, variables }),
+    body: JSON.stringify({ query, variables: contextualVariables }),
     cache,
     next: tags ? { tags } : undefined,
   });

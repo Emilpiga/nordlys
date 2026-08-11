@@ -9,6 +9,20 @@ export const shopifyConfig = {
   apiVersion: process.env.SHOPIFY_STOREFRONT_API_VERSION ?? "2026-04",
   storeName: process.env.NEXT_PUBLIC_STORE_NAME ?? "Nordlys",
   supportEmail: cleanEnv(process.env.NEXT_PUBLIC_SUPPORT_EMAIL),
+  /**
+   * Storefront API @inContext language (Translate & Adapt).
+   * Must be an active shop language ISO code, e.g. SV.
+   */
+  language: (
+    cleanEnv(process.env.SHOPIFY_STOREFRONT_LANGUAGE) || "SV"
+  ).toUpperCase(),
+  /**
+   * Storefront API @inContext country (Markets / currency).
+   * Must be an active market country ISO code, e.g. SE.
+   */
+  country: (
+    cleanEnv(process.env.SHOPIFY_STOREFRONT_COUNTRY) || "SE"
+  ).toUpperCase(),
 };
 
 function cleanEnv(value: string | undefined) {
