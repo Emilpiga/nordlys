@@ -14,7 +14,7 @@ export function SetupBanner() {
   if (isShopifyConfigured() && !credentialHint) return null;
 
   return (
-    <div className="border-b border-blush/35 bg-[color-mix(in_oklab,var(--blush)_14%,white)] px-5 py-3 text-sm text-foreground sm:px-8">
+    <div className="border-b border-glow/35 bg-[color-mix(in_oklab,var(--glow)_14%,white)] px-5 py-3 text-sm text-foreground sm:px-8">
       <p className="mx-auto max-w-6xl">
         {credentialHint ? (
           credentialHint

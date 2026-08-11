@@ -34,7 +34,7 @@ export default async function HomePage() {
       <AmbientSection className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
         <div className="mb-12 flex flex-col gap-6 sm:mb-14 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-xl">
-            <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-blush">
+            <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
               Utvalda
             </p>
             <h2 className="mt-3 font-display text-4xl font-medium tracking-tight sm:text-5xl">
@@ -67,21 +67,21 @@ export default async function HomePage() {
 
       <AmbientSection className="mx-auto grid w-full max-w-6xl gap-12 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16">
         <div>
-          <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-blush">
-            Ritualen
+          <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
+            Atmosfär
           </p>
           <h2 className="mt-4 font-display text-4xl font-medium tracking-tight sm:text-5xl">
             Gjort för långa vintrar
           </h2>
           <p className="mt-5 max-w-md text-base font-light leading-relaxed text-muted">
-            Nordisk luft kräver fukt, tålamod och formler som inte skriker.{" "}
-            {shopifyConfig.storeName} håller ritualen enkel.
+            Nordiska kvällar behöver varmt sken och former som håller i rummet.{" "}
+            {shopifyConfig.storeName} håller belysningen enkel.
           </p>
         </div>
         <div className="relative min-h-[300px] overflow-hidden rounded-2xl sm:min-h-[420px]">
           <Image
-            src="/winter.png"
-            alt="Mjuk hudvårdsritual i vinterljus"
+            src="/winter-lighting.png"
+            alt="Varm belysning i nordiskt vinterljus"
             fill
             className="object-cover object-center"
             sizes="(max-width: 1024px) 100vw, 55vw"

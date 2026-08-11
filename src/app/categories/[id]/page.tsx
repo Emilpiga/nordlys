@@ -24,7 +24,7 @@ export async function generateMetadata({
   const { category, products } = await getProductsByCategory(id);
   if (!category) return { title: "Kategori" };
 
-  const description = `${category.name} hos ${shopifyConfig.storeName} — ${category.productCount} ${category.productCount === 1 ? "produkt" : "produkter"} inom nordisk hudvård.`;
+  const description = `${category.name} hos ${shopifyConfig.storeName} — ${category.productCount} ${category.productCount === 1 ? "produkt" : "produkter"} inom nordisk belysning.`;
   const image = products.find((product) => product.featuredImage)?.featuredImage;
   const url = `${getSiteUrl()}/categories/${encodeURIComponent(categoryParamFromId(category.id))}`;
 
@@ -70,7 +70,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       </Link>
 
       <div className="mt-8 mb-8 max-w-xl">
-        <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-blush">
+        <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
           Kategori
         </p>
         <h1 className="mt-3 font-display text-5xl font-medium tracking-tight sm:text-6xl">

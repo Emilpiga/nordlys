@@ -7,8 +7,7 @@ type NordlysWordmarkProps = {
 };
 
 /**
- * Typographic wordmark inspired by Rituals-style luxury branding:
- * uppercase serif, open tracking, thin rule — not a copy of their letterforms.
+ * Typographic wordmark: uppercase serif, open tracking, thin rule.
  */
 export function NordlysWordmark({
   className = "",
@@ -44,7 +43,7 @@ export function NordlysWordmark({
         className="mt-4 h-px w-10 bg-foreground/35 sm:mt-5 sm:w-12"
       />
       <p className="mt-4 text-[0.62rem] font-medium tracking-[0.28em] uppercase text-muted sm:mt-5 sm:text-[0.68rem]">
-        Nordisk hudvård
+        Nordisk belysning
       </p>
     </div>
   );

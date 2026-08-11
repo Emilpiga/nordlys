@@ -15,7 +15,7 @@ export default function ContactPage() {
   return (
     <LegalPage
       title="Kontakt"
-      description="Frågor om en order, en formel eller ritualen — vi finns här."
+      description="Frågor om en order, en lampa eller leverans — vi finns här."
       updated="augusti 2026"
     >
       <LegalSection title="E-post">

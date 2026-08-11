@@ -134,7 +134,7 @@ export function ProductQuickView({
         className="relative z-10 flex max-h-[92svh] w-full max-w-3xl flex-col overflow-hidden rounded-t-2xl bg-[color-mix(in_oklab,var(--frost)_96%,white)] shadow-[0_-8px_40px_rgba(20,32,28,0.12)] sm:rounded-2xl sm:shadow-[0_24px_80px_rgba(20,32,28,0.16)]"
       >
         <div className="flex items-center justify-between border-b border-border/60 px-5 py-4 sm:px-6">
-          <p className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-blush">
+          <p className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-glow">
             Snabbvy
           </p>
           <button

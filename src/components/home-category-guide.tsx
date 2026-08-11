@@ -18,14 +18,14 @@ export function HomeCategoryGuide({ categories }: HomeCategoryGuideProps) {
   return (
     <section className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
       <div className="mb-12 max-w-xl sm:mb-14">
-        <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-blush">
+        <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
           Hitta rätt
         </p>
         <h2 className="mt-3 font-display text-4xl font-medium tracking-tight sm:text-5xl">
-          Vård efter behov
+          Ljus efter rum
         </h2>
         <p className="mt-4 text-base font-light leading-relaxed text-muted">
-          Börja där huden behöver dig mest — sedan bygger du vidare i lugn takt.
+          Börja där du vill sätta stämningen — sedan bygger du vidare i lugn takt.
         </p>
       </div>
 

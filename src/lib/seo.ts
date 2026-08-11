@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { getMarketingPixelConfig } from "@/lib/consent";
 import { shopifyConfig } from "@/lib/shopify/config";
 
-export const siteDescription = `${shopifyConfig.storeName} — Nordisk hudvård för klar, lugn hy. Mjuka formler för nordiskt ljus.`;
+export const siteDescription = `${shopifyConfig.storeName} — Nordisk belysning för lugna rum. Lampor med varmt sken och stilla design.`;
 
-export const siteTitle = `${shopifyConfig.storeName} · Nordisk hudvård`;
+export const siteTitle = `${shopifyConfig.storeName} · Nordisk belysning`;
 
 type OgImageInput = {
   url: string;

@@ -9,7 +9,7 @@ import { getSiteUrl } from "@/lib/site-url";
 import { categoriesFromProducts } from "@/lib/shopify/taxonomy";
 
 const shopDescription =
-  "Vardaglig hudvård med nordisk stillhet — fukt, klarhet och mjuk hy.";
+  "Lampor och belysning med nordisk stillhet — varmt sken, ren form.";
 
 export const metadata: Metadata = {
   title: "Shoppa",
@@ -32,7 +32,7 @@ export default async function ProductsPage() {
           Shoppa
         </h1>
         <p className="mt-4 text-base font-light leading-relaxed text-muted">
-          Vardaglig hudvård med nordisk stillhet — fukt, klarhet och mjuk hy.
+          Lampor och belysning med nordisk stillhet — varmt sken, ren form.
         </p>
       </div>
 

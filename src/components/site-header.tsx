@@ -120,18 +120,19 @@ export function SiteHeader({
     closeTimer.current = setTimeout(() => setShopOpen(false), 120);
   }
 
-  const frosted = progress > 0.02;
+  // Keep a readable light bar over dark hero imagery; deepen on scroll.
+  const veil = Math.min(0.94, 0.72 + progress * 0.24);
+  const blur = 10 + progress * 8;
+  const border = 0.06 + progress * 0.08;
 
   return (
     <header
       className="fixed inset-x-0 top-0 z-40 border-b"
       style={{
-        backgroundColor: `rgba(247, 249, 250, ${(progress * 0.86).toFixed(3)})`,
-        backdropFilter: frosted ? `blur(${(progress * 16).toFixed(1)}px)` : "none",
-        WebkitBackdropFilter: frosted
-          ? `blur(${(progress * 16).toFixed(1)}px)`
-          : "none",
-        borderBottomColor: `rgba(20, 32, 28, ${(progress * 0.12).toFixed(3)})`,
+        backgroundColor: `rgba(246, 248, 250, ${veil.toFixed(3)})`,
+        backdropFilter: `blur(${blur.toFixed(1)}px)`,
+        WebkitBackdropFilter: `blur(${blur.toFixed(1)}px)`,
+        borderBottomColor: `rgba(20, 28, 34, ${border.toFixed(3)})`,
       }}
     >
       <div className="mx-auto flex h-[4.25rem] w-full max-w-6xl items-center justify-between gap-6 px-5 sm:h-[4.5rem] sm:px-8">
@@ -144,7 +145,7 @@ export function SiteHeader({
           <SiteLogo size="header" priority />
         </Link>
 
-        <nav className="flex items-center gap-7 text-[0.8rem] font-medium tracking-[0.14em] uppercase text-muted">
+        <nav className="flex items-center gap-7 text-[0.8rem] font-medium tracking-[0.14em] uppercase text-foreground/70">
           <div
             ref={shopRef}
             className="relative"
@@ -182,10 +183,10 @@ export function SiteHeader({
                 onMouseEnter={openShop}
                 onMouseLeave={scheduleCloseShop}
               >
-                <div className="w-[min(92vw,34rem)] border border-border/70 bg-[color-mix(in_oklab,var(--frost)_96%,white)] p-5 shadow-[0_18px_50px_rgba(20,32,28,0.12)] sm:w-[36rem] sm:p-6">
+                <div className="w-[min(92vw,34rem)] border border-border/70 bg-[color-mix(in_oklab,var(--frost)_96%,white)] p-5 shadow-[0_18px_50px_rgba(20,28,34,0.12)] sm:w-[36rem] sm:p-6">
                   <div className="flex items-end justify-between gap-4 border-b border-border/60 pb-4">
                     <div>
-                      <p className="text-[0.62rem] font-medium tracking-[0.18em] uppercase text-blush">
+                      <p className="text-[0.62rem] font-medium tracking-[0.18em] uppercase text-glow">
                         Kategorier
                       </p>
                       <p className="mt-1 font-display text-2xl font-medium tracking-tight text-foreground">

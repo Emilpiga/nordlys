@@ -30,7 +30,7 @@ export default async function CartPage() {
   return (
     <div>
       <div className="mx-auto w-full max-w-6xl px-5 pt-28 sm:px-8 sm:pt-32">
-        <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-blush">
+        <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
           {shopifyConfig.storeName}
         </p>
         <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
@@ -47,12 +47,13 @@ export default async function CartPage() {
 
       {isEmpty ? (
         <section className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
-          <div className="relative overflow-hidden bg-[linear-gradient(145deg,#d5e0e4_0%,#e8eef1_48%,#ddd4d0_100%)] px-6 py-20 text-center sm:px-10 sm:py-28">
+          <div className="relative overflow-hidden bg-[linear-gradient(145deg,#d4dde4_0%,#e8edf1_48%,#e4dfd4_100%)] px-6 py-20 text-center sm:px-10 sm:py-28">
             <p className="animate-rise font-display text-4xl font-medium tracking-tight sm:text-5xl">
               Inget här ännu
             </p>
             <p className="animate-rise delay-1 mx-auto mt-4 max-w-md text-base font-light leading-relaxed text-muted">
-              Bygg en liten ritual — rengöring, fukt, något mjukt till kvällen.
+              Börja med en lampa till rummet — bord, golv eller något mjukt till
+              kvällen.
             </p>
             <div className="animate-rise delay-2 mt-9">
               <Link href="/products" className="btn-primary">

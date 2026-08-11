@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #eef2f4;
-  --foreground: #14201c;
-  --muted: #5a6661;
+  --background: #eef1f4;
+  --foreground: #141c22;
+  --muted: #5a646b;
   --surface: rgba(255, 255, 255, 0.7);
-  --border: rgba(20, 32, 28, 0.12);
-  --accent: #16352d;
-  --accent-strong: #0f241f;
-  --accent-soft: #2a5348;
+  --border: rgba(20, 28, 34, 0.12);
+  --accent: #1a3038;
+  --accent-strong: #122228;
+  --accent-soft: #2a4650;
   --on-accent: #ffffff;
-  --blush: #9a6f69;
-  --mist: #d5e0e4;
-  --frost: #f7f9fa;
+  --glow: #b08a4a;
+  --mist: #d4dde4;
+  --frost: #f6f8fa;
 }
 
 @theme inline {
@@ -25,7 +25,7 @@
   --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
   --color-on-accent: var(--on-accent);
-  --color-blush: var(--blush);
+  --color-glow: var(--glow);
   --color-mist: var(--mist);
   --color-frost: var(--frost);
   --font-sans: var(--font-outfit);
@@ -42,7 +42,7 @@ html {
 }
 
 body {
-  background: linear-gradient(180deg, #e9eef1 0%, var(--background) 45%, #e6ecee 100%);
+  background: linear-gradient(180deg, #e8edf1 0%, var(--background) 45%, #e5eaee 100%);
   color: var(--foreground);
   font-family: var(--font-outfit), sans-serif;
   min-height: 100%;
@@ -215,9 +215,9 @@ body {
   height: 110vh;
   background: radial-gradient(
     closest-side ellipse,
-    rgba(58, 142, 120, 0.22) 0%,
-    rgba(58, 142, 120, 0.1) 40%,
-    rgba(58, 142, 120, 0) 72%
+    rgba(74, 118, 138, 0.2) 0%,
+    rgba(74, 118, 138, 0.09) 40%,
+    rgba(74, 118, 138, 0) 72%
   );
   animation: aurora-one 46s ease-in-out infinite alternate;
 }
@@ -229,9 +229,9 @@ body {
   height: 95vh;
   background: radial-gradient(
     closest-side ellipse,
-    rgba(112, 172, 186, 0.2) 0%,
-    rgba(112, 172, 186, 0.08) 44%,
-    rgba(112, 172, 186, 0) 74%
+    rgba(120, 148, 168, 0.18) 0%,
+    rgba(120, 148, 168, 0.07) 44%,
+    rgba(120, 148, 168, 0) 74%
   );
   animation: aurora-two 58s ease-in-out infinite alternate;
 }
@@ -243,9 +243,9 @@ body {
   height: 90vh;
   background: radial-gradient(
     closest-side ellipse,
-    rgba(154, 111, 105, 0.14) 0%,
-    rgba(154, 111, 105, 0.06) 45%,
-    rgba(154, 111, 105, 0) 74%
+    rgba(176, 138, 74, 0.16) 0%,
+    rgba(176, 138, 74, 0.07) 45%,
+    rgba(176, 138, 74, 0) 74%
   );
   animation: aurora-three 52s ease-in-out infinite alternate;
 }

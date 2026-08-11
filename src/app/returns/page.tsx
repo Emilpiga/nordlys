@@ -58,11 +58,12 @@ export default function ReturnsPage() {
           eller återbetalning när vi bekräftat problemet.
         </p>
         <p>
-          Vid ångerrätt kan oöppnade produkter i originalskick vara berättigade
-          inom 14 dagar från leverans, med förbehåll för lokal konsumentlag.
-          Eftersom {brand} säljer hudvård kan öppnade eller använda hygien- och
-          kosmetikaprodukter i regel inte återföras till lager av
-          hälsoskäl — om inte produkten är felaktig.
+          Vid ångerrätt kan oanvända produkter i originalförpackning och
+          säljbart skick vara berättigade inom 14 dagar från leverans, med
+          förbehåll för lokal konsumentlag. Eftersom {brand} säljer belysning
+          och elektriska produkter kan varor som öppnats, installerats eller
+          använts i regel inte återföras till lager om de inte längre är i
+          väsentligen oförändrat skick — om inte produkten är felaktig.
         </p>
         <p>
           Godkända returer ska skickas med spårbar metod. Ursprunglig utgående

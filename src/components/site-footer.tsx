@@ -7,7 +7,7 @@ const linkClass =
   "text-sm font-light text-muted transition hover:text-foreground";
 
 const headingClass =
-  "text-[0.68rem] font-medium tracking-[0.18em] uppercase text-blush";
+  "text-[0.68rem] font-medium tracking-[0.18em] uppercase text-glow";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -16,7 +16,7 @@ export function SiteFooter() {
     <footer className="relative mt-auto overflow-hidden">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgba(213,224,228,0.55)_0%,transparent_55%),radial-gradient(ellipse_at_90%_100%,rgba(154,111,105,0.08)_0%,transparent_45%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgba(212,221,228,0.55)_0%,transparent_55%),radial-gradient(ellipse_at_90%_100%,rgba(176,138,74,0.1)_0%,transparent_45%)]"
       />
 
       <SectionRule />
@@ -32,11 +32,11 @@ export function SiteFooter() {
               <SiteLogo size="footer" />
             </Link>
             <p className="mt-7 font-display text-3xl font-medium leading-[1.2] tracking-tight text-foreground sm:text-4xl">
-              Mjuka formler för nordiskt ljus.
+              Varmt sken för nordiska rum.
             </p>
             <p className="mt-4 max-w-sm text-sm font-light leading-relaxed text-muted">
-              Vardaglig hudvård med en lugnare lyster — fukt, klarhet och
-              balanserad hy.
+              Lampor och belysning med stilla design — atmosfär, form och lugnt
+              kvällsljus.
             </p>
           </div>
 

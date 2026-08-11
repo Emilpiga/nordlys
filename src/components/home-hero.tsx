@@ -11,8 +11,8 @@ export function HomeHero({ storeName }: HomeHeroProps) {
     <section className="relative min-h-[100svh] overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src="/hero.png"
-          alt={`${storeName} — Nordisk hudvårdsritual`}
+          src="/hero-lighting.png"
+          alt={`${storeName} — Nordisk belysning`}
           fill
           priority
           className="animate-soft-zoom object-cover object-[72%_center] sm:object-[60%_40%]"
@@ -20,11 +20,11 @@ export function HomeHero({ storeName }: HomeHeroProps) {
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(238,242,244,0.94)_0%,rgba(238,242,244,0.78)_26%,rgba(238,242,244,0.28)_50%,transparent_66%)]"
+          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(238,241,244,0.94)_0%,rgba(238,241,244,0.78)_26%,rgba(238,241,244,0.28)_50%,transparent_66%)]"
         />
         <div
           aria-hidden
-          className="absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,transparent_0%,rgba(238,242,244,0.5)_100%)] sm:h-36"
+          className="absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,transparent_0%,rgba(238,241,244,0.5)_100%)] sm:h-36"
         />
       </div>
 
@@ -35,11 +35,11 @@ export function HomeHero({ storeName }: HomeHeroProps) {
           </div>
 
           <h1 className="animate-rise delay-1 mt-8 max-w-md font-display text-[1.85rem] font-medium leading-[1.15] tracking-tight text-foreground sm:mt-10 sm:text-[2.15rem]">
-            Hudvård för nordiskt ljus och lugna morgnar.
+            Belysning för nordiska kvällar och lugna rum.
           </h1>
 
           <p className="animate-rise delay-2 mt-5 max-w-sm text-base font-light leading-relaxed text-muted">
-            Mjuka formler. Ärliga ingredienser. En lugnare lyster.
+            Varmt sken. Ren form. Lampor som sätter stämningen.
           </p>
 
           <div className="animate-rise delay-3 mt-10">

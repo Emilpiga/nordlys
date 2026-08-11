@@ -20,8 +20,9 @@ export default function PrivacyPage() {
     >
       <LegalSection title="Vilka vi är">
         <p>
-          {brand} är en webbutik för hudvård. Kassa och orderhantering sker via
-          Shopify. Ordrar kan fullföljas av våra logistikpartners å våra vägnar.
+          {brand} är en webbutik för belysning och lampor. Kassa och
+          orderhantering sker via Shopify. Ordrar kan fullföljas av våra
+          logistikpartners å våra vägnar.
         </p>
       </LegalSection>
 

@@ -58,7 +58,7 @@ export function CartView({ cart }: CartViewProps) {
             >
               <Link
                 href={`/products/${line.merchandise.product.handle}`}
-                className="relative h-[90px] w-[72px] shrink-0 self-start overflow-hidden bg-[linear-gradient(160deg,#d5e0e4_0%,#e8eef1_48%,#ddd4d0_100%)] sm:h-[110px] sm:w-[88px]"
+                className="relative h-[90px] w-[72px] shrink-0 self-start overflow-hidden bg-[linear-gradient(160deg,#d4dde4_0%,#e8edf1_48%,#e4dfd4_100%)] sm:h-[110px] sm:w-[88px]"
               >
                 {image ? (
                   <Image

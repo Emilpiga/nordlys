@@ -94,8 +94,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </div>
 
         <div className="animate-rise lg:sticky lg:top-28 lg:self-start lg:py-4">
-          <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-blush">
-            {shopifyConfig.storeName} · Hudvård
+          <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
+            {shopifyConfig.storeName} · Belysning
           </p>
           <h1 className="mt-4 font-display text-[2.75rem] font-medium leading-[1.05] tracking-tight sm:text-6xl">
             {product.title}
@@ -111,7 +111,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </p>
           ) : (
             <p className="mt-5 max-w-md text-base font-light leading-relaxed text-muted">
-              En stillsam basprodukt för vardagshuden — mjuk textur, lugn finish.
+              En stillsam lampa för vardagsrummet — varmt sken, ren form.
             </p>
           )}
 
@@ -138,7 +138,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 Skötsel
               </dt>
               <dd className="mt-1.5 font-light text-foreground">
-                Lapptestest före första användning · Endast för utvärtes bruk
+                Torka av med torr eller lätt fuktig trasa · Endast för inomhusbruk
               </dd>
             </div>
             <div>
@@ -150,7 +150,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   href="/contact"
                   className="underline-offset-4 transition hover:text-accent hover:underline"
                 >
-                  Vi finns här om du behöver hjälp att välja ritual
+                  Vi finns här om du behöver hjälp att välja lampa
                 </Link>
               </dd>
             </div>

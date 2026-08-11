@@ -34,7 +34,7 @@ export default function TermsPage() {
 
       <LegalSection title="Butiken">
         <p>
-          {brand} säljer hudvård och relaterade produkter online.
+          {brand} säljer lampor, belysning och relaterade produkter online.
           Produktsidor, priser och tillgänglighet visas via vår
           Shopify-drivna katalog och kan ändras utan föregående meddelande. Vi
           gör vårt bästa för att hålla beskrivningar korrekta; små skillnader i
@@ -76,10 +76,11 @@ export default function TermsPage() {
 
       <LegalSection title="Produktskötsel">
         <p>
-          Hudvård påverkar alla olika. Följ anvisningarna på förpackningen,
-          gör lapptestest när du börjar med något nytt och avbryt användningen om
-          irritation uppstår. {brand} ersätter inte medicinsk rådgivning.
-          Kontakta en vårdgivare om du har frågor.
+          Följ anvisningarna på förpackningen och produktsidan. Använd lampor
+          endast inomhus om inte annat anges, byt glödlampor enligt angiven
+          typ och effekt, och koppla ur före rengöring. Torka av med torr eller
+          lätt fuktig trasa. {brand} ersätter inte professionell elrådgivning —
+          kontakta en behörig elektriker vid osäkerhet kring installation.
         </p>
       </LegalSection>
 
