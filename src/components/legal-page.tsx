@@ -16,7 +16,7 @@ export function LegalPage({
   return (
     <div className="mx-auto w-full max-w-3xl px-5 pb-20 pt-28 sm:px-8 sm:pb-28 sm:pt-32">
       <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
-        Uppdaterad {updated}
+        {updated}
       </p>
       <h1 className="mt-4 font-display text-5xl font-medium tracking-tight sm:text-6xl">
         {title}

@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useId, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { addToCartAction } from "@/app/actions/cart";
+import { useCart } from "@/components/cart-provider";
+import { useDictionary } from "@/components/dictionary-provider";
+import { LocaleLink } from "@/components/locale-link";
 import { formatMoney } from "@/lib/format";
 import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
 import type { Product } from "@/lib/shopify/types";
@@ -27,7 +29,9 @@ export function ProductQuickView({
   open,
   onClose,
 }: ProductQuickViewProps) {
+  const { locale, dict } = useDictionary();
   const router = useRouter();
+  const { openCart, setCart } = useCart();
   const titleId = useId();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -83,7 +87,7 @@ export function ProductQuickView({
       try {
         const result = await addToCartAction(selectedVariant.id, quantity);
         if (!result?.ok) {
-          setError("Kunde inte lägga till i kassen.");
+          setError(dict.products.addError);
           return;
         }
         trackAddToCart({
@@ -94,11 +98,13 @@ export function ProductQuickView({
           currency: selectedVariant.price.currencyCode,
           numItems: quantity,
         });
+        setCart(result.cart);
         onClose();
+        openCart();
         router.refresh();
       } catch (err) {
         setError(
-          err instanceof Error ? err.message : "Kunde inte lägga till i kassen.",
+          err instanceof Error ? err.message : dict.products.addError,
         );
       }
     });
@@ -110,7 +116,7 @@ export function ProductQuickView({
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-6">
       <button
         type="button"
-        aria-label="Stäng snabbvy"
+        aria-label={dict.products.closeQuickView}
         className="absolute inset-0 bg-[rgba(20,28,34,0.38)] backdrop-blur-[2px]"
         onClick={onClose}
       />
@@ -123,14 +129,14 @@ export function ProductQuickView({
       >
         <div className="flex items-center justify-between border-b border-border/60 px-5 py-4 sm:px-6">
           <p className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-glow">
-            Snabbvy
+            {dict.products.quickView}
           </p>
           <button
             type="button"
             onClick={onClose}
             className="text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground"
           >
-            Stäng
+            {dict.products.close}
           </button>
         </div>
 
@@ -157,8 +163,8 @@ export function ProductQuickView({
             </h2>
             <p className="mt-3 font-display text-2xl font-medium tracking-tight">
               {selectedVariant
-                ? formatMoney(selectedVariant.price)
-                : formatMoney(product.priceRange.minVariantPrice)}
+                ? formatMoney(selectedVariant.price, locale)
+                : formatMoney(product.priceRange.minVariantPrice, locale)}
             </p>
 
             {showOptions
@@ -227,12 +233,12 @@ export function ProductQuickView({
 
             <div className="mt-7 space-y-3">
               <p className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-muted">
-                Antal
+                {dict.products.quantity}
               </p>
               <div className="inline-flex items-center border border-border/80">
                 <button
                   type="button"
-                  aria-label="Minska antal"
+                  aria-label={dict.products.decreaseQty}
                   disabled={quantity <= 1}
                   onClick={() => setQuantity((value) => Math.max(1, value - 1))}
                   className="px-4 py-2.5 text-sm disabled:opacity-40"
@@ -244,7 +250,7 @@ export function ProductQuickView({
                 </span>
                 <button
                   type="button"
-                  aria-label="Öka antal"
+                  aria-label={dict.products.increaseQty}
                   onClick={() => setQuantity((value) => value + 1)}
                   className="px-4 py-2.5 text-sm"
                 >
@@ -261,18 +267,18 @@ export function ProductQuickView({
                 className="btn-primary btn-primary-block disabled:cursor-not-allowed disabled:opacity-45"
               >
                 {!selectedVariant?.availableForSale
-                  ? "Slutsåld"
+                  ? dict.products.soldOut
                   : isPending
-                    ? "Lägger till…"
-                    : "Lägg i kassen"}
+                    ? dict.products.adding
+                    : dict.products.addToCart}
               </button>
-              <Link
+              <LocaleLink
                 href={`/products/${product.handle}`}
                 onClick={onClose}
                 className="block text-center text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground"
               >
-                Visa fullständig info
-              </Link>
+                {dict.products.viewFullDetails}
+              </LocaleLink>
             </div>
 
             {error ? <p className="mt-4 text-sm text-red-700">{error}</p> : null}

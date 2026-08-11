@@ -1,6 +1,9 @@
+"use client";
+
+import { useDictionary } from "@/components/dictionary-provider";
+import { LocaleLink } from "@/components/locale-link";
 import type { ProductCategory } from "@/lib/shopify/types";
 import { categoryParamFromId } from "@/lib/shopify/taxonomy";
-import Link from "next/link";
 
 type CategoryChipsProps = {
   categories: ProductCategory[];
@@ -18,29 +21,31 @@ export function CategoryChips({
   activeId,
   allCount,
 }: CategoryChipsProps) {
+  const { dict } = useDictionary();
+
   if (categories.length === 0) return null;
 
   const activeParam = activeId ? categoryParamFromId(activeId) : null;
 
   return (
-    <nav aria-label="Kategorier" className="flex flex-wrap gap-2">
-      <Link
+    <nav aria-label={dict.nav.categories} className="flex flex-wrap gap-2">
+      <LocaleLink
         href="/products"
         className={`border px-3.5 py-2 text-[0.68rem] font-medium tracking-[0.14em] uppercase transition ${
           !activeParam ? activeClass : idleClass
         }`}
         style={!activeParam ? { color: "var(--on-accent)" } : undefined}
       >
-        Alla
+        {dict.nav.viewAll}
         {typeof allCount === "number" ? (
           <span className="ml-1.5 tabular-nums opacity-70">{allCount}</span>
         ) : null}
-      </Link>
+      </LocaleLink>
       {categories.map((category) => {
         const param = categoryParamFromId(category.id);
         const active = param === activeParam;
         return (
-          <Link
+          <LocaleLink
             key={category.id}
             href={`/categories/${encodeURIComponent(param)}`}
             className={`border px-3.5 py-2 text-[0.68rem] font-medium tracking-[0.14em] uppercase transition ${
@@ -52,7 +57,7 @@ export function CategoryChips({
             <span className="ml-1.5 tabular-nums opacity-70">
               {category.productCount}
             </span>
-          </Link>
+          </LocaleLink>
         );
       })}
     </nav>

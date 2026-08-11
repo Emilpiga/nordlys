@@ -1,0 +1,415 @@
+{
+  "meta": {
+    "siteTitle": "{brand} · Pohjoismainen valaistus",
+    "siteDescription": "{brand} — Pohjoismaista valaistusta rauhallisiin tiloihin. Lamppuja lämpimällä valolla ja hiljaisella muotoilulla."
+  },
+  "nav": {
+    "shop": "Kauppa",
+    "categories": "Kategoriat",
+    "exploreCatalog": "Tutustu valikoimaan",
+    "viewAll": "Näytä kaikki",
+    "openCart": "Avaa ostoskori",
+    "openCartWithCount": "Avaa ostoskori, {count} tuotetta",
+    "language": "Kieli"
+  },
+  "footer": {
+    "tagline": "Lämmintä valoa pohjoismaisiin tiloihin.",
+    "blurb": "Lamppuja ja valaistusta hiljaisella muotoilulla — tunnelmaa, muotoa ja rauhallista iltavaloa.",
+    "shopHeading": "Kauppa",
+    "collection": "Kokoelma",
+    "cart": "Ostoskori",
+    "helpHeading": "Tuki",
+    "about": "Tietoa meistä",
+    "faq": "Usein kysytyt",
+    "shippingReturns": "Toimitus & palautukset",
+    "contact": "Yhteystiedot",
+    "legalHeading": "Juridinen",
+    "privacy": "Tietosuoja",
+    "terms": "Ehdot",
+    "shippingBadge": "Toimitus {eta} · Seuranta jokaisessa tilauksessa"
+  },
+  "home": {
+    "heroAlt": "{brand} — Pohjoismainen valaistus",
+    "heroHeadline": "Valaistusta pohjoismaisiin iltoihin ja rauhallisiin tiloihin.",
+    "heroSub": "Lämmin valo. Puhdas muoto. Lamppuja, jotka luovat tunnelman.",
+    "heroCta": "Tutustu kokoelmaan",
+    "featuredEyebrow": "Valitut",
+    "featuredTitle": "Aloita tästä",
+    "featuredSub": "Lyhyt lista alkuun — loput odottavat kaupassa.",
+    "featuredAll": "Koko valikoimaan →",
+    "atmosphereEyebrow": "Tunnelma",
+    "atmosphereTitle": "Tehty pitkiin talviin",
+    "atmosphereBody": "Pohjoismaiset illat tarvitsevat lämmintä valoa ja muotoja, jotka kestävät tilassa. {brand} pitää valaistuksen yksinkertaisena.",
+    "atmosphereAlt": "Lämmintä valaistusta pohjoismaisessa talvivalossa",
+    "categoryEyebrow": "Löydä oikea",
+    "categoryTitle": "Valoa huoneittain",
+    "categorySub": "Aloita siitä, mihin haluat tunnelmaa — jatka sitten rauhassa.",
+    "productOne": "tuote",
+    "productMany": "tuotetta"
+  },
+  "products": {
+    "backToShop": "← Takaisin kauppaan",
+    "lightingFallbackCategory": "Valaistus",
+    "fallbackDescription": "Rauhallinen lamppu olohuoneeseen — lämmin valo, puhdas muoto.",
+    "shippingLabel": "Toimitus",
+    "shippingValue": "Tyypillisesti {eta} FI/EU-alueelle · Seuranta jokaisessa tilauksessa",
+    "careLabel": "Hoito",
+    "careValue": "Pyyhi kuivalla tai hieman kostealla liinalla · Vain sisäkäyttöön",
+    "questionsLabel": "Kysymykset",
+    "faqLink": "Usein kysytyt",
+    "contactLink": "Yhteystiedot",
+    "relatedTitle": "Lisää kokoelmasta",
+    "relatedAll": "Näytä kaikki",
+    "soldOut": "Loppuunmyyty",
+    "buyNow": "Osta nyt",
+    "openingCheckout": "Avataan kassaa…",
+    "addToCart": "Lisää ostoskoriin",
+    "adding": "Lisätään…",
+    "quantity": "Määrä",
+    "decreaseQty": "Vähennä määrää",
+    "increaseQty": "Lisää määrää",
+    "addError": "Tuotetta ei voitu lisätä ostoskoriin.",
+    "checkoutError": "Kassalle siirtyminen ei onnistunut.",
+    "secureEta": "{secure} · Toimitus {eta}",
+    "noImage": "Ei kuvaa",
+    "quickView": "Pikakatselu",
+    "chooseOptions": "Valitse vaihtoehdot",
+    "tryAgain": "Yritä uudelleen",
+    "closeQuickView": "Sulje pikakatselu",
+    "close": "Sulje",
+    "viewFullDetails": "Näytä täydet tiedot",
+    "shopTitle": "Kauppa",
+    "shopDescription": "Lamppuja ja valaistusta pohjoismaisella rauhallisuudella — lämmin valo, puhdas muoto."
+  },
+  "trust": {
+    "shippingTitle": "Toimitus",
+    "shippingBody": "Tyypillisesti {eta} Suomeen ja EU-alueelle, kun maksu on hyväksytty.",
+    "shippingMore": "Lisää toimituksesta",
+    "trackingTitle": "Seuranta",
+    "trackingBody": "Saat seurantatiedot heti, kun kuljetusliike on skannannut paketin.",
+    "safetyTitle": "Turvallisuus",
+    "safetyBody": "14 päivän peruutusoikeus · viat korvataan.",
+    "faqLink": "Usein kysytyt"
+  },
+  "fulfillment": {
+    "etaShort": "7–18 arkipäivää",
+    "etaDetail": "Useimmat tilaukset lähtevät varastolta 1–3 arkipäivän kuluessa maksusta. Sen jälkeen toimitus kestää yleensä 7–18 arkipäivää osoitteisiin Suomessa ja EU:ssa. Kansainvälisesti EU:n ulkopuolella se voi kestää kauemmin.",
+    "tracking": "Saat seurantatiedot heti, kun kuljetusliike on skannannut paketin.",
+    "returns": "14 päivän peruutusoikeus käyttämättömille tuotteille alkuperäispakkauksessa. Vaurioituneet tai virheelliset tuotteet korvaamme.",
+    "guaranteeShort": "14 päivän peruutusoikeus · viat korvataan",
+    "secureCheckout": "Turvallinen kassa Shopifyn kautta"
+  },
+  "cart": {
+    "title": "Ostoskorisi",
+    "eyebrow": "{brand}",
+    "itemOne": "1 tuote",
+    "itemMany": "{count} tuotetta",
+    "emptyTitle": "Täällä ei ole vielä mitään",
+    "emptyBody": "Aloita lampulla tilaan — pöytä, lattia tai jotain pehmeää iltaan.",
+    "emptyCta": "Selaa kokoelmaa",
+    "startWith": "Aloita näillä",
+    "continueShopping": "← Jatka ostoksia",
+    "summary": "Tilausyhteenveto",
+    "subtotal": "Välisumma",
+    "shipping": "Toimitus",
+    "shippingCheckout": "Lasketaan kassalla",
+    "total": "Yhteensä",
+    "checkout": "Kassalle",
+    "trustLine": "Turvallinen maksu · Toimitus {eta} · Seuranta",
+    "savedNote": "Tarvitsetko hetken? Ostoskorisi tallentuu tälle laitteelle, kun jatkat ostoksia.",
+    "drawerEyebrow": "Ostoskori",
+    "closeCart": "Sulje ostoskori",
+    "close": "Sulje",
+    "emptyDrawerBody": "Lisää lamppu ja jatka ostoksia — ostoskori kulkee mukanasi.",
+    "toShop": "Kauppaan",
+    "each": "{price} kpl",
+    "remove": "Poista",
+    "viewFullCart": "Näytä koko ostoskori",
+    "drawerTrust": "Toimitus {eta} · Seuranta"
+  },
+  "about": {
+    "metaTitle": "Tietoa meistä",
+    "metaDescription": "Tarina {brand}-brändin takana — valaistusta pohjoismaisiin tiloihin.",
+    "eyebrow": "Tietoa: {brand}",
+    "title": "Lämmintä valoa pohjoismaisiin tiloihin",
+    "intro": "{brand} on valaistuskauppa rauhalliseen arkeen — lamppuja, joissa on puhdas muoto, pehmeä valo ja materiaaleja, jotka kestävät tilassa ajan myötä.",
+    "imageAlt": "Lämmintä valaistusta pohjoismaisessa talvivalossa",
+    "whyEyebrow": "Miksi olemme olemassa",
+    "whyTitle": "Valo, joka tekee illasta pidemmän",
+    "whyBody1": "Pohjoismaiset talvet ovat pitkiä. Kuratoimme valaistusta, joka tuo lämpöä ilman hälyä — lamppuja, joiden kanssa voi elää, ei vain katsella feedissä.",
+    "whyBody2": "Jokainen tuote valikoimassa valitaan tunnelman, mittasuhteiden ja sen mukaan, miltä se tuntuu oikeassa kodissa. Ostoksilla olet meillä; tilaus pakataan ja lähetetään fulfillment-kumppaneidemme kautta seurannalla.",
+    "howEyebrow": "Näin se toimii",
+    "howTitle": "Yksinkertainen kauppa, selkeä toimitus",
+    "howBody": "Kassa toimii turvallisesti Shopifyn kautta. Kun olet maksanut, tilauksesi pakataan ja lähetetään seurannalla. Toimitusajat vaihtelevat kohteen mukaan — olemme avoimia siitä ja autamme, jos jotain menee pieleen.",
+    "exploreCta": "Tutustu valikoimaan →",
+    "faqLink": "Usein kysytyt",
+    "contactLink": "Ota yhteyttä"
+  },
+  "faq": {
+    "metaTitle": "Usein kysytyt",
+    "metaDescription": "Vastauksia toimituksesta, palautuksista, seurannasta ja {brand}-tuotteista.",
+    "eyebrow": "Tuki",
+    "title": "Usein kysytyt kysymykset",
+    "intro": "Lyhyesti toimituksesta, palautuksista ja siitä, miten {brand} toimii — ennen tai jälkeen ostosten.",
+    "notFound": "Etkö löytänyt vastausta?",
+    "contactUs": "Ota yhteyttä",
+    "shippingReturns": "Toimitus & palautukset",
+    "items": [
+      {
+        "question": "Kuinka kauan toimitus kestää?",
+        "answer": "Useimmat tilaukset lähtevät varastolta 1–3 arkipäivän kuluessa maksusta. Sen jälkeen toimitus kestää yleensä 7–18 arkipäivää osoitteisiin Suomessa ja EU:ssa. Kansainvälisesti EU:n ulkopuolella se voi kestää kauemmin."
+      },
+      {
+        "question": "Saanako seurantatiedot?",
+        "answer": "Saat seurantatiedot heti, kun kuljetusliike on skannannut paketin. Jos seurantaa ei näy useaan arkipäivään tilausvahvistuksen jälkeen, ota yhteyttä tilausnumerollasi."
+      },
+      {
+        "question": "Mitä toimitus maksaa?",
+        "answer": "Toimituskulut ja vaihtoehdot lasketaan kassalla osoitteesi ja ostoskorin tuotteiden perusteella."
+      },
+      {
+        "question": "Voinko peruuttaa ostokseni?",
+        "answer": "14 päivän peruutusoikeus käyttämättömille tuotteille alkuperäispakkauksessa. Vaurioituneet tai virheelliset tuotteet korvaamme."
+      },
+      {
+        "question": "Mitä teen, jos lamppu on vaurioitunut tai väärä?",
+        "answer": "Lähetä meille sähköpostia 14 päivän kuluessa toimituksesta tilausnumerolla ja kuvilla. {brand} järjestää korvauksen tai hyvityksen, kun olemme vahvistaneet ongelman."
+      },
+      {
+        "question": "Missä tilaukset pakataan ja lähetetään?",
+        "answer": "Tilaukset pakataan fulfillment-kumppaneidemme toimesta ja lähetetään seurattavilla kuljetuksilla. Ostoksilla olet {brand}-kaupassa; toimitus hoidetaan logistiikkaverkostomme kautta."
+      },
+      {
+        "question": "Mitkä lamput sopivat sisäkäyttöön?",
+        "answer": "Valikoimamme on tarkoitettu sisäkäyttöön, ellei tuotesivulla toisin mainita. Pyyhi kuivalla tai hieman kostealla liinalla."
+      },
+      {
+        "question": "Miten otan teihin yhteyttä?",
+        "answer": "Kirjoita osoitteeseen {email} tai käytä yhteystietosivua. Pyrimme vastaamaan 1–2 arkipäivän kuluessa. Mainitse tilausnumero, jos kysymys koskee tilausta."
+      }
+    ]
+  },
+  "contact": {
+    "metaTitle": "Yhteystiedot",
+    "metaDescription": "Ota yhteyttä {brand}-tiimiin tilauksista, toimituksesta tai tuotteista.",
+    "title": "Yhteystiedot",
+    "description": "Kysymyksiä tilauksesta, lampusta tai toimituksesta — olemme täällä.",
+    "updated": "elokuu 2026",
+    "emailTitle": "Sähköposti",
+    "emailBody": "Kirjoita osoitteeseen {email}. Pyrimme vastaamaan 1–2 arkipäivän kuluessa.",
+    "emailCta": "Lähetä sähköpostia tukeen",
+    "emailSubject": "{brand} tuki",
+    "emailFallback": "Vastaa Shopify-tilausvahvistukseesi tai käytä lähetysilmoituksen yhteystietoja. Julkinen tukiosoite näytetään, kun asetat NEXT_PUBLIC_SUPPORT_EMAIL-ympäristömuuttujan.",
+    "beforeTitle": "Ennen kuin kirjoitat",
+    "beforeIntro": "Jos sisällytät seuraavat, vastaamme nopeammin:",
+    "beforeItems": [
+      "Tilausnumero (vahvistussähköpostista)",
+      "Tuote tai ongelma, jossa tarvitset apua",
+      "Kuvat, jos jotain saapui vaurioituneena tai vääränä"
+    ],
+    "linksTitle": "Pikalinkit",
+    "linkReturns": "Toimitus & palautukset",
+    "linkPrivacy": "Tietosuoja",
+    "linkTerms": "Ehdot",
+    "linkShop": "Tutustu kokoelmaan"
+  },
+  "returns": {
+    "metaTitle": "Toimitus & palautukset",
+    "metaDescription": "Miten {brand} lähettää tilaukset ja käsittelee palautukset.",
+    "title": "Toimitus & palautukset",
+    "description": "Mitä voit odottaa toimituksessa ja miten saat apua, jos jokin ei ole kohdallaan.",
+    "updated": "elokuu 2026",
+    "shipping": {
+      "title": "Toimitus",
+      "paragraphs": [
+        "Lähetämme maailmanlaajuisesti sinne, missä kuljetusliikkeemme ja maksupalveluntarjoajamme sen sallivat. Toimituskulut ja vaihtoehdot lasketaan kassalla osoitteesi ja ostoskorin tuotteiden perusteella.",
+        "Useimmat tilaukset lähtevät varastolta 1–3 arkipäivän kuluessa maksusta. Sen jälkeen toimitus kestää yleensä 7–18 arkipäivää osoitteisiin Suomessa ja EU:ssa. Kansainvälisesti EU:n ulkopuolella se voi kestää kauemmin.",
+        "Saat seurantatiedot heti, kun kuljetusliike on skannannut paketin. Jos seurantaa ei näy useaan arkipäivään tilausvahvistuksen jälkeen, ota yhteyttä tilausnumerollasi."
+      ]
+    },
+    "customs": {
+      "title": "Tulli & maksut",
+      "paragraphs": [
+        "Kansainvälisiin tilauksiin voi kohdistua tuontitulleja, veroja tai selvitysmaksuja maastasi. Nämä maksut ovat vastuullasi, ellei kassalla toisin ilmoiteta."
+      ]
+    },
+    "returns": {
+      "title": "Palautukset",
+      "paragraphs": [
+        "14 päivän peruutusoikeus käyttämättömille tuotteille alkuperäispakkauksessa. Vaurioituneet tai virheelliset tuotteet korvaamme.",
+        "Jos tuote saapuu vaurioituneena, virheellisenä tai viallisena, lähetä meille sähköpostia 14 päivän kuluessa toimituksesta tilausnumerolla ja kuvilla. Järjestämme korvauksen tai hyvityksen, kun olemme vahvistaneet ongelman.",
+        "Peruutusoikeuden yhteydessä käyttämättömät tuotteet alkuperäispakkauksessa ja myyntikelpoisessa kunnossa voivat olla palautuskelpoisia 14 päivän kuluessa toimituksesta paikallisen kuluttajalainsäädännön mukaisesti. Koska {brand} myy valaistusta ja sähkölaitteita, avattuja, asennettuja tai käytettyjä tuotteita ei yleensä voida palauttaa varastoon, jos ne eivät ole olennaisesti muuttumattomassa kunnossa — ellei tuote ole virheellinen.",
+        "Hyväksytyt palautukset tulee lähettää seurattavalla tavalla. Alkuperäistä lähtötoimitusta ei yleensä hyvitetä, ellemme ole tehneet virhettä."
+      ]
+    },
+    "refunds": {
+      "title": "Hyvitykset",
+      "paragraphs": [
+        "Hyvitykset tehdään alkuperäiselle maksutavalle sen jälkeen, kun olemme vastaanottaneet ja tarkastaneet hyväksytyn palautuksen, tai aiemmin, jos sovimme hyvityksestä ilman palautusta. Käsittely voi kestää useita arkipäiviä pankistasi tai korttiyhtiöstäsi riippuen."
+      ]
+    },
+    "lost": {
+      "title": "Kadonneet tai myöhästyneet paketit",
+      "paragraphs": [
+        "Jos seuranta pysähtyy pidemmäksi aikaa, ota yhteyttä, niin selvitämme asian kuljetusliikkeen kanssa. Lopputulos riippuu selvityksestä — korvaus, hyvitys tai jatkuva toimitus — ja pidämme sinut ajan tasalla."
+      ]
+    },
+    "help": {
+      "title": "Tarvitsetko apua?",
+      "paragraphs": [
+        "Saat yhteyden {brand}-tukeen osoitteessa {email}. Ilmoita tilausnumerosi, jotta voimme auttaa nopeasti.",
+        "Saat yhteyden {brand}-tukeen yhteystietosivumme kautta. Ilmoita tilausnumerosi, jotta voimme auttaa nopeasti."
+      ]
+    }
+  },
+  "privacy": {
+    "metaTitle": "Tietosuoja",
+    "metaDescription": "Miten {brand} kerää, käyttää ja suojaa tietojasi.",
+    "title": "Tietosuoja",
+    "description": "Miten {brand} käsittelee tietojasi, kun selaat, ostat ja vastaanotat tilauksia.",
+    "updated": "elokuu 2026",
+    "whoWeAre": {
+      "title": "Keitä olemme",
+      "paragraphs": [
+        "{brand} on verkkokauppa valaistukselle ja lampuilla. Kassa ja tilausten käsittely tapahtuvat Shopifyn kautta. Tilaukset voivat täyttyä logistiikkakumppaneidemme toimesta puolestamme."
+      ]
+    },
+    "whatWeCollect": {
+      "title": "Mitä keräämme",
+      "intro": "Riippuen siitä, miten käytät sivustoa, voimme käsitellä:",
+      "items": [
+        "Yhteys- ja toimitustiedot, jotka annat kassalla (nimi, sähköposti, osoite, puhelin)",
+        "Tilaushistoria, maksun tila ja toimituspäivitykset",
+        "Tekniset tiedot, kuten laitetyyppi, selain ja likimääräinen sijainti, joita tarvitaan kaupan ylläpitoon",
+        "Ostoskoritiedot, jotka tallennetaan evästeeseen laitteellesi, jotta ostoskori säilyy selaamisen aikana"
+      ],
+      "paragraphs": [
+        "Korttimaksut käsittelee Shopify ja sen maksupalveluntarjoajat. Emme tallenna täydellisiä korttinumeroita palvelimillemme."
+      ]
+    },
+    "whyWeUse": {
+      "title": "Miksi käytämme niitä",
+      "items": [
+        "Tilaustesi täyttämiseen ja toimittamiseen",
+        "Tilaus-, toimitus- ja tukiviestien lähettämiseen",
+        "Petosten ehkäisyyn ja kaupan turvallisuuden ylläpitoon",
+        "Sivuston parantamiseen ja yleisten ostomallien ymmärtämiseen",
+        "Oikeudellisten, verotuksellisten ja kirjanpitovaatimusten täyttämiseen siltä osin kuin ne koskevat"
+      ]
+    },
+    "partners": {
+      "title": "Kumppanit, jotka auttavat meitä",
+      "paragraphs": [
+        "Jaamme vain tarvittavan tiedon palveluille, jotka auttavat kaupan pyörittämisessä — esimerkiksi Shopify (kassa, maksut, tilausten käsittely) ja fulfillment-kumppanit, jotka pakkaavat ja lähettävät tilauksesi. He käsittelevät tietoja omien käytäntöjensä ja ohjeidemme mukaisesti."
+      ]
+    },
+    "cookies": {
+      "title": "Evästeet",
+      "paragraphs": [
+        "Käytämme välttämättömiä evästeitä, jotta ostoskorisi ja istuntosi toimivat. Shopify voi asettaa evästeitä, joita tarvitaan turvalliseen kassaan. Jos estät välttämättömät evästeet, ostoskori tai kassa ei ehkä toimi oikein.",
+        "ETA-alueen, Yhdistyneen kuningaskunnan ja Sveitsin kävijöiltä keräämme suostumuksen mainosevästeisiin Googlen sertifioidun suostumusalustan (CMP) kautta, joka näytetään sivustolla. Siellä voit hyväksyä, hylätä tai hallita vaihtoehtoja Google AdSenseen ja siihen liittyvään mainosmittaukseen. Meta- (Facebook) ja Google Ads -tunnisteet noudattavat samoja suostumusvalintoja Google Consent Moden kautta. Voit muuttaa valintaasi myöhemmin Googlen suostumustyökalulla sivulla, kun se näytetään."
+      ]
+    },
+    "retention": {
+      "title": "Kuinka kauan säilytämme tietoja",
+      "paragraphs": [
+        "Tilaus- ja asiakastiedot säilytetään niin kauan kuin on tarpeen ostosten täyttämiseen, palautusten tai riitojen käsittelyyn sekä lakisääteisten säilytysvaatimusten täyttämiseen. Ostoskorievästeet päättyvät, kun ne poistetaan tai vanhentuvat selaimessasi."
+      ]
+    },
+    "yourChoices": {
+      "title": "Valintasi",
+      "paragraphs": [
+        "Asuinpaikastasi riippuen sinulla voi olla oikeus saada pääsy tiettyihin henkilötietoihin, oikaista, poistaa tai rajoittaa niitä tai vastustaa tiettyä käsittelyä. Voit myös kysyä meiltä, missä tietojasi on jaettu tilauksen täyttämistä varten.",
+        "Tietosuojapyyntöä varten lähetä sähköpostia osoitteeseen {email}. Saatamme joutua varmistamaan henkilöllisyytesi ennen vastaamista.",
+        "Tietosuojapyyntöä varten ota yhteyttä yhteystietosivumme kautta. Saatamme joutua varmistamaan henkilöllisyytesi ennen vastaamista."
+      ]
+    },
+    "children": {
+      "title": "Lapset",
+      "paragraphs": [
+        "{brand} ei ole suunnattu alle 16-vuotiaille lapsille. Emme tietoisesti kerää henkilötietoja lapsilta."
+      ]
+    },
+    "updates": {
+      "title": "Päivitykset",
+      "paragraphs": [
+        "Voimme päivittää tätä käytäntöä, kun kauppa tai kumppanimme muuttuvat. Sivun yläosassa oleva päivämäärä muuttuu, kun teemme sen."
+      ]
+    }
+  },
+  "terms": {
+    "metaTitle": "Ehdot",
+    "metaDescription": "Käyttö- ja ostoehdot kaupankäyntiin {brand}-kaupassa.",
+    "title": "Ehdot",
+    "description": "Perusteet sivuston selailuun ja ostamiseen {brand}-kaupassa.",
+    "updated": "elokuu 2026",
+    "agreement": {
+      "title": "Sopimus",
+      "paragraphs": [
+        "Käyttämällä tätä sivustoa tai tekemällä tilauksen hyväksyt nämä ehdot ja tietosuojakäytäntömme. Jos et hyväksy, älä käytä kauppaa."
+      ],
+      "privacyLink": "Tietosuojakäytäntö"
+    },
+    "store": {
+      "title": "Kauppa",
+      "paragraphs": [
+        "{brand} myy lamppuja, valaistusta ja niihin liittyviä tuotteita verkossa. Tuotesivut, hinnat ja saatavuus näytetään Shopify-pohjaisen katalogimme kautta ja voivat muuttua ilman ennakkoilmoitusta. Pyrimme pitämään kuvaukset paikkansapitävinä; pieniä eroja pakkauksessa tai kuvissa voi esiintyä."
+      ]
+    },
+    "orders": {
+      "title": "Tilaukset & maksu",
+      "paragraphs": [
+        "Tilauksen tekeminen on tarjous ostaa. Me (tai Shopify puolestamme) vahvistamme hyväksynnän sähköpostitse, kun maksu onnistuu. Hinnat näytetään ennen kassaa; verot ja toimitus lasketaan kassalla tarvittaessa.",
+        "Maksun käsittelee turvallisesti Shopify ja sen maksupalveluntarjoajat. Pidätämme oikeuden hylätä tai peruuttaa tilauksen epäillyn petoksen, hintavirheen, varasto-ongelman tai toimitusrajoitusten vuoksi."
+      ]
+    },
+    "fulfillment": {
+      "title": "Täyttäminen",
+      "paragraphs": [
+        "Tilaukset täytetään logistiikkakumppaneidemme kautta. Käsittely- ja toimitusajat vaihtelevat kohteen ja tuotteen mukaan. Seuranta toimitetaan, kun se on saatavilla. Menetyksen riski siirtyy sinulle, kun kuljetusliike merkitsee paketin toimitetuksi, ellei paikallinen kuluttajalaki toisin määrää."
+      ]
+    },
+    "personalUse": {
+      "title": "Henkilökohtainen käyttö",
+      "paragraphs": [
+        "Tuotteet myydään henkilökohtaiseen käyttöön. Älä väärinkäytä tämän sivuston sisältöä, yritä häiritä kauppaa tai raaputtaa katalogia kaupalliseen uudelleenkäyttöön ilman lupaa."
+      ]
+    },
+    "care": {
+      "title": "Tuotteen hoito",
+      "paragraphs": [
+        "Noudata pakkauksen ja tuotesivun ohjeita. Käytä lamppuja vain sisätiloissa, ellei toisin mainita, vaihda polttimot ilmoitetun tyypin ja tehon mukaan, ja irrota pistoke ennen puhdistusta. Pyyhi kuivalla tai hieman kostealla liinalla. {brand} ei korvaa ammattimaista sähköneuvontaa — ota yhteyttä pätevään sähköasentajaan, jos asennus askarruttaa."
+      ]
+    },
+    "returns": {
+      "title": "Palautukset",
+      "paragraphs": [
+        "Toimitus, palautukset ja hyvitykset on kuvattu sivullamme Toimitus & palautukset. Paikalliset kuluttajaoikeudet, joista ei voida sopia pois, ovat edelleen voimassa."
+      ],
+      "returnsLink": "Toimitus & palautukset"
+    },
+    "liability": {
+      "title": "Vastuu",
+      "paragraphs": [
+        "Lain sallimissa rajoissa {brand} ei ole vastuussa epäsuorista tai seurannaisvahingoista, jotka aiheutuvat sivuston tai tuotteiden käytöstä. Mikään näissä ehdoissa ei rajoita vastuuta kuolemasta tai henkilövahingosta, joka aiheutuu huolimattomuudesta, petoksesta tai muista oikeuksista, joita ei saa rajoittaa lain mukaan."
+      ]
+    },
+    "contact": {
+      "title": "Yhteystiedot",
+      "paragraphs": [
+        "Kysymyksiä näistä ehdoista: {email}.",
+        "Kysymyksiä näistä ehdoista: katso Yhteystiedot."
+      ],
+      "contactLink": "Yhteystiedot"
+    }
+  },
+  "common": {
+    "updated": "Päivitetty {date}",
+    "back": "Takaisin"
+  },
+  "notFound": {
+    "title": "Sivua ei löytynyt",
+    "body": "Tätä sivua tai tuotetta ei ole olemassa.",
+    "cta": "Kauppaan"
+  }
+}

@@ -1,9 +1,17 @@
 "use client";
 
 import { useEffect, useMemo, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { addToCartAction } from "@/app/actions/cart";
+import { useCart } from "@/components/cart-provider";
+import { useDictionary } from "@/components/dictionary-provider";
+import { ProductTrust } from "@/components/product-trust";
 import { formatMoney } from "@/lib/format";
-import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
+import {
+  metaContentIdFromGid,
+  trackAddToCart,
+  trackInitiateCheckout,
+} from "@/lib/meta-pixel";
 import type { Product, ProductVariant } from "@/lib/shopify/types";
 import {
   findVariant,
@@ -18,8 +26,14 @@ type ProductFormProps = {
   onVariantChange?: (variant: ProductVariant | null) => void;
 };
 
+type PendingMode = "add" | "buy" | null;
+
 export function ProductForm({ product, onVariantChange }: ProductFormProps) {
+  const { locale, dict, t } = useDictionary();
+  const router = useRouter();
+  const { openCart, setCart } = useCart();
   const [isPending, startTransition] = useTransition();
+  const [pendingMode, setPendingMode] = useState<PendingMode>(null);
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState<string | null>(null);
 
@@ -41,18 +55,59 @@ export function ProductForm({ product, onVariantChange }: ProductFormProps) {
     onVariantChange?.(selectedVariant);
   }, [selectedVariant, onVariantChange]);
 
+  function trackCartPixel(variant: ProductVariant, qty: number) {
+    trackAddToCart({
+      contentIds: [metaContentIdFromGid(variant.id)],
+      contentName: product.title,
+      contentType: "product",
+      value: Number(variant.price.amount) * qty,
+      currency: variant.price.currencyCode,
+      numItems: qty,
+    });
+  }
+
   function onAddToCart() {
     if (!selectedVariant) return;
     setError(null);
+    setPendingMode("add");
 
     startTransition(async () => {
       try {
         const result = await addToCartAction(selectedVariant.id, quantity);
         if (!result?.ok) {
-          setError("Kunde inte lägga till i kassen.");
+          setError(dict.products.addError);
+          setPendingMode(null);
           return;
         }
-        trackAddToCart({
+        trackCartPixel(selectedVariant, quantity);
+        setCart(result.cart);
+        openCart();
+        setPendingMode(null);
+        router.refresh();
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : dict.products.addError,
+        );
+        setPendingMode(null);
+      }
+    });
+  }
+
+  function onBuyNow() {
+    if (!selectedVariant) return;
+    setError(null);
+    setPendingMode("buy");
+
+    startTransition(async () => {
+      try {
+        const result = await addToCartAction(selectedVariant.id, quantity);
+        if (!result?.ok || !result.cart.checkoutUrl) {
+          setError(dict.products.checkoutError);
+          setPendingMode(null);
+          return;
+        }
+        trackCartPixel(selectedVariant, quantity);
+        trackInitiateCheckout({
           contentIds: [metaContentIdFromGid(selectedVariant.id)],
           contentName: product.title,
           contentType: "product",
@@ -60,11 +115,12 @@ export function ProductForm({ product, onVariantChange }: ProductFormProps) {
           currency: selectedVariant.price.currencyCode,
           numItems: quantity,
         });
-        window.location.assign("/cart");
+        window.location.assign(result.cart.checkoutUrl);
       } catch (err) {
         setError(
-          err instanceof Error ? err.message : "Kunde inte lägga till i kassen.",
+          err instanceof Error ? err.message : dict.products.checkoutError,
         );
+        setPendingMode(null);
       }
     });
   }
@@ -77,17 +133,20 @@ export function ProductForm({ product, onVariantChange }: ProductFormProps) {
     selectedVariant &&
     Number(compareAt.amount) > Number(selectedVariant.price.amount);
 
+  const soldOut = !selectedVariant?.availableForSale;
+  const busy = isPending || pendingMode !== null;
+
   return (
     <div className="space-y-8">
       <div className="flex items-baseline gap-3">
         <p className="font-display text-4xl font-medium tracking-tight">
           {selectedVariant
-            ? formatMoney(selectedVariant.price)
-            : formatMoney(product.priceRange.minVariantPrice)}
+            ? formatMoney(selectedVariant.price, locale)
+            : formatMoney(product.priceRange.minVariantPrice, locale)}
         </p>
         {showCompare && compareAt ? (
           <p className="text-base font-light text-muted line-through">
-            {formatMoney(compareAt)}
+            {formatMoney(compareAt, locale)}
           </p>
         ) : null}
       </div>
@@ -158,12 +217,12 @@ export function ProductForm({ product, onVariantChange }: ProductFormProps) {
 
       <div className="space-y-3">
         <p className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-muted">
-          Antal
+          {dict.products.quantity}
         </p>
         <div className="inline-flex items-center border border-border/80">
           <button
             type="button"
-            aria-label="Minska antal"
+            aria-label={dict.products.decreaseQty}
             disabled={quantity <= 1}
             onClick={() => setQuantity((value) => Math.max(1, value - 1))}
             className="px-4 py-2.5 text-sm disabled:opacity-40"
@@ -175,7 +234,7 @@ export function ProductForm({ product, onVariantChange }: ProductFormProps) {
           </span>
           <button
             type="button"
-            aria-label="Öka antal"
+            aria-label={dict.products.increaseQty}
             onClick={() => setQuantity((value) => value + 1)}
             className="px-4 py-2.5 text-sm"
           >
@@ -187,20 +246,35 @@ export function ProductForm({ product, onVariantChange }: ProductFormProps) {
       <div className="space-y-3">
         <button
           type="button"
-          disabled={!selectedVariant?.availableForSale || isPending}
-          onClick={onAddToCart}
-          className="btn-primary btn-primary-block w-full disabled:cursor-not-allowed disabled:opacity-45"
+          disabled={soldOut || busy}
+          onClick={onBuyNow}
+          className="btn-primary btn-primary-block disabled:cursor-not-allowed disabled:opacity-45"
         >
-          {!selectedVariant?.availableForSale
-            ? "Slutsåld"
-            : isPending
-              ? "Lägger till…"
-              : "Lägg i kassen"}
+          {soldOut
+            ? dict.products.soldOut
+            : pendingMode === "buy"
+              ? dict.products.openingCheckout
+              : dict.products.buyNow}
+        </button>
+        <button
+          type="button"
+          disabled={soldOut || busy}
+          onClick={onAddToCart}
+          className="btn-secondary btn-primary-block disabled:cursor-not-allowed disabled:opacity-45"
+        >
+          {pendingMode === "add"
+            ? dict.products.adding
+            : dict.products.addToCart}
         </button>
         <p className="text-center text-xs font-light leading-relaxed text-muted">
-          Säker kassa · Spårning på varje order
+          {t(dict.products.secureEta, {
+            secure: dict.fulfillment.secureCheckout,
+            eta: dict.fulfillment.etaShort,
+          })}
         </p>
       </div>
+
+      <ProductTrust />
 
       {error ? <p className="text-sm text-red-700">{error}</p> : null}
     </div>

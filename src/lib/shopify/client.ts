@@ -26,6 +26,11 @@ type StorefrontError = {
   message: string;
 };
 
+export type ShopifyContext = {
+  country: string;
+  language: string;
+};
+
 function assertValidStorefrontTokens() {
   const candidates = [
     shopifyConfig.publicStorefrontToken,
@@ -53,15 +58,25 @@ function getClient() {
   });
 }
 
+function resolveContext(context?: Partial<ShopifyContext>): ShopifyContext {
+  return {
+    country: context?.country || shopifyConfig.country,
+    language: context?.language || shopifyConfig.language,
+  };
+}
+
 export async function shopifyFetch<T>({
   query,
   variables,
+  context,
   cache = "force-cache",
   tags,
   revalidate = 60,
 }: {
   query: string;
   variables?: Record<string, unknown>;
+  /** Per-request Markets / Translate & Adapt context. Falls back to env defaults. */
+  context?: Partial<ShopifyContext>;
   cache?: RequestCache;
   tags?: string[];
   /** Seconds before cached Storefront responses are considered stale. Ignored when cache is no-store. */
@@ -69,12 +84,13 @@ export async function shopifyFetch<T>({
 }): Promise<T> {
   const client = getClient();
   const usePrivate = Boolean(shopifyConfig.privateStorefrontToken);
+  const { country, language } = resolveContext(context);
 
   // Translate & Adapt content is only returned when @inContext(language) is set.
   // Admin "default language" alone does not change headless Storefront API responses.
   const contextualVariables = {
-    country: shopifyConfig.country,
-    language: shopifyConfig.language,
+    country,
+    language,
     ...variables,
   };
 

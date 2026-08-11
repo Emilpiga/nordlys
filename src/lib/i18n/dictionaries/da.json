@@ -1,0 +1,415 @@
+{
+  "meta": {
+    "siteTitle": "{brand} · Nordisk belysning",
+    "siteDescription": "{brand} — Nordisk belysning til rolige rum. Lamper med varmt skær og stille design."
+  },
+  "nav": {
+    "shop": "Shop",
+    "categories": "Kategorier",
+    "exploreCatalog": "Udforsk sortimentet",
+    "viewAll": "Se alle",
+    "openCart": "Åbn kurv",
+    "openCartWithCount": "Åbn kurv, {count} varer",
+    "language": "Sprog"
+  },
+  "footer": {
+    "tagline": "Varmt skær til nordiske rum.",
+    "blurb": "Lamper og belysning med stille design — atmosfære, form og roligt aftenlys.",
+    "shopHeading": "Shop",
+    "collection": "Kollektion",
+    "cart": "Kurv",
+    "helpHeading": "Hjælp",
+    "about": "Om os",
+    "faq": "Ofte stillede spørgsmål",
+    "shippingReturns": "Fragt & returnering",
+    "contact": "Kontakt",
+    "legalHeading": "Juridisk",
+    "privacy": "Privatliv",
+    "terms": "Vilkår",
+    "shippingBadge": "Levering {eta} · Sporing på hver ordre"
+  },
+  "home": {
+    "heroAlt": "{brand} — Nordisk belysning",
+    "heroHeadline": "Belysning til nordiske aftener og rolige rum.",
+    "heroSub": "Varmt skær. Ren form. Lamper der sætter stemningen.",
+    "heroCta": "Shop kollektionen",
+    "featuredEyebrow": "Udvalgte",
+    "featuredTitle": "Start her",
+    "featuredSub": "En kort liste at lande i — resten venter i shoppen.",
+    "featuredAll": "Til hele sortimentet →",
+    "atmosphereEyebrow": "Atmosfære",
+    "atmosphereTitle": "Lavet til lange vintre",
+    "atmosphereBody": "Nordiske aftener har brug for varmt skær og former der holder i rummet. {brand} holder belysningen enkel.",
+    "atmosphereAlt": "Varm belysning i nordisk vinterlys",
+    "categoryEyebrow": "Find det rette",
+    "categoryTitle": "Lys efter rum",
+    "categorySub": "Start der du vil sætte stemningen — så bygger du videre i roligt tempo.",
+    "productOne": "produkt",
+    "productMany": "produkter"
+  },
+  "products": {
+    "backToShop": "← Tilbage til shoppen",
+    "lightingFallbackCategory": "Belysning",
+    "fallbackDescription": "En stille lampe til stuen — varmt skær, ren form.",
+    "shippingLabel": "Fragt",
+    "shippingValue": "Typisk {eta} til DK/EU · Sporing på hver ordre",
+    "careLabel": "Pleje",
+    "careValue": "Tør af med en tør eller let fugtig klud · Kun til indendørs brug",
+    "questionsLabel": "Spørgsmål",
+    "faqLink": "Ofte stillede spørgsmål",
+    "contactLink": "Kontakt",
+    "relatedTitle": "Mere fra kollektionen",
+    "relatedAll": "Se alle",
+    "soldOut": "Udsolgt",
+    "buyNow": "Køb nu",
+    "openingCheckout": "Åbner kassen…",
+    "addToCart": "Læg i kurven",
+    "adding": "Tilføjer…",
+    "quantity": "Antal",
+    "decreaseQty": "Reducer antal",
+    "increaseQty": "Øg antal",
+    "addError": "Kunne ikke lægge i kurven.",
+    "checkoutError": "Kunne ikke gå til kassen.",
+    "secureEta": "{secure} · Levering {eta}",
+    "noImage": "Intet billede",
+    "quickView": "Hurtigvisning",
+    "chooseOptions": "Vælg alternativer",
+    "tryAgain": "Prøv igen",
+    "closeQuickView": "Luk hurtigvisning",
+    "close": "Luk",
+    "viewFullDetails": "Se fuld info",
+    "shopTitle": "Shop",
+    "shopDescription": "Lamper og belysning med nordisk ro — varmt skær, ren form."
+  },
+  "trust": {
+    "shippingTitle": "Levering",
+    "shippingBody": "Typisk {eta} til Danmark og EU, når betalingen er gennemført.",
+    "shippingMore": "Mere om fragt",
+    "trackingTitle": "Sporing",
+    "trackingBody": "Du får sporing, så snart transportøren har scannet pakken.",
+    "safetyTitle": "Tryghed",
+    "safetyBody": "14 dages fortrydelsesret · defekter erstattes.",
+    "faqLink": "Ofte stillede spørgsmål"
+  },
+  "fulfillment": {
+    "etaShort": "7–18 hverdage",
+    "etaDetail": "De fleste ordrer forlader lageret inden for 1–3 hverdage efter betaling. Derefter tager leveringen typisk 7–18 hverdage til adresser i Danmark og EU. Internationalt uden for EU kan det tage længere tid.",
+    "tracking": "Du får sporing, så snart transportøren har scannet pakken.",
+    "returns": "14 dages fortrydelsesret for ubrugte varer i originalemballage. Beskadigede eller fejlagtige produkter erstatter vi.",
+    "guaranteeShort": "14 dages fortrydelsesret · defekter erstattes",
+    "secureCheckout": "Sikker kasse via Shopify"
+  },
+  "cart": {
+    "title": "Din kurv",
+    "eyebrow": "{brand}",
+    "itemOne": "1 vare",
+    "itemMany": "{count} varer",
+    "emptyTitle": "Intet her endnu",
+    "emptyBody": "Start med en lampe til rummet — bord, gulv eller noget blødt til aftenen.",
+    "emptyCta": "Gennemse kollektionen",
+    "startWith": "Start med disse",
+    "continueShopping": "← Fortsæt med at shoppe",
+    "summary": "Ordreoversigt",
+    "subtotal": "Subtotal",
+    "shipping": "Fragt",
+    "shippingCheckout": "Beregnes i kassen",
+    "total": "I alt",
+    "checkout": "Til kassen",
+    "trustLine": "Sikker betaling · Levering {eta} · Sporing",
+    "savedNote": "Har du brug for et øjeblik? Din kurv gemmes på denne enhed, mens du fortsætter med at shoppe.",
+    "drawerEyebrow": "Kurv",
+    "closeCart": "Luk kurven",
+    "close": "Luk",
+    "emptyDrawerBody": "Læg en lampe i kurven og fortsæt med at shoppe — kurven følger med dig.",
+    "toShop": "Til shoppen",
+    "each": "{price} stk.",
+    "remove": "Fjern",
+    "viewFullCart": "Se fuld kurv",
+    "drawerTrust": "Levering {eta} · Sporing"
+  },
+  "about": {
+    "metaTitle": "Om os",
+    "metaDescription": "Historien bag {brand} — belysning til nordiske rum.",
+    "eyebrow": "Om {brand}",
+    "title": "Varmt skær til nordiske rum",
+    "intro": "{brand} er en belysningsbutik til den stille hverdag — lamper med ren form, blødt lys og materialer der holder i rummet over tid.",
+    "imageAlt": "Varm belysning i nordisk vinterlys",
+    "whyEyebrow": "Hvorfor vi findes",
+    "whyTitle": "Lys der gør aftenen længere",
+    "whyBody1": "Nordiske vintre er lange. Vi kuraterer belysning der giver varme uden støj — lamper du kan leve med, ikke bare se på i et feed.",
+    "whyBody2": "Hvert produkt i sortimentet vælges for atmosfære, proportion og hvordan det føles i et rigtigt hjem. Du handler hos os; ordren pakkes og sendes af vores fulfillmentpartnere med sporing.",
+    "howEyebrow": "Sådan fungerer det",
+    "howTitle": "Enkel handel, tydelig levering",
+    "howBody": "Kassen kører sikkert via Shopify. Når du har betalt, pakkes din ordre og sendes med sporing. Leveringstider varierer med destination — vi er åbne om det og hjælper dig, hvis noget går galt.",
+    "exploreCta": "Udforsk sortimentet →",
+    "faqLink": "Ofte stillede spørgsmål",
+    "contactLink": "Kontakt os"
+  },
+  "faq": {
+    "metaTitle": "Ofte stillede spørgsmål",
+    "metaDescription": "Svar om fragt, returnering, sporing og produkter fra {brand}.",
+    "eyebrow": "Hjælp",
+    "title": "Ofte stillede spørgsmål",
+    "intro": "Kort om fragt, returnering og hvordan {brand} fungerer — før eller efter du handler.",
+    "notFound": "Finder du ikke svaret?",
+    "contactUs": "Kontakt os",
+    "shippingReturns": "Fragt & returnering",
+    "items": [
+      {
+        "question": "Hvor lang tid tager leveringen?",
+        "answer": "De fleste ordrer forlader lageret inden for 1–3 hverdage efter betaling. Derefter tager leveringen typisk 7–18 hverdage til adresser i Danmark og EU. Internationalt uden for EU kan det tage længere tid."
+      },
+      {
+        "question": "Får jeg sporing?",
+        "answer": "Du får sporing, så snart transportøren har scannet pakken. Hvis sporing mangler flere hverdage efter ordrebekræftelsen, kontakt os med dit ordrenummer."
+      },
+      {
+        "question": "Hvad koster fragten?",
+        "answer": "Fragtomkostning og alternativer beregnes i kassen ud fra din adresse og varerne i kurven."
+      },
+      {
+        "question": "Kan jeg fortryde mit køb?",
+        "answer": "14 dages fortrydelsesret for ubrugte varer i originalemballage. Beskadigede eller fejlagtige produkter erstatter vi."
+      },
+      {
+        "question": "Hvad gør jeg, hvis lampen er beskadiget eller forkert?",
+        "answer": "Send os en e-mail inden for 14 dage fra levering med ordrenummer og fotos. {brand} ordner erstatning eller refundering, når vi har bekræftet problemet."
+      },
+      {
+        "question": "Hvor pakkes og sendes ordrene?",
+        "answer": "Ordrer pakkes af vores fulfillmentpartnere og sendes med sporbare transportører. Du handler hos {brand}; leveringen håndteres via vores logistiknet."
+      },
+      {
+        "question": "Hvilke lamper egner sig indendørs?",
+        "answer": "Vores sortiment er beregnet til indendørs brug, medmindre produktsiden udtrykkeligt siger noget andet. Tør af med en tør eller let fugtig klud."
+      },
+      {
+        "question": "Hvordan kontakter jeg jer?",
+        "answer": "Skriv til {email} eller brug kontaktsiden. Vi bestræber os på at svare inden for 1–2 hverdage. Angiv ordrenummer, hvis spørgsmålet gælder en ordre."
+      }
+    ]
+  },
+  "contact": {
+    "metaTitle": "Kontakt",
+    "metaDescription": "Kontakt {brand} om ordrer, fragt eller produkter.",
+    "title": "Kontakt",
+    "description": "Spørgsmål om en ordre, en lampe eller levering — vi er her.",
+    "updated": "august 2026",
+    "emailTitle": "E-mail",
+    "emailBody": "Skriv til {email}. Vi bestræber os på at svare inden for 1–2 hverdage.",
+    "emailCta": "Send e-mail til support",
+    "emailSubject": "{brand} support",
+    "emailFallback": "Svar på din Shopify-ordrebekræftelse, eller brug kontaktoplysningerne i din forsendelsesmeddelelse. For at vise en offentlig supportadresse her skal du sætte NEXT_PUBLIC_SUPPORT_EMAIL i dit miljø.",
+    "beforeTitle": "Før du skriver",
+    "beforeIntro": "Hvis du medtager følgende, svarer vi hurtigere:",
+    "beforeItems": [
+      "Ordrenummer (fra din bekræftelsesmail)",
+      "Produktet eller problemet du har brug for hjælp til",
+      "Fotos, hvis noget er ankommet beskadiget eller forkert"
+    ],
+    "linksTitle": "Hurtige links",
+    "linkReturns": "Fragt & returnering",
+    "linkPrivacy": "Privatliv",
+    "linkTerms": "Vilkår",
+    "linkShop": "Shop kollektionen"
+  },
+  "returns": {
+    "metaTitle": "Fragt & returnering",
+    "metaDescription": "Hvordan {brand} sender ordrer og håndterer returneringer.",
+    "title": "Fragt & returnering",
+    "description": "Hvad du kan forvente ved levering, og hvordan du får hjælp, hvis noget ikke stemmer.",
+    "updated": "august 2026",
+    "shipping": {
+      "title": "Fragt",
+      "paragraphs": [
+        "Vi sender verden over, hvor vores transportører og betalingsleverandører tillader det. Fragtomkostning og alternativer beregnes i kassen ud fra din adresse og varerne i din kurv.",
+        "De fleste ordrer forlader lageret inden for 1–3 hverdage efter betaling. Derefter tager leveringen typisk 7–18 hverdage til adresser i Danmark og EU. Internationalt uden for EU kan det tage længere tid.",
+        "Du får sporing, så snart transportøren har scannet pakken. Hvis sporing mangler flere hverdage efter din ordrebekræftelse, kontakt os med dit ordrenummer."
+      ]
+    },
+    "customs": {
+      "title": "Told & gebyrer",
+      "paragraphs": [
+        "Internationale ordrer kan blive pålagt importtold, skatter eller toldklareringsgebyrer fra dit land. Disse gebyrer er dit ansvar, medmindre kassen udtrykkeligt angiver noget andet."
+      ]
+    },
+    "returns": {
+      "title": "Returnering",
+      "paragraphs": [
+        "14 dages fortrydelsesret for ubrugte varer i originalemballage. Beskadigede eller fejlagtige produkter erstatter vi.",
+        "Hvis en vare ankommer beskadiget, forkert eller defekt, send os en e-mail inden for 14 dage fra levering med ordrenummer og fotos. Vi ordner erstatning eller refundering, når vi har bekræftet problemet.",
+        "Ved fortrydelsesret kan ubrugte produkter i originalemballage og salgbar stand være berettigede inden for 14 dage fra levering, med forbehold for lokal forbrugerlov. Fordi {brand} sælger belysning og elektriske produkter, kan varer der er åbnet, installeret eller brugt som regel ikke returneres til lager, hvis de ikke længere er i væsentligt uændret stand — medmindre produktet er fejlagtigt.",
+        "Godkendte returneringer skal sendes med sporbar metode. Oprindelig udgående fragt refunderes normalt ikke, medmindre vi har begået en fejl."
+      ]
+    },
+    "refunds": {
+      "title": "Refunderinger",
+      "paragraphs": [
+        "Refunderinger sker til den oprindelige betalingsmetode, når vi har modtaget og gennemgået en godkendt returnering, eller tidligere når vi aftaler refundering uden returnering. Behandlingen kan tage flere hverdage afhængigt af din bank eller kortudsteder."
+      ]
+    },
+    "lost": {
+      "title": "Mistede eller forsinkede pakker",
+      "paragraphs": [
+        "Hvis sporingen står stille i længere tid, kontakt os, så undersøger vi med transportøren. Udfaldet afhænger af undersøgelsen — erstatning, refundering eller fortsat levering — og vi holder dig opdateret."
+      ]
+    },
+    "help": {
+      "title": "Har du brug for hjælp?",
+      "paragraphs": [
+        "Nå {brand} support på {email}. Angiv dit ordrenummer, så vi kan hjælpe dig hurtigt.",
+        "Nå {brand} support via vores kontaktside. Angiv dit ordrenummer, så vi kan hjælpe dig hurtigt."
+      ]
+    }
+  },
+  "privacy": {
+    "metaTitle": "Privatliv",
+    "metaDescription": "Hvordan {brand} indsamler, bruger og beskytter dine oplysninger.",
+    "title": "Privatliv",
+    "description": "Hvordan {brand} håndterer dine oplysninger, når du surfer, handler og modtager ordrer.",
+    "updated": "august 2026",
+    "whoWeAre": {
+      "title": "Hvem vi er",
+      "paragraphs": [
+        "{brand} er en webshop for belysning og lamper. Kasse og ordrebehandling sker via Shopify. Ordrer kan opfyldes af vores logistikpartnere på vores vegne."
+      ]
+    },
+    "whatWeCollect": {
+      "title": "Hvad vi indsamler",
+      "intro": "Afhængigt af hvordan du bruger webstedet, kan vi behandle:",
+      "items": [
+        "Kontakt- og leveringsoplysninger, som du angiver i kassen (navn, e-mail, adresse, telefon)",
+        "Ordrehistorik, betalingsstatus og leveringsopdateringer",
+        "Tekniske oplysninger som enhedstype, browser og omtrentlig placering, der er nødvendige for at drive butikken",
+        "Kurvoplysninger, der lagres i en cookie på din enhed, så din kurv bevares, mens du surfer"
+      ],
+      "paragraphs": [
+        "Kortbetalinger håndteres af Shopify og deres betalingsleverandører. Vi gemmer ikke fulde kortnumre på vores servere."
+      ]
+    },
+    "whyWeUse": {
+      "title": "Hvorfor vi bruger det",
+      "items": [
+        "For at opfylde og levere dine ordrer",
+        "For at sende ordre-, fragt- og supportbeskeder",
+        "For at forebygge svindel og holde butikken sikker",
+        "For at forbedre webstedet og forstå generelle købemønstre",
+        "For at opfylde juridiske, skattemæssige og bogføringsmæssige krav, hvor de gælder"
+      ]
+    },
+    "partners": {
+      "title": "Partnere der hjælper os",
+      "paragraphs": [
+        "Vi deler kun det nødvendige med tjenester, der hjælper med at drive butikken — for eksempel Shopify (kasse, betalinger, ordrebehandling) og fulfillmentpartnere, der pakker og sender din ordre. De behandler oplysninger i henhold til egne politikker og vores instruktioner."
+      ]
+    },
+    "cookies": {
+      "title": "Cookies",
+      "paragraphs": [
+        "Vi bruger nødvendige cookies, så din kurv og session fungerer. Shopify kan sætte cookies, der kræves til sikker checkout. Hvis du blokerer nødvendige cookies, fungerer kurven eller checkout muligvis ikke korrekt.",
+        "For besøgende i EØS, Storbritannien og Schweiz indsamler vi samtykke til annoncecookies via Googles certificerede samtykkeplatform (CMP), der vises på webstedet. Der kan du godkende, afvise eller administrere alternativer for Google AdSense og relateret annoncemåling. Meta- (Facebook) og Google Ads-tags følger samme samtykkevalg via Google Consent Mode. Du kan ændre dit valg senere via Googles samtykkeværktøj på siden, når det vises."
+      ]
+    },
+    "retention": {
+      "title": "Hvor længe vi gemmer det",
+      "paragraphs": [
+        "Ordre- og kundeoplysninger gemmes så længe det er nødvendigt for at opfylde køb, håndtere returneringer eller tvister og opfylde lovpligtige opbevaringskrav. Kurvcookies ophører, når de slettes eller udløber i din browser."
+      ]
+    },
+    "yourChoices": {
+      "title": "Dine valg",
+      "paragraphs": [
+        "Afhængigt af hvor du bor, kan du have ret til at få adgang til, rette, slette eller begrænse visse personoplysninger, eller gøre indsigelse mod bestemte behandlinger. Du kan også spørge os, hvor dine oplysninger er delt med henblik på ordreopfyldelse.",
+        "Ved en privatlivsanmodning, send e-mail til {email}. Vi kan have brug for at verificere din identitet, før vi svarer.",
+        "Ved en privatlivsanmodning, kontakt os via vores kontaktside. Vi kan have brug for at verificere din identitet, før vi svarer."
+      ]
+    },
+    "children": {
+      "title": "Børn",
+      "paragraphs": [
+        "{brand} henvender sig ikke til børn under 16 år. Vi indsamler ikke bevidst personoplysninger fra børn."
+      ]
+    },
+    "updates": {
+      "title": "Opdateringer",
+      "paragraphs": [
+        "Vi kan opdatere denne politik, når butikken eller vores partnere ændres. Datoen øverst på siden ændres, når vi gør det."
+      ]
+    }
+  },
+  "terms": {
+    "metaTitle": "Vilkår",
+    "metaDescription": "Bruger- og købsvilkår for handel hos {brand}.",
+    "title": "Vilkår",
+    "description": "Grundlaget for at surfe og handle hos {brand}.",
+    "updated": "august 2026",
+    "agreement": {
+      "title": "Aftale",
+      "paragraphs": [
+        "Ved at bruge dette websted eller afgive en ordre accepterer du disse vilkår og vores Privatlivspolitik. Hvis du ikke accepterer, må du ikke bruge butikken."
+      ],
+      "privacyLink": "Privatlivspolitik"
+    },
+    "store": {
+      "title": "Butikken",
+      "paragraphs": [
+        "{brand} sælger lamper, belysning og relaterede produkter online. Produktsider, priser og tilgængelighed vises via vores Shopify-drevne katalog og kan ændres uden forudgående varsel. Vi gør vores bedste for at holde beskrivelser korrekte; små forskelle i emballage eller billeder kan forekomme."
+      ]
+    },
+    "orders": {
+      "title": "Ordrer & betaling",
+      "paragraphs": [
+        "At afgive en ordre er et tilbud om at købe. Vi (eller Shopify på vores vegne) bekræfter accept via e-mail, når betalingen lykkes. Priser vises før checkout; skatter og fragt beregnes i kassen, hvor det er relevant.",
+        "Betaling behandles sikkert af Shopify og deres betalingsleverandører. Vi forbeholder os retten til at afvise eller annullere en ordre ved mistanke om svindel, prisfejl, lagerproblemer eller fragtbegrænsninger."
+      ]
+    },
+    "fulfillment": {
+      "title": "Opfyldelse",
+      "paragraphs": [
+        "Ordrer opfyldes via vores logistikpartnere. Behandlings- og leveringstider varierer afhængigt af destination og produkt. Sporing leveres, når den er tilgængelig. Risikoen for tab overgår til dig, når transportøren markerer pakken som leveret, medmindre lokal forbrugerlov siger noget andet."
+      ]
+    },
+    "personalUse": {
+      "title": "Personlig brug",
+      "paragraphs": [
+        "Produkter sælges til personlig brug. Misbrug ikke indhold fra dette websted, forsøg ikke at forstyrre butikken eller scrape kataloget til kommerciel genbrug uden tilladelse."
+      ]
+    },
+    "care": {
+      "title": "Produktpleje",
+      "paragraphs": [
+        "Følg anvisningerne på emballagen og produktsiden. Brug lamper kun indendørs, medmindre andet er angivet, skift pærer i henhold til angivet type og effekt, og træk stikket ud før rengøring. Tør af med en tør eller let fugtig klud. {brand} erstatter ikke professionel elrådgivning — kontakt en kvalificeret elektriker ved usikkerhed om installation."
+      ]
+    },
+    "returns": {
+      "title": "Returnering",
+      "paragraphs": [
+        "Fragt, returnering og refunderinger er beskrevet på vores side om Fragt & returnering. Lokale forbrugerrettigheder, der ikke kan fraviges, gælder stadig."
+      ],
+      "returnsLink": "Fragt & returnering"
+    },
+    "liability": {
+      "title": "Ansvar",
+      "paragraphs": [
+        "I det omfang loven tillader det, er {brand} ikke ansvarlig for indirekte eller følgeskader, der opstår ved brug af webstedet eller produkterne. Intet i disse vilkår begrænser ansvar for død eller personskade forårsaget af uagtsomhed, svindel eller andre rettigheder, der ikke må begrænses efter loven."
+      ]
+    },
+    "contact": {
+      "title": "Kontakt",
+      "paragraphs": [
+        "Spørgsmål om disse vilkår: {email}.",
+        "Spørgsmål om disse vilkår: se Kontakt."
+      ],
+      "contactLink": "Kontakt"
+    }
+  },
+  "common": {
+    "updated": "Opdateret {date}",
+    "back": "Tilbage"
+  },
+  "notFound": {
+    "title": "Siden blev ikke fundet",
+    "body": "Den side eller det produkt findes ikke.",
+    "cta": "Til shoppen"
+  }
+}

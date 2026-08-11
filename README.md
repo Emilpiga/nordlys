@@ -34,8 +34,28 @@ Also wrong: Admin API tokens (`shpat_…`).
 Optional but useful in Admin:
 
 - Shopify Payments (or your region’s provider)
-- Markets / shipping countries you sell to
+- **Markets** for SE / NO / DK / FI (see languages checklist below)
 - Order notification email templates
+
+### Languages & Markets (required for localized catalog)
+
+The storefront serves **`/sv`**, **`/no`**, **`/da`**, **`/fi`** and calls Storefront API with matching `@inContext(language, country)` plus cart `buyerIdentity.countryCode`.
+
+| URL locale | Shopify language | Shopify country |
+|------------|------------------|-----------------|
+| `sv` | `SV` | `SE` |
+| `no` | `NO` | `NO` |
+| `da` | `DA` | `DK` |
+| `fi` | `FI` | `FI` |
+
+In Shopify Admin:
+
+1. Enable languages **SV, NO, DA, FI** (Translate & Adapt or equivalent).
+2. Create/configure Markets for **Sweden, Norway, Denmark, Finland** and attach those languages.
+3. Translate (or auto-translate) products, collections, and checkout content.
+4. Confirm via Storefront `localization { availableCountries { isoCode availableLanguages { isoCode } } }`.
+
+UI chrome is translated in-app. **Product titles/descriptions** only change when Shopify returns translations for the active language.
 
 ## 2. CJ Dropshipping
 
@@ -68,16 +88,19 @@ Fill `.env.local`:
 | `SHOPIFY_STOREFRONT_ACCESS_TOKEN` | Public token from Headless channel |
 | `SHOPIFY_STOREFRONT_PRIVATE_ACCESS_TOKEN` | Private token from Headless channel |
 | `SHOPIFY_STOREFRONT_API_VERSION` | `2026-04` |
+| `SHOPIFY_STOREFRONT_LANGUAGE` | Fallback language code, e.g. `SV` (URL locale overrides) |
+| `SHOPIFY_STOREFRONT_COUNTRY` | Fallback country code, e.g. `SE` (URL locale overrides) |
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000) (redirects to `/sv` by default). Language selector is in the header.
 
 ## What’s included
 
-- Home, product grid, product detail, cart
-- Cookie-backed Shopify Cart
+- Locales: Swedish, Norwegian, Danish, Finnish (`/sv`, `/no`, `/da`, `/fi`)
+- Home, product grid, product detail, cart drawer + cart page
+- Cookie-backed Shopify Cart with Markets `buyerIdentity`
 - Checkout redirect to Shopify Checkout URL
-- Privacy, Terms, Shipping & returns, Contact
-- Cookie consent banner gating Meta / Google ad pixels
+- About, FAQ, Privacy, Terms, Shipping & returns, Contact
+- Consent Mode + ad pixels
 - Graceful empty state when Shopify credentials are missing
 
 ## What’s not in v1 (on purpose)
@@ -85,7 +108,7 @@ Open [http://localhost:3000](http://localhost:3000).
 - Customer accounts
 - Custom checkout (needs Shopify Plus)
 - Direct CJ API (use the Shopify app)
-- Multi-currency UI beyond what Shopify returns
+- Domain-per-country (`.se` / `.no`) — subpaths only
 - CMS / blog
 
 ## Deploy

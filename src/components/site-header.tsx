@@ -1,14 +1,16 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
+import { useCart } from "@/components/cart-provider";
+import { useDictionary } from "@/components/dictionary-provider";
+import { LanguageSelector } from "@/components/language-selector";
+import { LocaleLink } from "@/components/locale-link";
 import { SiteLogo } from "@/components/site-logo";
 import { shopifyConfig } from "@/lib/shopify/config";
 import { categoryParamFromId } from "@/lib/shopify/taxonomy";
 import type { ProductCategory } from "@/lib/shopify/types";
 
 type SiteHeaderProps = {
-  cartCount: number;
   categories?: ProductCategory[];
 };
 
@@ -56,10 +58,10 @@ function ChevronIcon({ className }: { className?: string }) {
   );
 }
 
-export function SiteHeader({
-  cartCount,
-  categories = [],
-}: SiteHeaderProps) {
+export function SiteHeader({ categories = [] }: SiteHeaderProps) {
+  const { dict, t } = useDictionary();
+  const { cart, openCart } = useCart();
+  const cartCount = cart?.totalQuantity ?? 0;
   const [progress, setProgress] = useState(0);
   const [shopOpen, setShopOpen] = useState(false);
   const panelId = useId();
@@ -129,21 +131,21 @@ export function SiteHeader({
     <header
       className="fixed inset-x-0 top-0 z-40 border-b"
       style={{
-        backgroundColor: `rgba(246, 248, 250, ${veil.toFixed(3)})`,
+        backgroundColor: `rgba(247, 245, 241, ${veil.toFixed(3)})`,
         backdropFilter: `blur(${blur.toFixed(1)}px)`,
         WebkitBackdropFilter: `blur(${blur.toFixed(1)}px)`,
-        borderBottomColor: `rgba(20, 28, 34, ${border.toFixed(3)})`,
+        borderBottomColor: `rgba(26, 24, 20, ${border.toFixed(3)})`,
       }}
     >
       <div className="mx-auto flex h-[4.25rem] w-full max-w-6xl items-center justify-between gap-6 px-5 sm:h-[4.5rem] sm:px-8">
-        <Link
+        <LocaleLink
           href="/"
           aria-label={shopifyConfig.storeName}
           className="inline-flex shrink-0 items-center"
           onClick={() => setShopOpen(false)}
         >
           <SiteLogo size="header" priority />
-        </Link>
+        </LocaleLink>
 
         <nav className="flex items-center gap-7 text-[0.8rem] font-medium tracking-[0.14em] uppercase text-foreground/70">
           <div
@@ -155,30 +157,30 @@ export function SiteHeader({
             {hasCategories ? (
               <button
                 type="button"
-                className="inline-flex items-center gap-1.5 transition hover:text-foreground"
+                className="inline-flex items-center gap-1.5 uppercase transition hover:text-foreground"
                 aria-expanded={shopOpen}
                 aria-controls={panelId}
                 onClick={() => setShopOpen((open) => !open)}
               >
-                Shoppa
+                {dict.nav.shop}
                 <ChevronIcon
                   className={`h-2.5 w-2.5 transition ${shopOpen ? "rotate-180" : ""}`}
                 />
               </button>
             ) : (
-              <Link
+              <LocaleLink
                 href="/products"
-                className="transition hover:text-foreground"
+                className="uppercase transition hover:text-foreground"
               >
-                Shoppa
-              </Link>
+                {dict.nav.shop}
+              </LocaleLink>
             )}
 
             {hasCategories && shopOpen ? (
               <div
                 id={panelId}
                 role="region"
-                aria-label="Produktkategorier"
+                aria-label={dict.nav.categories}
                 className="absolute right-0 top-full z-50 pt-4"
                 onMouseEnter={openShop}
                 onMouseLeave={scheduleCloseShop}
@@ -187,25 +189,25 @@ export function SiteHeader({
                   <div className="flex items-end justify-between gap-4 border-b border-border/60 pb-4">
                     <div>
                       <p className="text-[0.62rem] font-medium tracking-[0.18em] uppercase text-glow">
-                        Kategorier
+                        {dict.nav.categories}
                       </p>
                       <p className="mt-1 font-display text-2xl font-medium tracking-tight text-foreground">
-                        Utforska sortimentet
+                        {dict.nav.exploreCatalog}
                       </p>
                     </div>
-                    <Link
+                    <LocaleLink
                       href="/products"
                       onClick={() => setShopOpen(false)}
                       className="shrink-0 text-[0.62rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground"
                     >
-                      Visa alla
-                    </Link>
+                      {dict.nav.viewAll}
+                    </LocaleLink>
                   </div>
 
                   <ul className="mt-4 grid grid-cols-1 gap-1 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-1">
                     {categories.map((category) => (
                       <li key={category.id}>
-                        <Link
+                        <LocaleLink
                           href={`/categories/${encodeURIComponent(categoryParamFromId(category.id))}`}
                           onClick={() => setShopOpen(false)}
                           className="flex items-baseline justify-between gap-3 px-2 py-2.5 text-[0.78rem] font-normal normal-case tracking-normal text-foreground/85 transition hover:bg-[color-mix(in_oklab,var(--mist)_55%,white)] hover:text-foreground"
@@ -214,7 +216,7 @@ export function SiteHeader({
                           <span className="tabular-nums text-[0.68rem] text-muted">
                             {category.productCount}
                           </span>
-                        </Link>
+                        </LocaleLink>
                       </li>
                     ))}
                   </ul>
@@ -223,13 +225,20 @@ export function SiteHeader({
             ) : null}
           </div>
 
-          <Link
-            href="/cart"
+          <LanguageSelector />
+
+          <button
+            type="button"
             aria-label={
-              cartCount > 0 ? `Kasse, ${cartCount} varor` : "Kasse"
+              cartCount > 0
+                ? t(dict.nav.openCartWithCount, { count: cartCount })
+                : dict.nav.openCart
             }
             className="relative inline-flex h-9 w-9 items-center justify-center text-foreground transition hover:text-accent"
-            onClick={() => setShopOpen(false)}
+            onClick={() => {
+              setShopOpen(false);
+              openCart();
+            }}
           >
             <BagIcon className="h-[1.35rem] w-[1.35rem]" />
             {countLabel ? (
@@ -237,7 +246,7 @@ export function SiteHeader({
                 {countLabel}
               </span>
             ) : null}
-          </Link>
+          </button>
         </nav>
       </div>
     </header>

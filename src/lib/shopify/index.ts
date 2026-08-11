@@ -3,8 +3,9 @@ import {
   shopifyFetch,
   ShopifyAuthError,
   ShopifyNotConfiguredError,
+  type ShopifyContext,
 } from "./client";
-import { isShopifyConfigured } from "./config";
+import { isShopifyConfigured, shopifyConfig } from "./config";
 import {
   mapCart,
   mapCollection,
@@ -13,6 +14,7 @@ import {
   mapProductCard,
 } from "./mappers";
 import {
+  CART_BUYER_IDENTITY_UPDATE_MUTATION,
   CART_CREATE_MUTATION,
   CART_LINES_ADD_MUTATION,
   CART_LINES_REMOVE_MUTATION,
@@ -39,6 +41,7 @@ import {
   categoryParamFromId,
   productsInCategory,
 } from "./taxonomy";
+import { getShopifyContext, type Locale } from "@/lib/i18n/locales";
 
 type UserErrors = { field?: string[] | null; message: string }[];
 
@@ -48,37 +51,55 @@ function assertNoUserErrors(userErrors: UserErrors | undefined) {
   }
 }
 
-export const getProducts = cache(async (first = 24): Promise<Product[]> => {
-  if (!isShopifyConfigured()) return [];
+function contextFromLocale(locale?: string): ShopifyContext {
+  if (locale) return getShopifyContext(locale);
+  return {
+    country: shopifyConfig.country,
+    language: shopifyConfig.language,
+  };
+}
 
-  try {
-    const data = await shopifyFetch<{
-      products: { nodes: Parameters<typeof mapProductCard>[0][] };
-    }>({
-      query: GET_PRODUCTS_QUERY,
-      variables: { first },
-      tags: ["products"],
-    });
+function localeTag(locale: string | undefined, base: string) {
+  const key = locale || "default";
+  return `${base}:${key}`;
+}
 
-    return data.products.nodes.map(mapProductCard);
-  } catch (error) {
-    if (
-      error instanceof ShopifyAuthError ||
-      error instanceof ShopifyNotConfiguredError
-    ) {
-      console.error(error.message);
+export const getProducts = cache(
+  async (first = 24, locale?: string): Promise<Product[]> => {
+    if (!isShopifyConfigured()) return [];
+    const context = contextFromLocale(locale);
+
+    try {
+      const data = await shopifyFetch<{
+        products: { nodes: Parameters<typeof mapProductCard>[0][] };
+      }>({
+        query: GET_PRODUCTS_QUERY,
+        variables: { first },
+        context,
+        tags: [localeTag(locale, "products"), "products"],
+      });
+
+      return data.products.nodes.map(mapProductCard);
+    } catch (error) {
+      if (
+        error instanceof ShopifyAuthError ||
+        error instanceof ShopifyNotConfiguredError
+      ) {
+        console.error(error.message);
+        return [];
+      }
+      console.error("Failed to load products:", error);
       return [];
     }
-    console.error("Failed to load products:", error);
-    return [];
-  }
-});
-
+  },
+);
 
 export async function getProductByHandle(
   handle: string,
+  locale?: string,
 ): Promise<Product | null> {
   if (!isShopifyConfigured()) return null;
+  const context = contextFromLocale(locale);
 
   try {
     const data = await shopifyFetch<{
@@ -86,7 +107,12 @@ export async function getProductByHandle(
     }>({
       query: GET_PRODUCT_BY_HANDLE_QUERY,
       variables: { handle },
-      tags: [`product:${handle}`],
+      context,
+      tags: [
+        localeTag(locale, `product:${handle}`),
+        `product:${handle}`,
+        localeTag(locale, "products"),
+      ],
     });
 
     return data.product ? mapProduct(data.product) : null;
@@ -105,16 +131,18 @@ export async function getProductByHandle(
 
 export async function getProductCategories(
   catalogSize = 100,
+  locale?: string,
 ): Promise<ProductCategory[]> {
-  const products = await getProducts(catalogSize);
+  const products = await getProducts(catalogSize, locale);
   return categoriesFromProducts(products);
 }
 
 export async function getProductsByCategory(
   categoryIdOrParam: string,
   catalogSize = 100,
+  locale?: string,
 ): Promise<{ category: ProductCategory | null; products: Product[] }> {
-  const products = await getProducts(catalogSize);
+  const products = await getProducts(catalogSize, locale);
   const matched = productsInCategory(products, categoryIdOrParam);
   const targetId = categoryIdFromParam(categoryIdOrParam);
   const targetParam = categoryParamFromId(targetId);
@@ -129,18 +157,22 @@ export async function getProductsByCategory(
   return { category, products: matched };
 }
 
-export async function getCollections(first = 24): Promise<CollectionSummary[]> {
+export async function getCollections(
+  first = 24,
+  locale?: string,
+): Promise<CollectionSummary[]> {
   if (!isShopifyConfigured()) return [];
+  const context = contextFromLocale(locale);
 
   try {
-    // Fetch extra so filtering out system collections (e.g. Home page) still fills the list.
     const fetchCount = Math.min(Math.max(first * 2, first + 8), 50);
     const data = await shopifyFetch<{
       collections: { nodes: Parameters<typeof mapCollectionCard>[0][] };
     }>({
       query: GET_COLLECTIONS_QUERY,
       variables: { first: fetchCount },
-      tags: ["collections"],
+      context,
+      tags: [localeTag(locale, "collections"), "collections"],
     });
 
     return data.collections.nodes
@@ -162,8 +194,10 @@ export async function getCollections(first = 24): Promise<CollectionSummary[]> {
 
 export async function getCollectionByHandle(
   handle: string,
+  locale?: string,
 ): Promise<Collection | null> {
   if (!isShopifyConfigured()) return null;
+  const context = contextFromLocale(locale);
 
   try {
     const data = await shopifyFetch<{
@@ -171,7 +205,12 @@ export async function getCollectionByHandle(
     }>({
       query: GET_COLLECTION_BY_HANDLE_QUERY,
       variables: { handle },
-      tags: [`collection:${handle}`, "collections"],
+      context,
+      tags: [
+        localeTag(locale, `collection:${handle}`),
+        `collection:${handle}`,
+        "collections",
+      ],
     });
 
     return data.collection ? mapCollection(data.collection) : null;
@@ -188,8 +227,12 @@ export async function getCollectionByHandle(
   }
 }
 
-export async function getCart(cartId: string): Promise<Cart | null> {
+export async function getCart(
+  cartId: string,
+  locale?: string,
+): Promise<Cart | null> {
   if (!isShopifyConfigured()) return null;
+  const context = contextFromLocale(locale);
 
   try {
     const data = await shopifyFetch<{
@@ -197,6 +240,7 @@ export async function getCart(cartId: string): Promise<Cart | null> {
     }>({
       query: GET_CART_QUERY,
       variables: { cartId },
+      context,
       cache: "no-store",
     });
 
@@ -210,7 +254,10 @@ export async function getCart(cartId: string): Promise<Cart | null> {
 
 export async function createCart(
   lines: { merchandiseId: string; quantity: number }[],
+  locale?: string,
 ): Promise<Cart> {
+  const context = contextFromLocale(locale);
+
   const data = await shopifyFetch<{
     cartCreate: {
       cart: Parameters<typeof mapCart>[0] | null;
@@ -218,7 +265,11 @@ export async function createCart(
     };
   }>({
     query: CART_CREATE_MUTATION,
-    variables: { lines },
+    variables: {
+      lines,
+      buyerIdentity: { countryCode: context.country },
+    },
+    context,
     cache: "no-store",
   });
 
@@ -233,7 +284,10 @@ export async function createCart(
 export async function addCartLines(
   cartId: string,
   lines: { merchandiseId: string; quantity: number }[],
+  locale?: string,
 ): Promise<Cart> {
+  const context = contextFromLocale(locale);
+
   const data = await shopifyFetch<{
     cartLinesAdd: {
       cart: Parameters<typeof mapCart>[0] | null;
@@ -242,6 +296,7 @@ export async function addCartLines(
   }>({
     query: CART_LINES_ADD_MUTATION,
     variables: { cartId, lines },
+    context,
     cache: "no-store",
   });
 
@@ -250,7 +305,6 @@ export async function addCartLines(
     /cart does not exist/i.test(error.message),
   );
 
-  // Shopify may return a replacement cart when the old id is invalid — use it.
   if (data.cartLinesAdd.cart && (userErrors.length === 0 || cartGone)) {
     return mapCart(data.cartLinesAdd.cart);
   }
@@ -262,7 +316,10 @@ export async function addCartLines(
 export async function updateCartLines(
   cartId: string,
   lines: { id: string; quantity: number }[],
+  locale?: string,
 ): Promise<Cart> {
+  const context = contextFromLocale(locale);
+
   const data = await shopifyFetch<{
     cartLinesUpdate: {
       cart: Parameters<typeof mapCart>[0] | null;
@@ -271,6 +328,7 @@ export async function updateCartLines(
   }>({
     query: CART_LINES_UPDATE_MUTATION,
     variables: { cartId, lines },
+    context,
     cache: "no-store",
   });
 
@@ -285,7 +343,10 @@ export async function updateCartLines(
 export async function removeCartLines(
   cartId: string,
   lineIds: string[],
+  locale?: string,
 ): Promise<Cart> {
+  const context = contextFromLocale(locale);
+
   const data = await shopifyFetch<{
     cartLinesRemove: {
       cart: Parameters<typeof mapCart>[0] | null;
@@ -294,6 +355,7 @@ export async function removeCartLines(
   }>({
     query: CART_LINES_REMOVE_MUTATION,
     variables: { cartId, lineIds },
+    context,
     cache: "no-store",
   });
 
@@ -303,4 +365,33 @@ export async function removeCartLines(
   }
 
   return mapCart(data.cartLinesRemove.cart);
+}
+
+export async function updateCartBuyerIdentity(
+  cartId: string,
+  locale: Locale | string,
+): Promise<Cart> {
+  const context = contextFromLocale(locale);
+
+  const data = await shopifyFetch<{
+    cartBuyerIdentityUpdate: {
+      cart: Parameters<typeof mapCart>[0] | null;
+      userErrors: UserErrors;
+    };
+  }>({
+    query: CART_BUYER_IDENTITY_UPDATE_MUTATION,
+    variables: {
+      cartId,
+      buyerIdentity: { countryCode: context.country },
+    },
+    context,
+    cache: "no-store",
+  });
+
+  assertNoUserErrors(data.cartBuyerIdentityUpdate.userErrors);
+  if (!data.cartBuyerIdentityUpdate.cart) {
+    throw new Error("Failed to update cart buyer identity.");
+  }
+
+  return mapCart(data.cartBuyerIdentityUpdate.cart);
 }

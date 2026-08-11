@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState, useTransition, type MouseEvent } from "react";
 import { useRouter } from "next/navigation";
 import { addToCartAction } from "@/app/actions/cart";
+import { useCart } from "@/components/cart-provider";
+import { useDictionary } from "@/components/dictionary-provider";
+import { LocaleLink } from "@/components/locale-link";
 import { ProductQuickView } from "@/components/product-quick-view";
 import { formatMoney } from "@/lib/format";
 import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
@@ -16,10 +18,12 @@ type ProductCardProps = {
 };
 
 export function ProductCard({ product }: ProductCardProps) {
+  const { locale, dict } = useDictionary();
   const router = useRouter();
+  const { openCart, setCart } = useCart();
   const [quickOpen, setQuickOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const [status, setStatus] = useState<"idle" | "added" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "error">("idle");
 
   const image = product.featuredImage;
   const defaultVariant =
@@ -55,9 +59,9 @@ export function ProductCard({ product }: ProductCardProps) {
           currency: defaultVariant!.price.currencyCode,
           numItems: 1,
         });
-        setStatus("added");
+        setCart(result.cart);
+        openCart();
         router.refresh();
-        window.setTimeout(() => setStatus("idle"), 1600);
       } catch {
         setStatus("error");
       }
@@ -71,20 +75,18 @@ export function ProductCard({ product }: ProductCardProps) {
   }
 
   const addLabel = isPending
-    ? "Lägger till…"
-    : status === "added"
-      ? "Tillagd"
-      : status === "error"
-        ? "Försök igen"
-        : needsOptions
-          ? "Välj alternativ"
-          : "Lägg i kassen";
+    ? dict.products.adding
+    : status === "error"
+      ? dict.products.tryAgain
+      : needsOptions
+        ? dict.products.chooseOptions
+        : dict.products.addToCart;
 
   return (
     <>
       <article className="group">
         <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-mist">
-          <Link
+          <LocaleLink
             href={`/products/${product.handle}`}
             className="absolute inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             aria-label={product.title}
@@ -99,10 +101,10 @@ export function ProductCard({ product }: ProductCardProps) {
               />
             ) : (
               <div className="flex h-full items-center justify-center text-sm text-muted">
-                Ingen bild
+                {dict.products.noImage}
               </div>
             )}
-          </Link>
+          </LocaleLink>
 
           <div
             aria-hidden
@@ -121,20 +123,20 @@ export function ProductCard({ product }: ProductCardProps) {
                 disabled={!canQuickAdd || isPending}
                 className="bg-[color-mix(in_oklab,var(--frost)_92%,white)] px-2 py-2.5 text-[0.62rem] font-semibold tracking-[0.12em] uppercase text-foreground transition hover:bg-foreground hover:text-on-accent disabled:cursor-not-allowed disabled:opacity-45"
               >
-                {canQuickAdd ? addLabel : "Slutsåld"}
+                {canQuickAdd ? addLabel : dict.products.soldOut}
               </button>
               <button
                 type="button"
                 onClick={onQuickView}
                 className="bg-[color-mix(in_oklab,var(--frost)_92%,white)] px-2 py-2.5 text-[0.62rem] font-semibold tracking-[0.12em] uppercase text-foreground transition hover:bg-foreground hover:text-on-accent"
               >
-                Snabbvy
+                {dict.products.quickView}
               </button>
             </div>
           </div>
         </div>
 
-        <Link
+        <LocaleLink
           href={`/products/${product.handle}`}
           className="mt-4 block space-y-1 px-0.5 focus-visible:outline-none"
         >
@@ -142,9 +144,9 @@ export function ProductCard({ product }: ProductCardProps) {
             {product.title}
           </h3>
           <p className="text-sm font-light text-muted">
-            {formatMoney(product.priceRange.minVariantPrice)}
+            {formatMoney(product.priceRange.minVariantPrice, locale)}
           </p>
-        </Link>
+        </LocaleLink>
       </article>
 
       <ProductQuickView

@@ -1,11 +1,14 @@
 import { shopifyConfig } from "@/lib/shopify/config";
 import type { Product } from "@/lib/shopify/types";
 import { getSiteUrl } from "@/lib/site-url";
-import { siteDescription } from "@/lib/seo";
+import { localePath } from "@/lib/i18n/locales";
+import { siteDescriptionFor } from "@/lib/seo";
 
 type JsonLd = Record<string, unknown>;
 
-export function buildOrganizationJsonLd(): JsonLd {
+export function buildOrganizationJsonLd(
+  description = siteDescriptionFor(),
+): JsonLd {
   const url = getSiteUrl();
 
   return {
@@ -14,23 +17,27 @@ export function buildOrganizationJsonLd(): JsonLd {
     name: shopifyConfig.storeName,
     url,
     logo: `${url}/logo-ikon.png`,
-    description: siteDescription,
+    description,
     ...(shopifyConfig.supportEmail
       ? { email: shopifyConfig.supportEmail }
       : {}),
   };
 }
 
-export function buildWebSiteJsonLd(): JsonLd {
+export function buildWebSiteJsonLd(
+  description = siteDescriptionFor(),
+  htmlLang = "sv",
+  locale = "sv",
+): JsonLd {
   const url = getSiteUrl();
 
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: shopifyConfig.storeName,
-    url,
-    description: siteDescription,
-    inLanguage: "sv-SE",
+    url: `${url}${localePath(locale)}`,
+    description,
+    inLanguage: htmlLang,
     publisher: {
       "@type": "Organization",
       name: shopifyConfig.storeName,
@@ -39,15 +46,16 @@ export function buildWebSiteJsonLd(): JsonLd {
   };
 }
 
-export function buildProductJsonLd(product: Product): JsonLd {
-  const url = `${getSiteUrl()}/products/${product.handle}`;
+export function buildProductJsonLd(
+  product: Product,
+  locale = "sv",
+): JsonLd {
+  const url = `${getSiteUrl()}${localePath(locale, `/products/${product.handle}`)}`;
   const image =
-    product.featuredImage?.url ??
-    product.images[0]?.url ??
-    undefined;
+    product.featuredImage?.url ?? product.images[0]?.url ?? undefined;
   const description =
     product.description.replace(/\s+/g, " ").trim() ||
-    `${product.title} från ${shopifyConfig.storeName}.`;
+    `${product.title} — ${shopifyConfig.storeName}`;
 
   const availableVariant =
     product.variants.find((variant) => variant.availableForSale) ??
@@ -68,9 +76,7 @@ export function buildProductJsonLd(product: Product): JsonLd {
       "@type": "Brand",
       name: shopifyConfig.storeName,
     },
-    ...(product.category
-      ? { category: product.category.name }
-      : {}),
+    ...(product.category ? { category: product.category.name } : {}),
     ...(image ? { image: [image] } : {}),
     offers: {
       "@type": "Offer",
@@ -80,11 +86,6 @@ export function buildProductJsonLd(product: Product): JsonLd {
       availability: inStock
         ? "https://schema.org/InStock"
         : "https://schema.org/OutOfStock",
-      itemCondition: "https://schema.org/NewCondition",
-      seller: {
-        "@type": "Organization",
-        name: shopifyConfig.storeName,
-      },
     },
   };
 }

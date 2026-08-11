@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
   removeCartLineAction,
   updateCartLineAction,
 } from "@/app/actions/cart";
+import { useDictionary } from "@/components/dictionary-provider";
+import { LocaleLink } from "@/components/locale-link";
 import { formatMoney } from "@/lib/format";
 import {
   metaContentIdFromGid,
@@ -20,6 +21,7 @@ type CartViewProps = {
 };
 
 export function CartView({ cart }: CartViewProps) {
+  const { locale, dict, t } = useDictionary();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -56,9 +58,9 @@ export function CartView({ cart }: CartViewProps) {
               key={line.id}
               className="grid grid-cols-[72px_1fr] gap-4 py-6 sm:grid-cols-[88px_1fr] sm:gap-5"
             >
-              <Link
+              <LocaleLink
                 href={`/products/${line.merchandise.product.handle}`}
-                className="relative h-[90px] w-[72px] shrink-0 self-start overflow-hidden bg-[linear-gradient(160deg,#d4dde4_0%,#e8edf1_48%,#e4dfd4_100%)] sm:h-[110px] sm:w-[88px]"
+                className="relative h-[90px] w-[72px] shrink-0 self-start overflow-hidden bg-[linear-gradient(160deg,#e5ddd2_0%,#efeae3_48%,#e8e0d4_100%)] sm:h-[110px] sm:w-[88px]"
               >
                 {image ? (
                   <Image
@@ -69,28 +71,30 @@ export function CartView({ cart }: CartViewProps) {
                     sizes="88px"
                   />
                 ) : null}
-              </Link>
+              </LocaleLink>
 
               <div className="flex min-w-0 flex-col justify-between gap-4 py-0.5">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <Link
+                    <LocaleLink
                       href={`/products/${line.merchandise.product.handle}`}
                       className="font-display text-2xl font-medium leading-tight tracking-tight transition hover:text-accent"
                     >
                       {line.merchandise.product.title}
-                    </Link>
+                    </LocaleLink>
                     {options ? (
                       <p className="mt-2 text-sm font-light text-muted">
                         {options}
                       </p>
                     ) : null}
                     <p className="mt-2 text-sm font-light text-muted">
-                      {formatMoney(line.merchandise.price)} styck
+                      {t(dict.cart.each, {
+                        price: formatMoney(line.merchandise.price, locale),
+                      })}
                     </p>
                   </div>
                   <p className="shrink-0 font-display text-xl font-medium tracking-tight">
-                    {formatMoney(line.cost.totalAmount)}
+                    {formatMoney(line.cost.totalAmount, locale)}
                   </p>
                 </div>
 
@@ -103,7 +107,7 @@ export function CartView({ cart }: CartViewProps) {
                         updateQuantity(line.id, Math.max(0, line.quantity - 1))
                       }
                       className="px-3.5 py-2 text-sm disabled:opacity-50"
-                      aria-label="Minska antal"
+                      aria-label={dict.products.decreaseQty}
                     >
                       −
                     </button>
@@ -117,7 +121,7 @@ export function CartView({ cart }: CartViewProps) {
                         updateQuantity(line.id, line.quantity + 1)
                       }
                       className="px-3.5 py-2 text-sm disabled:opacity-50"
-                      aria-label="Öka antal"
+                      aria-label={dict.products.increaseQty}
                     >
                       +
                     </button>
@@ -128,7 +132,7 @@ export function CartView({ cart }: CartViewProps) {
                     onClick={() => removeLine(line.id)}
                     className="text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted underline-offset-4 transition hover:text-foreground hover:underline disabled:opacity-50"
                   >
-                    Ta bort
+                    {dict.cart.remove}
                   </button>
                 </div>
               </div>
@@ -140,22 +144,22 @@ export function CartView({ cart }: CartViewProps) {
       <aside className="h-fit lg:sticky lg:top-28">
         <div className="border border-border/70 bg-[linear-gradient(180deg,rgba(247,249,250,0.9)_0%,rgba(232,238,241,0.55)_100%)] p-7 sm:p-8">
           <h2 className="font-display text-3xl font-medium tracking-tight">
-            Ordersammanfattning
+            {dict.cart.summary}
           </h2>
 
           <dl className="mt-8 space-y-4 text-sm font-light">
             <div className="flex justify-between gap-4">
-              <dt className="text-muted">Delsumma</dt>
-              <dd>{formatMoney(cart.cost.subtotalAmount)}</dd>
+              <dt className="text-muted">{dict.cart.subtotal}</dt>
+              <dd>{formatMoney(cart.cost.subtotalAmount, locale)}</dd>
             </div>
             <div className="flex justify-between gap-4">
-              <dt className="text-muted">Frakt</dt>
-              <dd className="text-muted">Beräknas i kassan</dd>
+              <dt className="text-muted">{dict.cart.shipping}</dt>
+              <dd className="text-muted">{dict.cart.shippingCheckout}</dd>
             </div>
             <div className="flex justify-between gap-4 border-t border-border/70 pt-4 text-base font-medium">
-              <dt>Totalt</dt>
+              <dt>{dict.cart.total}</dt>
               <dd className="font-display text-2xl tracking-tight">
-                {formatMoney(cart.cost.totalAmount)}
+                {formatMoney(cart.cost.totalAmount, locale)}
               </dd>
             </div>
           </dl>
@@ -175,17 +179,16 @@ export function CartView({ cart }: CartViewProps) {
               });
             }}
           >
-            Till kassan
+            {dict.cart.checkout}
           </a>
 
           <p className="mt-4 text-center text-xs font-light leading-relaxed text-muted">
-            Säker betalning · Spårning på varje order
+            {t(dict.cart.trustLine, { eta: dict.fulfillment.etaShort })}
           </p>
         </div>
 
         <p className="mt-5 text-sm font-light leading-relaxed text-muted">
-          Behöver du en stund? Din kasse sparas på den här enheten medan du
-          fortsätter handla.
+          {dict.cart.savedNote}
         </p>
       </aside>
     </div>

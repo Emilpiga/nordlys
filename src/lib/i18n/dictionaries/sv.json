@@ -1,0 +1,415 @@
+{
+  "meta": {
+    "siteTitle": "{brand} · Nordisk belysning",
+    "siteDescription": "{brand} — Nordisk belysning för lugna rum. Lampor med varmt sken och stilla design."
+  },
+  "nav": {
+    "shop": "Shoppa",
+    "categories": "Kategorier",
+    "exploreCatalog": "Utforska sortimentet",
+    "viewAll": "Visa alla",
+    "openCart": "Öppna kasse",
+    "openCartWithCount": "Öppna kasse, {count} varor",
+    "language": "Språk"
+  },
+  "footer": {
+    "tagline": "Varmt sken för nordiska rum.",
+    "blurb": "Lampor och belysning med stilla design — atmosfär, form och lugnt kvällsljus.",
+    "shopHeading": "Shoppa",
+    "collection": "Kollektion",
+    "cart": "Kasse",
+    "helpHeading": "Hjälp",
+    "about": "Om oss",
+    "faq": "Vanliga frågor",
+    "shippingReturns": "Frakt & returer",
+    "contact": "Kontakt",
+    "legalHeading": "Juridiskt",
+    "privacy": "Integritet",
+    "terms": "Villkor",
+    "shippingBadge": "Leverans {eta} · Spårning på varje order"
+  },
+  "home": {
+    "heroAlt": "{brand} — Nordisk belysning",
+    "heroHeadline": "Belysning för nordiska kvällar och lugna rum.",
+    "heroSub": "Varmt sken. Ren form. Lampor som sätter stämningen.",
+    "heroCta": "Handla kollektionen",
+    "featuredEyebrow": "Utvalda",
+    "featuredTitle": "Börja här",
+    "featuredSub": "En kort lista att landa i — resten väntar i shoppen.",
+    "featuredAll": "Till hela sortimentet →",
+    "atmosphereEyebrow": "Atmosfär",
+    "atmosphereTitle": "Gjort för långa vintrar",
+    "atmosphereBody": "Nordiska kvällar behöver varmt sken och former som håller i rummet. {brand} håller belysningen enkel.",
+    "atmosphereAlt": "Varm belysning i nordiskt vinterljus",
+    "categoryEyebrow": "Hitta rätt",
+    "categoryTitle": "Ljus efter rum",
+    "categorySub": "Börja där du vill sätta stämningen — sedan bygger du vidare i lugn takt.",
+    "productOne": "produkt",
+    "productMany": "produkter"
+  },
+  "products": {
+    "backToShop": "← Tillbaka till shoppen",
+    "lightingFallbackCategory": "Belysning",
+    "fallbackDescription": "En stillsam lampa för vardagsrummet — varmt sken, ren form.",
+    "shippingLabel": "Frakt",
+    "shippingValue": "Typiskt {eta} till SE/EU · Spårning på varje order",
+    "careLabel": "Skötsel",
+    "careValue": "Torka av med torr eller lätt fuktig trasa · Endast för inomhusbruk",
+    "questionsLabel": "Frågor",
+    "faqLink": "Vanliga frågor",
+    "contactLink": "Kontakt",
+    "relatedTitle": "Mer ur kollektionen",
+    "relatedAll": "Visa alla",
+    "soldOut": "Slutsåld",
+    "buyNow": "Köp nu",
+    "openingCheckout": "Öppnar kassan…",
+    "addToCart": "Lägg i kassen",
+    "adding": "Lägger till…",
+    "quantity": "Antal",
+    "decreaseQty": "Minska antal",
+    "increaseQty": "Öka antal",
+    "addError": "Kunde inte lägga till i kassen.",
+    "checkoutError": "Kunde inte gå till kassan.",
+    "secureEta": "{secure} · Leverans {eta}",
+    "noImage": "Ingen bild",
+    "quickView": "Snabbvy",
+    "chooseOptions": "Välj alternativ",
+    "tryAgain": "Försök igen",
+    "closeQuickView": "Stäng snabbvy",
+    "close": "Stäng",
+    "viewFullDetails": "Visa fullständig info",
+    "shopTitle": "Shoppa",
+    "shopDescription": "Lampor och belysning med nordisk stillhet — varmt sken, ren form."
+  },
+  "trust": {
+    "shippingTitle": "Leverans",
+    "shippingBody": "Typiskt {eta} till Sverige och EU efter att betalningen gått igenom.",
+    "shippingMore": "Mer om frakt",
+    "trackingTitle": "Spårning",
+    "trackingBody": "Du får spårning så snart transportören har skannat paketet.",
+    "safetyTitle": "Trygghet",
+    "safetyBody": "14 dagars ångerrätt · defekter ersätts.",
+    "faqLink": "Vanliga frågor"
+  },
+  "fulfillment": {
+    "etaShort": "7–18 arbetsdagar",
+    "etaDetail": "De flesta ordrar lämnar lagret inom 1–3 arbetsdagar efter betalning. Därefter tar leveransen vanligtvis 7–18 arbetsdagar till adresser i Sverige och EU. Internationellt utanför EU kan det ta längre tid.",
+    "tracking": "Du får spårning så snart transportören har skannat paketet.",
+    "returns": "14 dagars ångerrätt för oanvända varor i originalförpackning. Skadade eller felaktiga produkter ersätter vi.",
+    "guaranteeShort": "14 dagars ångerrätt · defekter ersätts",
+    "secureCheckout": "Säker kassa via Shopify"
+  },
+  "cart": {
+    "title": "Din kasse",
+    "eyebrow": "{brand}",
+    "itemOne": "1 vara",
+    "itemMany": "{count} varor",
+    "emptyTitle": "Inget här ännu",
+    "emptyBody": "Börja med en lampa till rummet — bord, golv eller något mjukt till kvällen.",
+    "emptyCta": "Bläddra i kollektionen",
+    "startWith": "Börja med dessa",
+    "continueShopping": "← Fortsätt handla",
+    "summary": "Ordersammanfattning",
+    "subtotal": "Delsumma",
+    "shipping": "Frakt",
+    "shippingCheckout": "Beräknas i kassan",
+    "total": "Totalt",
+    "checkout": "Till kassan",
+    "trustLine": "Säker betalning · Leverans {eta} · Spårning",
+    "savedNote": "Behöver du en stund? Din kasse sparas på den här enheten medan du fortsätter handla.",
+    "drawerEyebrow": "Kasse",
+    "closeCart": "Stäng kassen",
+    "close": "Stäng",
+    "emptyDrawerBody": "Lägg till en lampa och fortsätt handla — kassen följer med dig.",
+    "toShop": "Till shoppen",
+    "each": "{price} styck",
+    "remove": "Ta bort",
+    "viewFullCart": "Visa full kasse",
+    "drawerTrust": "Leverans {eta} · Spårning"
+  },
+  "about": {
+    "metaTitle": "Om oss",
+    "metaDescription": "Berättelsen bakom {brand} — belysning för nordiska rum.",
+    "eyebrow": "Om {brand}",
+    "title": "Varmt sken för nordiska rum",
+    "intro": "{brand} är en belysningsbutik för stilla vardag — lampor med ren form, mjukt ljus och material som håller i rummet över tid.",
+    "imageAlt": "Varm belysning i nordiskt vinterljus",
+    "whyEyebrow": "Varför vi finns",
+    "whyTitle": "Ljus som gör kvällen längre",
+    "whyBody1": "Nordiska vintrar är långa. Vi kurerar belysning som ger värme utan brus — lampor du kan leva med, inte bara titta på i en feed.",
+    "whyBody2": "Varje produkt i sortimentet väljs för atmosfär, proportion och hur den känns i ett verkligt hem. Du handlar hos oss; ordern packas och skickas av våra fullföljandepartners med spårning.",
+    "howEyebrow": "Så fungerar det",
+    "howTitle": "Enkel handel, tydlig leverans",
+    "howBody": "Kassan körs säkert via Shopify. När du betalat packas din order och skickas med spårning. Leveranstider varierar med destination — vi är öppna med det, och hjälper dig om något strular.",
+    "exploreCta": "Utforska sortimentet →",
+    "faqLink": "Vanliga frågor",
+    "contactLink": "Kontakta oss"
+  },
+  "faq": {
+    "metaTitle": "Vanliga frågor",
+    "metaDescription": "Svar om frakt, returer, spårning och produkter från {brand}.",
+    "eyebrow": "Hjälp",
+    "title": "Vanliga frågor",
+    "intro": "Kort om frakt, returer och hur {brand} fungerar — innan eller efter du handlar.",
+    "notFound": "Hittar du inte svaret?",
+    "contactUs": "Kontakta oss",
+    "shippingReturns": "Frakt & returer",
+    "items": [
+      {
+        "question": "Hur lång tid tar leveransen?",
+        "answer": "De flesta ordrar lämnar lagret inom 1–3 arbetsdagar efter betalning. Därefter tar leveransen vanligtvis 7–18 arbetsdagar till adresser i Sverige och EU. Internationellt utanför EU kan det ta längre tid."
+      },
+      {
+        "question": "Får jag spårning?",
+        "answer": "Du får spårning så snart transportören har skannat paketet. Om spårning saknas flera arbetsdagar efter orderbekräftelsen, kontakta oss med ditt ordernummer."
+      },
+      {
+        "question": "Vad kostar frakten?",
+        "answer": "Fraktkostnad och alternativ beräknas i kassan utifrån din adress och varorna i kassen."
+      },
+      {
+        "question": "Kan jag ångra mitt köp?",
+        "answer": "14 dagars ångerrätt för oanvända varor i originalförpackning. Skadade eller felaktiga produkter ersätter vi."
+      },
+      {
+        "question": "Vad gör jag om lampan är skadad eller fel?",
+        "answer": "Mejla oss inom 14 dagar från leverans med ordernummer och foton. {brand} ordnar ersättning eller återbetalning när vi bekräftat problemet."
+      },
+      {
+        "question": "Var packas och skickas ordrarna?",
+        "answer": "Ordrar packas av våra fullföljandepartners och skickas med spårbara transportörer. Du handlar hos {brand}; leveransen sköts via vårt logistiknät."
+      },
+      {
+        "question": "Vilka lampor passar inomhus?",
+        "answer": "Vårt sortiment är avsett för inomhusbruk om inte produktsidan uttryckligen säger något annat. Torka av med torr eller lätt fuktig trasa."
+      },
+      {
+        "question": "Hur kontaktar jag er?",
+        "answer": "Skriv till {email} eller använd kontaktsidan. Vi strävar efter att svara inom 1–2 arbetsdagar. Ange ordernummer om frågan gäller en order."
+      }
+    ]
+  },
+  "contact": {
+    "metaTitle": "Kontakt",
+    "metaDescription": "Kontakta {brand} om ordrar, frakt eller produkter.",
+    "title": "Kontakt",
+    "description": "Frågor om en order, en lampa eller leverans — vi finns här.",
+    "updated": "augusti 2026",
+    "emailTitle": "E-post",
+    "emailBody": "Skriv till {email}. Vi strävar efter att svara inom 1–2 arbetsdagar.",
+    "emailCta": "Mejla support",
+    "emailSubject": "{brand} support",
+    "emailFallback": "Svara på din Shopify-orderbekräftelse, eller använd kontaktuppgifterna i ditt fraktmeddelande. För att visa en offentlig supportadress här, sätt NEXT_PUBLIC_SUPPORT_EMAIL i din miljö.",
+    "beforeTitle": "Innan du skriver",
+    "beforeIntro": "Om du inkluderar följande svarar vi snabbare:",
+    "beforeItems": [
+      "Ordernummer (från din bekräftelsemejl)",
+      "Produkten eller problemet du behöver hjälp med",
+      "Foton, om något anlänt skadat eller felaktigt"
+    ],
+    "linksTitle": "Snabblänkar",
+    "linkReturns": "Frakt & returer",
+    "linkPrivacy": "Integritet",
+    "linkTerms": "Villkor",
+    "linkShop": "Handla kollektionen"
+  },
+  "returns": {
+    "metaTitle": "Frakt & returer",
+    "metaDescription": "Hur {brand} skickar ordrar och hanterar returer.",
+    "title": "Frakt & returer",
+    "description": "Vad du kan förvänta dig vid leverans och hur du får hjälp om något inte stämmer.",
+    "updated": "augusti 2026",
+    "shipping": {
+      "title": "Frakt",
+      "paragraphs": [
+        "Vi skickar världen över där våra transportörer och betalningsleverantörer tillåter. Fraktkostnad och alternativ beräknas i kassan utifrån din adress och varorna i din kasse.",
+        "De flesta ordrar lämnar lagret inom 1–3 arbetsdagar efter betalning. Därefter tar leveransen vanligtvis 7–18 arbetsdagar till adresser i Sverige och EU. Internationellt utanför EU kan det ta längre tid.",
+        "Du får spårning så snart transportören har skannat paketet. Om spårning saknas flera arbetsdagar efter din orderbekräftelse, kontakta oss med ditt ordernummer."
+      ]
+    },
+    "customs": {
+      "title": "Tull & avgifter",
+      "paragraphs": [
+        "Internationella ordrar kan beläggas med importtullar, skatter eller klareringsavgifter från ditt land. Dessa avgifter är ditt ansvar om inte kassan uttryckligen anger något annat."
+      ]
+    },
+    "returns": {
+      "title": "Returer",
+      "paragraphs": [
+        "14 dagars ångerrätt för oanvända varor i originalförpackning. Skadade eller felaktiga produkter ersätter vi.",
+        "Om en vara anländer skadad, felaktig eller defekt, mejla oss inom 14 dagar från leverans med ordernummer och foton. Vi ordnar ersättning eller återbetalning när vi bekräftat problemet.",
+        "Vid ångerrätt kan oanvända produkter i originalförpackning och säljbart skick vara berättigade inom 14 dagar från leverans, med förbehåll för lokal konsumentlag. Eftersom {brand} säljer belysning och elektriska produkter kan varor som öppnats, installerats eller använts i regel inte återföras till lager om de inte längre är i väsentligen oförändrat skick — om inte produkten är felaktig.",
+        "Godkända returer ska skickas med spårbar metod. Ursprunglig utgående frakt återbetalas vanligtvis inte om vi inte gjort ett fel."
+      ]
+    },
+    "refunds": {
+      "title": "Återbetalningar",
+      "paragraphs": [
+        "Återbetalningar görs till ursprunglig betalningsmetod efter att vi mottagit och granskat en godkänd retur, eller tidigare när vi överenskommer om återbetalning utan retur. Behandlingen kan ta flera arbetsdagar beroende på din bank eller kortleverantör."
+      ]
+    },
+    "lost": {
+      "title": "Förlorade eller försenade paket",
+      "paragraphs": [
+        "Om spårningen står stilla under längre tid, kontakta oss så undersöker vi med transportören. Utfallet beror på undersökningen — ersättning, återbetalning eller fortsatt leverans — och vi håller dig uppdaterad."
+      ]
+    },
+    "help": {
+      "title": "Behöver du hjälp?",
+      "paragraphs": [
+        "Nå {brand} support på {email}. Ange ditt ordernummer så att vi kan hjälpa dig snabbt.",
+        "Nå {brand} support via vår kontaktsida. Ange ditt ordernummer så att vi kan hjälpa dig snabbt."
+      ]
+    }
+  },
+  "privacy": {
+    "metaTitle": "Integritet",
+    "metaDescription": "Hur {brand} samlar in, använder och skyddar din information.",
+    "title": "Integritet",
+    "description": "Hur {brand} hanterar din information när du surfar, handlar och tar emot ordrar.",
+    "updated": "augusti 2026",
+    "whoWeAre": {
+      "title": "Vilka vi är",
+      "paragraphs": [
+        "{brand} är en webbutik för belysning och lampor. Kassa och orderhantering sker via Shopify. Ordrar kan fullföljas av våra logistikpartners å våra vägnar."
+      ]
+    },
+    "whatWeCollect": {
+      "title": "Vad vi samlar in",
+      "intro": "Beroende på hur du använder webbplatsen kan vi behandla:",
+      "items": [
+        "Kontakt- och leveransuppgifter som du lämnar i kassan (namn, e-post, adress, telefon)",
+        "Orderhistorik, betalningsstatus och leveransuppdateringar",
+        "Tekniska uppgifter som enhetstyp, webbläsare och ungefärlig plats som behövs för att driva butiken",
+        "Kassainformation som lagras i en cookie på din enhet så att din kasse sparas medan du surfar"
+      ],
+      "paragraphs": [
+        "Kortbetalningar hanteras av Shopify och deras betalningsleverantörer. Vi lagrar inte fullständiga kortnummer på våra servrar."
+      ]
+    },
+    "whyWeUse": {
+      "title": "Varför vi använder det",
+      "items": [
+        "För att fullfölja och leverera dina ordrar",
+        "För att skicka order-, frakt- och supportmeddelanden",
+        "För att förebygga bedrägerier och hålla butiken säker",
+        "För att förbättra webbplatsen och förstå allmänna köpmönster",
+        "För att uppfylla juridiska, skattemässiga och bokföringskrav där de gäller"
+      ]
+    },
+    "partners": {
+      "title": "Partners som hjälper oss",
+      "paragraphs": [
+        "Vi delar endast det som behövs med tjänster som hjälper till att driva butiken — till exempel Shopify (kassa, betalningar, orderhantering) och fullföljandepartners som packar och skickar din order. De behandlar uppgifter enligt sina egna policyer och våra instruktioner."
+      ]
+    },
+    "cookies": {
+      "title": "Cookies",
+      "paragraphs": [
+        "Vi använder nödvändiga cookies för att din kasse och session ska fungera. Shopify kan sätta cookies som krävs för säker utcheckning. Om du blockerar nödvändiga cookies kanske kassen eller utcheckningen inte fungerar korrekt.",
+        "För besökare i EES, Storbritannien och Schweiz samlar vi in samtycke till annonscookies via Googles certifierade samtyckesplattform (CMP) som visas på webbplatsen. Där kan du godkänna, neka eller hantera alternativ för Google AdSense och relaterad annonsmätning. Meta- (Facebook) och Google Ads-taggar följer samma samtyckesval via Google Consent Mode. Du kan ändra ditt val senare via Googles samtyckesverktyg på sidan när det visas."
+      ]
+    },
+    "retention": {
+      "title": "Hur länge vi sparar det",
+      "paragraphs": [
+        "Order- och kunduppgifter sparas så länge det behövs för att fullfölja köp, hantera returer eller tvister och uppfylla lagstadgade sparkrav. Kasscookies upphör när de raderas eller åldras ut i din webbläsare."
+      ]
+    },
+    "yourChoices": {
+      "title": "Dina val",
+      "paragraphs": [
+        "Beroende på var du bor kan du ha rätt att få tillgång till, rätta, radera eller begränsa viss personuppgift, eller invända mot viss behandling. Du kan också fråga oss var dina uppgifter har delats för orderfullföljande.",
+        "För en integritetsförfrågan, mejla {email}. Vi kan behöva verifiera din identitet innan vi svarar.",
+        "För en integritetsförfrågan, kontakta oss via vår kontaktsida. Vi kan behöva verifiera din identitet innan vi svarar."
+      ]
+    },
+    "children": {
+      "title": "Barn",
+      "paragraphs": [
+        "{brand} riktar sig inte till barn under 16 år. Vi samlar inte medvetet in personuppgifter från barn."
+      ]
+    },
+    "updates": {
+      "title": "Uppdateringar",
+      "paragraphs": [
+        "Vi kan uppdatera denna policy när butiken eller våra partners förändras. Datumet högst upp på sidan ändras när vi gör det."
+      ]
+    }
+  },
+  "terms": {
+    "metaTitle": "Villkor",
+    "metaDescription": "Användar- och köpvillkor för handel hos {brand}.",
+    "title": "Villkor",
+    "description": "Grunderna för att surfa och handla hos {brand}.",
+    "updated": "augusti 2026",
+    "agreement": {
+      "title": "Avtal",
+      "paragraphs": [
+        "Genom att använda denna webbplats eller lägga en order godkänner du dessa villkor och vår Integritetspolicy. Om du inte godkänner, använd inte butiken."
+      ],
+      "privacyLink": "Integritetspolicy"
+    },
+    "store": {
+      "title": "Butiken",
+      "paragraphs": [
+        "{brand} säljer lampor, belysning och relaterade produkter online. Produktsidor, priser och tillgänglighet visas via vår Shopify-drivna katalog och kan ändras utan föregående meddelande. Vi gör vårt bästa för att hålla beskrivningar korrekta; små skillnader i förpackning eller bilder kan förekomma."
+      ]
+    },
+    "orders": {
+      "title": "Ordrar & betalning",
+      "paragraphs": [
+        "Att lägga en order är ett erbjudande att köpa. Vi (eller Shopify å våra vägnar) bekräftar acceptans via e-post när betalningen lyckas. Priser visas före utcheckning; skatter och frakt beräknas i kassan där det är tillämpligt.",
+        "Betalning behandlas säkert av Shopify och deras betalningsleverantörer. Vi förbehåller oss rätten att neka eller avbryta en order vid misstänkt bedrägeri, prisfel, lagerproblem eller fraktbegränsningar."
+      ]
+    },
+    "fulfillment": {
+      "title": "Fullföljande",
+      "paragraphs": [
+        "Ordrar fullföljs via våra logistikpartners. Behandlings- och leveranstider varierar beroende på destination och produkt. Spårning tillhandahålls när den finns tillgänglig. Risken för förlust övergår till dig när transportören markerar paketet som levererat, om inte lokal konsumentlag säger annat."
+      ]
+    },
+    "personalUse": {
+      "title": "Personligt bruk",
+      "paragraphs": [
+        "Produkter säljs för personligt bruk. Missbruka inte innehåll från denna webbplats, försök inte störa butiken eller skrapa katalogen för kommersiell återanvändning utan tillstånd."
+      ]
+    },
+    "care": {
+      "title": "Produktskötsel",
+      "paragraphs": [
+        "Följ anvisningarna på förpackningen och produktsidan. Använd lampor endast inomhus om inte annat anges, byt glödlampor enligt angiven typ och effekt, och koppla ur före rengöring. Torka av med torr eller lätt fuktig trasa. {brand} ersätter inte professionell elrådgivning — kontakta en behörig elektriker vid osäkerhet kring installation."
+      ]
+    },
+    "returns": {
+      "title": "Returer",
+      "paragraphs": [
+        "Frakt, returer och återbetalningar beskrivs på vår sida om Frakt & returer. Lokala konsumenträttigheter som inte kan avtalas bort gäller fortfarande."
+      ],
+      "returnsLink": "Frakt & returer"
+    },
+    "liability": {
+      "title": "Ansvar",
+      "paragraphs": [
+        "I den utsträckning lagen tillåter är {brand} inte ansvarig för indirekta eller följdskador som uppstår vid användning av webbplatsen eller produkterna. Ingenting i dessa villkor begränsar ansvar för dödsfall eller personskada orsakad av vårdslöshet, bedrägeri eller andra rättigheter som inte får begränsas enligt lag."
+      ]
+    },
+    "contact": {
+      "title": "Kontakt",
+      "paragraphs": [
+        "Frågor om dessa villkor: {email}.",
+        "Frågor om dessa villkor: se Kontakt."
+      ],
+      "contactLink": "Kontakt"
+    }
+  },
+  "common": {
+    "updated": "Uppdaterad {date}",
+    "back": "Tillbaka"
+  },
+  "notFound": {
+    "title": "Sidan hittades inte",
+    "body": "Den sidan eller produkten finns inte.",
+    "cta": "Till shoppen"
+  }
+}

@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
-import Link from "next/link";
+import { useDictionary } from "@/components/dictionary-provider";
+import { LocaleLink } from "@/components/locale-link";
 import { categoryParamFromId } from "@/lib/shopify/taxonomy";
 import type { ProductCategory } from "@/lib/shopify/types";
 import type { ProductImage } from "@/lib/shopify/types";
@@ -13,19 +16,21 @@ type HomeCategoryGuideProps = {
 };
 
 export function HomeCategoryGuide({ categories }: HomeCategoryGuideProps) {
+  const { dict } = useDictionary();
+
   if (categories.length === 0) return null;
 
   return (
     <section className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
       <div className="mb-12 max-w-xl sm:mb-14">
         <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
-          Hitta rätt
+          {dict.home.categoryEyebrow}
         </p>
         <h2 className="mt-3 font-display text-4xl font-medium tracking-tight sm:text-5xl">
-          Ljus efter rum
+          {dict.home.categoryTitle}
         </h2>
         <p className="mt-4 text-base font-light leading-relaxed text-muted">
-          Börja där du vill sätta stämningen — sedan bygger du vidare i lugn takt.
+          {dict.home.categorySub}
         </p>
       </div>
 
@@ -35,7 +40,7 @@ export function HomeCategoryGuide({ categories }: HomeCategoryGuideProps) {
 
           return (
             <li key={category.id}>
-              <Link
+              <LocaleLink
                 href={href}
                 className="group relative block min-h-[14rem] overflow-hidden rounded-2xl bg-mist sm:min-h-[16rem]"
               >
@@ -58,10 +63,12 @@ export function HomeCategoryGuide({ categories }: HomeCategoryGuideProps) {
                   </p>
                   <p className="mt-1 text-[0.72rem] font-medium tracking-[0.14em] uppercase text-white/75">
                     {category.productCount}{" "}
-                    {category.productCount === 1 ? "produkt" : "produkter"}
+                    {category.productCount === 1
+                      ? dict.home.productOne
+                      : dict.home.productMany}
                   </p>
                 </div>
-              </Link>
+              </LocaleLink>
             </li>
           );
         })}

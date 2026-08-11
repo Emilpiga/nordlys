@@ -66,7 +66,7 @@ export function ProductGallery({
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-2xl bg-[linear-gradient(180deg,rgba(238,241,244,0.14)_0%,transparent_22%,transparent_72%,rgba(20,28,34,0.08)_100%)]"
+          className="pointer-events-none absolute inset-0 rounded-2xl bg-[linear-gradient(180deg,rgba(241,238,232,0.14)_0%,transparent_22%,transparent_72%,rgba(26,24,20,0.08)_100%)]"
         />
       </div>
 

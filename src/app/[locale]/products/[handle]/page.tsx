@@ -7,20 +7,25 @@ import { ProductCard } from "@/components/product-card";
 import { ProductPurchase } from "@/components/product-purchase";
 import { ProductViewTracker } from "@/components/product-view-tracker";
 import { sanitizeDescriptionHtml } from "@/lib/description";
+import { getDictionary, t } from "@/lib/i18n/get-dictionary";
+import { isLocale, localePath } from "@/lib/i18n/locales";
 import { buildProductJsonLd } from "@/lib/json-ld";
 import { getProductByHandle, getProducts } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
-import { socialMetadata } from "@/lib/seo";
-import { getSiteUrl } from "@/lib/site-url";
+import {
+  localeAlternates,
+  ogLocaleFor,
+  socialMetadata,
+} from "@/lib/seo";
 import { categoryParamFromId } from "@/lib/shopify/taxonomy";
 
-type ProductPageProps = PageProps<"/products/[handle]">;
+type Props = { params: Promise<{ locale: string; handle: string }> };
 
-export async function generateMetadata({
-  params,
-}: ProductPageProps): Promise<Metadata> {
-  const { handle } = await params;
-  const product = await getProductByHandle(handle);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, handle } = await params;
+  if (!isLocale(locale)) return {};
+
+  const product = await getProductByHandle(handle, locale);
   if (!product) return { title: "Produkt" };
 
   const description =
@@ -28,15 +33,17 @@ export async function generateMetadata({
     `${product.title} från ${shopifyConfig.storeName}.`;
   const image = product.featuredImage ?? product.images[0] ?? null;
   const title = product.title;
-  const url = `${getSiteUrl()}/products/${product.handle}`;
+  const alternates = localeAlternates(locale, `/products/${product.handle}`);
 
   return {
     title,
     description,
+    alternates,
     ...socialMetadata({
       title: `${title} · ${shopifyConfig.storeName}`,
       description,
-      url,
+      url: alternates.canonical,
+      locale: ogLocaleFor(locale),
       type: "website",
       images: image
         ? [
@@ -52,11 +59,14 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
-  const { handle } = await params;
+export default async function ProductPage({ params }: Props) {
+  const { locale, handle } = await params;
+  if (!isLocale(locale)) notFound();
+
+  const dict = await getDictionary(locale);
   const [product, catalog] = await Promise.all([
-    getProductByHandle(handle),
-    getProducts(8),
+    getProductByHandle(handle, locale),
+    getProducts(8, locale),
   ]);
 
   if (!product) notFound();
@@ -75,19 +85,22 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const detailsHtml = sanitizeDescriptionHtml(product.descriptionHtml);
   const plainDescription = product.description.replace(/\s+/g, " ").trim();
   const categoryHref = product.category
-    ? `/categories/${encodeURIComponent(categoryParamFromId(product.category.id))}`
+    ? localePath(
+        locale,
+        `/categories/${encodeURIComponent(categoryParamFromId(product.category.id))}`,
+      )
     : null;
 
   return (
     <div>
-      <JsonLd data={buildProductJsonLd(product)} />
+      <JsonLd data={buildProductJsonLd(product, locale)} />
       <ProductViewTracker product={product} />
       <div className="mx-auto w-full max-w-6xl px-5 pt-28 sm:px-8 sm:pt-32">
         <Link
-          href="/products"
+          href={localePath(locale, "/products")}
           className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted transition hover:text-foreground"
         >
-          ← Tillbaka till shoppen
+          {dict.products.backToShop}
         </Link>
       </div>
 
@@ -114,7 +127,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 </>
               ) : (
                 <>
-                  {shopifyConfig.storeName} · Belysning
+                  {shopifyConfig.storeName} ·{" "}
+                  {dict.products.lightingFallbackCategory}
                 </>
               )}
             </p>
@@ -132,7 +146,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </p>
             ) : (
               <p className="mt-5 max-w-md text-base font-light leading-relaxed text-muted">
-                En stillsam lampa för vardagsrummet — varmt sken, ren form.
+                {dict.products.fallbackDescription}
               </p>
             )}
           </>
@@ -141,36 +155,44 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <dl className="mt-10 grid gap-5 border-t border-border/70 pt-8 text-sm">
             <div>
               <dt className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
-                Frakt
+                {dict.products.shippingLabel}
               </dt>
               <dd className="mt-1.5 font-light text-foreground">
                 <Link
-                  href="/returns"
+                  href={localePath(locale, "/returns")}
                   className="underline-offset-4 transition hover:text-accent hover:underline"
                 >
-                  Leverans världen över med spårning på varje order
+                  {t(dict.products.shippingValue, {
+                    eta: dict.fulfillment.etaShort,
+                  })}
                 </Link>
               </dd>
             </div>
             <div>
               <dt className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
-                Skötsel
+                {dict.products.careLabel}
               </dt>
               <dd className="mt-1.5 font-light text-foreground">
-                Torka av med torr eller lätt fuktig trasa · Endast för
-                inomhusbruk
+                {dict.products.careValue}
               </dd>
             </div>
             <div>
               <dt className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
-                Frågor
+                {dict.products.questionsLabel}
               </dt>
               <dd className="mt-1.5 font-light text-foreground">
                 <Link
-                  href="/contact"
+                  href={localePath(locale, "/faq")}
                   className="underline-offset-4 transition hover:text-accent hover:underline"
                 >
-                  Vi finns här om du behöver hjälp att välja lampa
+                  {dict.products.faqLink}
+                </Link>
+                {" · "}
+                <Link
+                  href={localePath(locale, "/contact")}
+                  className="underline-offset-4 transition hover:text-accent hover:underline"
+                >
+                  {dict.products.contactLink}
                 </Link>
               </dd>
             </div>
@@ -184,13 +206,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <AmbientSection className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
             <div className="mb-10 flex items-end justify-between gap-4">
               <h2 className="font-display text-3xl font-medium tracking-tight sm:text-4xl">
-                Mer ur kollektionen
+                {dict.products.relatedTitle}
               </h2>
               <Link
-                href="/products"
+                href={localePath(locale, "/products")}
                 className="hidden text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted transition hover:text-foreground sm:inline"
               >
-                Visa alla
+                {dict.products.relatedAll}
               </Link>
             </div>
             <div className="grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-4 lg:gap-x-7">

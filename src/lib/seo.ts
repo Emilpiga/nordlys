@@ -1,10 +1,21 @@
 import type { Metadata } from "next";
 import { getMarketingPixelConfig } from "@/lib/consent";
+import { locales, localePath, getLocaleConfig } from "@/lib/i18n/locales";
 import { shopifyConfig } from "@/lib/shopify/config";
+import { getSiteUrl } from "@/lib/site-url";
 
-export const siteDescription = `${shopifyConfig.storeName} — Nordisk belysning för lugna rum. Lampor med varmt sken och stilla design.`;
+export function siteTitleFor(brand = shopifyConfig.storeName) {
+  return `${brand} · Nordisk belysning`;
+}
 
-export const siteTitle = `${shopifyConfig.storeName} · Nordisk belysning`;
+export function siteDescriptionFor(brand = shopifyConfig.storeName) {
+  return `${brand} — Nordisk belysning för lugna rum. Lampor med varmt sken och stilla design.`;
+}
+
+/** @deprecated Prefer dictionary meta via getDictionary */
+export const siteDescription = siteDescriptionFor();
+/** @deprecated Prefer dictionary meta via getDictionary */
+export const siteTitle = siteTitleFor();
 
 type OgImageInput = {
   url: string;
@@ -20,12 +31,14 @@ export function socialMetadata({
   url,
   images,
   type = "website",
+  locale = "sv_SE",
 }: {
   title: string;
   description: string;
   url?: string;
   images?: OgImageInput[];
   type?: "website" | "article";
+  locale?: string;
 }): Pick<Metadata, "openGraph" | "twitter" | "facebook"> {
   const ogImages = images?.map((image) => ({
     url: image.url,
@@ -39,7 +52,7 @@ export function socialMetadata({
   return {
     openGraph: {
       type,
-      locale: "sv_SE",
+      locale,
       siteName: shopifyConfig.storeName,
       title,
       description,
@@ -54,8 +67,24 @@ export function socialMetadata({
         ? { images: ogImages.map((image) => image.url) }
         : {}),
     },
-    // Must use `facebook.appId` (renders property="fb:app_id").
-    // `other["fb:app_id"]` incorrectly renders name= which Facebook ignores.
     ...(facebookAppId ? { facebook: { appId: facebookAppId } } : {}),
   };
+}
+
+export function localeAlternates(locale: string, path = "/") {
+  const base = getSiteUrl();
+  const languages = Object.fromEntries(
+    locales.map((code) => [code, `${base}${localePath(code, path)}`]),
+  );
+  return {
+    canonical: `${base}${localePath(locale, path)}`,
+    languages: {
+      ...languages,
+      "x-default": `${base}${localePath("sv", path)}`,
+    },
+  };
+}
+
+export function ogLocaleFor(locale: string) {
+  return getLocaleConfig(locale).ogLocale;
 }

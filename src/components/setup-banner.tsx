@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   getStorefrontCredentialHint,
   isShopifyConfigured,
@@ -42,12 +41,6 @@ export function EmptyCatalog() {
       <p className="mx-auto mt-3 max-w-md text-sm font-light text-muted">
         Produkter visas här när de publicerats till din Headless-försäljningskanal.
       </p>
-      <Link
-        href="/products"
-        className="mt-6 inline-flex text-sm font-medium text-accent underline-offset-4 hover:underline"
-      >
-        Uppdatera
-      </Link>
     </div>
   );
 }

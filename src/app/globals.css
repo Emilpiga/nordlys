@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #eef1f4;
-  --foreground: #141c22;
-  --muted: #5a646b;
-  --surface: rgba(255, 255, 255, 0.7);
-  --border: rgba(20, 28, 34, 0.12);
-  --accent: #1a3038;
-  --accent-strong: #122228;
-  --accent-soft: #2a4650;
+  --background: #f1eee8;
+  --foreground: #1a1814;
+  --muted: #6a655c;
+  --surface: rgba(255, 255, 255, 0.72);
+  --border: rgba(26, 24, 20, 0.12);
+  --accent: #2a2620;
+  --accent-strong: #1c1915;
+  --accent-soft: #4a433a;
   --on-accent: #ffffff;
   --glow: #b08a4a;
-  --mist: #d4dde4;
-  --frost: #f6f8fa;
+  --mist: #e5ddd2;
+  --frost: #f7f5f1;
 }
 
 @theme inline {
@@ -42,7 +42,7 @@ html {
 }
 
 body {
-  background: linear-gradient(180deg, #e8edf1 0%, var(--background) 45%, #e5eaee 100%);
+  background: linear-gradient(180deg, #efeae3 0%, var(--background) 45%, #ece6de 100%);
   color: var(--foreground);
   font-family: var(--font-outfit), sans-serif;
   min-height: 100%;
@@ -179,6 +179,34 @@ body {
   animation: veil 8s ease-in-out infinite alternate;
 }
 
+@keyframes drawer-in {
+  from {
+    opacity: 0.85;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes drawer-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-drawer-panel {
+  animation: drawer-in 340ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-drawer-backdrop {
+  animation: drawer-backdrop-in 240ms ease both;
+}
+
 .delay-1 {
   animation-delay: 140ms;
 }
@@ -215,9 +243,9 @@ body {
   height: 110vh;
   background: radial-gradient(
     closest-side ellipse,
-    rgba(74, 118, 138, 0.2) 0%,
-    rgba(74, 118, 138, 0.09) 40%,
-    rgba(74, 118, 138, 0) 72%
+    rgba(196, 178, 148, 0.22) 0%,
+    rgba(196, 178, 148, 0.09) 40%,
+    rgba(196, 178, 148, 0) 72%
   );
   animation: aurora-one 46s ease-in-out infinite alternate;
 }
@@ -229,9 +257,9 @@ body {
   height: 95vh;
   background: radial-gradient(
     closest-side ellipse,
-    rgba(120, 148, 168, 0.18) 0%,
-    rgba(120, 148, 168, 0.07) 44%,
-    rgba(120, 148, 168, 0) 74%
+    rgba(214, 200, 176, 0.2) 0%,
+    rgba(214, 200, 176, 0.08) 44%,
+    rgba(214, 200, 176, 0) 74%
   );
   animation: aurora-two 58s ease-in-out infinite alternate;
 }
@@ -357,7 +385,9 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .aurora__veil,
   .animate-soft-zoom,
-  .animate-veil {
+  .animate-veil,
+  .animate-drawer-panel,
+  .animate-drawer-backdrop {
     animation: none;
   }
 }

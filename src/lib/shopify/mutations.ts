@@ -3,10 +3,11 @@ import { CART_FRAGMENT } from "./fragments";
 export const CART_CREATE_MUTATION = /* GraphQL */ `
   mutation CartCreate(
     $lines: [CartLineInput!]
+    $buyerIdentity: CartBuyerIdentityInput
     $country: CountryCode
     $language: LanguageCode
   ) @inContext(country: $country, language: $language) {
-    cartCreate(input: { lines: $lines }) {
+    cartCreate(input: { lines: $lines, buyerIdentity: $buyerIdentity }) {
       cart {
         ...CartFields
       }
@@ -67,6 +68,26 @@ export const CART_LINES_REMOVE_MUTATION = /* GraphQL */ `
     $language: LanguageCode
   ) @inContext(country: $country, language: $language) {
     cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+      cart {
+        ...CartFields
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+  ${CART_FRAGMENT}
+`;
+
+export const CART_BUYER_IDENTITY_UPDATE_MUTATION = /* GraphQL */ `
+  mutation CartBuyerIdentityUpdate(
+    $cartId: ID!
+    $buyerIdentity: CartBuyerIdentityInput!
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    cartBuyerIdentityUpdate(cartId: $cartId, buyerIdentity: $buyerIdentity) {
       cart {
         ...CartFields
       }
