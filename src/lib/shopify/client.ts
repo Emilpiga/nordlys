@@ -58,11 +58,14 @@ export async function shopifyFetch<T>({
   variables,
   cache = "force-cache",
   tags,
+  revalidate = 60,
 }: {
   query: string;
   variables?: Record<string, unknown>;
   cache?: RequestCache;
   tags?: string[];
+  /** Seconds before cached Storefront responses are considered stale. Ignored when cache is no-store. */
+  revalidate?: number | false;
 }): Promise<T> {
   const client = getClient();
   const usePrivate = Boolean(shopifyConfig.privateStorefrontToken);
@@ -82,7 +85,13 @@ export async function shopifyFetch<T>({
       : client.getPublicTokenHeaders({ contentType: "json" }),
     body: JSON.stringify({ query, variables: contextualVariables }),
     cache,
-    next: tags ? { tags } : undefined,
+    next:
+      cache === "no-store"
+        ? undefined
+        : {
+            ...(tags ? { tags } : {}),
+            revalidate,
+          },
   });
 
   if (response.status === 401 || response.status === 403) {
