@@ -6,6 +6,7 @@ import { useEffect, useId, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { addToCartAction } from "@/app/actions/cart";
 import { formatMoney } from "@/lib/format";
+import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
 import type { Product } from "@/lib/shopify/types";
 
 type ProductQuickViewProps = {
@@ -97,6 +98,14 @@ export function ProductQuickView({
           setError("Kunde inte lägga till i kassen.");
           return;
         }
+        trackAddToCart({
+          contentIds: [metaContentIdFromGid(selectedVariant.id)],
+          contentName: product.title,
+          contentType: "product",
+          value: Number(selectedVariant.price.amount) * quantity,
+          currency: selectedVariant.price.currencyCode,
+          numItems: quantity,
+        });
         onClose();
         router.refresh();
       } catch (err) {

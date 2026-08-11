@@ -10,6 +10,7 @@ import {
   hasSelectableOptions,
 } from "@/components/product-quick-view";
 import { formatMoney } from "@/lib/format";
+import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
 import type { Product } from "@/lib/shopify/types";
 
 type ProductCardProps = {
@@ -48,6 +49,14 @@ export function ProductCard({ product }: ProductCardProps) {
           setStatus("error");
           return;
         }
+        trackAddToCart({
+          contentIds: [metaContentIdFromGid(defaultVariant!.id)],
+          contentName: product.title,
+          contentType: "product",
+          value: Number(defaultVariant!.price.amount),
+          currency: defaultVariant!.price.currencyCode,
+          numItems: 1,
+        });
         setStatus("added");
         router.refresh();
         window.setTimeout(() => setStatus("idle"), 1600);

@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/json-ld";
 import { ProductCard } from "@/components/product-card";
 import { ProductForm } from "@/components/product-form";
 import { ProductGallery } from "@/components/product-gallery";
+import { ProductViewTracker } from "@/components/product-view-tracker";
 import { sanitizeDescriptionHtml } from "@/lib/description";
 import { buildProductJsonLd } from "@/lib/json-ld";
 import { getProductByHandle, getProducts } from "@/lib/shopify";
@@ -77,6 +78,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   return (
     <div>
       <JsonLd data={buildProductJsonLd(product)} />
+      <ProductViewTracker product={product} />
       <div className="mx-auto w-full max-w-6xl px-5 pt-28 sm:px-8 sm:pt-32">
         <Link
           href="/products"

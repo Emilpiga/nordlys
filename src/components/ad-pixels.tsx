@@ -15,7 +15,8 @@ declare global {
 
 export function AdPixels() {
   const { ready, marketingAllowed } = useConsent();
-  const { metaPixelId, googleAdsId } = getMarketingPixelConfig();
+  const { metaPixelId, googleAdsId, adsenseClientId } =
+    getMarketingPixelConfig();
 
   if (!ready || !marketingAllowed) return null;
 
@@ -23,7 +24,20 @@ export function AdPixels() {
     <>
       {metaPixelId ? <MetaPixel id={metaPixelId} /> : null}
       {googleAdsId ? <GoogleAdsTag id={googleAdsId} /> : null}
+      {adsenseClientId ? <AdSenseScript clientId={adsenseClientId} /> : null}
     </>
+  );
+}
+
+function AdSenseScript({ clientId }: { clientId: string }) {
+  return (
+    <Script
+      id="adsense"
+      async
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(clientId)}`}
+      crossOrigin="anonymous"
+      strategy="afterInteractive"
+    />
   );
 }
 

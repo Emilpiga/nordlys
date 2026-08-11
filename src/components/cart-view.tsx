@@ -9,6 +9,10 @@ import {
   updateCartLineAction,
 } from "@/app/actions/cart";
 import { formatMoney } from "@/lib/format";
+import {
+  metaContentIdFromGid,
+  trackInitiateCheckout,
+} from "@/lib/meta-pixel";
 import type { Cart } from "@/lib/shopify/types";
 
 type CartViewProps = {
@@ -159,6 +163,17 @@ export function CartView({ cart }: CartViewProps) {
           <a
             href={cart.checkoutUrl}
             className="btn-primary btn-primary-block mt-8"
+            onClick={() => {
+              trackInitiateCheckout({
+                contentIds: cart.lines.map((line) =>
+                  metaContentIdFromGid(line.merchandise.id),
+                ),
+                contentType: "product",
+                value: Number(cart.cost.totalAmount.amount),
+                currency: cart.cost.totalAmount.currencyCode,
+                numItems: cart.totalQuantity,
+              });
+            }}
           >
             Till kassan
           </a>

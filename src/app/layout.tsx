@@ -16,9 +16,12 @@ import {
 } from "@/lib/json-ld";
 import { getProductCategories } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
+import { getMarketingPixelConfig } from "@/lib/consent";
 import { siteDescription, siteTitle, socialMetadata } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
+
+const { adsenseClientId } = getMarketingPixelConfig();
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -47,6 +50,10 @@ export const metadata: Metadata = {
     icon: [{ url: "/logo-ikon.png", type: "image/png" }],
     apple: [{ url: "/logo-ikon.png", type: "image/png" }],
   },
+  // Site verification for AdSense — always in HTML (no cookies). Ads script is consent-gated.
+  ...(adsenseClientId
+    ? { other: { "google-adsense-account": adsenseClientId } }
+    : {}),
   ...socialMetadata({
     title: siteTitle,
     description: siteDescription,
