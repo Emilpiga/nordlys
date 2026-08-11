@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getMarketingPixelConfig } from "@/lib/consent";
 import { shopifyConfig } from "@/lib/shopify/config";
 
 export const siteDescription = `${shopifyConfig.storeName} — Nordisk hudvård för klar, lugn hy. Mjuka formler för nordiskt ljus.`;
@@ -25,13 +26,15 @@ export function socialMetadata({
   url?: string;
   images?: OgImageInput[];
   type?: "website" | "article";
-}): Pick<Metadata, "openGraph" | "twitter"> {
+}): Pick<Metadata, "openGraph" | "twitter" | "other"> {
   const ogImages = images?.map((image) => ({
     url: image.url,
     width: image.width,
     height: image.height,
     alt: image.alt ?? title,
   }));
+
+  const { facebookAppId } = getMarketingPixelConfig();
 
   return {
     openGraph: {
@@ -51,5 +54,12 @@ export function socialMetadata({
         ? { images: ogImages.map((image) => image.url) }
         : {}),
     },
+    ...(facebookAppId
+      ? {
+          other: {
+            "fb:app_id": facebookAppId,
+          },
+        }
+      : {}),
   };
 }
