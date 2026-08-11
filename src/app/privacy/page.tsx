@@ -75,17 +75,18 @@ export default function PrivacyPage() {
       <LegalSection title="Cookies">
         <p>
           Vi använder nödvändiga cookies för att din kasse och session ska
-          fungera, och för att komma ihåg dina cookieinställningar. Shopify kan
-          sätta cookies som krävs för säker utcheckning. Om du blockerar
-          nödvändiga cookies kanske kassen eller utcheckningen inte fungerar
-          korrekt.
+          fungera. Shopify kan sätta cookies som krävs för säker utcheckning.
+          Om du blockerar nödvändiga cookies kanske kassen eller utcheckningen
+          inte fungerar korrekt.
         </p>
         <p>
-          Med ditt samtycke laddar vi även Meta- (Facebook) och
-          Google-annonspixlar för att mäta kampanjer och visa mer relevanta
-          annonser. Dessa körs först efter att du väljer ”Acceptera
-          annonscookies.” Du kan ändra dig när som helst via Cookies-länken i
-          sidfoten.
+          För besökare i EES, Storbritannien och Schweiz samlar vi in samtycke
+          till annonscookies via Googles certifierade samtyckesplattform (CMP)
+          som visas på webbplatsen. Där kan du godkänna, neka eller hantera
+          alternativ för Google AdSense och relaterad annonsmätning. Meta-
+          (Facebook) och Google Ads-taggar följer samma samtyckesval via Google
+          Consent Mode. Du kan ändra ditt val senare via Googles
+          samtyckesverktyg på sidan när det visas.
         </p>
       </LegalSection>
 

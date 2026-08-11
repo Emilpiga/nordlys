@@ -1,30 +1,21 @@
-"use client";
-
 import Script from "next/script";
-import { useConsent } from "@/components/consent-provider";
 import { getMarketingPixelConfig } from "@/lib/consent";
 
-declare global {
-  interface Window {
-    fbq?: (...args: unknown[]) => void;
-    _fbq?: (...args: unknown[]) => void;
-    dataLayer?: unknown[];
-    gtag?: (...args: unknown[]) => void;
-  }
-}
-
+/**
+ * Marketing tags. Consent Mode defaults + Google’s CMP gate personalization;
+ * Meta follows via __nordlysSetMarketingConsent (see ConsentModeBootstrap).
+ */
 export function AdPixels() {
-  const { ready, marketingAllowed } = useConsent();
   const { metaPixelId, googleAdsId, adsenseClientId } =
     getMarketingPixelConfig();
 
-  if (!ready || !marketingAllowed) return null;
+  if (!metaPixelId && !googleAdsId && !adsenseClientId) return null;
 
   return (
     <>
-      {metaPixelId ? <MetaPixel id={metaPixelId} /> : null}
-      {googleAdsId ? <GoogleAdsTag id={googleAdsId} /> : null}
       {adsenseClientId ? <AdSenseScript clientId={adsenseClientId} /> : null}
+      {googleAdsId ? <GoogleAdsTag id={googleAdsId} /> : null}
+      {metaPixelId ? <MetaPixel id={metaPixelId} /> : null}
     </>
   );
 }
@@ -53,9 +44,13 @@ function MetaPixel({ id }: { id: string }) {
         t.src=v;s=b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('consent', 'grant');
+        fbq('consent', 'revoke');
         fbq('init', ${JSON.stringify(id)});
         fbq('track', 'PageView');
+        if (typeof window.__nordlysSetMarketingConsent === 'function' &&
+            window.__nordlysMarketingConsent !== null) {
+          window.__nordlysSetMarketingConsent(window.__nordlysMarketingConsent);
+        }
       `}
     </Script>
   );
@@ -72,13 +67,8 @@ function GoogleAdsTag({ id }: { id: string }) {
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
+          window.gtag = window.gtag || gtag;
           gtag('js', new Date());
-          gtag('consent', 'update', {
-            ad_storage: 'granted',
-            ad_user_data: 'granted',
-            ad_personalization: 'granted',
-            analytics_storage: 'granted'
-          });
           gtag('config', ${JSON.stringify(id)});
         `}
       </Script>

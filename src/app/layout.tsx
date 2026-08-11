@@ -4,8 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { getCartAction } from "@/app/actions/cart";
 import { AdPixels } from "@/components/ad-pixels";
 import { AuroraBackdrop } from "@/components/aurora-backdrop";
-import { ConsentProvider } from "@/components/consent-provider";
-import { CookieBanner } from "@/components/cookie-banner";
+import { ConsentModeBootstrap } from "@/components/consent-mode-bootstrap";
 import { JsonLd } from "@/components/json-ld";
 import { SetupBanner } from "@/components/setup-banner";
 import { SiteFooter } from "@/components/site-footer";
@@ -50,7 +49,7 @@ export const metadata: Metadata = {
     icon: [{ url: "/logo-ikon.png", type: "image/png" }],
     apple: [{ url: "/logo-ikon.png", type: "image/png" }],
   },
-  // Site verification for AdSense — always in HTML (no cookies). Ads script is consent-gated.
+  // AdSense site verification (always in HTML). Runtime ads use Consent Mode + Google CMP.
   ...(adsenseClientId
     ? { other: { "google-adsense-account": adsenseClientId } }
     : {}),
@@ -75,20 +74,18 @@ export default async function RootLayout({
       className={`${cormorant.variable} ${outfit.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <ConsentModeBootstrap />
         <JsonLd data={[buildOrganizationJsonLd(), buildWebSiteJsonLd()]} />
-        <ConsentProvider>
-          <AuroraBackdrop />
-          <SetupBanner />
-          <Analytics />
-          <AdPixels />
-          <SiteHeader
-            cartCount={cart?.totalQuantity ?? 0}
-            categories={categories}
-          />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
-          <CookieBanner />
-        </ConsentProvider>
+        <AuroraBackdrop />
+        <SetupBanner />
+        <Analytics />
+        <AdPixels />
+        <SiteHeader
+          cartCount={cart?.totalQuantity ?? 0}
+          categories={categories}
+        />
+        <main className="flex-1">{children}</main>
+        <SiteFooter />
       </body>
     </html>
   );

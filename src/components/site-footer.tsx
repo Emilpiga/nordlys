@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { CookieSettingsButton } from "@/components/cookie-banner";
 import { SectionRule } from "@/components/section";
 import { SiteLogo } from "@/components/site-logo";
 import { shopifyConfig } from "@/lib/shopify/config";
@@ -71,10 +70,6 @@ export function SiteFooter() {
                     Kontakt
                   </Link>
                 </li>
-                <CookieSettingsButton
-                  asListItem
-                  className={`${linkClass} text-left`}
-                />
               </ul>
             </div>
 
