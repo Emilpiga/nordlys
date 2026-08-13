@@ -1,4 +1,5 @@
-import type { Metadata, ReactNode } from "react";
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { brandIcons } from "@/lib/seo";
 import { shopifyConfig } from "@/lib/shopify/config";
 import "./globals.css";
