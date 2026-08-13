@@ -108,7 +108,7 @@
     "increaseQty": "Lisää määrää",
     "addError": "Tuotetta ei voitu lisätä ostoskoriin.",
     "checkoutError": "Kassalle siirtyminen ei onnistunut.",
-    "secureEta": "{secure} · Lähetetään {processing} kuluessa",
+    "secureEta": "Lähetetään {processing} kuluessa",
     "viewingOne": "1 muu katsoo tätä tuotetta juuri nyt",
     "viewingMany": "{count} muuta katsoo tätä tuotetta juuri nyt",
     "noImage": "Ei kuvaa",

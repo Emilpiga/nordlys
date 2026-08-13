@@ -108,7 +108,7 @@
     "increaseQty": "Øk antall",
     "addError": "Kunne ikke legge til i handlekurven.",
     "checkoutError": "Kunne ikke gå til kassen.",
-    "secureEta": "{secure} · Sendes innen {processing}",
+    "secureEta": "Sendes innen {processing}",
     "viewingOne": "1 annen ser på dette produktet akkurat nå",
     "viewingMany": "{count} andre ser på dette produktet akkurat nå",
     "noImage": "Ingen bilde",

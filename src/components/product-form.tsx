@@ -259,7 +259,6 @@ export function ProductForm({ product, onVariantChange }: ProductFormProps) {
         </button>
         <p className="text-center text-xs font-light leading-relaxed text-muted">
           {t(dict.products.secureEta, {
-            secure: dict.fulfillment.secureCheckout,
             processing: dict.fulfillment.processingShort,
           })}
         </p>
