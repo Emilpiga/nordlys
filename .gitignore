@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+shopify-app/node_modules
+shopify-app/extensions/**/dist
 /.pnp
 .pnp.*
 .yarn/*

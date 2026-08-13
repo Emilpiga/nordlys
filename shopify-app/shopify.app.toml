@@ -1,6 +1,6 @@
 # This file stores configurations for your Shopify app.
 
-name = "Harbor Thank You Continue"
+name = "Vardagsstil Thank You Continue"
 client_id = "REPLACE_WITH_SHOPIFY_APP_CLIENT_ID"
 application_url = "https://example.com"
 embedded = true

@@ -2,13 +2,14 @@
 
 import { useEffect, useState, useTransition, type MouseEvent } from "react";
 import { useRouter } from "next/navigation";
-import { toggleWishlistAction } from "@/app/actions/wishlist";
 import { useDictionary } from "@/components/dictionary-provider";
+import { useWishlist } from "@/components/wishlist-provider";
 
 const PENDING_KEY = "harbor:wishlist:pending";
 
 type WishlistButtonProps = {
   productId: string;
+  /** @deprecated Prefer WishlistProvider; kept as SSR hint before hydrate */
   initialSaved?: boolean;
   className?: string;
   /** icon = heart only (cards); labeled = full clickable control (PDP) */
@@ -17,19 +18,16 @@ type WishlistButtonProps = {
 
 export function WishlistButton({
   productId,
-  initialSaved = false,
+  initialSaved: _initialSaved = false,
   className = "",
   variant = "icon",
 }: WishlistButtonProps) {
   const { dict, locale } = useDictionary();
   const router = useRouter();
-  const [saved, setSaved] = useState(initialSaved);
+  const { isSaved, toggle } = useWishlist();
+  const saved = isSaved(productId);
   const [message, setMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-
-  useEffect(() => {
-    setSaved(initialSaved);
-  }, [initialSaved, productId]);
 
   // After login redirect, finish the pending save once.
   useEffect(() => {
@@ -42,9 +40,8 @@ export function WishlistButton({
     }
 
     startTransition(async () => {
-      const result = await toggleWishlistAction(productId);
+      const result = await toggle(productId);
       if (result.ok) {
-        setSaved(result.added);
         setMessage(null);
         router.refresh();
         return;
@@ -55,7 +52,7 @@ export function WishlistButton({
         setMessage(dict.wishlist.error);
       }
     });
-  }, [productId, router, dict.wishlist.loginRequired, dict.wishlist.error]);
+  }, [productId, router, toggle, dict.wishlist.loginRequired, dict.wishlist.error]);
 
   function goLogin() {
     try {
@@ -73,7 +70,7 @@ export function WishlistButton({
     setMessage(null);
 
     startTransition(async () => {
-      const result = await toggleWishlistAction(productId);
+      const result = await toggle(productId);
       if (!result.ok) {
         if (result.reason === "auth") {
           goLogin();
@@ -82,7 +79,6 @@ export function WishlistButton({
         setMessage(dict.wishlist.error);
         return;
       }
-      setSaved(result.added);
       router.refresh();
     });
   }

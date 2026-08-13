@@ -16,29 +16,66 @@ type WishlistCookiePayload = {
   productIds: string[];
 };
 
-export async function hasWishlistCookie() {
-  const cookieStore = await cookies();
-  return Boolean(cookieStore.get(WISHLIST_COOKIE)?.value);
+function encodePayload(payload: WishlistCookiePayload) {
+  return Buffer.from(JSON.stringify(payload), "utf8").toString("base64url");
 }
 
-export async function readWishlistCookie(
-  customerId: string,
-): Promise<string[]> {
-  const cookieStore = await cookies();
-  const raw = cookieStore.get(WISHLIST_COOKIE)?.value;
-  if (!raw) return [];
+function decodePayload(raw: string): WishlistCookiePayload | null {
+  // Current format: base64url(JSON)
+  try {
+    const decoded = Buffer.from(raw, "base64url").toString("utf8");
+    const parsed = JSON.parse(decoded) as WishlistCookiePayload;
+    if (typeof parsed?.customerId === "string" && Array.isArray(parsed.productIds)) {
+      return {
+        customerId: parsed.customerId,
+        productIds: parsed.productIds.filter(
+          (id): id is string => typeof id === "string",
+        ),
+      };
+    }
+  } catch {
+    // fall through to legacy formats
+  }
 
+  // Legacy: raw JSON object
   try {
     const parsed = JSON.parse(raw) as WishlistCookiePayload;
-    if (parsed?.customerId !== customerId) return [];
-    return Array.isArray(parsed.productIds)
-      ? parsed.productIds.filter((id): id is string => typeof id === "string")
-      : [];
+    if (typeof parsed?.customerId === "string" && Array.isArray(parsed.productIds)) {
+      return {
+        customerId: parsed.customerId,
+        productIds: parsed.productIds.filter(
+          (id): id is string => typeof id === "string",
+        ),
+      };
+    }
   } catch {
-    // Legacy: bare JSON array (pre-customer binding)
-    const ids = parseWishlistValue(raw);
-    return ids;
+    // fall through
   }
+
+  // Legacy: bare JSON array of product ids
+  const ids = parseWishlistValue(raw);
+  if (ids.length) {
+    return { customerId: "", productIds: ids };
+  }
+
+  return null;
+}
+
+/** Valid wishlist for this customer, or null when no usable cookie is present. */
+export async function readWishlistCookie(
+  customerId: string,
+): Promise<string[] | null> {
+  const cookieStore = await cookies();
+  const raw = cookieStore.get(WISHLIST_COOKIE)?.value;
+  if (!raw) return null;
+
+  const parsed = decodePayload(raw);
+  if (!parsed) return null;
+
+  // Legacy bare-array cookies have no customer binding — still honor them.
+  if (parsed.customerId && parsed.customerId !== customerId) return null;
+
+  return parsed.productIds;
 }
 
 export async function writeWishlistCookie(
@@ -49,7 +86,7 @@ export async function writeWishlistCookie(
   const unique = Array.from(new Set(productIds));
   cookieStore.set(
     WISHLIST_COOKIE,
-    JSON.stringify({ customerId, productIds: unique } satisfies WishlistCookiePayload),
+    encodePayload({ customerId, productIds: unique }),
     COOKIE_BASE,
   );
   return unique;

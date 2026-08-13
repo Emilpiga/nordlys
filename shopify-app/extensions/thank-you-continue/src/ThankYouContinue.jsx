@@ -22,7 +22,7 @@ function Extension() {
     api.cost?.totalAmount?.amount ||
     "";
   const total = api.cost?.totalAmount;
-  const brand = "Harbor";
+  const brand = "Vardagsstil";
 
   if (!storefrontUrl) {
     return (
@@ -42,12 +42,12 @@ function Extension() {
   }`;
 
   return (
-    <Banner status="success" title="Order confirmed">
+    <Banner status="success" title="Ordern är mottagen">
       <BlockStack spacing="tight">
         <Text>
-          Continue on {brand} for order tracking and your account.
+          Fortsätt till {brand} för orderstatus och konto.
         </Text>
-        <Button to={href}>{`Continue to store`}</Button>
+        <Button to={href}>Fortsätt till butiken</Button>
       </BlockStack>
     </Banner>
   );

@@ -14,6 +14,8 @@ import { AnnouncementBanner } from "@/components/announcement-banner";
 import { SetupBanner } from "@/components/setup-banner";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { WishlistProvider } from "@/components/wishlist-provider";
+import { getCustomerProfile } from "@/lib/customer-account";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import {
   getLocaleConfig,
@@ -104,10 +106,11 @@ export default async function LocaleLayout({
   const locale: Locale = localeParam;
   const config = getLocaleConfig(locale);
 
-  const [cart, collections, dict] = await Promise.all([
+  const [cart, collections, dict, customer] = await Promise.all([
     getCartAction(),
     getCollections(24, locale),
     getDictionary(locale),
+    getCustomerProfile(),
   ]);
 
   const siteDescription = t(dict.meta.siteDescription, {
@@ -134,10 +137,15 @@ export default async function LocaleLayout({
         <AdPixels />
         <DictionaryProvider locale={locale} dict={dict}>
           <CartProvider cart={cart}>
-            <SiteHeader collections={collections} />
-            <main className="flex-1">{children}</main>
-            <SiteFooter />
-            <CartDrawer />
+            <WishlistProvider
+              customerId={customer?.id ?? null}
+              productIds={customer?.wishlistProductIds ?? []}
+            >
+              <SiteHeader collections={collections} />
+              <main className="flex-1">{children}</main>
+              <SiteFooter />
+              <CartDrawer />
+            </WishlistProvider>
           </CartProvider>
         </DictionaryProvider>
       </body>

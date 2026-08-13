@@ -1,8 +1,9 @@
-api_version = "2026-01"
+api_version = "2025-07"
 
 [[extensions]]
 name = "thank-you-continue"
 handle = "thank-you-continue"
+uid = "d6a2d1e0-c587-8387-b74a-0c0b23ec9f41b7c810a0"
 type = "ui_extension"
 
 [[extensions.targeting]]

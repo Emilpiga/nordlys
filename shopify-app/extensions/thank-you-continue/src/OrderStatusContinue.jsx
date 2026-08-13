@@ -32,10 +32,10 @@ function Extension() {
   }`;
 
   return (
-    <Banner title="Back to the store">
+    <Banner title="Tillbaka till butiken">
       <BlockStack spacing="tight">
-        <Text>Open your account on the storefront for tracking updates.</Text>
-        <Button to={href}>Continue to store</Button>
+        <Text>Öppna ditt konto på Vardagsstil för spårning och ordrar.</Text>
+        <Button to={href}>Fortsätt till butiken</Button>
       </BlockStack>
     </Banner>
   );

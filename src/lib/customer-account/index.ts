@@ -38,7 +38,6 @@ import { parseWishlistValue } from "./types";
 import { getLocaleConfig, isLocale, localePath } from "@/lib/i18n/locales";
 import {
   clearWishlistCookie,
-  hasWishlistCookie,
   readWishlistCookie,
   writeWishlistCookie,
 } from "@/lib/wishlist-cookie";
@@ -166,12 +165,12 @@ export const getCustomerProfile = cache(
 
       const customer = data.customer;
       const fromMetafield = parseWishlistValue(customer.metafield?.value);
+      // Cookie is source of truth when present and bound to this customer
+      // (metafield sync is often blocked until harbor.wishlist has
+      // Customer Account READ_WRITE — Admin needs write_customers scope).
       const fromCookie = await readWishlistCookie(customer.id);
-      // Cookie is source of truth once written (metafield sync may be blocked
-      // until harbor.wishlist has Customer Account READ_WRITE in Admin).
-      const wishlistProductIds = (await hasWishlistCookie())
-        ? fromCookie
-        : fromMetafield;
+      const wishlistProductIds =
+        fromCookie !== null ? fromCookie : fromMetafield;
 
       return {
         id: customer.id,
