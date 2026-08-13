@@ -1,12 +1,14 @@
 import { notFound } from "next/navigation";
 import { HomeHero } from "@/components/home-hero";
 import { HomeCategoryGuide } from "@/components/home-category-guide";
+import { HomePopular } from "@/components/home-popular";
 import { HomeTestimonials } from "@/components/home-testimonials";
 import { HomeTrustStrip } from "@/components/home-trust-strip";
 import { EmptyCatalog } from "@/components/setup-banner";
-import { mosaicImagesFromCatalog } from "@/lib/home-mosaic";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { heroImagesFromCatalog } from "@/lib/hero-images";
+import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale } from "@/lib/i18n/locales";
+import { pickPopularProducts } from "@/lib/popular-products";
 import { getCollections, getProducts } from "@/lib/shopify";
 import { isShopifyConfigured, shopifyConfig } from "@/lib/shopify/config";
 
@@ -22,11 +24,21 @@ export default async function HomePage({ params }: Props) {
     getCollections(24, locale),
     getDictionary(locale),
   ]);
-  const mosaicImages = mosaicImagesFromCatalog(catalog);
+  const heroImages = heroImagesFromCatalog(catalog);
+  const popularProducts = pickPopularProducts(catalog);
 
   return (
     <div>
-      <HomeHero storeName={brand} mosaicImages={mosaicImages} />
+      <HomeHero
+        images={heroImages}
+        eyebrow={dict.home.wordmarkTagline}
+        headline={dict.home.heroHeadline}
+        sub={dict.home.heroSub}
+        cta={dict.home.heroCta}
+        alt={t(dict.home.heroAlt, { brand })}
+      />
+
+      <HomePopular dict={dict} products={popularProducts} />
 
       <HomeTrustStrip />
 
