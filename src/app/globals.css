@@ -519,6 +519,7 @@ body {
   pointer-events: auto;
   width: 14px;
   height: 14px;
+  border-radius: 0;
   background: var(--foreground);
   border: 2px solid var(--frost);
   box-shadow: 0 1px 4px rgba(20, 28, 34, 0.16);

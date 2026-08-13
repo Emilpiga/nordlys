@@ -134,6 +134,7 @@
     "saleBadge": "−{percent} %",
     "wasPrice": "Aiemmin {price}",
     "filters": {
+      "eyebrow": "Valikoima",
       "title": "Suodattimet",
       "open": "Suodattimet",
       "openWithCount": "Suodattimet, {count} aktiivista",

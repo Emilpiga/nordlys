@@ -29,21 +29,6 @@ function FilterHeading({ children }: { children: string }) {
   );
 }
 
-function Check({ checked }: { checked: boolean }) {
-  return (
-    <span
-      aria-hidden
-      className={`flex h-3.5 w-3.5 shrink-0 items-center justify-center border transition ${
-        checked
-          ? "border-foreground bg-foreground"
-          : "border-border bg-transparent"
-      }`}
-    >
-      {checked ? <span className="h-1.5 w-1.5 bg-on-accent" /> : null}
-    </span>
-  );
-}
-
 type FilterPanelProps = {
   collections: CollectionSummary[];
   filters: CatalogFilters;
@@ -68,28 +53,28 @@ export function FilterPanel({
   const canClear = activeFilterCount(current, bounds) > 0;
 
   return (
-    <div className="space-y-9">
-      {showHeading || canClear ? (
-        <div className="flex items-end justify-between gap-3">
-          {showHeading ? <FilterHeading>{copy.title}</FilterHeading> : <span />}
-          {canClear ? (
-            <button
-              type="button"
-              onClick={() => onChange({ ...filters, ...emptyKeepSort(filters) })}
-              className="text-[0.62rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground"
-            >
-              {copy.clear}
-            </button>
-          ) : null}
-        </div>
-      ) : null}
+    <div className="space-y-8">
+      <div className="flex items-end justify-between gap-3">
+        {showHeading ? <FilterHeading>{copy.title}</FilterHeading> : (
+          <div className="h-px flex-1 bg-border/70" />
+        )}
+        {canClear ? (
+          <button
+            type="button"
+            onClick={() => onChange({ ...filters, ...emptyKeepSort(filters) })}
+            className="shrink-0 text-[0.62rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground"
+          >
+            {copy.clear}
+          </button>
+        ) : null}
+      </div>
 
       {collections.length > 0 ? (
         <fieldset className="min-w-0">
           <legend className="mb-3">
             <FilterHeading>{copy.category}</FilterHeading>
           </legend>
-          <div className="space-y-0.5">
+          <div>
             <CollectionRow
               label={copy.allCategories}
               count={null}
@@ -142,13 +127,13 @@ export function FilterPanel({
         <legend className="mb-3">
           <FilterHeading>{copy.show}</FilterHeading>
         </legend>
-        <div className="space-y-1">
-          <ToggleRow
+        <div className="grid grid-cols-2 gap-2">
+          <ToggleChip
             label={copy.onSale}
             checked={current.sale}
             onToggle={() => onChange({ ...filters, sale: !filters.sale })}
           />
-          <ToggleRow
+          <ToggleChip
             label={copy.inStock}
             checked={current.stock}
             onToggle={() => onChange({ ...filters, stock: !filters.stock })}
@@ -187,23 +172,29 @@ function CollectionRow({
       type="button"
       aria-pressed={active}
       onClick={onSelect}
-      className="flex w-full items-baseline justify-between gap-3 py-2 text-left transition"
+      className="group flex w-full items-baseline gap-3 py-2 text-left transition"
     >
       <span
-        className={`text-sm ${
-          active ? "font-medium text-foreground" : "font-light text-muted"
+        aria-hidden
+        className={`mt-[0.55em] h-1.5 w-1.5 shrink-0 transition ${
+          active ? "bg-glow" : "bg-transparent group-hover:bg-border"
+        }`}
+      />
+      <span
+        className={`min-w-0 flex-1 text-[0.95rem] ${
+          active ? "font-medium text-foreground" : "font-light text-muted group-hover:text-foreground"
         }`}
       >
         {label}
       </span>
       {count != null ? (
-        <span className="tabular-nums text-[0.68rem] text-muted/80">{count}</span>
+        <span className="tabular-nums text-[0.68rem] text-muted/70">{count}</span>
       ) : null}
     </button>
   );
 }
 
-function ToggleRow({
+function ToggleChip({
   label,
   checked,
   onToggle,
@@ -218,9 +209,10 @@ function ToggleRow({
       role="checkbox"
       aria-checked={checked}
       onClick={onToggle}
-      className="flex w-full items-center gap-3 py-2 text-left text-sm font-light text-foreground/85 transition hover:text-foreground"
+      className={`border px-3.5 py-2.5 text-center text-[0.68rem] font-medium tracking-[0.14em] uppercase transition ${
+        checked ? chipActive : chipIdle
+      }`}
     >
-      <Check checked={checked} />
       {label}
     </button>
   );
@@ -309,6 +301,87 @@ function PriceRange({
   );
 }
 
+export function FilterBar({
+  collections,
+  filters,
+  bounds,
+  currencyCode,
+  allCount,
+  onChange,
+}: {
+  collections: CollectionSummary[];
+  filters: CatalogFilters;
+  bounds: PriceBounds;
+  currencyCode: string;
+  allCount: number;
+  onChange: (next: CatalogFilters) => void;
+}) {
+  const { dict } = useDictionary();
+  const copy = dict.products.filters;
+  const current = sanitizeFilters(filters, bounds);
+  const price = resolvedPriceRange(current, bounds);
+  const canClear = activeFilterCount(current, bounds) > 0;
+
+  return (
+    <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
+      <div className="min-w-0 flex-1 space-y-4">
+        <CollectionChips
+          collections={collections}
+          value={current.collection}
+          allCount={allCount}
+          onChange={(collection) => onChange({ ...filters, collection })}
+        />
+        <div className="flex flex-wrap items-end gap-x-8 gap-y-4">
+          {bounds.max > bounds.min ? (
+            <div className="w-full min-w-[12rem] max-w-xs">
+              <FilterHeading>{copy.price}</FilterHeading>
+              <div className="mt-3">
+                <PriceRange
+                  min={price.min}
+                  max={price.max}
+                  bounds={bounds}
+                  currencyCode={currencyCode}
+                  onChange={(min, max) =>
+                    onChange({
+                      ...filters,
+                      min: min <= bounds.min ? null : min,
+                      max: max >= bounds.max ? null : max,
+                    })
+                  }
+                />
+              </div>
+            </div>
+          ) : null}
+          <div>
+            <FilterHeading>{copy.show}</FilterHeading>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <ToggleChip
+                label={copy.onSale}
+                checked={current.sale}
+                onToggle={() => onChange({ ...filters, sale: !filters.sale })}
+              />
+              <ToggleChip
+                label={copy.inStock}
+                checked={current.stock}
+                onToggle={() => onChange({ ...filters, stock: !filters.stock })}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      {canClear ? (
+        <button
+          type="button"
+          onClick={() => onChange({ ...filters, ...emptyKeepSort(filters) })}
+          className="shrink-0 self-start text-[0.62rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground lg:self-end lg:pb-1"
+        >
+          {copy.clearAll}
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
 export function CollectionChips({
   collections,
   value,
@@ -326,7 +399,7 @@ export function CollectionChips({
   return (
     <nav
       aria-label={dict.products.filters.category}
-      className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:-mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
+      className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden"
     >
       <Chip
         active={!value}
@@ -443,7 +516,7 @@ export function ActiveFilterChips({
           onClick={() => onChange(chip.clear())}
           aria-label={t(copy.remove, { label: chip.label })}
           className={`inline-flex items-center gap-2 border border-border/80 px-3 py-1.5 text-[0.68rem] font-medium tracking-[0.12em] uppercase text-muted transition hover:border-foreground/50 hover:text-foreground ${
-            chip.key === "collection" ? "max-lg:hidden" : ""
+            chip.key === "collection" ? "max-md:hidden" : ""
           }`}
         >
           {chip.label}
@@ -587,13 +660,13 @@ export function CatalogPagination({
   return (
     <nav
       aria-label={t(copy.page, { page, pages })}
-      className="mt-14 flex flex-wrap items-center justify-center gap-2 border-t border-border/70 pt-10"
+      className="mt-16 flex flex-wrap items-center justify-center gap-x-1 gap-y-3 border-t border-border/60 pt-12"
     >
       <button
         type="button"
         disabled={page <= 1}
         onClick={() => onChange(page - 1)}
-        className="border border-border/80 px-3.5 py-2 text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:border-foreground/50 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:border-border/80 disabled:hover:text-muted"
+        className="px-3 py-2 text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:text-muted"
       >
         {copy.previous}
       </button>
@@ -614,8 +687,10 @@ export function CatalogPagination({
             aria-label={t(copy.goToPage, { page: item })}
             aria-current={item === page ? "page" : undefined}
             onClick={() => onChange(item)}
-            className={`min-w-10 border px-3 py-2 text-[0.68rem] font-medium tracking-[0.14em] uppercase tabular-nums transition ${
-              item === page ? chipActive : chipIdle
+            className={`min-w-9 px-2.5 py-2 text-[0.72rem] font-medium tracking-[0.12em] uppercase tabular-nums transition ${
+              item === page
+                ? "text-foreground underline decoration-glow decoration-1 underline-offset-8"
+                : "text-muted hover:text-foreground"
             }`}
           >
             {item}
@@ -627,7 +702,7 @@ export function CatalogPagination({
         type="button"
         disabled={page >= pages}
         onClick={() => onChange(page + 1)}
-        className="border border-border/80 px-3.5 py-2 text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:border-foreground/50 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:border-border/80 disabled:hover:text-muted"
+        className="px-3 py-2 text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:text-muted"
       >
         {copy.next}
       </button>
@@ -669,7 +744,7 @@ export function FilterDrawer({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end lg:hidden">
+    <div className="fixed inset-0 z-50 flex justify-end md:hidden">
       <button
         type="button"
         aria-label={dict.products.filters.close}
@@ -723,7 +798,7 @@ export function FilterButton({
       type="button"
       onClick={onClick}
       aria-label={count > 0 ? t(copy.openWithCount, { count }) : copy.open}
-      className="inline-flex items-center gap-2.5 border border-border/80 bg-[color-mix(in_oklab,var(--frost)_88%,white)] px-3.5 py-2.5 text-[0.68rem] font-medium tracking-[0.14em] uppercase transition hover:border-foreground/40 lg:hidden"
+      className="inline-flex items-center gap-2.5 border border-border/80 bg-[color-mix(in_oklab,var(--frost)_88%,white)] px-3.5 py-2.5 text-[0.68rem] font-medium tracking-[0.14em] uppercase transition hover:border-foreground/40 md:hidden"
     >
       <svg
         viewBox="0 0 24 24"

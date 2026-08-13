@@ -134,6 +134,7 @@
     "saleBadge": "−{percent} %",
     "wasPrice": "Tidligere {price}",
     "filters": {
+      "eyebrow": "Sortiment",
       "title": "Filtre",
       "open": "Filtre",
       "openWithCount": "Filtre, {count} aktive",

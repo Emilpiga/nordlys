@@ -5,7 +5,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useDictionary } from "@/components/dictionary-provider";
 import { ProductCard } from "@/components/product-card";
 import {
-  ActiveFilterChips,
   CatalogPagination,
   CollectionChips,
   FilterButton,
@@ -28,12 +27,16 @@ import {
 import type { CollectionSummary, Product } from "@/lib/shopify/types";
 
 type ProductCatalogProps = {
+  title: string;
+  description: string;
   products: Product[];
   collections: CollectionSummary[];
   initialQuery: CatalogQuery;
 };
 
 export function ProductCatalog({
+  title,
+  description,
   products,
   collections,
   initialQuery,
@@ -59,7 +62,10 @@ export function ProductCatalog({
     () => paginateCatalog(visible, filters.page),
     [visible, filters.page],
   );
-  const current = sanitizeFilters(filters, bounds, paged.pages);
+  const current = useMemo(
+    () => sanitizeFilters(filters, bounds, paged.pages),
+    [filters, bounds, paged.pages],
+  );
   const activeCount = activeFilterCount(current, bounds);
   const currencyCode =
     products[0]?.priceRange.minVariantPrice.currencyCode ?? "SEK";
@@ -118,22 +124,31 @@ export function ProductCatalog({
       filters={current}
       bounds={bounds}
       currencyCode={currencyCode}
+      showHeading={false}
       onChange={changeFilters}
     />
   );
 
   return (
-    <div
+    <section
       ref={catalogRef}
-      className="scroll-mt-[calc(var(--header-height)+0.75rem)] lg:flex lg:items-start"
+      className="relative flex min-h-[calc(100svh-var(--header-height))] flex-col scroll-mt-[var(--header-height)] md:flex-row"
     >
-      <aside className="hidden lg:block lg:w-72 lg:shrink-0 lg:self-start lg:border-r lg:border-border/70">
-        <div className="sticky top-[var(--header-height)] px-8 py-10">
-          {panel}
-        </div>
+      <aside className="relative z-10 flex w-full shrink-0 flex-col border-b border-border/70 bg-frost px-5 py-10 sm:px-8 md:sticky md:top-[var(--header-height)] md:h-[calc(100svh-var(--header-height))] md:w-[var(--rail-width)] md:self-start md:overflow-y-auto md:border-b-0 md:border-r md:py-12">
+        <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
+          {copy.eyebrow}
+        </p>
+        <h1 className="mt-4 font-display text-[1.85rem] font-medium leading-[1.15] tracking-tight sm:text-[2.15rem] md:text-[2.35rem]">
+          {title}
+        </h1>
+        <p className="mt-5 text-base font-light leading-relaxed text-muted">
+          {description}
+        </p>
+
+        <div className="mt-8 hidden w-full md:block">{panel}</div>
       </aside>
 
-      <div className="min-w-0 flex-1 px-5 py-8 sm:px-8 lg:px-10 lg:py-10">
+      <div className="min-w-0 flex-1 px-5 py-8 sm:px-8 md:py-12 lg:px-10">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm font-light text-muted">{countLabel}</p>
           <div className="flex items-center gap-2">
@@ -148,7 +163,7 @@ export function ProductCatalog({
           </div>
         </div>
 
-        <div className="mb-6 lg:hidden">
+        <div className="mb-6 md:hidden">
           <CollectionChips
             collections={collections}
             value={current.collection}
@@ -156,14 +171,6 @@ export function ProductCatalog({
             onChange={(collection) => changeFilters({ ...current, collection })}
           />
         </div>
-
-        <ActiveFilterChips
-          collections={collections}
-          filters={current}
-          bounds={bounds}
-          currencyCode={currencyCode}
-          onChange={changeFilters}
-        />
 
         {paged.total === 0 ? (
           <div className="max-w-md py-10">
@@ -179,7 +186,7 @@ export function ProductCatalog({
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+            <div className="grid grid-cols-2 gap-x-5 gap-y-12 lg:grid-cols-4 lg:gap-x-6">
               {paged.items.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -207,6 +214,6 @@ export function ProductCatalog({
           onChange={changeFilters}
         />
       </FilterDrawer>
-    </div>
+    </section>
   );
 }

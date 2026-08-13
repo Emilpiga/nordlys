@@ -145,7 +145,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
         <LocaleLink
           href={`/products/${product.handle}`}
-          className="mt-4 block space-y-1 px-0.5 focus-visible:outline-none"
+          className="mt-4 flex flex-col gap-1 px-0.5 focus-visible:outline-none"
         >
           <h3 className="font-display text-xl font-medium leading-tight tracking-tight transition group-hover:text-accent">
             {product.title}

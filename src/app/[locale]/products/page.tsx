@@ -50,30 +50,29 @@ export default async function ProductsPage({ params, searchParams }: Props) {
     searchParams,
   ]);
 
-  return (
-    <div className="w-full pb-16 pt-12 sm:pb-24 sm:pt-16">
-      <div className="px-5 sm:px-8">
+  if (products.length === 0) {
+    return (
+      <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
         <h1 className="font-display text-5xl font-medium tracking-tight sm:text-6xl">
           {dict.products.shopTitle}
         </h1>
         <p className="mt-4 max-w-xl text-base font-light leading-relaxed text-muted">
           {dict.products.shopDescription}
         </p>
+        <div className="mt-12">
+          <EmptyCatalog />
+        </div>
       </div>
+    );
+  }
 
-      <div className="mt-10 border-t border-border/70">
-        {products.length === 0 ? (
-          <div className="px-5 py-12 sm:px-8">
-            <EmptyCatalog />
-          </div>
-        ) : (
-          <ProductCatalog
-            products={products}
-            collections={collections}
-            initialQuery={query}
-          />
-        )}
-      </div>
-    </div>
+  return (
+    <ProductCatalog
+      title={dict.products.shopTitle}
+      description={dict.products.shopDescription}
+      products={products}
+      collections={collections}
+      initialQuery={query}
+    />
   );
 }
