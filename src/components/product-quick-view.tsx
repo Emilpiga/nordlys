@@ -128,7 +128,7 @@ export function ProductQuickView({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative z-10 flex max-h-[92svh] w-full max-w-3xl flex-col overflow-hidden rounded-t-2xl bg-[color-mix(in_oklab,var(--frost)_96%,white)] shadow-[0_-8px_40px_rgba(20,28,34,0.12)] sm:rounded-2xl sm:shadow-[0_24px_80px_rgba(20,28,34,0.16)]"
+        className="relative z-10 flex max-h-[92svh] w-full max-w-3xl flex-col overflow-hidden bg-[color-mix(in_oklab,var(--frost)_96%,white)] shadow-[0_-8px_40px_rgba(20,28,34,0.12)] sm:shadow-[0_24px_80px_rgba(20,28,34,0.16)]"
       >
         <div className="flex shrink-0 items-center justify-between border-b border-border/60 px-5 py-4 sm:px-6">
           <p className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-glow">

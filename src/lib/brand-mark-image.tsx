@@ -1,9 +1,7 @@
 import { ImageResponse } from "next/og";
 import { BRAND_CREAM, BRAND_INK, BRAND_MARK_V_PATH } from "@/lib/brand";
 
-export function brandMarkImageResponse(size: number, rounded = false) {
-  const radius = rounded ? Math.round(size * 0.22) : 0;
-
+export function brandMarkImageResponse(size: number) {
   return new ImageResponse(
     (
       <div
@@ -12,7 +10,6 @@ export function brandMarkImageResponse(size: number, rounded = false) {
           height: "100%",
           display: "flex",
           background: BRAND_INK,
-          borderRadius: radius,
           alignItems: "center",
           justifyContent: "center",
         }}

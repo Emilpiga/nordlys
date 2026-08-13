@@ -37,7 +37,6 @@ export default function OpenGraphImage() {
               width: 72,
               height: 72,
               background: BRAND_INK,
-              borderRadius: 16,
               alignItems: "center",
               justifyContent: "center",
             }}

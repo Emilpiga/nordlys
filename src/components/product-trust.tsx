@@ -47,7 +47,7 @@ export function ProductTrust() {
         <li key={item.title} className="flex gap-3 text-sm">
           <span
             aria-hidden
-            className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+            className="mt-1.5 h-1.5 w-1.5 shrink-0 bg-accent"
           />
           <div>
             <p className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">

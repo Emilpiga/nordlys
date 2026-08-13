@@ -45,12 +45,12 @@ export function ProductGallery({
   const active = galleryImages[activeIndex] ?? galleryImages[0];
 
   if (!active) {
-    return <div className="aspect-[4/5] rounded-2xl bg-mist" />;
+    return <div className="aspect-[4/5] bg-mist" />;
   }
 
   return (
     <div className="space-y-4">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-mist">
+      <div className="relative aspect-[4/5] overflow-hidden bg-mist">
         <Image
           key={active.url}
           src={active.url}
@@ -62,11 +62,11 @@ export function ProductGallery({
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-[rgba(20,28,34,0.06)]"
+          className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-[rgba(20,28,34,0.06)]"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-2xl bg-[linear-gradient(180deg,rgba(241,238,232,0.14)_0%,transparent_22%,transparent_72%,rgba(26,24,20,0.08)_100%)]"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(241,238,232,0.14)_0%,transparent_22%,transparent_72%,rgba(26,24,20,0.08)_100%)]"
         />
       </div>
 
@@ -80,7 +80,7 @@ export function ProductGallery({
                 type="button"
                 onClick={() => setActiveIndex(index)}
                 aria-label={`Visa bild ${index + 1}`}
-                className={`relative aspect-square overflow-hidden rounded-lg bg-mist transition ${
+                className={`relative aspect-square overflow-hidden bg-mist transition ${
                   selected
                     ? "ring-1 ring-accent ring-offset-2 ring-offset-background"
                     : "opacity-70 hover:opacity-100"

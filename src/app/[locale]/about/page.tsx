@@ -60,7 +60,7 @@ export default async function AboutPage({ params }: Props) {
       </div>
 
       <AmbientSection className="mx-auto grid w-full max-w-6xl gap-12 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-16">
-        <div className="relative min-h-[280px] overflow-hidden rounded-2xl sm:min-h-[420px]">
+        <div className="relative min-h-[280px] overflow-hidden sm:min-h-[420px]">
           <Image
             src="/winter-lighting.png"
             alt={a.imageAlt}

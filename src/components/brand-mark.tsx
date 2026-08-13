@@ -15,7 +15,7 @@ export function BrandMark({ className = "", title }: BrandMarkProps) {
       role={title ? "img" : undefined}
     >
       {title ? <title>{title}</title> : null}
-      <rect width="64" height="64" rx="14" fill={BRAND_INK} />
+      <rect width="64" height="64" fill={BRAND_INK} />
       <path d={BRAND_MARK_V_PATH} fill={BRAND_CREAM} />
     </svg>
   );

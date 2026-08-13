@@ -85,7 +85,7 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <>
       <article className="group">
-        <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-mist">
+        <div className="relative aspect-[4/5] overflow-hidden bg-mist">
           <LocaleLink
             href={`/products/${product.handle}`}
             className="absolute inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
@@ -108,11 +108,11 @@ export function ProductCard({ product }: ProductCardProps) {
 
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-[rgba(20,32,28,0.06)]"
+            className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-[rgba(20,32,28,0.06)]"
           />
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-2xl bg-[linear-gradient(180deg,rgba(238,242,244,0.18)_0%,transparent_24%,transparent_55%,rgba(20,32,28,0.28)_100%)]"
+            className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(238,242,244,0.18)_0%,transparent_24%,transparent_55%,rgba(20,32,28,0.28)_100%)]"
           />
 
           <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col gap-2 p-3 opacity-100 transition duration-300 sm:p-3.5 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">

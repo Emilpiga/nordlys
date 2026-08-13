@@ -233,7 +233,7 @@ export function OptionSelect({
                     >
                       <span className="min-w-0 truncate">{option.value}</span>
                       {selected ? (
-                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-foreground" />
+                        <span className="h-1.5 w-1.5 shrink-0 bg-foreground" />
                       ) : null}
                     </button>
                   </li>
