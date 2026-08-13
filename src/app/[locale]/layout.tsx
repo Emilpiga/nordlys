@@ -14,6 +14,7 @@ import { AnnouncementBanner } from "@/components/announcement-banner";
 import { SetupBanner } from "@/components/setup-banner";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SessionRefresh } from "@/components/session-refresh";
 import { WishlistProvider } from "@/components/wishlist-provider";
 import { getCustomerProfile } from "@/lib/customer-account";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
@@ -141,6 +142,7 @@ export default async function LocaleLayout({
               customerId={customer?.id ?? null}
               productIds={customer?.wishlistProductIds ?? []}
             >
+              <SessionRefresh enabled={Boolean(customer)} />
               <SiteHeader collections={collections} />
               <main className="flex-1">{children}</main>
               <SiteFooter />

@@ -191,7 +191,37 @@ export async function refreshCustomerTokens(
   };
 }
 
-/** Returns a valid access token, refreshing when within 60s of expiry. */
+function isCookieMutationError(error: unknown) {
+  if (!(error instanceof Error)) return false;
+  return error.message.includes(
+    "Cookies can only be modified in a Server Action or Route Handler",
+  );
+}
+
+/** Persist auth cookies when allowed; no-op during Server Component renders. */
+export async function writeCustomerTokensSafe(tokens: CustomerTokens) {
+  try {
+    await writeCustomerTokens(tokens);
+    return true;
+  } catch (error) {
+    if (isCookieMutationError(error)) return false;
+    throw error;
+  }
+}
+
+async function clearCustomerTokensSafe() {
+  try {
+    await clearCustomerTokens();
+  } catch (error) {
+    if (!isCookieMutationError(error)) throw error;
+  }
+}
+
+/**
+ * Returns a valid access token, refreshing when within 60s of expiry.
+ * Cookie persistence is skipped in Server Components (Next.js forbids it);
+ * call `/api/auth/refresh` from the client to persist rotated tokens.
+ */
 export async function getValidAccessToken(): Promise<string | null> {
   const tokens = await readCustomerTokens();
   if (!tokens) return null;
@@ -202,11 +232,11 @@ export async function getValidAccessToken(): Promise<string | null> {
 
   try {
     const next = await refreshCustomerTokens(tokens.refreshToken);
-    await writeCustomerTokens(next);
+    await writeCustomerTokensSafe(next);
     return next.accessToken;
   } catch (error) {
     console.error("Failed to refresh customer access token:", error);
-    await clearCustomerTokens();
+    await clearCustomerTokensSafe();
     return null;
   }
 }
