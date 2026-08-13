@@ -10,6 +10,7 @@ import { CartProvider } from "@/components/cart-provider";
 import { ConsentModeBootstrap } from "@/components/consent-mode-bootstrap";
 import { DictionaryProvider } from "@/components/dictionary-provider";
 import { JsonLd } from "@/components/json-ld";
+import { AnnouncementBanner } from "@/components/announcement-banner";
 import { SetupBanner } from "@/components/setup-banner";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -127,6 +128,7 @@ export default async function LocaleLayout({
           ]}
         />
         <AuroraBackdrop />
+        <AnnouncementBanner locale={locale} dict={dict} />
         <SetupBanner />
         <Analytics />
         <AdPixels />

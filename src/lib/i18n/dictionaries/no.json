@@ -12,6 +12,12 @@
     "openCartWithCount": "Åpne handlekurv, {count} varer",
     "language": "Språk"
   },
+  "announcement": {
+    "label": "Butikknyheter",
+    "customers": "10 000 fornøyde kunder",
+    "klarna": "Kjøp nå, betal senere med Klarna",
+    "shipping": "Gratis frakt i hele Norge"
+  },
   "search": {
     "placeholder": "Søk produkter",
     "label": "Søk",

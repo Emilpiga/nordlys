@@ -12,6 +12,12 @@
     "openCartWithCount": "Avaa ostoskori, {count} tuotetta",
     "language": "Kieli"
   },
+  "announcement": {
+    "label": "Kaupan tiedotteet",
+    "customers": "10 000 tyytyväistä asiakasta",
+    "klarna": "Osta nyt, maksa myöhemmin Klarnalla",
+    "shipping": "Ilmainen toimitus koko Suomessa"
+  },
   "search": {
     "placeholder": "Hae tuotteita",
     "label": "Haku",

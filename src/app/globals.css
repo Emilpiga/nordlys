@@ -140,6 +140,23 @@ body {
   animation: live-ping 2.8s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
+@keyframes announcement-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.announcement-track {
+  animation: announcement-marquee 36s linear infinite;
+}
+
+.announcement-track:hover {
+  animation-play-state: paused;
+}
+
 @keyframes rise-in {
   from {
     opacity: 0;
@@ -552,7 +569,19 @@ body {
   .animate-drawer-panel,
   .animate-drawer-backdrop,
   .animate-rise,
-  .animate-live-ping {
+  .animate-live-ping,
+  .announcement-track {
     animation: none;
+  }
+
+  .announcement-track {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.35rem;
+  }
+
+  .announcement-track [aria-hidden="true"] {
+    display: none;
   }
 }
