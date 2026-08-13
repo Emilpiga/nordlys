@@ -42,8 +42,6 @@ export default async function HomePage({ params }: Props) {
 
       <HomeTrustStrip />
 
-      <HomeTestimonials locale={locale} dict={dict} products={catalog} />
-
       {!isShopifyConfigured() || collections.length === 0 ? (
         <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
           <EmptyCatalog />
@@ -51,6 +49,8 @@ export default async function HomePage({ params }: Props) {
       ) : (
         <HomeCategoryGuide collections={collections} />
       )}
+
+      <HomeTestimonials locale={locale} dict={dict} products={catalog} />
     </div>
   );
 }
