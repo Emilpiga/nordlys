@@ -72,7 +72,18 @@
     "closeSub": "Bläddra i hela sortimentet — eller börja med en kategori.",
     "closeCta": "Till sortimentet",
     "productOne": "produkt",
-    "productMany": "produkter"
+    "productMany": "produkter",
+    "testimonialEyebrow": "Omdömen",
+    "testimonialTitle": "Saker folk faktiskt använder.",
+    "testimonialSub": "Korta omdömen från kunder som redan har produkterna hemma."
+  },
+  "reviews": {
+    "eyebrow": "Omdömen",
+    "title": "Vad andra säger",
+    "countOne": "1 omdöme",
+    "countMany": "{count} omdömen",
+    "starsLabel": "{rating} av 5",
+    "summary": "{rating} av 5 · {count}"
   },
   "products": {
     "backToShop": "← Tillbaka till shoppen",

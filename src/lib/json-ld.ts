@@ -1,5 +1,6 @@
 import { shopifyConfig } from "@/lib/shopify/config";
 import type { Product } from "@/lib/shopify/types";
+import { getProductReviews, getReviewSummary } from "@/lib/reviews";
 import { getSiteUrl } from "@/lib/site-url";
 import { localePath } from "@/lib/i18n/locales";
 import { siteDescriptionFor } from "@/lib/seo";
@@ -64,6 +65,8 @@ export function buildProductJsonLd(
   const price =
     availableVariant?.price ?? product.priceRange.minVariantPrice;
   const inStock = product.variants.some((variant) => variant.availableForSale);
+  const summary = getReviewSummary(product.handle);
+  const reviews = getProductReviews(product.handle, locale);
 
   return {
     "@context": "https://schema.org",
@@ -88,5 +91,33 @@ export function buildProductJsonLd(
         ? "https://schema.org/InStock"
         : "https://schema.org/OutOfStock",
     },
+    ...(summary
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: summary.average.toFixed(1),
+            reviewCount: summary.count,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        }
+      : {}),
+    ...(reviews.length
+      ? {
+          review: reviews.map((review) => ({
+            "@type": "Review",
+            author: { "@type": "Person", name: review.author },
+            datePublished: review.date,
+            name: review.title,
+            reviewBody: review.body,
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: review.rating,
+              bestRating: 5,
+              worstRating: 1,
+            },
+          })),
+        }
+      : {}),
   };
 }

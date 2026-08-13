@@ -72,7 +72,18 @@
     "closeSub": "Gennemse hele sortimentet — eller start med en kategori.",
     "closeCta": "Til sortimentet",
     "productOne": "produkt",
-    "productMany": "produkter"
+    "productMany": "produkter",
+    "testimonialEyebrow": "Anmeldelser",
+    "testimonialTitle": "Ting folk faktisk bruger.",
+    "testimonialSub": "Korte anmeldelser fra kunder, der allerede har produkterne derhjemme."
+  },
+  "reviews": {
+    "eyebrow": "Anmeldelser",
+    "title": "Hvad andre siger",
+    "countOne": "1 anmeldelse",
+    "countMany": "{count} anmeldelser",
+    "starsLabel": "{rating} af 5",
+    "summary": "{rating} af 5 · {count}"
   },
   "products": {
     "backToShop": "← Tilbage til shoppen",

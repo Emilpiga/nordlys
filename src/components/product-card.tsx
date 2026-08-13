@@ -8,6 +8,7 @@ import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
 import { ProductQuickView } from "@/components/product-quick-view";
+import { ProductRating } from "@/components/product-rating";
 import { formatMoney } from "@/lib/format";
 import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
 import type { Product } from "@/lib/shopify/types";
@@ -143,6 +144,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <h3 className="font-display text-xl font-medium leading-tight tracking-tight transition group-hover:text-accent">
             {product.title}
           </h3>
+          <ProductRating handle={product.handle} />
           <p className="text-sm font-light text-muted">
             {formatMoney(product.priceRange.minVariantPrice, locale)}
           </p>

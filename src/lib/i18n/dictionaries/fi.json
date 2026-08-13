@@ -72,7 +72,18 @@
     "closeSub": "Selaa koko valikoimaa — tai aloita kategoriasta.",
     "closeCta": "Valikoimaan",
     "productOne": "tuote",
-    "productMany": "tuotetta"
+    "productMany": "tuotetta",
+    "testimonialEyebrow": "Arvostelut",
+    "testimonialTitle": "Tavaraa, jota ihmiset oikeasti käyttävät.",
+    "testimonialSub": "Lyhyitä arvioita asiakkailta, joilla tuotteet ovat jo kotona."
+  },
+  "reviews": {
+    "eyebrow": "Arvostelut",
+    "title": "Mitä muut sanovat",
+    "countOne": "1 arvostelu",
+    "countMany": "{count} arvostelua",
+    "starsLabel": "{rating} / 5",
+    "summary": "{rating} / 5 · {count}"
   },
   "products": {
     "backToShop": "← Takaisin kauppaan",

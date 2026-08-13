@@ -8,6 +8,7 @@ import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
 import { OptionSelect } from "@/components/option-select";
+import { ProductRating } from "@/components/product-rating";
 import { formatMoney } from "@/lib/format";
 import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
 import type { Product } from "@/lib/shopify/types";
@@ -165,6 +166,13 @@ export function ProductQuickView({
               >
                 {product.title}
               </h2>
+              <div className="mt-2">
+                <ProductRating
+                  handle={product.handle}
+                  href={`/products/${product.handle}#reviews`}
+                  onClick={onClose}
+                />
+              </div>
               <p className="mt-2 font-display text-xl font-medium tracking-tight">
                 {selectedVariant
                   ? formatMoney(selectedVariant.price, locale)

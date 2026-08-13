@@ -1,0 +1,565 @@
+{
+  "featured": ["cutting-board-1", "eye-mask-1", "watering-can-1"],
+  "products": {
+    "stainless-steel-ebony-cutting-board-antibacterial-and-mildewproof-double-sided-cutting-board": [
+      {
+        "id": "cutting-board-1",
+        "rating": 5,
+        "date": "2026-06-14",
+        "author": "Anna L.",
+        "location": "Stockholm",
+        "title": {
+          "sv": "Stabil och lätt att hålla ren",
+          "no": "Stabil og lett å holde ren",
+          "da": "Stabil og nem at holde ren",
+          "fi": "Tukeva ja helppo pitää puhtaana"
+        },
+        "body": {
+          "sv": "Den står stadigt på bänken och tar inte lika mycket plats som jag trodde. Båda sidorna är lätta att torka av efter matlagning.",
+          "no": "Den står stødig på benken og tar ikke så mye plass som jeg trodde. Begge sidene er lette å tørke av etter matlaging.",
+          "da": "Den står stabilt på bordet og fylder ikke så meget, som jeg troede. Begge sider er nemme at tørre af efter madlavning.",
+          "fi": "Se pysyy tukevasti tiskillä eikä vie niin paljon tilaa kuin luulin. Molemmat puolet pyyhkiytyvät helposti ruoanlaiton jälkeen."
+        }
+      },
+      {
+        "id": "cutting-board-2",
+        "rating": 4,
+        "date": "2026-05-22",
+        "author": "Erik S.",
+        "location": "Göteborg",
+        "title": {
+          "sv": "Tyngre än väntat — på ett bra sätt",
+          "no": "Tyngre enn forventet — på en god måte",
+          "da": "Tungere end forventet — på en god måde",
+          "fi": "Painavampi kuin odotin — hyvällä tavalla"
+        },
+        "body": {
+          "sv": "Känns gedigen. Lite tung att lyfta ur diskhon, men den glider inte runt när man skär.",
+          "no": "Føles solid. Litt tung å løfte ut av vasken, men den sklir ikke rundt når man skjærer.",
+          "da": "Føles solid. Lidt tung at løfte op af vasken, men den glider ikke rundt, når man skærer.",
+          "fi": "Tuntuukin jämäkältä. Hieman painava nostaa altaasta, mutta ei luista leikatessa."
+        }
+      }
+    ],
+    "copper-wine-glass-cocktail-mug-bar-cold-drink-pure-copper-cup": [
+      {
+        "id": "copper-cup-1",
+        "rating": 5,
+        "date": "2026-07-03",
+        "author": "Maja H.",
+        "location": "Malmö",
+        "title": {
+          "sv": "Håller drinken kall",
+          "no": "Holder drinken kald",
+          "da": "Holder drinken kold",
+          "fi": "Pitää juoman kylmänä"
+        },
+        "body": {
+          "sv": "Använder den till gin och tonic på balkongen. Koppen blir snyggt kall och känns tyngre än vanliga glas.",
+          "no": "Bruker den til gin og tonic på balkongen. Koppen blir fint kald og føles tyngre enn vanlige glass.",
+          "da": "Bruger den til gin og tonic på altanen. Koppen bliver rigtig kold og føles tungere end almindelige glas.",
+          "fi": "Käytän sitä gin tonicille parvekkeella. Muki kylmenee mukavasti ja tuntuu painavammalta kuin tavallinen lasi."
+        }
+      },
+      {
+        "id": "copper-cup-2",
+        "rating": 4,
+        "date": "2026-04-28",
+        "author": "Jonas P.",
+        "location": "Oslo",
+        "title": {
+          "sv": "Snygg i hyllan",
+          "no": "Fin i hyllen",
+          "da": "Pæn i hylden",
+          "fi": "Komea hyllyssä"
+        },
+        "body": {
+          "sv": "Ser ut precis som på bilderna. Putsar den ibland — kopparn mörknar lite med tiden, vilket jag faktiskt gillar.",
+          "no": "Ser ut akkurat som på bildene. Pusser den av og til — kobberet mørkner litt med tiden, noe jeg faktisk liker.",
+          "da": "Ser ud præcis som på billederne. Pudser den indimellem — kobberet mørkner lidt med tiden, hvilket jeg faktisk synes om.",
+          "fi": "Näyttää juuri kuvien kaltaiselta. Kiillotan sitä välillä — kupari tummuu ajan kanssa, ja pidän siitä."
+        }
+      }
+    ],
+    "metal-flanged-copper-plated-hammered-stainless-steel-mug": [
+      {
+        "id": "hammered-mug-1",
+        "rating": 5,
+        "date": "2026-06-29",
+        "author": "Sofie K.",
+        "location": "København",
+        "title": {
+          "sv": "Bra storlek till vardags",
+          "no": "Bra størrelse til hverdags",
+          "da": "God størrelse til hverdags",
+          "fi": "Hyvä koko arkeen"
+        },
+        "body": {
+          "sv": "Dricker te ur den varje kväll. Hammarmönstret gör att den inte slinter i handen, och den rymmer mer än det ser ut.",
+          "no": "Drikker te av den hver kveld. Hammermønsteret gjør at den ikke glipper i hånden, og den rommer mer enn det ser ut.",
+          "da": "Drikker te af den hver aften. Hammermønstret gør, at den ikke glider i hånden, og den rummer mere, end det ser ud.",
+          "fi": "Juon siitä teetä joka ilta. Vasaroitu pinta ei lipsu kädessä, ja tilavuutta on enemmän kuin näyttää."
+        }
+      },
+      {
+        "id": "hammered-mug-2",
+        "rating": 4,
+        "date": "2026-05-09",
+        "author": "Lars N.",
+        "location": "Helsinki",
+        "title": {
+          "sv": "Tung i den rätta meningen",
+          "no": "Tung på den rette måten",
+          "da": "Tung på den rigtige måde",
+          "fi": "Painava hyvällä tavalla"
+        },
+        "body": {
+          "sv": "Känns mer som ett bar-mugg än ett tunt festglas. Diskas enkelt, men ytterkanten tar lite plats i skåpet.",
+          "no": "Føles mer som et barmugg enn et tynt festglass. Vaskes enkelt, men ytterkanten tar litt plass i skapet.",
+          "da": "Føles mere som et barmug end et tyndt festglas. Vaskes nemt, men yderkanten fylder lidt i skabet.",
+          "fi": "Tuntuu enemmän baarimukilta kuin ohuelta juhlalasilta. Helppo pestä, mutta reuna vie hieman kaappitilaa."
+        }
+      }
+    ],
+    "ice-cubes-set-herbruikbare-chilling-stones-voor-whiskey-cooling-cube-koelen-rots-party-bar-tool": [
+      {
+        "id": "ice-cubes-1",
+        "rating": 5,
+        "date": "2026-07-18",
+        "author": "Henrik B.",
+        "location": "Uppsala",
+        "title": {
+          "sv": "Kyler utan att späs ut",
+          "no": "Kjøler uten å tynnes ut",
+          "da": "Køler uden at blive fortyndet",
+          "fi": "Jäähdyttää laimentamatta"
+        },
+        "body": {
+          "sv": "Precis det jag ville ha till whiskey. Två–tre kuber räcker, och de tar inte smak. Ligger i frysen i sin låda.",
+          "no": "Akkurat det jeg ville ha til whisky. To–tre kuber holder, og de tar ikke smak. Ligger i fryseren i esken sin.",
+          "da": "Præcis det, jeg ville have til whisky. To–tre terninger rækker, og de tager ikke smag. Ligger i fryseren i deres æske.",
+          "fi": "Juuri sitä mitä halusin viskille. Kaksi–kolme kuutiota riittää, eivätkä ne ota makua. Säilyvät pakastimessa rasiassaan."
+        }
+      },
+      {
+        "id": "ice-cubes-2",
+        "rating": 4,
+        "date": "2026-03-30",
+        "author": "Ida V.",
+        "location": "Bergen",
+        "title": {
+          "sv": "Fungerar även till saft",
+          "no": "Fungerer også til saft",
+          "da": "Virker også til saft",
+          "fi": "Toimii myös mehulle"
+        },
+        "body": {
+          "sv": "Barnen använder dem till saft så glasen inte blir vattniga. Behöver ligga i frysen några timmar först — det står tydligt.",
+          "no": "Barna bruker dem til saft så glassene ikke blir vanne. Må ligge i fryseren noen timer først — det står tydelig.",
+          "da": "Børnene bruger dem til saft, så glassene ikke bliver vandede. Skal ligge i fryseren et par timer først — det står tydeligt.",
+          "fi": "Lapset käyttävät niitä mehuun, ettei lasi vesity. Pitää olla pakastimessa muutama tunti ensin — se lukee selvästi."
+        }
+      }
+    ],
+    "coffee-clip-spoon": [
+      {
+        "id": "coffee-spoon-1",
+        "rating": 5,
+        "date": "2026-06-02",
+        "author": "Karin T.",
+        "location": "Linköping",
+        "title": {
+          "sv": "En liten sak som används varje dag",
+          "no": "En liten ting som brukes hver dag",
+          "da": "En lille ting, der bruges hver dag",
+          "fi": "Pieni juttu, jota käyttää joka päivä"
+        },
+        "body": {
+          "sv": "Öser kaffe och klämmer igen påsen med samma sked. Rostfritt, enkel att diska, ligger framme vid kannan.",
+          "no": "Øser kaffe og klemmer igjen posen med samme skje. Rustfritt, enkel å vaske, ligger fremme ved kannen.",
+          "da": "Øser kaffe og klemmer posen sammen med samme ske. Rustfrit, nem at vaske, ligger fremme ved kanden.",
+          "fi": "Mittaan kahvin ja suljen pussin samalla lusikalla. Ruostumaton, helppo pestä, pysyy kannun vieressä."
+        }
+      },
+      {
+        "id": "coffee-spoon-2",
+        "rating": 4,
+        "date": "2026-04-16",
+        "author": "Nikolaj R.",
+        "location": "Aarhus",
+        "title": {
+          "sv": "Klämmern håller tätt",
+          "no": "Klemmen holder tett",
+          "da": "Klemmen holder tæt",
+          "fi": "Klipsu pitää tiiviinä"
+        },
+        "body": {
+          "sv": "Fungerar lika bra på te som på kaffe. Skeden är lite grund — jag tar två ösningar — men klämman är det jag ville ha.",
+          "no": "Fungerer like bra på te som på kaffe. Skjeen er litt grunn — jeg tar to øsninger — men klemmen var det jeg ville ha.",
+          "da": "Virker lige så godt til te som til kaffe. Skeen er lidt flad — jeg tager to øseskeefulde — men klemmen var det, jeg ville have.",
+          "fi": "Toimii yhtä hyvin teelle kuin kahville. Lusikka on hieman matala — otan kaksi mittaa — mutta klipsu oli se mitä hain."
+        }
+      }
+    ],
+    "garden-garden-tools-wooden-handle-rake-five-tooth-rake": [
+      {
+        "id": "garden-rake-1",
+        "rating": 5,
+        "date": "2026-05-11",
+        "author": "Per A.",
+        "location": "Västerås",
+        "title": {
+          "sv": "Lagom till balkonglådorna",
+          "no": "Passe til balkongkassene",
+          "da": "Tilpas til altankasserne",
+          "fi": "Sopiva parvekelaatikoihin"
+        },
+        "body": {
+          "sv": "Inte en stor spade — och det är poängen. Träskaften sitter bra, och jag kommer åt i krukorna utan att välta jorden överallt.",
+          "no": "Ikke en stor spade — og det er poenget. Treskaftene sitter godt, og jeg kommer til i pottene uten å velte jord overalt.",
+          "da": "Ikke en stor spade — og det er pointen. Træskafterne sidder godt, og jeg kan komme til i krukkene uden at vælte jord overalt.",
+          "fi": "Ei iso lapio — ja se on tarkoitus. Puukahvat istuvat hyvin, ja pääsen ruukkuihin ilman että multa leviää."
+        }
+      },
+      {
+        "id": "garden-rake-2",
+        "rating": 4,
+        "date": "2026-07-08",
+        "author": "Tuuli M.",
+        "location": "Tampere",
+        "title": {
+          "sv": "Enkla verktyg som gör jobbet",
+          "no": "Enkle redskaper som gjør jobben",
+          "da": "Enkle redskaber, der gør arbejdet",
+          "fi": "Yksinkertaiset työkalut, jotka hoitavat homman"
+        },
+        "body": {
+          "sv": "Inget lyx, men stadiga nog för rabatten. Torkar av skaften efteråt så träet håller längre.",
+          "no": "Ingen luksus, men stødige nok til bedet. Tørker av skaftene etterpå så treet holder lenger.",
+          "da": "Ingen luksus, men stabile nok til bedet. Tørrer skafterne af bagefter, så træet holder længere.",
+          "fi": "Ei luksusta, mutta riittävän tukevat penkkiin. Kuivaan kahvat käytön jälkeen, jotta puu kestää."
+        }
+      }
+    ],
+    "anti-puncture-gardening-garden-breathable-wear-resistant-labor-protection-stab-resistant-gloves": [
+      {
+        "id": "garden-gloves-1",
+        "rating": 5,
+        "date": "2026-06-21",
+        "author": "Lina Ö.",
+        "location": "Lund",
+        "title": {
+          "sv": "Rosorna gör inte längre ont",
+          "no": "Rosene gjør ikke lenger vondt",
+          "da": "Roserne gør ikke længere ondt",
+          "fi": "Ruusut eivät enää satu"
+        },
+        "body": {
+          "sv": "Tunnare än grova arbetshandskar, men taggarna går inte igenom. Bra grepp när jorden är lite fuktig.",
+          "no": "Tynnere enn grove arbeidshansker, men tornene går ikke gjennom. Godt grep når jorden er litt fuktig.",
+          "da": "Tyndere end grove arbejdshandsker, men tornene går ikke igennem. Godt greb, når jorden er lidt fugtig.",
+          "fi": "Ohuemmat kuin raskaat työhanskat, mutta piikit eivät läpäise. Hyvä ote, kun multa on hieman kosteaa."
+        }
+      },
+      {
+        "id": "garden-gloves-2",
+        "rating": 4,
+        "date": "2026-04-04",
+        "author": "Anders F.",
+        "location": "Trondheim",
+        "title": {
+          "sv": "Andas bättre än gummi",
+          "no": "Puster bedre enn gummi",
+          "da": "Ånder bedre end gummi",
+          "fi": "Hengittää paremmin kuin kumi"
+        },
+        "body": {
+          "sv": "Händerna blir inte lika svettiga. Storleken satt tight först, men de mjuknade efter ett par pass i trädgården.",
+          "no": "Hendene blir ikke like svette. Størrelsen satt tett først, men de myknet etter et par økter i hagen.",
+          "da": "Hænderne bliver ikke lige så svedige. Størrelsen sad stramt først, men de blev blødere efter et par gange i haven.",
+          "fi": "Kädet eivät hikoile yhtä paljon. Koko istui aluksi tiukasti, mutta pehmeni parin pihapäivän jälkeen."
+        }
+      }
+    ],
+    "solar-garden-light-garden-garden-grass-layout-plug-in-light-and-shadow-light": [
+      {
+        "id": "solar-ripple-1",
+        "rating": 5,
+        "date": "2026-07-26",
+        "author": "Elin W.",
+        "location": "Norrköping",
+        "title": {
+          "sv": "Mjukt ljus i rabatten",
+          "no": "Mykt lys i bedet",
+          "da": "Blødt lys i bedet",
+          "fi": "Pehmeä valo penkissä"
+        },
+        "body": {
+          "sv": "Sätter i gräset vid gången. På kvällen blir det ett stilla mönster på marken — ingen stark lampa, precis så vi ville ha det.",
+          "no": "Setter den i gresset ved stien. Om kvelden blir det et stille mønster på bakken — ingen sterk lampe, akkurat slik vi ville ha det.",
+          "da": "Sætter den i græsset ved stien. Om aftenen bliver det et stille mønster på jorden — ingen stærk lampe, præcis som vi ville have det.",
+          "fi": "Työnnän sen nurmeen polun varteen. Illalla maahan tulee hillitty kuvio — ei kirkas lamppu, juuri sen mitä halusimme."
+        }
+      },
+      {
+        "id": "solar-ripple-2",
+        "rating": 4,
+        "date": "2026-05-30",
+        "author": "Mikkel J.",
+        "location": "Odense",
+        "title": {
+          "sv": "Behöver en solig plats",
+          "no": "Trenger en solrik plass",
+          "da": "Har brug for et solrigt sted",
+          "fi": "Tarvitsee aurinkoisen paikan"
+        },
+        "body": {
+          "sv": "När den står i skuggan av huset räcker batteriet inte hela kvällen. Flyttade den — nu lyser den som den ska.",
+          "no": "Når den står i skyggen av huset, varer batteriet ikke hele kvelden. Flyttet den — nå lyser den som den skal.",
+          "da": "Når den står i skyggen af huset, rækker batteriet ikke hele aftenen. Flyttede den — nu lyser den, som den skal.",
+          "fi": "Talon varjossa akku ei kestä koko iltaa. Siirsin sen — nyt se palaa kuten pitää."
+        }
+      }
+    ],
+    "fashion-solar-lawn-light-outdoor-garden": [
+      {
+        "id": "solar-lawn-1",
+        "rating": 4,
+        "date": "2026-06-08",
+        "author": "Sara D.",
+        "location": "Helsingborg",
+        "title": {
+          "sv": "Enkel att sätta ut",
+          "no": "Enkel å sette ut",
+          "da": "Nem at sætte ud",
+          "fi": "Helppo asettaa paikoilleen"
+        },
+        "body": {
+          "sv": "Tryckte ner den i jorden på fem minuter. Ljuset är varmt, inte blåvitt. Inte starkt nog att läsa i, men det är inte meningen heller.",
+          "no": "Trykte den ned i jorden på fem minutter. Lyset er varmt, ikke blåhvitt. Ikke sterkt nok til å lese i, men det er heller ikke meningen.",
+          "da": "Trykkede den ned i jorden på fem minutter. Lyset er varmt, ikke blåhvidt. Ikke stærkt nok at læse i, men det er heller ikke meningen.",
+          "fi": "Painoin sen maahan viidessä minuutissa. Valo on lämmin, ei sinivalkoinen. Ei tarpeeksi kirkas lukemiseen, eikä sen kuulukaan olla."
+        }
+      },
+      {
+        "id": "solar-lawn-2",
+        "rating": 3,
+        "date": "2026-04-19",
+        "author": "Olav G.",
+        "location": "Stavanger",
+        "title": {
+          "sv": "Fungerar, men kortare nätter",
+          "no": "Fungerer, men kortere netter",
+          "da": "Virker, men kortere nætter",
+          "fi": "Toimii, mutta lyhyemmät yöt"
+        },
+        "body": {
+          "sv": "Fin form och lätt att placera. I april räckte laddningen inte hela natten — bättre nu när det är mer sol.",
+          "no": "Fin form og lett å plassere. I april varte ladingen ikke hele natten — bedre nå som det er mer sol.",
+          "da": "Fin form og nem at placere. I april rakte opladningen ikke hele natten — bedre nu, hvor der er mere sol.",
+          "fi": "Kiva muoto ja helppo sijoittaa. Huhtikuussa lataus ei kestänyt koko yötä — parempi nyt, kun aurinkoa on enemmän."
+        }
+      }
+    ],
+    "stainless-steel-watering-can-watering-can-long-mouth-garden-watering-can": [
+      {
+        "id": "watering-can-1",
+        "rating": 5,
+        "date": "2026-07-12",
+        "author": "Frida C.",
+        "location": "Örebro",
+        "title": {
+          "sv": "Pipen når bakom bladen",
+          "no": "Tuten når bak bladene",
+          "da": "Tuden når ind bag bladene",
+          "fi": "Tuttura yltää lehtien taakse"
+        },
+        "body": {
+          "sv": "Lång pip och lagom vikt när den är fylld. Vattnar krukorna utan att spilla på fönsterbrädan. Ser dessutom ut att höra hemma i köket.",
+          "no": "Lang tut og passe vekt når den er fylt. Vanner pottene uten å søle på vinduskarmen. Ser dessuten ut til å høre hjemme på kjøkkenet.",
+          "da": "Lang tud og tilpas vægt, når den er fyldt. Vander krukkene uden at spilde på vindueskarmen. Ser desuden ud til at høre til i køkkenet.",
+          "fi": "Pitkä tutka ja sopiva paino täytenä. Kastan ruukut ilman että ikkunalauta kastuu. Näyttää lisäksi kuuluvan keittiöön."
+        }
+      },
+      {
+        "id": "watering-can-2",
+        "rating": 4,
+        "date": "2026-05-03",
+        "author": "Emil H.",
+        "location": "Turku",
+        "title": {
+          "sv": "Håller formen",
+          "no": "Holder formen",
+          "da": "Holder formen",
+          "fi": "Pitää muotonsa"
+        },
+        "body": {
+          "sv": "Rostfritt och styvt — ingen plastkänsla. 1,5 liter räcker till fönsterbrädan; till uteplatsen får jag gå ett extra varv.",
+          "no": "Rustfritt og stivt — ingen plastfølelse. 1,5 liter holder til vinduskarmen; til terrassen må jeg gå en ekstra runde.",
+          "da": "Rustfrit og stift — ingen plastfølelse. 1,5 liter rækker til vindueskarmen; til terrassen må jeg gå en ekstra runde.",
+          "fi": "Ruostumaton ja jäykkä — ei muovituntua. 1,5 litraa riittää ikkunalaudalle; terassille käyn ylimääräisen kierroksen."
+        }
+      }
+    ],
+    "bedroom-makeup-mirror": [
+      {
+        "id": "makeup-mirror-1",
+        "rating": 5,
+        "date": "2026-06-17",
+        "author": "Nora S.",
+        "location": "Stockholm",
+        "title": {
+          "sv": "Stadigt på byrån",
+          "no": "Stødig på kommoden",
+          "da": "Stabilt på kommoden",
+          "fi": "Tukeva lipaston päällä"
+        },
+        "body": {
+          "sv": "Spegeln är tydlig och stället vickar inte. Använder den varje morgon — precis så enkel som den ser ut.",
+          "no": "Speilet er tydelig, og stativet vingler ikke. Bruker den hver morgen — akkurat så enkel som den ser ut.",
+          "da": "Spejlet er tydeligt, og stativet vipper ikke. Bruger det hver morgen — præcis så enkelt, som det ser ud.",
+          "fi": "Peili on kirkas eikä teline huoju. Käytän joka aamu — juuri niin yksinkertainen kuin miltä näyttää."
+        }
+      },
+      {
+        "id": "makeup-mirror-2",
+        "rating": 4,
+        "date": "2026-03-21",
+        "author": "Camilla B.",
+        "location": "Aalborg",
+        "title": {
+          "sv": "Tar lite plats, gör jobbet",
+          "no": "Tar lite plass, gjør jobben",
+          "da": "Fylder lidt, gør arbejdet",
+          "fi": "Vie vähän tilaa, hoitaa homman"
+        },
+        "body": {
+          "sv": "Bra vinkel mot fönstret. Inte förstorande, vilket jag faktiskt ville — bara en ren spegel som står där den ska.",
+          "no": "Bra vinkel mot vinduet. Ikke forstørrende, noe jeg faktisk ville ha — bare et rent speil som står der det skal.",
+          "da": "God vinkel mod vinduet. Ikke forstørrende, hvilket jeg faktisk ville have — bare et rent spejl, der står, hvor det skal.",
+          "fi": "Hyvä kulma ikkunaan. Ei suurennuspeili, ja sitä juuri halusin — pelkkä selkeä peili oikeassa paikassa."
+        }
+      }
+    ],
+    "laptop-desk-laptop-bed-table-with-foldable-legs-cup-slot-reading-holder-notebook-stand-breakfast-bed-tray-book-holder": [
+      {
+        "id": "laptop-desk-1",
+        "rating": 5,
+        "date": "2026-07-01",
+        "author": "Viktor E.",
+        "location": "Göteborg",
+        "title": {
+          "sv": "Frukost och dator i sängen",
+          "no": "Frokost og pc i sengen",
+          "da": "Morgenmad og computer i sengen",
+          "fi": "Aamiainen ja kone sängyssä"
+        },
+        "body": {
+          "sv": "Fälls ihop bakom dörren när den inte används. Kopphållet är djupt nog, och benen slinter inte på täcket.",
+          "no": "Brettes sammen bak døren når den ikke brukes. Koppholderen er dyp nok, og bena sklir ikke på dynen.",
+          "da": "Foldes sammen bag døren, når den ikke bruges. Kopholderen er dyb nok, og benene glider ikke på dynen.",
+          "fi": "Taittuu oven taakse, kun ei ole käytössä. Mukitila on tarpeeksi syvä, eivätkä jalat luista peiton päällä."
+        }
+      },
+      {
+        "id": "laptop-desk-2",
+        "rating": 4,
+        "date": "2026-05-27",
+        "author": "Aino K.",
+        "location": "Helsinki",
+        "title": {
+          "sv": "Lagom till en liten laptop",
+          "no": "Passe til en liten laptop",
+          "da": "Tilpas til en lille laptop",
+          "fi": "Sopiva pienelle läppärille"
+        },
+        "body": {
+          "sv": "Fungerar fint till 13-tummaren. En större skärm får man sitta lite mer samlad. Skåran till telefonen är praktisk.",
+          "no": "Fungerer fint til 13-tommeren. En større skjerm krever at man sitter litt mer samlet. Rillen til telefonen er praktisk.",
+          "da": "Virker fint til 13-tommeren. En større skærm kræver, at man sidder lidt mere samlet. Rillen til telefonen er praktisk.",
+          "fi": "Toimii hyvin 13-tuumaiselle. Isommalla näytöllä saa istua tiiviimmin. Puhelimen kolo on kätevä."
+        }
+      }
+    ],
+    "new-true-3d-stereo-shading-sleeping-eye-mask": [
+      {
+        "id": "eye-mask-1",
+        "rating": 5,
+        "date": "2026-06-25",
+        "author": "Hanna R.",
+        "location": "Stockholm",
+        "title": {
+          "sv": "Stänger ute morgonljuset",
+          "no": "Stenger ute morgenlyset",
+          "da": "Lukker morgenlyset ude",
+          "fi": "Pitää aamuvalon ulkona"
+        },
+        "body": {
+          "sv": "Formen trycker inte mot ögonen. Jag sover mot fönstret och vaknar inte längre av solklockan klockan fem.",
+          "no": "Formen trykker ikke mot øynene. Jeg sover mot vinduet og våkner ikke lenger av sola klokken fem.",
+          "da": "Formen trykker ikke mod øjnene. Jeg sover mod vinduet og vågner ikke længere af solen klokken fem.",
+          "fi": "Muoto ei paina silmiä. Nukun ikkunaa vasten, enkä enää herää auringonpaisteeseen viideltä."
+        }
+      },
+      {
+        "id": "eye-mask-2",
+        "rating": 4,
+        "date": "2026-04-11",
+        "author": "Bjørn L.",
+        "location": "Oslo",
+        "title": {
+          "sv": "Bra på tåget också",
+          "no": "Bra på toget også",
+          "da": "Godt i toget også",
+          "fi": "Hyvä myös junassa"
+        },
+        "body": {
+          "sv": "Ligger platt i jackfickan. Remmen går att justera utan att den glider av. Lite varm en sommaratt, men skuggan är det jag ville ha.",
+          "no": "Ligger flatt i jakkelommen. Stroppen kan justeres uten at den sklir av. Litt varm en sommernatt, men mørket var det jeg ville ha.",
+          "da": "Ligger fladt i jakkelommen. Stroppen kan justeres, uden at den glider af. Lidt varm en sommernat, men mørket var det, jeg ville have.",
+          "fi": "Menee litteänä takin taskuun. Hihnaa voi säätää ilman että se lipsuu. Hieman lämmin kesäyönä, mutta pimeys oli se mitä hain."
+        }
+      }
+    ],
+    "silicone-usb-cable-winder-desktop-cable-organizer-management-multipurpose-clips-cables-protector-for-wired-headphones": [
+      {
+        "id": "cable-clips-1",
+        "rating": 5,
+        "date": "2026-07-05",
+        "author": "Oscar M.",
+        "location": "Malmö",
+        "title": {
+          "sv": "Sladdarna ligger kvar",
+          "no": "Ledningene blir liggende",
+          "da": "Ledningerne bliver liggende",
+          "fi": "Johdot pysyvät paikoillaan"
+        },
+        "body": {
+          "sv": "Limmet höll direkt mot skrivbordet. Laddaren ramlar inte ner bakom varje gång jag reser mig. En liten sak som gör stor skillnad.",
+          "no": "Limet festet med en gang mot skrivebordet. Laderen faller ikke ned bak hver gang jeg reiser meg. En liten ting som gjør stor forskjell.",
+          "da": "Limet holdt med det samme på skrivebordet. Opladeren falder ikke ned bagved, hver gang jeg rejser mig. En lille ting, der gør stor forskel.",
+          "fi": "Liima tarttui heti työpöytään. Laturi ei putoa taakse joka kerta kun nousen. Pieni juttu, jolla on iso vaikutus."
+        }
+      },
+      {
+        "id": "cable-clips-2",
+        "rating": 4,
+        "date": "2026-03-14",
+        "author": "Signe P.",
+        "location": "København",
+        "title": {
+          "sv": "Mjuk silikon, stadigt fäste",
+          "no": "Myk silikon, stødig feste",
+          "da": "Blød silikone, stabilt fæste",
+          "fi": "Pehmeä silikoni, tukeva kiinnitys"
+        },
+        "body": {
+          "sv": "Kabeln går i och ur utan att klämmas. Torka av ytan innan du sätter dem — då sitter de. Tre clips räckte till skärmen.",
+          "no": "Kabelen går inn og ut uten å klemmes. Tørk av flaten før du setter dem — da sitter de. Tre clips holdt til skjermen.",
+          "da": "Kablet går ind og ud uden at blive klemt. Tør fladen af, inden du sætter dem — så sidder de. Tre clips rakte til skærmen.",
+          "fi": "Johto menee sisään ja ulos puristumatta. Pyyhi pinta ennen kiinnitystä — sitten ne pysyvät. Kolme klipsiä riitti näytölle."
+        }
+      }
+    ]
+  }
+}

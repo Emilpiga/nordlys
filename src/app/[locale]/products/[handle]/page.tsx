@@ -5,11 +5,14 @@ import { AmbientSection, SectionRule } from "@/components/section";
 import { JsonLd } from "@/components/json-ld";
 import { ProductCard } from "@/components/product-card";
 import { ProductPurchase } from "@/components/product-purchase";
+import { ProductRating } from "@/components/product-rating";
+import { ProductReviews } from "@/components/product-reviews";
 import { ProductViewTracker } from "@/components/product-view-tracker";
 import { sanitizeDescriptionHtml } from "@/lib/description";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
 import { buildProductJsonLd } from "@/lib/json-ld";
+import { getReviewSummary } from "@/lib/reviews";
 import { getProductByHandle, getProducts } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
 import {
@@ -135,6 +138,13 @@ export default async function ProductPage({ params }: Props) {
             <h1 className="mt-4 font-display text-[2.75rem] font-medium leading-[1.05] tracking-tight sm:text-6xl">
               {product.title}
             </h1>
+            <div className="mt-4">
+              <ProductRating
+                handle={product.handle}
+                href="#reviews"
+                size="md"
+              />
+            </div>
             {detailsHtml ? (
               <div
                 className="product-description mt-5 max-w-md text-base font-light leading-relaxed text-muted"
@@ -199,6 +209,19 @@ export default async function ProductPage({ params }: Props) {
           </dl>
         }
       />
+
+      {getReviewSummary(product.handle) ? (
+        <>
+          <SectionRule />
+          <AmbientSection className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
+            <ProductReviews
+              handle={product.handle}
+              locale={locale}
+              dict={dict}
+            />
+          </AmbientSection>
+        </>
+      ) : null}
 
       {related.length > 0 ? (
         <>
