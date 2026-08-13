@@ -19,7 +19,10 @@ function StarIcon({ className }: { className?: string }) {
 
 function KlarnaBadge() {
   return (
-    <span className="inline-flex h-[1.15rem] items-center rounded-[0.22rem] bg-[#FFB3C7] px-[0.42rem] text-[0.62rem] font-extrabold leading-none tracking-[-0.045em] text-[#0A0B09]">
+    <span
+      aria-hidden
+      className="inline-flex h-[1.15rem] items-center rounded-[0.22rem] bg-[#FFB3C7] px-[0.42rem] text-[0.62rem] font-extrabold leading-none tracking-[-0.045em] text-[#0A0B09]"
+    >
       Klarna
     </span>
   );
