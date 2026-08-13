@@ -183,6 +183,19 @@ body {
   }
 }
 
+@keyframes mosaic-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.08);
+    filter: blur(6px);
+  }
+}
+
 .animate-rise {
   animation: rise-in 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -199,6 +212,17 @@ body {
   opacity: 0;
   animation: mosaic-in 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: var(--mosaic-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.animate-mosaic-tile-swap {
+  opacity: 0;
+  animation: mosaic-in 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: opacity, transform, filter;
+}
+
+.animate-mosaic-tile-out {
+  animation: mosaic-out 400ms cubic-bezier(0.4, 0, 1, 1) both;
   will-change: opacity, transform, filter;
 }
 
@@ -553,11 +577,15 @@ body {
   .animate-drawer-panel,
   .animate-drawer-backdrop,
   .animate-mosaic-tile,
+  .animate-mosaic-tile-swap,
+  .animate-mosaic-tile-out,
   .animate-rise {
     animation: none;
   }
 
-  .animate-mosaic-tile {
+  .animate-mosaic-tile,
+  .animate-mosaic-tile-swap,
+  .animate-mosaic-tile-out {
     opacity: 1;
     filter: none;
     transform: none;

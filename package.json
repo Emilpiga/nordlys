@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "translate:products": "node scripts/rewrite-shopify-catalog.mjs"
   },
   "dependencies": {
     "@shopify/hydrogen-react": "^2026.4.3",

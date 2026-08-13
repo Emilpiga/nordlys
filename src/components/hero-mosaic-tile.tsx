@@ -11,12 +11,21 @@ import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
 import type { Product } from "@/lib/shopify/types";
 import { hasSelectableOptions } from "@/lib/shopify/variants";
 
+export type HeroMosaicMotion = "enter" | "swap" | "exit";
+
 type HeroMosaicTileProps = {
   product: Product;
   imageUrl: string;
   imageAlt: string;
   index: number;
+  motion?: HeroMosaicMotion;
   onOpenQuickView: (product: Product) => void;
+};
+
+const motionClassName: Record<HeroMosaicMotion, string> = {
+  enter: "animate-mosaic-tile",
+  swap: "animate-mosaic-tile-swap",
+  exit: "animate-mosaic-tile-out",
 };
 
 export function HeroMosaicTile({
@@ -24,6 +33,7 @@ export function HeroMosaicTile({
   imageUrl,
   imageAlt,
   index,
+  motion = "enter",
   onOpenQuickView,
 }: HeroMosaicTileProps) {
   const { dict } = useDictionary();
@@ -90,10 +100,10 @@ export function HeroMosaicTile({
 
   return (
     <div
-      className="group/tile animate-mosaic-tile relative min-h-0 min-w-0 overflow-hidden"
+      className={`group/tile relative h-full min-h-0 min-w-0 overflow-hidden ${motionClassName[motion]} ${motion === "exit" ? "pointer-events-none" : ""}`}
       style={
         {
-          "--mosaic-delay": `${180 + index * 55}ms`,
+          "--mosaic-delay": motion === "enter" ? `${180 + index * 55}ms` : "0ms",
         } as CSSProperties
       }
     >
@@ -106,7 +116,7 @@ export function HeroMosaicTile({
           src={imageUrl}
           alt={imageAlt || product.title}
           fill
-          priority={index < 8}
+          priority={motion === "enter" && index < 8}
           className="object-cover object-center transition duration-[900ms] ease-out group-hover/tile:scale-[1.04]"
           sizes="(max-width: 768px) 33vw, 18vw"
         />

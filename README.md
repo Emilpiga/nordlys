@@ -44,18 +44,32 @@ The storefront serves **`/sv`**, **`/no`**, **`/da`**, **`/fi`** and calls Store
 | URL locale | Shopify language | Shopify country |
 |------------|------------------|-----------------|
 | `sv` | `SV` | `SE` |
-| `no` | `NO` | `NO` |
+| `no` | `NB` | `NO` |
 | `da` | `DA` | `DK` |
 | `fi` | `FI` | `FI` |
 
 In Shopify Admin:
 
-1. Enable languages **SV, NO, DA, FI** (Translate & Adapt or equivalent).
+1. Enable languages **SV, NB, DA, FI** (Translate & Adapt or equivalent). Norwegian is **NB** (Bokmål), not `NO`.
 2. Create/configure Markets for **Sweden, Norway, Denmark, Finland** and attach those languages.
-3. Translate (or auto-translate) products, collections, and checkout content.
+3. Rewrite catalog copy into those languages (see below) — supplier dumps should not be published as-is.
 4. Confirm via Storefront `localization { availableCountries { isoCode availableLanguages { isoCode } } }`.
 
 UI chrome is translated in-app. **Product titles/descriptions** only change when Shopify returns translations for the active language.
+
+### Rewrite catalog copy (Admin API)
+
+Storefront tokens cannot write translations. Create a **custom Admin app** with `read_products`, `write_products`, `read_translations`, `write_translations`, `read_locales`, `write_locales`, then:
+
+```bash
+# Preview rewritten copy (no Shopify writes)
+npm run translate:products -- --dry-run
+
+# Enable NB/DA/FI, rewrite Swedish source, localize the rest
+npm run translate:products
+```
+
+Copy is written locally in `scripts/catalog-copy-data.mjs` (structured titles, benefit bullets, option labels — not a translation of the CJ dump). The script only **pushes** that copy. Requires `SHOPIFY_ADMIN_ACCESS_TOKEN`.
 
 ## 2. CJ Dropshipping
 

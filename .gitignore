@@ -42,3 +42,6 @@ next-env.d.ts
 
 .vercel
 .env*
+scripts/catalog-snapshot.json
+scripts/catalog-brief.json
+.shopify-admin-token.tmp

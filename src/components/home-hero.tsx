@@ -3,22 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { HeroMosaicTile } from "@/components/hero-mosaic-tile";
+import { HeroMosaicGrid } from "@/components/hero-mosaic-grid";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
 import { SiteWordmark } from "@/components/site-wordmark";
 import { ProductQuickView } from "@/components/product-quick-view";
-import { HERO_MOSAIC_TILE_COUNT } from "@/lib/home-mosaic";
+import { type HeroMosaicImage } from "@/lib/home-mosaic";
 import { shopifyConfig } from "@/lib/shopify/config";
 import type { Product } from "@/lib/shopify/types";
 
-export type HeroMosaicImage = {
-  url: string;
-  alt: string;
-  product: Product;
-};
-
-export { HERO_MOSAIC_TILE_COUNT };
+export type { HeroMosaicImage };
 
 type HomeHeroProps = {
   storeName?: string;
@@ -50,8 +44,7 @@ export function HomeHero({
 
   const ctaClassName = "btn-primary";
   const isHashCta = ctaHref.startsWith("#");
-  const tiles = mosaicImages.slice(0, HERO_MOSAIC_TILE_COUNT);
-  const hasMosaic = tiles.length > 0;
+  const hasMosaic = mosaicImages.length > 0;
 
   return (
     <section
@@ -92,18 +85,10 @@ export function HomeHero({
 
       <div className="relative min-h-[70svh] flex-1 md:min-h-[calc(100svh-var(--header-height))]">
         {hasMosaic ? (
-          <div className="absolute inset-0 grid grid-cols-3 grid-rows-4 gap-[2px] bg-mist sm:grid-cols-4 sm:grid-rows-3 md:gap-[3px]">
-            {tiles.slice(0, 12).map((image, index) => (
-              <HeroMosaicTile
-                key={`${image.product.id}-${image.url}-${index}`}
-                product={image.product}
-                imageUrl={image.url}
-                imageAlt={image.alt}
-                index={index}
-                onOpenQuickView={setQuickProduct}
-              />
-            ))}
-          </div>
+          <HeroMosaicGrid
+            images={mosaicImages}
+            onOpenQuickView={setQuickProduct}
+          />
         ) : (
           <Image
             src="/hero-lighting.png"

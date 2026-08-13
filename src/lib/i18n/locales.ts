@@ -8,8 +8,8 @@ export const LOCALE_COOKIE = "NEXT_LOCALE";
 
 export type LocaleConfig = {
   locale: Locale;
-  /** Shopify Storefront LanguageCode */
-  language: "SV" | "NO" | "DA" | "FI";
+  /** Shopify Storefront LanguageCode (Norwegian shop locale is `nb` → `NB`) */
+  language: "SV" | "NB" | "DA" | "FI";
   /** Shopify Storefront CountryCode / Markets */
   country: "SE" | "NO" | "DK" | "FI";
   /** HTML lang attribute */
@@ -34,7 +34,7 @@ export const localeConfigs: Record<Locale, LocaleConfig> = {
   },
   no: {
     locale: "no",
-    language: "NO",
+    language: "NB",
     country: "NO",
     htmlLang: "nb",
     moneyLocale: "nb-NO",
