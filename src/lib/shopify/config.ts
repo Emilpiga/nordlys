@@ -1,5 +1,20 @@
+function cleanHost(value: string | undefined) {
+  return cleanEnv(value)
+    .replace(/^https?:\/\//, "")
+    .split("/")[0]
+    .toLowerCase();
+}
+
 export const shopifyConfig = {
   storeDomain: cleanStoreDomain(process.env.SHOPIFY_STORE_DOMAIN),
+  /**
+   * Shopify-hosted checkout host (e.g. `checkout.vardagsstil.se`).
+   * Must be a domain connected in Shopify Admin → Domains with target
+   * Online Store (usually set as Primary). Falls back to `storeDomain`.
+   */
+  checkoutDomain:
+    cleanHost(process.env.SHOPIFY_CHECKOUT_DOMAIN) ||
+    cleanStoreDomain(process.env.SHOPIFY_STORE_DOMAIN),
   /** Public Storefront API token (Header: X-Shopify-Storefront-Access-Token) */
   publicStorefrontToken: cleanEnv(process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN),
   /** Private Storefront API token for server-only calls (Header: Shopify-Storefront-Private-Token) */
@@ -54,17 +69,19 @@ export function isShopifyConfigured() {
 }
 
 /**
- * Headless storefronts often point the brand domain at Next.js while Shopify
- * Checkout still lives on `*.myshopify.com`. Storefront API may return a
- * checkoutUrl on the brand domain (`/cart/c/...`), which 404s here after the
- * locale proxy rewrites it to `/sv/cart/c/...`. Always send checkout to Shopify.
+ * Rewrite Storefront `checkoutUrl` onto the Shopify-hosted checkout host.
+ *
+ * Brand apex/www usually points at Next.js. Checkout must use a domain that
+ * Shopify serves (typically `checkout.yourdomain.com` set as Primary Online
+ * Store domain, or the `*.myshopify.com` fallback).
  */
 export function normalizeCheckoutUrl(checkoutUrl: string) {
-  if (!checkoutUrl || !shopifyConfig.storeDomain) return checkoutUrl;
+  const host = shopifyConfig.checkoutDomain || shopifyConfig.storeDomain;
+  if (!checkoutUrl || !host) return checkoutUrl;
   try {
-    const url = new URL(checkoutUrl, `https://${shopifyConfig.storeDomain}`);
+    const url = new URL(checkoutUrl, `https://${host}`);
     url.protocol = "https:";
-    url.host = shopifyConfig.storeDomain;
+    url.host = host;
     return url.toString();
   } catch {
     return checkoutUrl;

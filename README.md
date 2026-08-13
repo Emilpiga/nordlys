@@ -104,6 +104,7 @@ Fill `.env.local`:
 | `NEXT_PUBLIC_FACEBOOK_APP_ID` | Facebook App ID for `fb:app_id` (Sharing Debugger / Meta) |
 | `NEXT_PUBLIC_GOOGLE_ADS_ID` | Google Ads tag ID `AW-…` (same consent gate) |
 | `SHOPIFY_STORE_DOMAIN` | `your-store.myshopify.com` |
+| `SHOPIFY_CHECKOUT_DOMAIN` | Branded checkout host, e.g. `checkout.vardagsstil.se` (see below) |
 | `SHOPIFY_STOREFRONT_ACCESS_TOKEN` | Public token from Headless channel |
 | `SHOPIFY_STOREFRONT_PRIVATE_ACCESS_TOKEN` | Private token from Headless channel |
 | `SHOPIFY_STOREFRONT_API_VERSION` | `2026-04` |
@@ -157,7 +158,7 @@ Shopify Checkout always lands on Shopify’s thank-you page (auto-redirect to yo
 - Locales: Swedish, Norwegian, Danish, Finnish (`/sv`, `/no`, `/da`, `/fi`)
 - Home, product grid (cursor pagination via Storefront API), product detail, cart drawer + cart page
 - Cookie-backed Shopify Cart with Markets `buyerIdentity`
-- Checkout redirect to Shopify Checkout URL
+- Checkout redirect to Shopify Checkout URL (branded `checkout.` subdomain or `*.myshopify.com`)
 - Customer Account API login, orders, tracking, wishlist
 - Contact form (Resend) + About, FAQ, Privacy, Terms, Shipping & returns
 - Branded order confirmation page + Checkout thank-you CTA extension
@@ -181,6 +182,17 @@ Shopify Checkout always lands on Shopify’s thank-you page (auto-redirect to yo
 5. Register the production OAuth callback + logout URLs in Headless Customer Account API settings.
 6. Point DNS at Vercel.
 7. Deploy / enable the Checkout UI extension (`shopify-app/`).
+
+### Branded checkout URL (`checkout.yourdomain.com`)
+
+Apex/`www` stay on Vercel. Checkout needs a **separate subdomain that Shopify hosts**:
+
+1. DNS: create `checkout.vardagsstil.se` as a CNAME to the target Shopify shows (often `shops.myshopify.com`), or add the subdomain from **Shopify Admin → Settings → Domains**.
+2. In **Domains**, set that subdomain’s **Target** to **Online Store** and make it **Primary**.
+3. Keep `vardagsstil.se` / `www` pointed at Vercel (do **not** point the apex at Shopify if the Next storefront lives there).
+4. Set `SHOPIFY_CHECKOUT_DOMAIN=checkout.vardagsstil.se` locally and on Vercel, then redeploy.
+
+Until that subdomain is live on Shopify, leave `SHOPIFY_CHECKOUT_DOMAIN` empty so checkout uses `*.myshopify.com`.
 
 ## Sibling split
 
