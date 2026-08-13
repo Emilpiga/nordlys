@@ -30,6 +30,10 @@ export function proxy(request: NextRequest) {
     pathname.startsWith("/twitter-image") ||
     pathname === "/manifest.webmanifest" ||
     pathname === "/manifest" ||
+    // Shopify-hosted checkout URLs (must not be locale-prefixed on this host)
+    pathname.startsWith("/cart/c/") ||
+    pathname.startsWith("/checkouts/") ||
+    pathname.startsWith("/checkout") ||
     /\.[a-zA-Z0-9]+$/.test(pathname)
   ) {
     return NextResponse.next();

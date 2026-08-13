@@ -53,6 +53,24 @@ export function isShopifyConfigured() {
   );
 }
 
+/**
+ * Headless storefronts often point the brand domain at Next.js while Shopify
+ * Checkout still lives on `*.myshopify.com`. Storefront API may return a
+ * checkoutUrl on the brand domain (`/cart/c/...`), which 404s here after the
+ * locale proxy rewrites it to `/sv/cart/c/...`. Always send checkout to Shopify.
+ */
+export function normalizeCheckoutUrl(checkoutUrl: string) {
+  if (!checkoutUrl || !shopifyConfig.storeDomain) return checkoutUrl;
+  try {
+    const url = new URL(checkoutUrl, `https://${shopifyConfig.storeDomain}`);
+    url.protocol = "https:";
+    url.host = shopifyConfig.storeDomain;
+    return url.toString();
+  } catch {
+    return checkoutUrl;
+  }
+}
+
 /** Client secrets (shpss_) and Admin tokens (shpat_) are not Storefront tokens. */
 export function getStorefrontCredentialHint(token: string): string | null {
   if (token.startsWith("shpss_")) {

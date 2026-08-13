@@ -6,6 +6,7 @@ import type {
   ProductImage,
   ProductVariant,
 } from "./types";
+import { normalizeCheckoutUrl } from "./config";
 
 type ShopifyImage = {
   url: string;
@@ -226,7 +227,7 @@ export function mapCollection(collection: ShopifyCollection): Collection {
 export function mapCart(cart: ShopifyCart): Cart {
   return {
     id: cart.id,
-    checkoutUrl: cart.checkoutUrl,
+    checkoutUrl: normalizeCheckoutUrl(cart.checkoutUrl),
     totalQuantity: cart.totalQuantity,
     cost: cart.cost,
     lines: cart.lines.nodes.map((line) => ({
