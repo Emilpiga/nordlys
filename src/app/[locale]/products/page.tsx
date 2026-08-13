@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CategoryChips } from "@/components/category-chips";
 import { EmptyCatalog } from "@/components/setup-banner";
-import { ProductCard } from "@/components/product-card";
+import { ProductCatalog } from "@/components/product-catalog";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { isLocale } from "@/lib/i18n/locales";
 import { getCollections, getProducts } from "@/lib/shopify";
@@ -13,7 +12,10 @@ import {
   socialMetadata,
 } from "@/lib/seo";
 
-type Props = { params: Promise<{ locale: string }> };
+type Props = {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -37,40 +39,41 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function ProductsPage({ params }: Props) {
+export default async function ProductsPage({ params, searchParams }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
   const dict = await getDictionary(locale);
-  const [products, collections] = await Promise.all([
-    getProducts(100, locale),
+  const [products, collections, query] = await Promise.all([
+    getProducts(250, locale),
     getCollections(24, locale),
+    searchParams,
   ]);
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-5 pb-14 pt-12 sm:px-8 sm:pb-20 sm:pt-16">
-      <div className="mb-8 max-w-xl">
+    <div className="w-full pb-16 pt-12 sm:pb-24 sm:pt-16">
+      <div className="px-5 sm:px-8">
         <h1 className="font-display text-5xl font-medium tracking-tight sm:text-6xl">
           {dict.products.shopTitle}
         </h1>
-        <p className="mt-4 text-base font-light leading-relaxed text-muted">
+        <p className="mt-4 max-w-xl text-base font-light leading-relaxed text-muted">
           {dict.products.shopDescription}
         </p>
       </div>
 
-      <div className="mb-12">
-        <CategoryChips collections={collections} allCount={products.length} />
+      <div className="mt-10 border-t border-border/70">
+        {products.length === 0 ? (
+          <div className="px-5 py-12 sm:px-8">
+            <EmptyCatalog />
+          </div>
+        ) : (
+          <ProductCatalog
+            products={products}
+            collections={collections}
+            initialQuery={query}
+          />
+        )}
       </div>
-
-      {products.length === 0 ? (
-        <EmptyCatalog />
-      ) : (
-        <div className="grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-7">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      )}
     </div>
   );
 }

@@ -83,6 +83,7 @@ export type CollectionSummary = {
   description: string;
   image: ProductImage | null;
   productCount: number;
+  productIds: string[];
   sampleImages: ProductImage[];
 };
 

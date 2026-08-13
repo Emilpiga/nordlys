@@ -199,13 +199,18 @@ export function mapCollectionCard(
     sampleImages.push(image);
   }
 
+  const productIds = (collection.products?.nodes ?? [])
+    .map((node) => node.id)
+    .filter((id): id is string => Boolean(id));
+
   return {
     id: collection.id,
     handle: collection.handle,
     title: collection.title,
     description: collection.description,
     image: mapImage(collection.image) ?? sampleImages[0] ?? null,
-    productCount: collection.products?.nodes?.length ?? 0,
+    productCount: productIds.length || (collection.products?.nodes?.length ?? 0),
+    productIds,
     sampleImages,
   };
 }
