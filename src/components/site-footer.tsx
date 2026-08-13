@@ -2,7 +2,6 @@
 
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
-import { SectionRule } from "@/components/section";
 import { SiteLogo } from "@/components/site-logo";
 import { shopifyConfig } from "@/lib/shopify/config";
 
@@ -23,10 +22,12 @@ export function SiteFooter() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgba(229,221,210,0.55)_0%,transparent_55%),radial-gradient(ellipse_at_90%_100%,rgba(176,138,74,0.1)_0%,transparent_45%)]"
       />
 
-      <SectionRule />
+      <div className="relative px-5 sm:px-8">
+        <div className="section-rule" aria-hidden />
+      </div>
 
-      <div className="relative mx-auto w-full max-w-6xl px-5 pb-10 pt-16 sm:px-8 sm:pb-12 sm:pt-20">
-        <div className="grid gap-14 lg:grid-cols-[1.35fr_1fr] lg:gap-20">
+      <div className="relative md:grid md:grid-cols-[var(--rail-width)_minmax(0,1fr)]">
+        <div className="px-5 pt-16 pb-10 sm:px-8 sm:pt-20 md:border-r md:border-border/70 md:pb-16">
           <div className="max-w-md">
             <LocaleLink
               href="/"
@@ -42,7 +43,9 @@ export function SiteFooter() {
               {dict.footer.blurb}
             </p>
           </div>
+        </div>
 
+        <div className="px-5 pb-10 pt-4 sm:px-8 sm:pb-12 md:pt-20">
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 sm:gap-8">
             <div>
               <p className={headingClass}>{dict.footer.shopHeading}</p>
@@ -103,17 +106,17 @@ export function SiteFooter() {
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-border/60 pt-8 text-[0.72rem] font-light tracking-[0.08em] text-muted sm:mt-20 sm:flex-row sm:items-center sm:justify-between sm:tracking-[0.12em]">
-          <p>
-            © {year} {shopifyConfig.storeName}
-          </p>
-          <p className="uppercase">
-            {t(dict.footer.shippingBadge, {
-              eta: dict.fulfillment.etaShort,
-            })}
-          </p>
-        </div>
+      <div className="relative flex flex-col gap-3 border-t border-border/60 px-5 py-8 text-[0.72rem] font-light tracking-[0.08em] text-muted sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:tracking-[0.12em]">
+        <p>
+          © {year} {shopifyConfig.storeName}
+        </p>
+        <p className="uppercase">
+          {t(dict.footer.shippingBadge, {
+            eta: dict.fulfillment.etaShort,
+          })}
+        </p>
       </div>
     </footer>
   );

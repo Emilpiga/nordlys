@@ -1,7 +1,7 @@
 {
   "meta": {
-    "siteTitle": "{brand} · Nordisk belysning",
-    "siteDescription": "{brand} — Nordisk belysning til rolige rum. Lamper med varmt skær og stille design."
+    "siteTitle": "{brand} · Hjem & hverdag",
+    "siteDescription": "{brand} — Produkter til hjemmet og hverdagen. Enkel stil, tydelige priser og levering med sporing."
   },
   "nav": {
     "shop": "Shop",
@@ -13,28 +13,28 @@
     "language": "Sprog"
   },
   "search": {
-    "placeholder": "Søg lampe eller rum",
+    "placeholder": "Søg produkter",
     "label": "Søg",
     "open": "Åbn søgning",
     "clear": "Ryd",
     "close": "Luk",
-    "rooms": "Rum",
-    "room": "Rum",
+    "rooms": "Kategorier",
+    "room": "Kategori",
     "viewAll": "Se alle for “{query}”",
     "empty": "Intet matchede “{query}”.",
     "pageTitle": "Søg",
     "pageHeading": "“{query}”",
     "pageEmptyTitle": "Intet her",
-    "pageEmptyBody": "Ingen lamper matchede “{query}”. Prøv et andet ord, eller bladre i sortimentet.",
+    "pageEmptyBody": "Ingen produkter matchede “{query}”. Prøv et andet ord, eller bladre i sortimentet.",
     "pageEmptyCta": "Til sortimentet",
     "noQueryTitle": "Hvad leder du efter?",
-    "noQueryBody": "Søg på en lampe, et dyr eller et rum.",
-    "countOne": "1 lampe",
-    "countMany": "{count} lamper"
+    "noQueryBody": "Søg på et produkt eller en kategori.",
+    "countOne": "1 produkt",
+    "countMany": "{count} produkter"
   },
   "footer": {
-    "tagline": "Varmt skær til nordiske rum.",
-    "blurb": "Lamper og belysning med stille design — atmosfære, form og roligt aftenlys.",
+    "tagline": "Produkter til hverdagen.",
+    "blurb": "Ting til hjemmet og hverdagen — enkel stil, tydelige priser og levering med sporing.",
     "shopHeading": "Shop",
     "collection": "Kollektion",
     "cart": "Kurv",
@@ -49,10 +49,11 @@
     "shippingBadge": "Levering {eta} · Sporing på hver ordre"
   },
   "home": {
-    "heroAlt": "{brand} — Nordisk belysning",
-    "heroHeadline": "Belysning til nordiske aftener og rolige rum.",
-    "heroSub": "Varmt skær. Ren form. Lamper der sætter stemningen.",
-    "heroCta": "Lys efter rum",
+    "heroAlt": "{brand} — Produkter til hverdagen",
+    "wordmarkTagline": "Hjem & hverdag",
+    "heroHeadline": "Ting til hjemmet og hverdagen.",
+    "heroSub": "Enkel stil. Tydelige priser. Produkter du faktisk bruger.",
+    "heroCta": "Til sortimentet",
     "trustShipping": "Levering {eta}",
     "trustReturns": "14 dages fortrydelsesret",
     "trustSecure": "Sikker betaling",
@@ -60,31 +61,31 @@
     "featuredTitle": "Start her",
     "featuredSub": "En kort liste at lande i — resten venter i shoppen.",
     "featuredAll": "Til hele sortimentet →",
-    "atmosphereEyebrow": "Atmosfære",
-    "atmosphereTitle": "Lavet til lange vintre",
-    "atmosphereBody": "Nordiske aftener har brug for varmt skær og former der holder i rummet. {brand} holder belysningen enkel.",
-    "atmosphereAlt": "Varm belysning i nordisk vinterlys",
+    "atmosphereEyebrow": "Hverdag",
+    "atmosphereTitle": "Lavet til rigtige hjem",
+    "atmosphereBody": "Vi samler produkter der passer ind i hverdagen — uden bøvl og uden unødvendig styling. {brand} holder det enkelt.",
+    "atmosphereAlt": "Hjem og hverdagsprodukter",
     "categoryEyebrow": "Find det rette",
-    "categoryTitle": "Lys efter rum",
-    "categorySub": "Start der du vil sætte stemningen — så bygger du videre i roligt tempo.",
-    "closeTitle": "Find din lampe",
-    "closeSub": "Gennemse hele kollektionen — eller start med et rum.",
-    "closeCta": "Shop kollektionen",
+    "categoryTitle": "Shop efter kategori",
+    "categorySub": "Start der du har brug for noget — så bygger du videre i dit tempo.",
+    "closeTitle": "Find det du har brug for",
+    "closeSub": "Gennemse hele sortimentet — eller start med en kategori.",
+    "closeCta": "Til sortimentet",
     "productOne": "produkt",
     "productMany": "produkter"
   },
   "products": {
     "backToShop": "← Tilbage til shoppen",
-    "lightingFallbackCategory": "Belysning",
-    "fallbackDescription": "En stille lampe til stuen — varmt skær, ren form.",
+    "fallbackCategory": "Sortiment",
+    "fallbackDescription": "Et produkt til hverdagen — enkelt, brugbart og klar til at bruges derhjemme.",
     "shippingLabel": "Fragt",
     "shippingValue": "Typisk {eta} til DK/EU · Sporing på hver ordre",
     "careLabel": "Pleje",
-    "careValue": "Tør af med en tør eller let fugtig klud · Kun til indendørs brug",
+    "careValue": "Følg plejerådene på produktsiden og emballagen.",
     "questionsLabel": "Spørgsmål",
     "faqLink": "Ofte stillede spørgsmål",
     "contactLink": "Kontakt",
-    "relatedTitle": "Mere fra kollektionen",
+    "relatedTitle": "Mere fra sortimentet",
     "relatedAll": "Se alle",
     "soldOut": "Udsolgt",
     "buyNow": "Køb nu",
@@ -105,7 +106,7 @@
     "close": "Luk",
     "viewFullDetails": "Se fuld info",
     "shopTitle": "Shop",
-    "shopDescription": "Lamper og belysning med nordisk ro — varmt skær, ren form."
+    "shopDescription": "Produkter til hjemmet og hverdagen — enkel stil, tydelige priser."
   },
   "trust": {
     "shippingTitle": "Levering",
@@ -131,8 +132,8 @@
     "itemOne": "1 vare",
     "itemMany": "{count} varer",
     "emptyTitle": "Intet her endnu",
-    "emptyBody": "Start med en lampe til rummet — bord, gulv eller noget blødt til aftenen.",
-    "emptyCta": "Gennemse kollektionen",
+    "emptyBody": "Læg noget fra sortimentet i kurven og fortsæt med at shoppe.",
+    "emptyCta": "Gennemse sortimentet",
     "startWith": "Start med disse",
     "continueShopping": "← Fortsæt med at shoppe",
     "summary": "Ordreoversigt",
@@ -146,7 +147,7 @@
     "drawerEyebrow": "Kurv",
     "closeCart": "Luk kurven",
     "close": "Luk",
-    "emptyDrawerBody": "Læg en lampe i kurven og fortsæt med at shoppe — kurven følger med dig.",
+    "emptyDrawerBody": "Læg et produkt i kurven og fortsæt med at shoppe — kurven følger med dig.",
     "toShop": "Til shoppen",
     "each": "{price} stk.",
     "remove": "Fjern",
@@ -155,15 +156,15 @@
   },
   "about": {
     "metaTitle": "Om os",
-    "metaDescription": "Historien bag {brand} — belysning til nordiske rum.",
+    "metaDescription": "Historien bag {brand} — produkter til hjemmet og hverdagen.",
     "eyebrow": "Om {brand}",
-    "title": "Varmt skær til nordiske rum",
-    "intro": "{brand} er en belysningsbutik til den stille hverdag — lamper med ren form, blødt lys og materialer der holder i rummet over tid.",
-    "imageAlt": "Varm belysning i nordisk vinterlys",
+    "title": "Stil til hverdagen",
+    "intro": "{brand} er en webshop til hjemmet og hverdagen — produkter med enkel form, tydelige priser og ting du kan leve med.",
+    "imageAlt": "Hjem og hverdagsprodukter",
     "whyEyebrow": "Hvorfor vi findes",
-    "whyTitle": "Lys der gør aftenen længere",
-    "whyBody1": "Nordiske vintre er lange. Vi kuraterer belysning der giver varme uden støj — lamper du kan leve med, ikke bare se på i et feed.",
-    "whyBody2": "Hvert produkt i sortimentet vælges for atmosfære, proportion og hvordan det føles i et rigtigt hjem. Du handler hos os; ordren pakkes og sendes af vores fulfillmentpartnere med sporing.",
+    "whyTitle": "Ting der virker derhjemme",
+    "whyBody1": "Vi kuraterer et sortiment til rigtige hjem — produkter du bruger, ikke bare ser på. Enkel stil uden unødvendigt bøvl.",
+    "whyBody2": "Hvert produkt i sortimentet vælges, fordi det skal være brugbart, tydeligt og føles hjemme. Du handler hos os; ordren pakkes og sendes af vores fulfillmentpartnere med sporing.",
     "howEyebrow": "Sådan fungerer det",
     "howTitle": "Enkel handel, tydelig levering",
     "howBody": "Kassen kører sikkert via Shopify. Når du har betalt, pakkes din ordre og sendes med sporing. Leveringstider varierer med destination — vi er åbne om det og hjælper dig, hvis noget går galt.",
@@ -198,7 +199,7 @@
         "answer": "14 dages fortrydelsesret for ubrugte varer i originalemballage. Beskadigede eller fejlagtige produkter erstatter vi."
       },
       {
-        "question": "Hvad gør jeg, hvis lampen er beskadiget eller forkert?",
+        "question": "Hvad gør jeg, hvis produktet er beskadiget eller forkert?",
         "answer": "Send os en e-mail inden for 14 dage fra levering med ordrenummer og fotos. {brand} ordner erstatning eller refundering, når vi har bekræftet problemet."
       },
       {
@@ -206,8 +207,8 @@
         "answer": "Ordrer pakkes af vores fulfillmentpartnere og sendes med sporbare transportører. Du handler hos {brand}; leveringen håndteres via vores logistiknet."
       },
       {
-        "question": "Hvilke lamper egner sig indendørs?",
-        "answer": "Vores sortiment er beregnet til indendørs brug, medmindre produktsiden udtrykkeligt siger noget andet. Tør af med en tør eller let fugtig klud."
+        "question": "Hvordan plejer jeg produkterne?",
+        "answer": "Følg anvisningerne på produktsiden og emballagen. Tør af med en tør eller let fugtig klud, medmindre andet er angivet."
       },
       {
         "question": "Hvordan kontakter jeg jer?",
@@ -219,7 +220,7 @@
     "metaTitle": "Kontakt",
     "metaDescription": "Kontakt {brand} om ordrer, fragt eller produkter.",
     "title": "Kontakt",
-    "description": "Spørgsmål om en ordre, en lampe eller levering — vi er her.",
+    "description": "Spørgsmål om en ordre, et produkt eller levering — vi er her.",
     "updated": "august 2026",
     "emailTitle": "E-mail",
     "emailBody": "Skriv til {email}. Vi bestræber os på at svare inden for 1–2 hverdage.",
@@ -237,7 +238,7 @@
     "linkReturns": "Fragt & returnering",
     "linkPrivacy": "Privatliv",
     "linkTerms": "Vilkår",
-    "linkShop": "Shop kollektionen"
+    "linkShop": "Til sortimentet"
   },
   "returns": {
     "metaTitle": "Fragt & returnering",
@@ -264,7 +265,7 @@
       "paragraphs": [
         "14 dages fortrydelsesret for ubrugte varer i originalemballage. Beskadigede eller fejlagtige produkter erstatter vi.",
         "Hvis en vare ankommer beskadiget, forkert eller defekt, send os en e-mail inden for 14 dage fra levering med ordrenummer og fotos. Vi ordner erstatning eller refundering, når vi har bekræftet problemet.",
-        "Ved fortrydelsesret kan ubrugte produkter i originalemballage og salgbar stand være berettigede inden for 14 dage fra levering, med forbehold for lokal forbrugerlov. Fordi {brand} sælger belysning og elektriske produkter, kan varer der er åbnet, installeret eller brugt som regel ikke returneres til lager, hvis de ikke længere er i væsentligt uændret stand — medmindre produktet er fejlagtigt.",
+        "Ved fortrydelsesret kan ubrugte produkter i originalemballage og salgbar stand være berettigede inden for 14 dage fra levering, med forbehold for lokal forbrugerlov. Varer der er åbnet eller brugt, kan som regel ikke returneres til lager, hvis de ikke længere er i væsentligt uændret stand — medmindre produktet er fejlagtigt.",
         "Godkendte returneringer skal sendes med sporbar metode. Oprindelig udgående fragt refunderes normalt ikke, medmindre vi har begået en fejl."
       ]
     },
@@ -297,7 +298,7 @@
     "whoWeAre": {
       "title": "Hvem vi er",
       "paragraphs": [
-        "{brand} er en webshop for belysning og lamper. Kasse og ordrebehandling sker via Shopify. Ordrer kan opfyldes af vores logistikpartnere på vores vegne."
+        "{brand} er en webshop til hjem og hverdag. Kasse og ordrebehandling sker via Shopify. Ordrer kan opfyldes af vores logistikpartnere på vores vegne."
       ]
     },
     "whatWeCollect": {
@@ -379,7 +380,7 @@
     "store": {
       "title": "Butikken",
       "paragraphs": [
-        "{brand} sælger lamper, belysning og relaterede produkter online. Produktsider, priser og tilgængelighed vises via vores Shopify-drevne katalog og kan ændres uden forudgående varsel. Vi gør vores bedste for at holde beskrivelser korrekte; små forskelle i emballage eller billeder kan forekomme."
+        "{brand} sælger produkter til hjem og hverdag online. Produktsider, priser og tilgængelighed vises via vores Shopify-drevne katalog og kan ændres uden forudgående varsel. Vi gør vores bedste for at holde beskrivelser korrekte; små forskelle i emballage eller billeder kan forekomme."
       ]
     },
     "orders": {
@@ -404,7 +405,7 @@
     "care": {
       "title": "Produktpleje",
       "paragraphs": [
-        "Følg anvisningerne på emballagen og produktsiden. Brug lamper kun indendørs, medmindre andet er angivet, skift pærer i henhold til angivet type og effekt, og træk stikket ud før rengøring. Tør af med en tør eller let fugtig klud. {brand} erstatter ikke professionel elrådgivning — kontakt en kvalificeret elektriker ved usikkerhed om installation."
+        "Følg anvisningerne på emballagen og produktsiden. Brug produkterne i henhold til beskrivelsen. Tør af med en tør eller let fugtig klud, medmindre andet er angivet."
       ]
     },
     "returns": {

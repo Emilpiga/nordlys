@@ -15,7 +15,7 @@ declare global {
     googlefc?: {
       callbackQueue?: unknown[];
     };
-    __nordlysMarketingConsent?: boolean | null;
-    __nordlysSetMarketingConsent?: (granted: boolean) => void;
+    __storeMarketingConsent?: boolean | null;
+    __storeSetMarketingConsent?: (granted: boolean) => void;
   }
 }

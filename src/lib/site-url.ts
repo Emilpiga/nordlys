@@ -1,7 +1,7 @@
 /**
  * Public site origin for sitemap, robots, and absolute metadata URLs.
  * Prefer NEXT_PUBLIC_SITE_URL in production — must match the live canonical host
- * exactly (including www), e.g. https://www.nlys.net not https://nlys.net.
+ * exactly (including www), e.g. https://www.vardagsstil.se not https://vardagsstil.se.
  */
 export function getSiteUrl() {
   const explicit = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "");

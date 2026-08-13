@@ -1,7 +1,7 @@
 {
   "meta": {
-    "siteTitle": "{brand} · Pohjoismainen valaistus",
-    "siteDescription": "{brand} — Pohjoismaista valaistusta rauhallisiin tiloihin. Lamppuja lämpimällä valolla ja hiljaisella muotoilulla."
+    "siteTitle": "{brand} · Koti & arki",
+    "siteDescription": "{brand} — Tuotteita kotiin ja arkeen. Yksinkertainen tyyli, selkeät hinnat ja toimitus seurannalla."
   },
   "nav": {
     "shop": "Kauppa",
@@ -13,28 +13,28 @@
     "language": "Kieli"
   },
   "search": {
-    "placeholder": "Hae lamppua tai huonetta",
+    "placeholder": "Hae tuotteita",
     "label": "Haku",
     "open": "Avaa haku",
     "clear": "Tyhjennä",
     "close": "Sulje",
-    "rooms": "Huoneet",
-    "room": "Huone",
+    "rooms": "Kategoriat",
+    "room": "Kategoria",
     "viewAll": "Näytä kaikki: “{query}”",
     "empty": "Ei osumia haulle “{query}”.",
     "pageTitle": "Haku",
     "pageHeading": "“{query}”",
     "pageEmptyTitle": "Ei tuloksia",
-    "pageEmptyBody": "Mikään lamppu ei vastannut hakua “{query}”. Kokeile toista sanaa tai selaa valikoimaa.",
+    "pageEmptyBody": "Mikään tuote ei vastannut hakua “{query}”. Kokeile toista sanaa tai selaa valikoimaa.",
     "pageEmptyCta": "Valikoimaan",
     "noQueryTitle": "Mitä etsit?",
-    "noQueryBody": "Hae lamppua, eläintä tai huonetta.",
-    "countOne": "1 lamppu",
-    "countMany": "{count} lamppua"
+    "noQueryBody": "Hae tuotetta tai kategoriaa.",
+    "countOne": "1 tuote",
+    "countMany": "{count} tuotetta"
   },
   "footer": {
-    "tagline": "Lämmintä valoa pohjoismaisiin tiloihin.",
-    "blurb": "Lamppuja ja valaistusta hiljaisella muotoilulla — tunnelmaa, muotoa ja rauhallista iltavaloa.",
+    "tagline": "Tuotteita arkeen.",
+    "blurb": "Tavaraa kotiin ja arkeen — yksinkertainen tyyli, selkeät hinnat ja toimitus seurannalla.",
     "shopHeading": "Kauppa",
     "collection": "Kokoelma",
     "cart": "Ostoskori",
@@ -49,10 +49,11 @@
     "shippingBadge": "Toimitus {eta} · Seuranta jokaisessa tilauksessa"
   },
   "home": {
-    "heroAlt": "{brand} — Pohjoismainen valaistus",
-    "heroHeadline": "Valaistusta pohjoismaisiin iltoihin ja rauhallisiin tiloihin.",
-    "heroSub": "Lämmin valo. Puhdas muoto. Lamppuja, jotka luovat tunnelman.",
-    "heroCta": "Valoa huoneittain",
+    "heroAlt": "{brand} — Tuotteita arkeen",
+    "wordmarkTagline": "Koti & arki",
+    "heroHeadline": "Tavaraa kotiin ja arkeen.",
+    "heroSub": "Yksinkertainen tyyli. Selkeät hinnat. Tuotteita, joita oikeasti käytät.",
+    "heroCta": "Valikoimaan",
     "trustShipping": "Toimitus {eta}",
     "trustReturns": "14 päivän peruutusoikeus",
     "trustSecure": "Turvallinen kassa",
@@ -60,31 +61,31 @@
     "featuredTitle": "Aloita tästä",
     "featuredSub": "Lyhyt lista alkuun — loput odottavat kaupassa.",
     "featuredAll": "Koko valikoimaan →",
-    "atmosphereEyebrow": "Tunnelma",
-    "atmosphereTitle": "Tehty pitkiin talviin",
-    "atmosphereBody": "Pohjoismaiset illat tarvitsevat lämmintä valoa ja muotoja, jotka kestävät tilassa. {brand} pitää valaistuksen yksinkertaisena.",
-    "atmosphereAlt": "Lämmintä valaistusta pohjoismaisessa talvivalossa",
+    "atmosphereEyebrow": "Arki",
+    "atmosphereTitle": "Tehty oikeisiin koteihin",
+    "atmosphereBody": "Keräämme tuotteita, jotka sopivat arkeen — ilman säätöä ja turhaa tyyliä. {brand} pitää asiat yksinkertaisina.",
+    "atmosphereAlt": "Koti- ja arkituotteita",
     "categoryEyebrow": "Löydä oikea",
-    "categoryTitle": "Valoa huoneittain",
-    "categorySub": "Aloita siitä, mihin haluat tunnelmaa — jatka sitten rauhassa.",
-    "closeTitle": "Löydä lamppusi",
-    "closeSub": "Selaa koko kokoelmaa — tai aloita huoneesta.",
-    "closeCta": "Tutustu kokoelmaan",
+    "categoryTitle": "Osta kategorioittain",
+    "categorySub": "Aloita siitä, mitä tarvitset — jatka sitten omaan tahtiin.",
+    "closeTitle": "Löydä tarvitsemasi",
+    "closeSub": "Selaa koko valikoimaa — tai aloita kategoriasta.",
+    "closeCta": "Valikoimaan",
     "productOne": "tuote",
     "productMany": "tuotetta"
   },
   "products": {
     "backToShop": "← Takaisin kauppaan",
-    "lightingFallbackCategory": "Valaistus",
-    "fallbackDescription": "Rauhallinen lamppu olohuoneeseen — lämmin valo, puhdas muoto.",
+    "fallbackCategory": "Valikoima",
+    "fallbackDescription": "Tuote arkeen — yksinkertainen, hyödyllinen ja valmis kotiin.",
     "shippingLabel": "Toimitus",
     "shippingValue": "Tyypillisesti {eta} FI/EU-alueelle · Seuranta jokaisessa tilauksessa",
     "careLabel": "Hoito",
-    "careValue": "Pyyhi kuivalla tai hieman kostealla liinalla · Vain sisäkäyttöön",
+    "careValue": "Noudata tuotesivun ja pakkauksen hoito-ohjeita.",
     "questionsLabel": "Kysymykset",
     "faqLink": "Usein kysytyt",
     "contactLink": "Yhteystiedot",
-    "relatedTitle": "Lisää kokoelmasta",
+    "relatedTitle": "Lisää valikoimasta",
     "relatedAll": "Näytä kaikki",
     "soldOut": "Loppuunmyyty",
     "buyNow": "Osta nyt",
@@ -105,7 +106,7 @@
     "close": "Sulje",
     "viewFullDetails": "Näytä täydet tiedot",
     "shopTitle": "Kauppa",
-    "shopDescription": "Lamppuja ja valaistusta pohjoismaisella rauhallisuudella — lämmin valo, puhdas muoto."
+    "shopDescription": "Tuotteita kotiin ja arkeen — yksinkertainen tyyli, selkeät hinnat."
   },
   "trust": {
     "shippingTitle": "Toimitus",
@@ -131,8 +132,8 @@
     "itemOne": "1 tuote",
     "itemMany": "{count} tuotetta",
     "emptyTitle": "Täällä ei ole vielä mitään",
-    "emptyBody": "Aloita lampulla tilaan — pöytä, lattia tai jotain pehmeää iltaan.",
-    "emptyCta": "Selaa kokoelmaa",
+    "emptyBody": "Lisää jotain valikoimasta ja jatka ostoksia.",
+    "emptyCta": "Selaa valikoimaa",
     "startWith": "Aloita näillä",
     "continueShopping": "← Jatka ostoksia",
     "summary": "Tilausyhteenveto",
@@ -146,7 +147,7 @@
     "drawerEyebrow": "Ostoskori",
     "closeCart": "Sulje ostoskori",
     "close": "Sulje",
-    "emptyDrawerBody": "Lisää lamppu ja jatka ostoksia — ostoskori kulkee mukanasi.",
+    "emptyDrawerBody": "Lisää tuote ja jatka ostoksia — ostoskori kulkee mukanasi.",
     "toShop": "Kauppaan",
     "each": "{price} kpl",
     "remove": "Poista",
@@ -155,15 +156,15 @@
   },
   "about": {
     "metaTitle": "Tietoa meistä",
-    "metaDescription": "Tarina {brand}-brändin takana — valaistusta pohjoismaisiin tiloihin.",
+    "metaDescription": "Tarina {brand}-brändin takana — tuotteita kotiin ja arkeen.",
     "eyebrow": "Tietoa: {brand}",
-    "title": "Lämmintä valoa pohjoismaisiin tiloihin",
-    "intro": "{brand} on valaistuskauppa rauhalliseen arkeen — lamppuja, joissa on puhdas muoto, pehmeä valo ja materiaaleja, jotka kestävät tilassa ajan myötä.",
-    "imageAlt": "Lämmintä valaistusta pohjoismaisessa talvivalossa",
+    "title": "Tyyliä arkeen",
+    "intro": "{brand} on verkkokauppa kotiin ja arkeen — tuotteita, joissa on yksinkertainen muoto, selkeät hinnat ja tavaraa, jonka kanssa voi elää.",
+    "imageAlt": "Koti- ja arkituotteita",
     "whyEyebrow": "Miksi olemme olemassa",
-    "whyTitle": "Valo, joka tekee illasta pidemmän",
-    "whyBody1": "Pohjoismaiset talvet ovat pitkiä. Kuratoimme valaistusta, joka tuo lämpöä ilman hälyä — lamppuja, joiden kanssa voi elää, ei vain katsella feedissä.",
-    "whyBody2": "Jokainen tuote valikoimassa valitaan tunnelman, mittasuhteiden ja sen mukaan, miltä se tuntuu oikeassa kodissa. Ostoksilla olet meillä; tilaus pakataan ja lähetetään fulfillment-kumppaneidemme kautta seurannalla.",
+    "whyTitle": "Tavaraa, joka toimii kotona",
+    "whyBody1": "Kuratoimme valikoiman oikeisiin koteihin — tuotteita, joita käytät, et vain katsele. Yksinkertainen tyyli ilman turhaa säätöä.",
+    "whyBody2": "Jokainen tuote valikoimassa valitaan sen mukaan, että se on hyödyllinen, selkeä ja tuntuu kotoisalta. Ostoksilla olet meillä; tilaus pakataan ja lähetetään fulfillment-kumppaneidemme kautta seurannalla.",
     "howEyebrow": "Näin se toimii",
     "howTitle": "Yksinkertainen kauppa, selkeä toimitus",
     "howBody": "Kassa toimii turvallisesti Shopifyn kautta. Kun olet maksanut, tilauksesi pakataan ja lähetetään seurannalla. Toimitusajat vaihtelevat kohteen mukaan — olemme avoimia siitä ja autamme, jos jotain menee pieleen.",
@@ -198,7 +199,7 @@
         "answer": "14 päivän peruutusoikeus käyttämättömille tuotteille alkuperäispakkauksessa. Vaurioituneet tai virheelliset tuotteet korvaamme."
       },
       {
-        "question": "Mitä teen, jos lamppu on vaurioitunut tai väärä?",
+        "question": "Mitä teen, jos tuote on vaurioitunut tai väärä?",
         "answer": "Lähetä meille sähköpostia 14 päivän kuluessa toimituksesta tilausnumerolla ja kuvilla. {brand} järjestää korvauksen tai hyvityksen, kun olemme vahvistaneet ongelman."
       },
       {
@@ -206,8 +207,8 @@
         "answer": "Tilaukset pakataan fulfillment-kumppaneidemme toimesta ja lähetetään seurattavilla kuljetuksilla. Ostoksilla olet {brand}-kaupassa; toimitus hoidetaan logistiikkaverkostomme kautta."
       },
       {
-        "question": "Mitkä lamput sopivat sisäkäyttöön?",
-        "answer": "Valikoimamme on tarkoitettu sisäkäyttöön, ellei tuotesivulla toisin mainita. Pyyhi kuivalla tai hieman kostealla liinalla."
+        "question": "Miten hoidan tuotteita?",
+        "answer": "Noudata tuotesivun ja pakkauksen ohjeita. Pyyhi kuivalla tai hieman kostealla liinalla, ellei toisin mainita."
       },
       {
         "question": "Miten otan teihin yhteyttä?",
@@ -219,7 +220,7 @@
     "metaTitle": "Yhteystiedot",
     "metaDescription": "Ota yhteyttä {brand}-tiimiin tilauksista, toimituksesta tai tuotteista.",
     "title": "Yhteystiedot",
-    "description": "Kysymyksiä tilauksesta, lampusta tai toimituksesta — olemme täällä.",
+    "description": "Kysymyksiä tilauksesta, tuotteesta tai toimituksesta — olemme täällä.",
     "updated": "elokuu 2026",
     "emailTitle": "Sähköposti",
     "emailBody": "Kirjoita osoitteeseen {email}. Pyrimme vastaamaan 1–2 arkipäivän kuluessa.",
@@ -237,7 +238,7 @@
     "linkReturns": "Toimitus & palautukset",
     "linkPrivacy": "Tietosuoja",
     "linkTerms": "Ehdot",
-    "linkShop": "Tutustu kokoelmaan"
+    "linkShop": "Valikoimaan"
   },
   "returns": {
     "metaTitle": "Toimitus & palautukset",
@@ -264,7 +265,7 @@
       "paragraphs": [
         "14 päivän peruutusoikeus käyttämättömille tuotteille alkuperäispakkauksessa. Vaurioituneet tai virheelliset tuotteet korvaamme.",
         "Jos tuote saapuu vaurioituneena, virheellisenä tai viallisena, lähetä meille sähköpostia 14 päivän kuluessa toimituksesta tilausnumerolla ja kuvilla. Järjestämme korvauksen tai hyvityksen, kun olemme vahvistaneet ongelman.",
-        "Peruutusoikeuden yhteydessä käyttämättömät tuotteet alkuperäispakkauksessa ja myyntikelpoisessa kunnossa voivat olla palautuskelpoisia 14 päivän kuluessa toimituksesta paikallisen kuluttajalainsäädännön mukaisesti. Koska {brand} myy valaistusta ja sähkölaitteita, avattuja, asennettuja tai käytettyjä tuotteita ei yleensä voida palauttaa varastoon, jos ne eivät ole olennaisesti muuttumattomassa kunnossa — ellei tuote ole virheellinen.",
+        "Peruutusoikeuden yhteydessä käyttämättömät tuotteet alkuperäispakkauksessa ja myyntikelpoisessa kunnossa voivat olla palautuskelpoisia 14 päivän kuluessa toimituksesta paikallisen kuluttajalainsäädännön mukaisesti. Avattuja tai käytettyjä tuotteita ei yleensä voida palauttaa varastoon, jos ne eivät ole olennaisesti muuttumattomassa kunnossa — ellei tuote ole virheellinen.",
         "Hyväksytyt palautukset tulee lähettää seurattavalla tavalla. Alkuperäistä lähtötoimitusta ei yleensä hyvitetä, ellemme ole tehneet virhettä."
       ]
     },
@@ -297,7 +298,7 @@
     "whoWeAre": {
       "title": "Keitä olemme",
       "paragraphs": [
-        "{brand} on verkkokauppa valaistukselle ja lampuilla. Kassa ja tilausten käsittely tapahtuvat Shopifyn kautta. Tilaukset voivat täyttyä logistiikkakumppaneidemme toimesta puolestamme."
+        "{brand} on verkkokauppa kotiin ja arkeen. Kassa ja tilausten käsittely tapahtuvat Shopifyn kautta. Tilaukset voivat täyttyä logistiikkakumppaneidemme toimesta puolestamme."
       ]
     },
     "whatWeCollect": {
@@ -379,7 +380,7 @@
     "store": {
       "title": "Kauppa",
       "paragraphs": [
-        "{brand} myy lamppuja, valaistusta ja niihin liittyviä tuotteita verkossa. Tuotesivut, hinnat ja saatavuus näytetään Shopify-pohjaisen katalogimme kautta ja voivat muuttua ilman ennakkoilmoitusta. Pyrimme pitämään kuvaukset paikkansapitävinä; pieniä eroja pakkauksessa tai kuvissa voi esiintyä."
+        "{brand} myy tuotteita kotiin ja arkeen verkossa. Tuotesivut, hinnat ja saatavuus näytetään Shopify-pohjaisen katalogimme kautta ja voivat muuttua ilman ennakkoilmoitusta. Pyrimme pitämään kuvaukset paikkansapitävinä; pieniä eroja pakkauksessa tai kuvissa voi esiintyä."
       ]
     },
     "orders": {
@@ -404,7 +405,7 @@
     "care": {
       "title": "Tuotteen hoito",
       "paragraphs": [
-        "Noudata pakkauksen ja tuotesivun ohjeita. Käytä lamppuja vain sisätiloissa, ellei toisin mainita, vaihda polttimot ilmoitetun tyypin ja tehon mukaan, ja irrota pistoke ennen puhdistusta. Pyyhi kuivalla tai hieman kostealla liinalla. {brand} ei korvaa ammattimaista sähköneuvontaa — ota yhteyttä pätevään sähköasentajaan, jos asennus askarruttaa."
+        "Noudata pakkauksen ja tuotesivun ohjeita. Käytä tuotteita kuvauksen mukaisesti. Pyyhi kuivalla tai hieman kostealla liinalla, ellei toisin mainita."
       ]
     },
     "returns": {

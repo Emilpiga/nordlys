@@ -6,7 +6,7 @@ import { useState } from "react";
 import { HeroMosaicTile } from "@/components/hero-mosaic-tile";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
-import { NordlysWordmark } from "@/components/nordlys-wordmark";
+import { SiteWordmark } from "@/components/site-wordmark";
 import { ProductQuickView } from "@/components/product-quick-view";
 import { HERO_MOSAIC_TILE_COUNT } from "@/lib/home-mosaic";
 import { shopifyConfig } from "@/lib/shopify/config";
@@ -61,7 +61,7 @@ export function HomeHero({
       <div className="relative z-10 flex w-full shrink-0 flex-col justify-center border-b border-border/70 bg-frost px-5 pb-14 pt-14 sm:px-8 md:min-h-[calc(100svh-var(--header-height))] md:w-[var(--rail-width)] md:border-b-0 md:border-r md:pb-16">
         <div className="mx-auto w-full max-w-md md:mx-0">
           <div className="animate-rise">
-            <NordlysWordmark size="display" />
+            <SiteWordmark size="display" />
           </div>
 
           <h1 className="animate-rise delay-1 mt-8 font-display text-[1.85rem] font-medium leading-[1.15] tracking-tight text-foreground sm:mt-10 sm:text-[2.15rem]">

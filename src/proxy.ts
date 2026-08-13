@@ -20,6 +20,16 @@ export function proxy(request: NextRequest) {
     pathname.startsWith("/api") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/favicon") ||
+    pathname === "/icon" ||
+    pathname.startsWith("/icon/") ||
+    pathname === "/apple-icon" ||
+    pathname.startsWith("/apple-icon/") ||
+    pathname === "/opengraph-image" ||
+    pathname.startsWith("/opengraph-image") ||
+    pathname === "/twitter-image" ||
+    pathname.startsWith("/twitter-image") ||
+    pathname === "/manifest.webmanifest" ||
+    pathname === "/manifest" ||
     /\.[a-zA-Z0-9]+$/.test(pathname)
   ) {
     return NextResponse.next();

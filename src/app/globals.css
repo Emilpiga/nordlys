@@ -30,8 +30,8 @@
   --color-glow: var(--glow);
   --color-mist: var(--mist);
   --color-frost: var(--frost);
-  --font-sans: var(--font-outfit);
-  --font-display: var(--font-cormorant);
+  --font-sans: var(--font-jakarta);
+  --font-display: var(--font-jakarta);
 }
 
 * {
@@ -55,7 +55,7 @@ body {
      nothing can tile or reset at section boundaries while scrolling. */
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-outfit), sans-serif;
+  font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   min-height: 100%;
   overflow-x: clip;
 }
@@ -530,7 +530,7 @@ body {
 .product-description :where(h1, h2, h3, h4) {
   margin-top: 1.6em;
   margin-bottom: 0.5em;
-  font-family: var(--font-cormorant), serif;
+  font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   font-size: 1.55rem;
   font-weight: 500;
   letter-spacing: -0.02em;

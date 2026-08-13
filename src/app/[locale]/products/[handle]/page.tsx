@@ -128,7 +128,7 @@ export default async function ProductPage({ params }: Props) {
               ) : (
                 <>
                   {shopifyConfig.storeName} ·{" "}
-                  {dict.products.lightingFallbackCategory}
+                  {dict.products.fallbackCategory}
                 </>
               )}
             </p>

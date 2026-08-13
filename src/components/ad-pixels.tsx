@@ -3,7 +3,7 @@ import { getMarketingPixelConfig } from "@/lib/consent";
 
 /**
  * Marketing tags. Consent Mode defaults + Google’s CMP gate personalization;
- * Meta follows via __nordlysSetMarketingConsent (see ConsentModeBootstrap).
+ * Meta follows via __storeSetMarketingConsent (see ConsentModeBootstrap).
  */
 export function AdPixels() {
   const { metaPixelId, googleAdsId, adsenseClientId } =
@@ -47,9 +47,9 @@ function MetaPixel({ id }: { id: string }) {
         fbq('consent', 'revoke');
         fbq('init', ${JSON.stringify(id)});
         fbq('track', 'PageView');
-        if (typeof window.__nordlysSetMarketingConsent === 'function' &&
-            window.__nordlysMarketingConsent !== null) {
-          window.__nordlysSetMarketingConsent(window.__nordlysMarketingConsent);
+        if (typeof window.__storeSetMarketingConsent === 'function' &&
+            window.__storeMarketingConsent !== null) {
+          window.__storeSetMarketingConsent(window.__storeMarketingConsent);
         }
       `}
     </Script>

@@ -16,9 +16,9 @@ export function ConsentModeBootstrap() {
   function gtag(){ window.dataLayer.push(arguments); }
   window.gtag = gtag;
 
-  window.__nordlysMarketingConsent = null;
-  window.__nordlysSetMarketingConsent = function (granted) {
-    window.__nordlysMarketingConsent = granted;
+  window.__storeMarketingConsent = null;
+  window.__storeSetMarketingConsent = function (granted) {
+    window.__storeMarketingConsent = granted;
     if (typeof window.fbq === "function") {
       window.fbq("consent", granted ? "grant" : "revoke");
     }
@@ -59,7 +59,7 @@ export function ConsentModeBootstrap() {
       var action = payload[1];
       var params = payload[2];
       if (cmd === "consent" && action === "update" && params) {
-        window.__nordlysSetMarketingConsent(params.ad_storage === "granted");
+        window.__storeSetMarketingConsent(params.ad_storage === "granted");
       }
     } catch (e) {}
     return result;
@@ -76,7 +76,7 @@ export function ConsentModeBootstrap() {
         var purpose1 = tcData.purpose && tcData.purpose.consents
           ? tcData.purpose.consents[1]
           : false;
-        window.__nordlysSetMarketingConsent(Boolean(purpose1));
+        window.__storeSetMarketingConsent(Boolean(purpose1));
       }
     });
     return true;
@@ -93,8 +93,8 @@ export function ConsentModeBootstrap() {
   // Non-regulated regions never get TCF/CMP — apply granted default after wait.
   setTimeout(function () {
     if (attachTcf()) return;
-    if (window.__nordlysMarketingConsent === null) {
-      window.__nordlysSetMarketingConsent(true);
+    if (window.__storeMarketingConsent === null) {
+      window.__storeSetMarketingConsent(true);
     }
   }, 1200);
 })();

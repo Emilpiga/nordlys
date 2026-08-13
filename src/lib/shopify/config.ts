@@ -7,7 +7,7 @@ export const shopifyConfig = {
     process.env.SHOPIFY_STOREFRONT_PRIVATE_ACCESS_TOKEN,
   ),
   apiVersion: process.env.SHOPIFY_STOREFRONT_API_VERSION ?? "2026-04",
-  storeName: process.env.NEXT_PUBLIC_STORE_NAME ?? "Nordlys",
+  storeName: process.env.NEXT_PUBLIC_STORE_NAME ?? "Vardagsstil.se",
   supportEmail: cleanEnv(process.env.NEXT_PUBLIC_SUPPORT_EMAIL),
   /**
    * Storefront API @inContext language (Translate & Adapt).

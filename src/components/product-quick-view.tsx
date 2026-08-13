@@ -7,6 +7,7 @@ import { addToCartAction } from "@/app/actions/cart";
 import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
+import { OptionSelect } from "@/components/option-select";
 import { formatMoney } from "@/lib/format";
 import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
 import type { Product } from "@/lib/shopify/types";
@@ -23,6 +24,8 @@ type ProductQuickViewProps = {
   open: boolean;
   onClose: () => void;
 };
+
+const CHIP_OPTION_LIMIT = 8;
 
 export function ProductQuickView({
   product,
@@ -127,7 +130,7 @@ export function ProductQuickView({
         aria-labelledby={titleId}
         className="relative z-10 flex max-h-[92svh] w-full max-w-3xl flex-col overflow-hidden rounded-t-2xl bg-[color-mix(in_oklab,var(--frost)_96%,white)] shadow-[0_-8px_40px_rgba(20,28,34,0.12)] sm:rounded-2xl sm:shadow-[0_24px_80px_rgba(20,28,34,0.16)]"
       >
-        <div className="flex items-center justify-between border-b border-border/60 px-5 py-4 sm:px-6">
+        <div className="flex shrink-0 items-center justify-between border-b border-border/60 px-5 py-4 sm:px-6">
           <p className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-glow">
             {dict.products.quickView}
           </p>
@@ -140,8 +143,8 @@ export function ProductQuickView({
           </button>
         </div>
 
-        <div className="grid overflow-y-auto lg:grid-cols-2">
-          <div className="relative aspect-[4/5] bg-mist lg:aspect-auto lg:min-h-[28rem]">
+        <div className="flex min-h-0 flex-1 flex-col lg:grid lg:grid-cols-2">
+          <div className="relative aspect-[4/5] max-h-[34vh] shrink-0 bg-mist lg:max-h-none lg:h-full lg:min-h-0 lg:aspect-auto">
             {image ? (
               <Image
                 key={image.url}
@@ -154,112 +157,150 @@ export function ProductQuickView({
             ) : null}
           </div>
 
-          <div className="flex flex-col px-5 py-6 sm:px-7 sm:py-8">
-            <h2
-              id={titleId}
-              className="font-display text-3xl font-medium tracking-tight sm:text-4xl"
-            >
-              {product.title}
-            </h2>
-            <p className="mt-3 font-display text-2xl font-medium tracking-tight">
-              {selectedVariant
-                ? formatMoney(selectedVariant.price, locale)
-                : formatMoney(product.priceRange.minVariantPrice, locale)}
-            </p>
-
-            {showOptions
-              ? product.options.map((option) => {
-                  if (
-                    option.name === "Title" &&
-                    option.values.length === 1 &&
-                    option.values[0] === "Default Title"
-                  ) {
-                    return null;
-                  }
-
-                  return (
-                    <fieldset key={option.id} className="mt-7 space-y-3">
-                      <legend className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-muted">
-                        {option.name}
-                        {selectedOptions[option.name] ? (
-                          <span className="ml-2 font-normal normal-case tracking-normal text-foreground/70">
-                            {selectedOptions[option.name]}
-                          </span>
-                        ) : null}
-                      </legend>
-                      <div className="flex flex-wrap gap-2">
-                        {option.values.map((value) => {
-                          if (value === "Default Title") return null;
-                          const active = selectedOptions[option.name] === value;
-                          const available = isOptionValueAvailable(
-                            product.variants,
-                            option.name,
-                            value,
-                            selectedOptions,
-                          );
-                          return (
-                            <button
-                              key={value}
-                              type="button"
-                              disabled={!available && !active}
-                              aria-pressed={active}
-                              onClick={() =>
-                                setSelectedOptions((current) =>
-                                  selectOptionValue(
-                                    product.variants,
-                                    current,
-                                    option.name,
-                                    value,
-                                  ),
-                                )
-                              }
-                              className={`min-w-12 border px-3.5 py-2 text-sm transition ${
-                                active
-                                  ? "border-foreground bg-foreground text-on-accent"
-                                  : available
-                                    ? "border-border/80 hover:border-foreground/50"
-                                    : "cursor-not-allowed border-border/50 text-muted/55 line-through opacity-55"
-                              }`}
-                            >
-                              {value}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </fieldset>
-                  );
-                })
-              : null}
-
-            <div className="mt-7 space-y-3">
-              <p className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-muted">
-                {dict.products.quantity}
+          <div className="flex min-h-0 flex-1 flex-col">
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-6 sm:px-7 sm:py-7">
+              <h2
+                id={titleId}
+                className="font-display text-2xl font-medium tracking-tight sm:text-3xl"
+              >
+                {product.title}
+              </h2>
+              <p className="mt-2 font-display text-xl font-medium tracking-tight">
+                {selectedVariant
+                  ? formatMoney(selectedVariant.price, locale)
+                  : formatMoney(product.priceRange.minVariantPrice, locale)}
               </p>
-              <div className="inline-flex items-center border border-border/80">
-                <button
-                  type="button"
-                  aria-label={dict.products.decreaseQty}
-                  disabled={quantity <= 1}
-                  onClick={() => setQuantity((value) => Math.max(1, value - 1))}
-                  className="px-4 py-2.5 text-sm disabled:opacity-40"
-                >
-                  −
-                </button>
-                <span className="min-w-10 text-center text-sm tabular-nums">
-                  {quantity}
-                </span>
-                <button
-                  type="button"
-                  aria-label={dict.products.increaseQty}
-                  onClick={() => setQuantity((value) => value + 1)}
-                  className="px-4 py-2.5 text-sm"
-                >
-                  +
-                </button>
-              </div>
+
+              {showOptions
+                ? product.options.map((option) => {
+                    const values = option.values.filter(
+                      (value) => value !== "Default Title",
+                    );
+                    if (
+                      values.length === 0 ||
+                      (option.name === "Title" && values.length === 1)
+                    ) {
+                      return null;
+                    }
+
+                    const useSelect = values.length > CHIP_OPTION_LIMIT;
+
+                    return (
+                      <fieldset key={option.id} className="mt-6 space-y-3">
+                        <legend className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-muted">
+                          {option.name}
+                          {!useSelect && selectedOptions[option.name] ? (
+                            <span className="ml-2 font-normal normal-case tracking-normal text-foreground/70">
+                              {selectedOptions[option.name]}
+                            </span>
+                          ) : null}
+                        </legend>
+                        {useSelect ? (
+                          <OptionSelect
+                            label={option.name}
+                            value={selectedOptions[option.name] ?? values[0]}
+                            options={values.map((value) => ({
+                              value,
+                              disabled:
+                                !isOptionValueAvailable(
+                                  product.variants,
+                                  option.name,
+                                  value,
+                                  selectedOptions,
+                                ) && selectedOptions[option.name] !== value,
+                            }))}
+                            onChange={(value) =>
+                              setSelectedOptions((current) =>
+                                selectOptionValue(
+                                  product.variants,
+                                  current,
+                                  option.name,
+                                  value,
+                                ),
+                              )
+                            }
+                          />
+                        ) : (
+                          <div className="flex flex-wrap gap-2">
+                            {values.map((value) => {
+                              const active =
+                                selectedOptions[option.name] === value;
+                              const available = isOptionValueAvailable(
+                                product.variants,
+                                option.name,
+                                value,
+                                selectedOptions,
+                              );
+                              return (
+                                <button
+                                  key={value}
+                                  type="button"
+                                  disabled={!available && !active}
+                                  aria-pressed={active}
+                                  onClick={() =>
+                                    setSelectedOptions((current) =>
+                                      selectOptionValue(
+                                        product.variants,
+                                        current,
+                                        option.name,
+                                        value,
+                                      ),
+                                    )
+                                  }
+                                  className={`min-w-12 border px-3.5 py-2 text-sm transition ${
+                                    active
+                                      ? "border-foreground bg-foreground text-on-accent"
+                                      : available
+                                        ? "border-border/80 hover:border-foreground/50"
+                                        : "cursor-not-allowed border-border/50 text-muted/55 line-through opacity-55"
+                                  }`}
+                                >
+                                  {value}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </fieldset>
+                    );
+                  })
+                : null}
+
+              {error ? (
+                <p className="mt-4 text-sm text-red-700">{error}</p>
+              ) : null}
             </div>
 
-            <div className="mt-8 space-y-3">
+            <div className="shrink-0 border-t border-border/60 bg-[color-mix(in_oklab,var(--frost)_96%,white)] px-5 py-4 sm:px-7">
+              <div className="mb-3 flex items-center justify-between gap-4">
+                <p className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-muted">
+                  {dict.products.quantity}
+                </p>
+                <div className="inline-flex items-center border border-border/80">
+                  <button
+                    type="button"
+                    aria-label={dict.products.decreaseQty}
+                    disabled={quantity <= 1}
+                    onClick={() =>
+                      setQuantity((value) => Math.max(1, value - 1))
+                    }
+                    className="px-4 py-2 text-sm disabled:opacity-40"
+                  >
+                    −
+                  </button>
+                  <span className="min-w-10 text-center text-sm tabular-nums">
+                    {quantity}
+                  </span>
+                  <button
+                    type="button"
+                    aria-label={dict.products.increaseQty}
+                    onClick={() => setQuantity((value) => value + 1)}
+                    className="px-4 py-2 text-sm"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
               <button
                 type="button"
                 disabled={!selectedVariant?.availableForSale || isPending}
@@ -275,13 +316,11 @@ export function ProductQuickView({
               <LocaleLink
                 href={`/products/${product.handle}`}
                 onClick={onClose}
-                className="block text-center text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground"
+                className="mt-3 block text-center text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground"
               >
                 {dict.products.viewFullDetails}
               </LocaleLink>
             </div>
-
-            {error ? <p className="mt-4 text-sm text-red-700">{error}</p> : null}
           </div>
         </div>
       </div>

@@ -5,11 +5,30 @@ import { shopifyConfig } from "@/lib/shopify/config";
 import { getSiteUrl } from "@/lib/site-url";
 
 export function siteTitleFor(brand = shopifyConfig.storeName) {
-  return `${brand} · Nordisk belysning`;
+  return `${brand} · Hem & vardag`;
 }
 
 export function siteDescriptionFor(brand = shopifyConfig.storeName) {
-  return `${brand} — Nordisk belysning för lugna rum. Lampor med varmt sken och stilla design.`;
+  return `${brand} — Produkter till hemmet och vardagen. Enkel stil, tydliga priser och leverans med spårning.`;
+}
+
+export const defaultOgImage = {
+  url: "/opengraph-image",
+  width: 1200,
+  height: 630,
+  alt: `${shopifyConfig.storeName} — Produkter till hemmet och vardagen`,
+} as const;
+
+export function brandIcons(): NonNullable<Metadata["icons"]> {
+  return {
+    icon: [
+      { url: "/brand-mark.svg", type: "image/svg+xml" },
+      { url: "/icon", type: "image/png", sizes: "64x64" },
+      { url: "/favicon.ico", sizes: "32x32" },
+    ],
+    shortcut: [{ url: "/icon", type: "image/png" }],
+    apple: [{ url: "/apple-icon", type: "image/png", sizes: "180x180" }],
+  };
 }
 
 /** @deprecated Prefer dictionary meta via getDictionary */
@@ -40,7 +59,8 @@ export function socialMetadata({
   type?: "website" | "article";
   locale?: string;
 }): Pick<Metadata, "openGraph" | "twitter" | "facebook"> {
-  const ogImages = images?.map((image) => ({
+  const shareImages = images?.length ? images : [defaultOgImage];
+  const ogImages = shareImages.map((image) => ({
     url: image.url,
     width: image.width,
     height: image.height,
@@ -57,15 +77,13 @@ export function socialMetadata({
       title,
       description,
       ...(url ? { url } : {}),
-      ...(ogImages?.length ? { images: ogImages } : {}),
+      images: ogImages,
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      ...(ogImages?.length
-        ? { images: ogImages.map((image) => image.url) }
-        : {}),
+      images: ogImages.map((image) => image.url),
     },
     ...(facebookAppId ? { facebook: { appId: facebookAppId } } : {}),
   };

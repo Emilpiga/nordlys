@@ -1,12 +1,13 @@
 import { ImageResponse } from "next/og";
+import { BRAND_CREAM, BRAND_INK, BRAND_MARK_V_PATH, BRAND_MUTED, BRAND_PAPER } from "@/lib/brand";
 import { shopifyConfig } from "@/lib/shopify/config";
 
-export const alt = `${shopifyConfig.storeName} — Nordisk belysning`;
+export const alt = `${shopifyConfig.storeName} — Produkter för vardagen`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function OpenGraphImage() {
-  const name = shopifyConfig.storeName.toUpperCase();
+  const name = shopifyConfig.storeName;
 
   return new ImageResponse(
     (
@@ -18,62 +19,57 @@ export default function OpenGraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "64px 72px",
-          background: "linear-gradient(145deg, #efeae3 0%, #f7f5f1 42%, #e8e0d4 100%)",
-          color: "#1a1814",
-          fontFamily: "Georgia, 'Times New Roman', serif",
+          background: BRAND_PAPER,
+          color: BRAND_INK,
+          fontFamily: "Arial, Helvetica, sans-serif",
         }}
       >
         <div
           style={{
             display: "flex",
-            width: "48px",
-            height: "1px",
-            background: "rgba(20, 28, 34, 0.35)",
+            alignItems: "center",
+            gap: 22,
           }}
-        />
-
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        >
           <div
             style={{
               display: "flex",
-              fontSize: 88,
-              fontWeight: 500,
-              letterSpacing: "0.28em",
-              lineHeight: 1,
+              width: 72,
+              height: 72,
+              background: BRAND_INK,
+              borderRadius: 16,
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            {name}
+            <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 64 64">
+              <path d={BRAND_MARK_V_PATH} fill={BRAND_CREAM} />
+            </svg>
           </div>
           <div
             style={{
               display: "flex",
-              fontSize: 28,
-              fontFamily: "Arial, Helvetica, sans-serif",
-              fontWeight: 400,
-              letterSpacing: "0.08em",
-              color: "#6a655c",
-              maxWidth: "720px",
-              lineHeight: 1.35,
+              fontSize: 52,
+              fontWeight: 600,
+              letterSpacing: "-0.03em",
+              lineHeight: 1,
             }}
           >
-            Nordisk belysning för lugna rum
+            {name}
           </div>
         </div>
 
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-end",
-            fontFamily: "Arial, Helvetica, sans-serif",
-            fontSize: 18,
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            color: "#b08a4a",
+            fontSize: 28,
+            fontWeight: 400,
+            color: BRAND_MUTED,
+            maxWidth: "720px",
+            lineHeight: 1.35,
           }}
         >
-          <span>Varmt sken</span>
-          <span>Nordiskt ljus</span>
+          Produkter till hemmet och vardagen
         </div>
       </div>
     ),

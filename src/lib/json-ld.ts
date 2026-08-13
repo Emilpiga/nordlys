@@ -16,7 +16,7 @@ export function buildOrganizationJsonLd(
     "@type": "Organization",
     name: shopifyConfig.storeName,
     url,
-    logo: `${url}/logo-ikon.png`,
+    logo: `${url}/brand-mark.svg`,
     description,
     ...(shopifyConfig.supportEmail
       ? { email: shopifyConfig.supportEmail }
@@ -42,6 +42,7 @@ export function buildWebSiteJsonLd(
       "@type": "Organization",
       name: shopifyConfig.storeName,
       url,
+      logo: `${url}/brand-mark.svg`,
     },
   };
 }

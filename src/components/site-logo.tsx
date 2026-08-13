@@ -1,17 +1,4 @@
-import Image from "next/image";
-import { NordlysWordmark } from "@/components/nordlys-wordmark";
-import { shopifyConfig } from "@/lib/shopify/config";
-
-const ICON_SIZES = {
-  header: {
-    className: "w-[4.25rem] sm:w-[5rem]",
-    sizes: "80px",
-  },
-  footer: {
-    className: "w-[4.75rem] sm:w-[5.5rem]",
-    sizes: "88px",
-  },
-} as const;
+import { BrandLockup, BrandMark } from "@/components/brand-mark";
 
 type SiteLogoProps = {
   size: "header" | "footer" | "hero";
@@ -19,31 +6,15 @@ type SiteLogoProps = {
   className?: string;
 };
 
-export function SiteLogo({ size, priority = false, className }: SiteLogoProps) {
+const MARK_SIZE = {
+  header: "h-8 w-8 sm:h-9 sm:w-9",
+  footer: "h-10 w-10",
+} as const;
+
+export function SiteLogo({ size, className = "" }: SiteLogoProps) {
   if (size === "hero") {
-    return (
-      <NordlysWordmark
-        size="display"
-        className={className}
-      />
-    );
+    return <BrandLockup size="display" className={className} />;
   }
 
-  const preset = ICON_SIZES[size];
-
-  return (
-    <span
-      className={`relative block leading-none ${preset.className}${className ? ` ${className}` : ""}`}
-    >
-      <Image
-        src="/logo-ikon.png"
-        alt={shopifyConfig.storeName}
-        width={1536}
-        height={1024}
-        priority={priority}
-        sizes={preset.sizes}
-        className="h-auto w-full"
-      />
-    </span>
-  );
+  return <BrandMark className={`${MARK_SIZE[size]} ${className}`} />;
 }

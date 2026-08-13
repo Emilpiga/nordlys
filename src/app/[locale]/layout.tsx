@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Outfit } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { notFound } from "next/navigation";
 import { getCartAction } from "@/app/actions/cart";
@@ -28,21 +28,15 @@ import {
 import { getCollections } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
 import { getMarketingPixelConfig } from "@/lib/consent";
-import { socialMetadata } from "@/lib/seo";
+import { socialMetadata, brandIcons } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
 
 const { adsenseClientId } = getMarketingPixelConfig();
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  display: "swap",
 });
 
 export function generateStaticParams() {
@@ -77,16 +71,13 @@ export async function generateMetadata({
     },
     description,
     applicationName: shopifyConfig.storeName,
+    icons: brandIcons(),
     alternates: {
       canonical: url,
       languages: {
         ...languages,
         "x-default": `${getSiteUrl()}${localePath("sv")}`,
       },
-    },
-    icons: {
-      icon: [{ url: "/logo-ikon.png", type: "image/png" }],
-      apple: [{ url: "/logo-ikon.png", type: "image/png" }],
     },
     ...(adsenseClientId
       ? { other: { "google-adsense-account": adsenseClientId } }
@@ -125,7 +116,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={config.htmlLang}
-      className={`${cormorant.variable} ${outfit.variable} h-full antialiased`}
+      className={`${jakarta.variable} ${jakarta.className} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <ConsentModeBootstrap />
