@@ -124,7 +124,9 @@
     "thumbnailLabel": "Näytä kuva {index}",
     "viewFullDetails": "Näytä täydet tiedot",
     "shopTitle": "Kauppa",
-    "shopDescription": "Tuotteita kotiin ja arkeen — yksinkertainen tyyli, selkeät hinnat."
+    "shopDescription": "Tuotteita kotiin ja arkeen — yksinkertainen tyyli, selkeät hinnat.",
+    "saleBadge": "−{percent} %",
+    "wasPrice": "Aiemmin {price}"
   },
   "trust": {
     "shippingTitle": "Lähetys",

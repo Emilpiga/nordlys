@@ -124,7 +124,9 @@
     "thumbnailLabel": "Visa bild {index}",
     "viewFullDetails": "Visa fullständig info",
     "shopTitle": "Shoppa",
-    "shopDescription": "Produkter till hemmet och vardagen — enkel stil, tydliga priser."
+    "shopDescription": "Produkter till hemmet och vardagen — enkel stil, tydliga priser.",
+    "saleBadge": "−{percent} %",
+    "wasPrice": "Tidigare {price}"
   },
   "trust": {
     "shippingTitle": "Avsändning",

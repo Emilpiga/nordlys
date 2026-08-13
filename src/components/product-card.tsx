@@ -9,7 +9,7 @@ import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
 import { ProductQuickView } from "@/components/product-quick-view";
 import { ProductRating } from "@/components/product-rating";
-import { formatMoney } from "@/lib/format";
+import { ProductPrice, SaleBadge } from "@/components/product-price";
 import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
 import type { Product } from "@/lib/shopify/types";
 import { hasSelectableOptions } from "@/lib/shopify/variants";
@@ -19,7 +19,7 @@ type ProductCardProps = {
 };
 
 export function ProductCard({ product }: ProductCardProps) {
-  const { locale, dict } = useDictionary();
+  const { dict } = useDictionary();
   const router = useRouter();
   const { openCart, setCart } = useCart();
   const [quickOpen, setQuickOpen] = useState(false);
@@ -116,6 +116,12 @@ export function ProductCard({ product }: ProductCardProps) {
             className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(238,242,244,0.18)_0%,transparent_24%,transparent_55%,rgba(20,32,28,0.28)_100%)]"
           />
 
+          <SaleBadge
+            handle={product.handle}
+            price={product.priceRange.minVariantPrice}
+            shopifyCompareAt={defaultVariant?.compareAtPrice}
+          />
+
           <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col gap-2 p-3 opacity-100 transition duration-300 sm:p-3.5 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">
             <div className="pointer-events-auto grid grid-cols-2 gap-2">
               <button
@@ -145,9 +151,11 @@ export function ProductCard({ product }: ProductCardProps) {
             {product.title}
           </h3>
           <ProductRating handle={product.handle} />
-          <p className="text-sm font-light text-muted">
-            {formatMoney(product.priceRange.minVariantPrice, locale)}
-          </p>
+          <ProductPrice
+            handle={product.handle}
+            price={product.priceRange.minVariantPrice}
+            shopifyCompareAt={defaultVariant?.compareAtPrice}
+          />
         </LocaleLink>
       </article>
 

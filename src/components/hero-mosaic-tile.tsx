@@ -7,6 +7,7 @@ import { addToCartAction } from "@/app/actions/cart";
 import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
+import { SaleBadge } from "@/components/product-price";
 import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
 import type { Product } from "@/lib/shopify/types";
 import { hasSelectableOptions } from "@/lib/shopify/variants";
@@ -121,6 +122,13 @@ export function HeroMosaicTile({
           sizes="(max-width: 768px) 33vw, 18vw"
         />
       </LocaleLink>
+
+      <SaleBadge
+        handle={product.handle}
+        price={product.priceRange.minVariantPrice}
+        shopifyCompareAt={defaultVariant?.compareAtPrice}
+        size="sm"
+      />
 
       <div
         aria-hidden

@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 import { predictiveSearchAction } from "@/app/actions/search";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
-import { formatMoney } from "@/lib/format";
+import { ProductPrice } from "@/components/product-price";
 import { localePath } from "@/lib/i18n/locales";
 import type {
   CatalogSearchResult,
@@ -366,8 +366,11 @@ export function HeaderSearch({ collections = [] }: HeaderSearchProps) {
                     <span className="block truncate text-sm text-foreground">
                       {product.title}
                     </span>
-                    <span className="mt-0.5 block text-[0.78rem] font-light text-muted">
-                      {formatMoney(product.price, locale)}
+                    <span className="mt-0.5 block">
+                      <ProductPrice
+                        handle={product.handle}
+                        price={product.price}
+                      />
                     </span>
                   </span>
                 </LocaleLink>

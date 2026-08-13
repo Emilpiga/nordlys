@@ -7,7 +7,7 @@ import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { ProductTrust } from "@/components/product-trust";
 import { ProductViewingActivity } from "@/components/product-viewing-activity";
-import { formatMoney } from "@/lib/format";
+import { ProductPrice } from "@/components/product-price";
 import {
   metaContentIdFromGid,
   trackAddToCart,
@@ -30,7 +30,7 @@ type ProductFormProps = {
 type PendingMode = "add" | "buy" | null;
 
 export function ProductForm({ product, onVariantChange }: ProductFormProps) {
-  const { locale, dict, t } = useDictionary();
+  const { dict, t } = useDictionary();
   const router = useRouter();
   const { openCart, setCart } = useCart();
   const [isPending, startTransition] = useTransition();
@@ -127,30 +127,20 @@ export function ProductForm({ product, onVariantChange }: ProductFormProps) {
   }
 
   const showOptions = hasSelectableOptions(product);
-
-  const compareAt = selectedVariant?.compareAtPrice;
-  const showCompare =
-    compareAt &&
-    selectedVariant &&
-    Number(compareAt.amount) > Number(selectedVariant.price.amount);
-
   const soldOut = !selectedVariant?.availableForSale;
   const busy = isPending || pendingMode !== null;
 
   return (
     <div className="space-y-8">
-      <div className="flex items-baseline gap-3">
-        <p className="font-display text-4xl font-medium tracking-tight">
-          {selectedVariant
-            ? formatMoney(selectedVariant.price, locale)
-            : formatMoney(product.priceRange.minVariantPrice, locale)}
-        </p>
-        {showCompare && compareAt ? (
-          <p className="text-base font-light text-muted line-through">
-            {formatMoney(compareAt, locale)}
-          </p>
-        ) : null}
-      </div>
+      <ProductPrice
+        handle={product.handle}
+        price={
+          selectedVariant?.price ?? product.priceRange.minVariantPrice
+        }
+        shopifyCompareAt={selectedVariant?.compareAtPrice}
+        size="lg"
+        showBadge
+      />
 
       {showOptions
         ? product.options.map((option) => {

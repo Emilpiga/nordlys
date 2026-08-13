@@ -8,8 +8,8 @@ import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
 import { OptionSelect } from "@/components/option-select";
+import { ProductPrice } from "@/components/product-price";
 import { ProductRating } from "@/components/product-rating";
-import { formatMoney } from "@/lib/format";
 import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
 import type { Product } from "@/lib/shopify/types";
 import {
@@ -33,7 +33,7 @@ export function ProductQuickView({
   open,
   onClose,
 }: ProductQuickViewProps) {
-  const { locale, dict } = useDictionary();
+  const { dict } = useDictionary();
   const router = useRouter();
   const { openCart, setCart } = useCart();
   const titleId = useId();
@@ -173,11 +173,18 @@ export function ProductQuickView({
                   onClick={onClose}
                 />
               </div>
-              <p className="mt-2 font-display text-xl font-medium tracking-tight">
-                {selectedVariant
-                  ? formatMoney(selectedVariant.price, locale)
-                  : formatMoney(product.priceRange.minVariantPrice, locale)}
-              </p>
+              <div className="mt-2">
+                <ProductPrice
+                  handle={product.handle}
+                  price={
+                    selectedVariant?.price ??
+                    product.priceRange.minVariantPrice
+                  }
+                  shopifyCompareAt={selectedVariant?.compareAtPrice}
+                  size="md"
+                  showBadge
+                />
+              </div>
 
               {showOptions
                 ? product.options.map((option) => {

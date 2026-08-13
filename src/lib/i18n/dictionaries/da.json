@@ -124,7 +124,9 @@
     "thumbnailLabel": "Vis billede {index}",
     "viewFullDetails": "Se fuld info",
     "shopTitle": "Shop",
-    "shopDescription": "Produkter til hjemmet og hverdagen — enkel stil, tydelige priser."
+    "shopDescription": "Produkter til hjemmet og hverdagen — enkel stil, tydelige priser.",
+    "saleBadge": "−{percent} %",
+    "wasPrice": "Tidligere {price}"
   },
   "trust": {
     "shippingTitle": "Afsendelse",

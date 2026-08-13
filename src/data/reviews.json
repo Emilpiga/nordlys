@@ -1,6 +1,326 @@
 {
   "featured": ["cutting-board-1", "eye-mask-1", "watering-can-1"],
   "products": {
+    "304-stainless-steel-cutting-board": [
+      {
+        "id": "steel-board-1",
+        "rating": 5,
+        "date": "2026-07-09",
+        "author": "Mikael D.",
+        "location": "Jönköping",
+        "title": {
+          "sv": "Ingen lukt, enkel att torka",
+          "no": "Ingen lukt, enkel å tørke",
+          "da": "Ingen lugt, nem at tørre",
+          "fi": "Ei hajua, helppo kuivata"
+        },
+        "body": {
+          "sv": "Lök och fisk sitter inte kvar. Sköljer av den och ställer den mot väggen — tar nästan ingen plats.",
+          "no": "Løk og fisk sitter ikke igjen. Skyller den av og stiller den mot veggen — tar nesten ingen plass.",
+          "da": "Løg og fisk sidder ikke tilbage. Skyller den af og stiller den op ad væggen — fylder næsten ingenting.",
+          "fi": "Sipuli ja kala eivät jää siihen. Huuhtaisen ja nojaan seinään — vie tuskin tilaa."
+        }
+      },
+      {
+        "id": "steel-board-2",
+        "rating": 4,
+        "date": "2026-05-16",
+        "author": "Grete S.",
+        "location": "Kristiansand",
+        "title": {
+          "sv": "Halt om bänken är blöt",
+          "no": "Glatt hvis benken er våt",
+          "da": "Glat, hvis bordet er vådt",
+          "fi": "Liukas, jos tiski on märkä"
+        },
+        "body": {
+          "sv": "Skär ytan är slät och hygienisk. Lägger en trasa under när jag håller på länge, annars glider den lite.",
+          "no": "Skjæreflaten er glatt og hygienisk. Legger en klut under når jeg holder på lenge, ellers sklir den litt.",
+          "da": "Skærefladen er glat og hygiejnisk. Lægger et viskestykke under, når jeg er i gang længe, ellers glider den lidt.",
+          "fi": "Leikkuupinta on sileä ja hygieeninen. Laitan rätin alle, jos leikkaan pitkään — muuten se hieman liukuu."
+        }
+      }
+    ],
+    "36-piece-stainless-steel-tableware-wooden-box-gift-box-set": [
+      {
+        "id": "cutlery-1",
+        "rating": 5,
+        "date": "2026-06-11",
+        "author": "Helena B.",
+        "location": "Växjö",
+        "title": {
+          "sv": "Komplett set som känns vardagligt",
+          "no": "Komplett sett som føles hverdagslig",
+          "da": "Komplet sæt, der føles hverdagsagtigt",
+          "fi": "Täysi setti, joka tuntuu arkiselta"
+        },
+        "body": {
+          "sv": "Lådan är snygg att ha i skänken. Besticken är lagom tunga och går i maskinen utan att tappa lystern.",
+          "no": "Esken er fin å ha i skjenken. Bestikket er passe tungt og tåler maskinen uten å miste glansen.",
+          "da": "Kassen er pæn at have i skænken. Bestikket er tilpas tungt og tåler maskinen uden at miste glansen.",
+          "fi": "Laatikko sopii kaappiin. Aterimet ovat sopivan painavat ja kestävät koneen menettämättä kiiltoa."
+        }
+      },
+      {
+        "id": "cutlery-2",
+        "rating": 4,
+        "date": "2026-04-07",
+        "author": "Kasper M.",
+        "location": "Roskilde",
+        "title": {
+          "sv": "Bra att ge bort — och att behålla",
+          "no": "Bra å gi bort — og å beholde",
+          "da": "God at give — og at beholde",
+          "fi": "Hyvä lahjaksi — ja itselle"
+        },
+        "body": {
+          "sv": "Köpte den som present, behöll en till oss. Skedarna är lite grundare än våra gamla, men setet räcker till gäster.",
+          "no": "Kjøpte den som gave, beholdt ett sett selv. Skjeene er litt grunnere enn de gamle, men settet rekker til gjester.",
+          "da": "Købte den som gave, beholdt et sæt selv. Skeer er lidt fladere end de gamle, men sættet rækker til gæster.",
+          "fi": "Ostin lahjaksi, pidin yhden itselle. Lusikat ovat hieman matalampia kuin vanhat, mutta setti riittää vieraille."
+        }
+      }
+    ],
+    "3d-colored-animal-light-desk-lamp-animal-series-decorative-night-light-animal-elephant-owl-cat-vintage-table-lamp-home-decoration": [
+      {
+        "id": "animal-lamp-1",
+        "rating": 5,
+        "date": "2026-07-21",
+        "author": "Moa E.",
+        "location": "Umeå",
+        "title": {
+          "sv": "Mjukt nattljus, inte en lampa att läsa i",
+          "no": "Mykt nattlys, ikke en leselampe",
+          "da": "Blødt natlys, ikke en læselampe",
+          "fi": "Pehmeä yövalo, ei lukulamppu"
+        },
+        "body": {
+          "sv": "Står på nattduksbordet. Ljuset är varmt och figuren syns även dagtid. Barnen valde katten.",
+          "no": "Står på nattbordet. Lyset er varmt, og figuren synes også om dagen. Barna valgte katten.",
+          "da": "Står på natbordet. Lyset er varmt, og figuren ses også om dagen. Børnene valgte katten.",
+          "fi": "Seisoo yöpöydällä. Valo on lämmin, ja hahmo näkyy päivälläkin. Lapset valitsivat kissan."
+        }
+      },
+      {
+        "id": "animal-lamp-2",
+        "rating": 4,
+        "date": "2026-05-05",
+        "author": "Sander T.",
+        "location": "Drammen",
+        "title": {
+          "sv": "Ser bättre ut i verkligheten",
+          "no": "Ser bedre ut i virkeligheten",
+          "da": "Ser bedre ud i virkeligheden",
+          "fi": "Näyttää paremmalta livenä"
+        },
+        "body": {
+          "sv": "Färgerna är tydligare än på skärmen. Sladden är kort — vi har den vid ett uttag bakom sängen.",
+          "no": "Fargene er tydeligere enn på skjermen. Ledningen er kort — vi har den ved et uttak bak sengen.",
+          "da": "Farverne er tydeligere end på skærmen. Ledningen er kort — vi har den ved en stikkontakt bag sengen.",
+          "fi": "Värit ovat kirkkaammat kuin ruudulla. Johto on lyhyt — pidämme sen pistorasian luona sängyn takana."
+        }
+      }
+    ],
+    "7-pcs-stainless-steel-silicone-kitchen-utensil-slotted-spatula-turner-ladle-serving-spoon-pasta-server-cooking-set": [
+      {
+        "id": "utensils-1",
+        "rating": 5,
+        "date": "2026-06-19",
+        "author": "Patrik L.",
+        "location": "Halmstad",
+        "title": {
+          "sv": "Skadar inte stekpannan",
+          "no": "Skader ikke stekepannen",
+          "da": "Beskadiger ikke stegepanden",
+          "fi": "Ei naarmuta paistinpannua"
+        },
+        "body": {
+          "sv": "Silikonkanten är det jag ville ha. Slev och spatel används varje dag; resterna hänger på stången vid spisen.",
+          "no": "Silikonkanten var det jeg ville ha. Øse og spatel brukes hver dag; resten henger på stangen ved komfyren.",
+          "da": "Silikonekanten var det, jeg ville have. Øse og spatel bruges hver dag; resten hænger på stangen ved komfuret.",
+          "fi": "Silikonireuna oli se mitä hain. Kauhaa ja lastaa käytän joka päivä; loput riippuvat tangossa lieden vieressä."
+        }
+      },
+      {
+        "id": "utensils-2",
+        "rating": 4,
+        "date": "2026-03-26",
+        "author": "Anette K.",
+        "location": "Esbjerg",
+        "title": {
+          "sv": "Skaften blir inte heta",
+          "no": "Skaftene blir ikke varme",
+          "da": "Skafterne bliver ikke varme",
+          "fi": "Kahvat eivät kuumene"
+        },
+        "body": {
+          "sv": "Bra grepp även med våta händer. Pastaskeden är lite stor för vår kastrull, men den övriga uppsättningen räcker.",
+          "no": "Godt grep også med våte hender. Pastaskjeen er litt stor til gryten vår, men resten av settet holder.",
+          "da": "Godt greb også med våde hænder. Pastaskeen er lidt stor til vores gryde, men resten af sættet rækker.",
+          "fi": "Hyvä ote märilläkin käsillä. Pastakauha on hieman iso meidän kattilaan, mutta muu setti riittää."
+        }
+      }
+    ],
+    "colorful-strange-dog-lamp-resin-decorations": [
+      {
+        "id": "dog-lamp-1",
+        "rating": 5,
+        "date": "2026-07-15",
+        "author": "Julia N.",
+        "location": "Sundsvall",
+        "title": {
+          "sv": "En lampa som faktiskt får stå framme",
+          "no": "En lampe som faktisk får stå fremme",
+          "da": "En lampe, der faktisk må stå fremme",
+          "fi": "Lamppu, joka saa jäädä esille"
+        },
+        "body": {
+          "sv": "Den är mer skulptur än belysning, och det är okej. Kvällsljuset är mjukt mot bokhyllan.",
+          "no": "Den er mer skulptur enn belysning, og det er greit. Kveldslyset er mykt mot bokhyllen.",
+          "da": "Den er mere skulptur end belysning, og det er fint. Aftenlyset er blødt mod boghylden.",
+          "fi": "Se on enemmän veistos kuin valaisin, ja se sopii. Iltavalo on pehmeä kirjahyllyä vasten."
+        }
+      },
+      {
+        "id": "dog-lamp-2",
+        "rating": 4,
+        "date": "2026-04-22",
+        "author": "Ville P.",
+        "location": "Jyväskylä",
+        "title": {
+          "sv": "Tyngre än den ser ut",
+          "no": "Tyngre enn den ser ut",
+          "da": "Tungere, end den ser ud",
+          "fi": "Painavampi kuin miltä näyttää"
+        },
+        "body": {
+          "sv": "Står stadigt. Inte stark nog som enda lampa i rummet, men som accent vid TV:n fungerar den.",
+          "no": "Står stødig. Ikke sterk nok som eneste lampe i rommet, men som aksent ved TV-en fungerer den.",
+          "da": "Står stabilt. Ikke stærk nok som eneste lampe i rummet, men som accent ved TV'et virker den.",
+          "fi": "Pysyy tukevasti. Ei tarpeeksi kirkas ainoaksi valoksi, mutta TV:n vieressä se toimii."
+        }
+      }
+    ],
+    "led-simulation-flame-atmosphere-flame-candle-light": [
+      {
+        "id": "flame-light-1",
+        "rating": 5,
+        "date": "2026-06-04",
+        "author": "Ingrid Å.",
+        "location": "Falun",
+        "title": {
+          "sv": "Låga utan stearin",
+          "no": "Flamme uten stearin",
+          "da": "Flamme uden stearin",
+          "fi": "Liekki ilman steariinia"
+        },
+        "body": {
+          "sv": "Använder den i fönstret när vi inte vill ha öppet ljus. Flackandet är lugnt, inte ett disco.",
+          "no": "Bruker den i vinduet når vi ikke vil ha åpen flamme. Flakkingen er rolig, ikke et disco.",
+          "da": "Bruger den i vinduet, når vi ikke vil have åben ild. Flakkeriet er roligt, ikke et diskotek.",
+          "fi": "Pidän sitä ikkunassa, kun emme halua avotulta. Liekin liike on rauhallinen, ei disko."
+        }
+      },
+      {
+        "id": "flame-light-2",
+        "rating": 4,
+        "date": "2026-03-18",
+        "author": "Thomas V.",
+        "location": "Odense",
+        "title": {
+          "sv": "Liten, gör jobbet i hyllan",
+          "no": "Liten, gjør jobben i hyllen",
+          "da": "Lille, gør arbejdet i hylden",
+          "fi": "Pieni, hoitaa homman hyllyssä"
+        },
+        "body": {
+          "sv": "Batteriet räcker en hel kväll. På nära håll ser man att det är LED, från soffan räcker illusionen.",
+          "no": "Batteriet varer en hel kveld. På nært hold ser man at det er LED, fra sofaen holder illusjonen.",
+          "da": "Batteriet rækker en hel aften. Tæt på kan man se, at det er LED, fra sofaen holder illusionen.",
+          "fi": "Akku kestää illan. Lähietäisyydeltä näkee LEDin, sohvalta illuusio riittää."
+        }
+      }
+    ],
+    "led-tablet-reading-light-rechargeable": [
+      {
+        "id": "reading-light-1",
+        "rating": 5,
+        "date": "2026-07-28",
+        "author": "Cecilia R.",
+        "location": "Karlstad",
+        "title": {
+          "sv": "Klämmer fast och stannar där",
+          "no": "Klemmer fast og blir der",
+          "da": "Klemmer fast og bliver der",
+          "fi": "Kiinnittyy ja pysyy"
+        },
+        "body": {
+          "sv": "Sitter på surfplattan utan att glida. Ljuset är riktat, så det stör inte den som sover bredvid.",
+          "no": "Sitter på nettbrettet uten å skli. Lyset er rettet, så det forstyrrer ikke den som sover ved siden av.",
+          "da": "Sidder på tabletten uden at glide. Lyset er rettet, så det forstyrrer ikke den, der sover ved siden af.",
+          "fi": "Pysyy tabletissa luistamatta. Valo on suunnattu, joten vieressä nukkuvaa ei häiritse."
+        }
+      },
+      {
+        "id": "reading-light-2",
+        "rating": 4,
+        "date": "2026-05-13",
+        "author": "Mats O.",
+        "location": "Tromsø",
+        "title": {
+          "sv": "Laddas sällan",
+          "no": "Lades sjelden",
+          "da": "Lades sjældent",
+          "fi": "Latausta harvoin"
+        },
+        "body": {
+          "sv": "En laddning räcker flera kvällar. Armen är lite styv att vinkla första gången, sen sitter den.",
+          "no": "En lading rekker flere kvelder. Armen er litt stiv å vinkle første gang, så sitter den.",
+          "da": "En opladning rækker flere aftener. Armen er lidt stiv at vinkle første gang, så sidder den.",
+          "fi": "Yksi lataus riittää useaksi illaksi. Varsiosa on aluksi jäykkä taivuttaa, sitten se asettuu."
+        }
+      }
+    ],
+    "resin-statue-led-light-ornaments": [
+      {
+        "id": "resin-statue-1",
+        "rating": 5,
+        "date": "2026-06-07",
+        "author": "Alva F.",
+        "location": "Visby",
+        "title": {
+          "sv": "Ger hyllan ett stilla sken",
+          "no": "Gir hyllen et stille skjær",
+          "da": "Giver hylden et stille skær",
+          "fi": "Antaa hyllylle hillityn hehkun"
+        },
+        "body": {
+          "sv": "Inte en läslampa — mer en liten figur som lyser mot väggen på kvällen. Precis vad hörnet behövde.",
+          "no": "Ikke en leselampe — mer en liten figur som lyser mot veggen om kvelden. Akkurat det hjørnet trengte.",
+          "da": "Ikke en læselampe — mere en lille figur, der lyser mod væggen om aftenen. Præcis det, hjørnet manglede.",
+          "fi": "Ei lukulamppu — enemmän pieni hahmo, joka valaisee seinää illalla. Juuri se mitä nurkka tarvitsi."
+        }
+      },
+      {
+        "id": "resin-statue-2",
+        "rating": 4,
+        "date": "2026-04-01",
+        "author": "Jens H.",
+        "location": "Aalborg",
+        "title": {
+          "sv": "Tydligare i mörker",
+          "no": "Tydeligere i mørket",
+          "da": "Tydeligere i mørket",
+          "fi": "Selkeämpi pimeässä"
+        },
+        "body": {
+          "sv": "På dagen är det mest en prydnad. När det mörknar kommer ljuset fram. USB-sladden är tillräckligt lång till TV-bänken.",
+          "no": "Om dagen er det mest en pynt. Når det mørkner, kommer lyset frem. USB-ledningen er lang nok til TV-benken.",
+          "da": "Om dagen er det mest pynt. Når det mørkner, kommer lyset frem. USB-ledningen er lang nok til TV-bænken.",
+          "fi": "Päivällä se on lähinnä koriste. Pimeässä valo tulee esiin. USB-johto yltää TV-tasolle."
+        }
+      }
+    ],
     "stainless-steel-ebony-cutting-board-antibacterial-and-mildewproof-double-sided-cutting-board": [
       {
         "id": "cutting-board-1",
