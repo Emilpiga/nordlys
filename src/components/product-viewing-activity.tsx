@@ -2,65 +2,75 @@
 
 import { useEffect, useState } from "react";
 import { useDictionary } from "@/components/dictionary-provider";
-
-const MIN_VIEWERS = 4;
-const MAX_VIEWERS = 11;
-
-function seedFromId(id: string) {
-  let hash = 2166136261;
-  for (let i = 0; i < id.length; i++) {
-    hash ^= id.charCodeAt(i);
-    hash = Math.imul(hash, 16777619);
-  }
-  return hash >>> 0;
-}
-
-function initialCount(productId: string) {
-  return MIN_VIEWERS + (seedFromId(productId) % (MAX_VIEWERS - MIN_VIEWERS + 1));
-}
+import { PRESENCE_HEARTBEAT_MS } from "@/lib/presence-constants";
 
 type ProductViewingActivityProps = {
   productId: string;
 };
 
-/** Quiet social-proof line with a product-seeded, slowly drifting viewer count. */
+type PresenceResponse =
+  | { ok: true; others: number }
+  | { ok: false; reason?: string; others?: number };
+
+/**
+ * Live count of other active sessions on this PDP.
+ * Hidden when presence isn't configured, the request fails, or nobody else is here.
+ */
 export function ProductViewingActivity({
   productId,
 }: ProductViewingActivityProps) {
   const { dict, t } = useDictionary();
-  const [count, setCount] = useState(() => initialCount(productId));
+  const [others, setOthers] = useState<number | null>(null);
 
   useEffect(() => {
-    setCount(initialCount(productId));
-  }, [productId]);
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
-
+    let cancelled = false;
     let timeout: number;
-    const schedule = () => {
-      timeout = window.setTimeout(
-        () => {
-          setCount((current) => {
-            const delta = Math.floor(Math.random() * 3) - 1;
-            return Math.min(MAX_VIEWERS, Math.max(MIN_VIEWERS, current + delta));
-          });
-          schedule();
-        },
-        8000 + Math.random() * 7000,
-      );
+
+    const beat = async () => {
+      try {
+        const response = await fetch("/api/presence", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ productId }),
+          credentials: "same-origin",
+          cache: "no-store",
+        });
+        const data = (await response.json()) as PresenceResponse;
+        if (cancelled) return;
+        if (response.ok && data.ok) {
+          setOthers(Math.max(0, data.others));
+        } else {
+          setOthers(null);
+        }
+      } catch {
+        if (!cancelled) setOthers(null);
+      }
     };
 
-    schedule();
-    return () => window.clearTimeout(timeout);
+    const schedule = () => {
+      timeout = window.setTimeout(() => {
+        void beat().finally(() => {
+          if (!cancelled) schedule();
+        });
+      }, PRESENCE_HEARTBEAT_MS);
+    };
+
+    void beat().finally(() => {
+      if (!cancelled) schedule();
+    });
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeout);
+    };
   }, [productId]);
 
+  if (others == null || others < 1) return null;
+
   const label =
-    count === 1
+    others === 1
       ? dict.products.viewingOne
-      : t(dict.products.viewingMany, { count });
+      : t(dict.products.viewingMany, { count: others });
 
   return (
     <p
