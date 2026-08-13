@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { LegalPage, LegalSection } from "@/components/legal-page";
+import { LegalFacts, LegalPage, LegalSection } from "@/components/legal-page";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
+import {
+  getLegalIdentity,
+  legalCopyVars,
+} from "@/lib/legal";
 import { shopifyConfig } from "@/lib/shopify/config";
 import {
   localeAlternates,
@@ -102,14 +106,17 @@ export default async function ReturnsPage({ params }: Props) {
   if (!isLocale(locale)) notFound();
 
   const dict = await getDictionary(locale);
-  const brand = shopifyConfig.storeName;
-  const email = shopifyConfig.supportEmail;
+  const identity = getLegalIdentity();
+  const vars = legalCopyVars(identity);
+  const email = identity.email;
   const r = dict.returns;
   const updatedLabel = t(dict.common.updated, { date: r.updated });
 
   const sections = [
     r.shipping,
     r.customs,
+    r.withdrawal,
+    r.complaints,
     r.returns,
     r.refunds,
     r.lost,
@@ -124,15 +131,34 @@ export default async function ReturnsPage({ params }: Props) {
       {sections.map((section) => (
         <LegalSection key={section.title} title={section.title}>
           {section.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{t(paragraph, { brand })}</p>
+            <p key={paragraph}>{t(paragraph, vars)}</p>
           ))}
+          {section.title === r.returns.title && identity.returnsAddress ? (
+            <LegalFacts
+              items={[
+                {
+                  label: dict.common.returnsAddress,
+                  value: identity.returnsAddress,
+                },
+              ]}
+            />
+          ) : null}
         </LegalSection>
       ))}
+
+      <LegalSection title={r.withdrawalForm.title}>
+        {r.withdrawalForm.paragraphs.map((paragraph) => (
+          <p key={paragraph}>{t(paragraph, vars)}</p>
+        ))}
+        <pre className="overflow-x-auto whitespace-pre-wrap border border-border/70 bg-background/60 px-4 py-4 text-sm font-light leading-relaxed text-foreground">
+          {t(r.withdrawalForm.template, vars)}
+        </pre>
+      </LegalSection>
 
       <LegalSection title={r.help.title}>
         <HelpParagraph
           locale={locale}
-          brand={brand}
+          brand={vars.brand}
           email={email}
           withEmail={r.help.paragraphs[0]}
           withContact={r.help.paragraphs[1]}

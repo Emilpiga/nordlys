@@ -10,15 +10,20 @@ import { LocaleLink } from "@/components/locale-link";
 import { ProductQuickView } from "@/components/product-quick-view";
 import { ProductRating } from "@/components/product-rating";
 import { ProductPrice, SaleBadge } from "@/components/product-price";
+import { WishlistButton } from "@/components/wishlist-button";
 import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
 import type { Product } from "@/lib/shopify/types";
 import { hasSelectableOptions } from "@/lib/shopify/variants";
 
 type ProductCardProps = {
   product: Product;
+  wishlistSaved?: boolean;
 };
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({
+  product,
+  wishlistSaved = false,
+}: ProductCardProps) {
   const { dict } = useDictionary();
   const router = useRouter();
   const { openCart, setCart } = useCart();
@@ -121,6 +126,14 @@ export function ProductCard({ product }: ProductCardProps) {
             price={product.priceRange.minVariantPrice}
             shopifyCompareAt={defaultVariant?.compareAtPrice}
           />
+
+          <div className="absolute right-2 top-2 z-10">
+            <WishlistButton
+              productId={product.id}
+              initialSaved={wishlistSaved}
+              className="bg-[color-mix(in_oklab,var(--frost)_92%,white)] text-foreground"
+            />
+          </div>
 
           <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col gap-2 p-3 opacity-100 transition duration-300 sm:p-3.5 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">
             <div className="pointer-events-auto grid grid-cols-2 gap-2">

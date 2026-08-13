@@ -1,5 +1,5 @@
-import { displayCompareAt } from "@/lib/discounts";
 import type { CollectionSummary, Product } from "@/lib/shopify/types";
+import type { ProductSortKey } from "@/lib/shopify";
 
 export const SORT_KEYS = [
   "featured",
@@ -21,12 +21,18 @@ export type CatalogFilters = {
   sale: boolean;
   stock: boolean;
   sort: SortKey;
-  page: number;
 };
 
 export type PriceBounds = {
   min: number;
   max: number;
+};
+
+export type CatalogPageInfo = {
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  startCursor: string | null;
+  endCursor: string | null;
 };
 
 export function emptyFilters(): CatalogFilters {
@@ -37,7 +43,6 @@ export function emptyFilters(): CatalogFilters {
     sale: false,
     stock: false,
     sort: "featured",
-    page: 1,
   };
 }
 
@@ -57,7 +62,6 @@ function isSortKey(value: string): value is SortKey {
 
 export function parseFilters(query: CatalogQuery): CatalogFilters {
   const sortValue = first(query.sort);
-  const page = Math.max(1, Math.floor(parseNumber(first(query.page)) ?? 1));
 
   return {
     collection: first(query.collection) || null,
@@ -66,17 +70,23 @@ export function parseFilters(query: CatalogQuery): CatalogFilters {
     sale: first(query.sale) === "1",
     stock: first(query.stock) === "1",
     sort: isSortKey(sortValue) ? sortValue : "featured",
-    page,
+  };
+}
+
+export function parseCursors(query: CatalogQuery) {
+  return {
+    after: first(query.after) || null,
+    before: first(query.before) || null,
   };
 }
 
 export function serializeFilters(
   filters: CatalogFilters,
   bounds: PriceBounds,
-  pages = 1,
+  cursors?: { after?: string | null; before?: string | null },
 ): string {
   const params = new URLSearchParams();
-  const next = sanitizeFilters(filters, bounds, pages);
+  const next = sanitizeFilters(filters, bounds);
 
   if (next.collection) params.set("collection", next.collection);
   if (next.min != null) params.set("min", String(next.min));
@@ -84,37 +94,15 @@ export function serializeFilters(
   if (next.sale) params.set("sale", "1");
   if (next.stock) params.set("stock", "1");
   if (next.sort !== "featured") params.set("sort", next.sort);
-  if (next.page > 1) params.set("page", String(next.page));
+  if (cursors?.after) params.set("after", cursors.after);
+  if (cursors?.before) params.set("before", cursors.before);
 
   return params.toString();
-}
-
-function moneyAmount(value: string) {
-  if (!value.trim()) return null;
-  const amount = Number(value);
-  return Number.isFinite(amount) && amount >= 0 ? amount : null;
-}
-
-export function catalogPriceBounds(products: Product[]): PriceBounds {
-  let min = Infinity;
-  let max = -Infinity;
-
-  for (const product of products) {
-    const low = moneyAmount(product.priceRange.minVariantPrice.amount);
-    const high = moneyAmount(product.priceRange.maxVariantPrice.amount);
-    if (low != null) min = Math.min(min, low);
-    if (high != null) max = Math.max(max, high);
-    else if (low != null) max = Math.max(max, low);
-  }
-
-  if (!Number.isFinite(min) || !Number.isFinite(max)) return { min: 0, max: 0 };
-  return { min: Math.floor(min), max: Math.ceil(max) };
 }
 
 export function sanitizeFilters(
   filters: CatalogFilters,
   bounds: PriceBounds,
-  pages = 1,
 ): CatalogFilters {
   const min =
     filters.min != null && filters.min > bounds.min && filters.min <= bounds.max
@@ -124,9 +112,8 @@ export function sanitizeFilters(
     filters.max != null && filters.max < bounds.max && filters.max >= bounds.min
       ? filters.max
       : null;
-  const page = Math.min(Math.max(1, Math.floor(filters.page) || 1), Math.max(1, pages));
 
-  return { ...filters, min, max, page };
+  return { ...filters, min, max };
 }
 
 export function catalogPriceStep(bounds: PriceBounds) {
@@ -136,21 +123,26 @@ export function catalogPriceStep(bounds: PriceBounds) {
   return 1;
 }
 
-function productPrice(product: Product) {
-  return Number(product.priceRange.minVariantPrice.amount);
-}
+export function catalogPriceBounds(products: Product[]): PriceBounds {
+  let min = Infinity;
+  let max = -Infinity;
 
-function productOnSale(product: Product) {
-  const price = product.priceRange.minVariantPrice;
-  const variant =
-    product.variants.find((item) => item.availableForSale) ??
-    product.variants[0];
-  return Boolean(displayCompareAt(product.handle, price, variant?.compareAtPrice));
-}
+  for (const product of products) {
+    const low = Number(product.priceRange.minVariantPrice.amount);
+    const high = Number(product.priceRange.maxVariantPrice.amount);
+    if (Number.isFinite(low)) min = Math.min(min, low);
+    if (Number.isFinite(high)) max = Math.max(max, high);
+    else if (Number.isFinite(low)) max = Math.max(max, low);
+  }
 
-function productInStock(product: Product) {
-  if (product.variants.length === 0) return true;
-  return product.variants.some((variant) => variant.availableForSale);
+  if (!Number.isFinite(min) || !Number.isFinite(max)) {
+    return { min: 0, max: 5000 };
+  }
+
+  return {
+    min: Math.min(0, Math.floor(min)),
+    max: Math.max(Math.ceil(max), Math.floor(min) + 1, 100),
+  };
 }
 
 export function resolvedPriceRange(
@@ -179,59 +171,80 @@ export function activeFilterCount(
   return count;
 }
 
-export function applyCatalogFilters(
-  products: Product[],
-  collections: CollectionSummary[],
-  filters: CatalogFilters,
-  bounds: PriceBounds,
-): Product[] {
-  const next = sanitizeFilters(filters, bounds);
-  const price = resolvedPriceRange(next, bounds);
-  const collection = next.collection
-    ? collections.find((item) => item.handle === next.collection)
-    : null;
-  const memberIds = collection ? new Set(collection.productIds) : null;
-
-  const matched = products.filter((product) => {
-    if (memberIds && !memberIds.has(product.id)) return false;
-
-    const amount = productPrice(product);
-    if (Number.isFinite(amount) && (amount < price.min || amount > price.max)) {
-      return false;
-    }
-
-    if (next.sale && !productOnSale(product)) return false;
-    if (next.stock && !productInStock(product)) return false;
-
-    return true;
-  });
-
-  if (next.sort === "price-asc") {
-    return [...matched].sort((a, b) => productPrice(a) - productPrice(b));
+export function shopifySortFromFilters(filters: CatalogFilters): {
+  sortKey: ProductSortKey;
+  reverse: boolean;
+  collectionSortKey: "BEST_SELLING" | "PRICE" | "TITLE" | "CREATED" | "MANUAL";
+} {
+  switch (filters.sort) {
+    case "price-asc":
+      return {
+        sortKey: "PRICE",
+        reverse: false,
+        collectionSortKey: "PRICE",
+      };
+    case "price-desc":
+      return {
+        sortKey: "PRICE",
+        reverse: true,
+        collectionSortKey: "PRICE",
+      };
+    case "name":
+      return {
+        sortKey: "TITLE",
+        reverse: false,
+        collectionSortKey: "TITLE",
+      };
+    default:
+      return {
+        sortKey: "BEST_SELLING",
+        reverse: false,
+        collectionSortKey: "BEST_SELLING",
+      };
   }
-  if (next.sort === "price-desc") {
-    return [...matched].sort((a, b) => productPrice(b) - productPrice(a));
-  }
-  if (next.sort === "name") {
-    return [...matched].sort((a, b) => a.title.localeCompare(b.title, "sv"));
-  }
-
-  return matched;
 }
 
-export function paginateCatalog<T>(items: T[], page: number, size = PAGE_SIZE) {
-  const pages = Math.max(1, Math.ceil(items.length / size));
-  const current = Math.min(Math.max(1, page), pages);
-  const start = (current - 1) * size;
+/** Build Storefront product search query for global catalog listing. */
+export function buildShopifyProductQuery(
+  filters: CatalogFilters,
+  bounds: PriceBounds,
+) {
+  const next = sanitizeFilters(filters, bounds);
+  const price = resolvedPriceRange(next, bounds);
+  const parts: string[] = [];
 
-  return {
-    items: items.slice(start, start + size),
-    page: current,
-    pages,
-    total: items.length,
-    from: items.length === 0 ? 0 : start + 1,
-    to: Math.min(start + size, items.length),
-  };
+  if (next.stock) parts.push("available_for_sale:true");
+  if (next.sale) parts.push("variants.compare_at_price:>0");
+  if (price.min > bounds.min) {
+    parts.push(`variants.price:>=${price.min}`);
+  }
+  if (price.max < bounds.max) {
+    parts.push(`variants.price:<=${price.max}`);
+  }
+
+  return parts.length ? parts.join(" AND ") : null;
+}
+
+/** Collection product filters for Storefront ProductFilter input. */
+export function buildCollectionProductFilters(
+  filters: CatalogFilters,
+  bounds: PriceBounds,
+) {
+  const next = sanitizeFilters(filters, bounds);
+  const price = resolvedPriceRange(next, bounds);
+  const result: Record<string, unknown>[] = [];
+
+  if (next.stock) result.push({ available: true });
+  if (price.min > bounds.min || price.max < bounds.max) {
+    result.push({
+      price: {
+        ...(price.min > bounds.min ? { min: price.min } : {}),
+        ...(price.max < bounds.max ? { max: price.max } : {}),
+      },
+    });
+  }
+
+  return result;
 }
 
 export function paginationItems(current: number, pages: number) {
@@ -249,4 +262,31 @@ export function paginationItems(current: number, pages: number) {
   items.push(pages);
 
   return items;
+}
+
+/** Kept for any remaining client-side helpers. */
+export function applyCatalogFilters(
+  products: Product[],
+  collections: CollectionSummary[],
+  filters: CatalogFilters,
+  bounds: PriceBounds,
+): Product[] {
+  const next = sanitizeFilters(filters, bounds);
+  const price = resolvedPriceRange(next, bounds);
+  const collection = next.collection
+    ? collections.find((item) => item.handle === next.collection)
+    : null;
+  const memberIds = collection ? new Set(collection.productIds) : null;
+
+  return products.filter((product) => {
+    if (memberIds && !memberIds.has(product.id)) return false;
+    const amount = Number(product.priceRange.minVariantPrice.amount);
+    if (Number.isFinite(amount) && (amount < price.min || amount > price.max)) {
+      return false;
+    }
+    if (next.stock && !product.variants.some((v) => v.availableForSale)) {
+      return false;
+    }
+    return true;
+  });
 }

@@ -1,4 +1,5 @@
 import { shopifyConfig } from "@/lib/shopify/config";
+import { getLegalIdentity } from "@/lib/legal";
 import type { Product } from "@/lib/shopify/types";
 import { getProductReviews, getReviewSummary } from "@/lib/reviews";
 import { getSiteUrl } from "@/lib/site-url";
@@ -11,6 +12,7 @@ export function buildOrganizationJsonLd(
   description = siteDescriptionFor(),
 ): JsonLd {
   const url = getSiteUrl();
+  const identity = getLegalIdentity();
 
   return {
     "@context": "https://schema.org",
@@ -19,9 +21,18 @@ export function buildOrganizationJsonLd(
     url,
     logo: `${url}/brand-mark.svg`,
     description,
-    ...(shopifyConfig.supportEmail
-      ? { email: shopifyConfig.supportEmail }
+    ...(identity.legalName ? { legalName: identity.legalName } : {}),
+    ...(identity.address
+      ? {
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: identity.address,
+          },
+        }
       : {}),
+    ...(identity.orgNumber ? { identifier: identity.orgNumber } : {}),
+    ...(identity.vatNumber ? { vatID: identity.vatNumber } : {}),
+    ...(identity.email ? { email: identity.email } : {}),
   };
 }
 

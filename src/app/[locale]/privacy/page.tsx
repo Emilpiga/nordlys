@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { LegalPage, LegalSection } from "@/components/legal-page";
+import { LegalFacts, LegalPage, LegalSection } from "@/components/legal-page";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
+import {
+  getLegalIdentity,
+  hasRegisteredEntity,
+  identityFactItems,
+  legalCopyVars,
+} from "@/lib/legal";
 import { shopifyConfig } from "@/lib/shopify/config";
 import {
   localeAlternates,
@@ -41,21 +47,26 @@ export default async function PrivacyPage({ params }: Props) {
   if (!isLocale(locale)) notFound();
 
   const dict = await getDictionary(locale);
-  const brand = shopifyConfig.storeName;
-  const email = shopifyConfig.supportEmail;
+  const identity = getLegalIdentity();
+  const vars = legalCopyVars(identity);
+  const email = identity.email;
   const p = dict.privacy;
   const updatedLabel = t(dict.common.updated, { date: p.updated });
 
   return (
     <LegalPage
       title={p.title}
-      description={t(p.description, { brand })}
+      description={t(p.description, vars)}
       updated={updatedLabel}
     >
       <LegalSection title={p.whoWeAre.title}>
         {p.whoWeAre.paragraphs.map((paragraph) => (
-          <p key={paragraph}>{t(paragraph, { brand })}</p>
+          <p key={paragraph}>{t(paragraph, vars)}</p>
         ))}
+        <LegalFacts items={identityFactItems(dict.common, identity)} />
+        {!hasRegisteredEntity(identity) ? (
+          <p>{dict.contact.companyMissing}</p>
+        ) : null}
       </LegalSection>
 
       <LegalSection title={p.whatWeCollect.title}>
@@ -78,8 +89,23 @@ export default async function PrivacyPage({ params }: Props) {
         </ul>
       </LegalSection>
 
+      <LegalSection title={p.legalBases.title}>
+        <p>{p.legalBases.intro}</p>
+        <ul className="list-disc space-y-2 pl-5">
+          {p.legalBases.items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </LegalSection>
+
       <LegalSection title={p.partners.title}>
         {p.partners.paragraphs.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
+      </LegalSection>
+
+      <LegalSection title={p.transfers.title}>
+        {p.transfers.paragraphs.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>
         ))}
       </LegalSection>
@@ -148,11 +174,14 @@ export default async function PrivacyPage({ params }: Props) {
             })()}
           </p>
         )}
+        {p.yourChoices.paragraphs[3] ? (
+          <p>{p.yourChoices.paragraphs[3]}</p>
+        ) : null}
       </LegalSection>
 
       <LegalSection title={p.children.title}>
         {p.children.paragraphs.map((paragraph) => (
-          <p key={paragraph}>{t(paragraph, { brand })}</p>
+          <p key={paragraph}>{t(paragraph, vars)}</p>
         ))}
       </LegalSection>
 

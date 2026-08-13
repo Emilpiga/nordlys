@@ -208,6 +208,14 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
 
           <LanguageSelector />
 
+          <LocaleLink
+            href="/account"
+            className="hidden uppercase transition hover:text-foreground sm:inline"
+            onClick={() => setShopOpen(false)}
+          >
+            {dict.nav.account}
+          </LocaleLink>
+
           <button
             type="button"
             aria-label={

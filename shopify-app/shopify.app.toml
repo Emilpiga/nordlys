@@ -1,0 +1,18 @@
+# This file stores configurations for your Shopify app.
+
+name = "Harbor Thank You Continue"
+client_id = "REPLACE_WITH_SHOPIFY_APP_CLIENT_ID"
+application_url = "https://example.com"
+embedded = true
+
+[access_scopes]
+scopes = ""
+
+[auth]
+redirect_urls = [ "https://example.com/api/auth" ]
+
+[webhooks]
+api_version = "2026-04"
+
+[pos]
+embedded = false

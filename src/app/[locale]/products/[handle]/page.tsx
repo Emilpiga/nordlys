@@ -8,6 +8,7 @@ import { ProductPurchase } from "@/components/product-purchase";
 import { ProductRating } from "@/components/product-rating";
 import { ProductReviews } from "@/components/product-reviews";
 import { ProductViewTracker } from "@/components/product-view-tracker";
+import { getCustomerProfile } from "@/lib/customer-account";
 import { sanitizeDescriptionHtml } from "@/lib/description";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
@@ -67,13 +68,17 @@ export default async function ProductPage({ params }: Props) {
   if (!isLocale(locale)) notFound();
 
   const dict = await getDictionary(locale);
-  const [product, catalog] = await Promise.all([
+  const [product, catalog, customer] = await Promise.all([
     getProductByHandle(handle, locale),
     getProducts(8, locale),
+    getCustomerProfile(),
   ]);
 
   if (!product) notFound();
 
+  const wishlistSaved = Boolean(
+    customer?.wishlistProductIds.includes(product.id),
+  );
   const gallery =
     product.images.length > 0
       ? product.images
@@ -110,6 +115,7 @@ export default async function ProductPage({ params }: Props) {
       <ProductPurchase
         product={product}
         gallery={gallery}
+        wishlistSaved={wishlistSaved}
         header={
           <>
             <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">

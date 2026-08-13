@@ -10,7 +10,9 @@
     "viewAll": "Näytä kaikki",
     "openCart": "Avaa ostoskori",
     "openCartWithCount": "Avaa ostoskori, {count} tuotetta",
-    "language": "Kieli"
+    "language": "Kieli",
+    "account": "Tili",
+    "login": "Kirjaudu"
   },
   "announcement": {
     "label": "Kaupan tiedotteet",
@@ -44,15 +46,17 @@
     "shopHeading": "Kauppa",
     "collection": "Kokoelma",
     "cart": "Ostoskori",
-    "helpHeading": "Tuki",
+    "helpHeading": "Asiakaspalvelu",
     "about": "Tietoa meistä",
     "faq": "Usein kysytyt",
     "shippingReturns": "Toimitus & palautukset",
     "contact": "Yhteystiedot",
-    "legalHeading": "Juridinen",
+    "legalHeading": "Tietoa",
     "privacy": "Tietosuoja",
     "terms": "Ehdot",
-    "shippingBadge": "Lähetetään {processing} kuluessa · Seuranta jokaisessa tilauksessa"
+    "shippingBadge": "Lähetetään {processing} kuluessa · Seuranta jokaisessa tilauksessa",
+    "orgNumber": "Y-tunnus {orgNumber}",
+    "vatNumber": "ALV {vatNumber}"
   },
   "home": {
     "heroAlt": "{brand} — Tuotteita arkeen",
@@ -173,7 +177,7 @@
     "trackingTitle": "Seuranta",
     "trackingBody": "Saat seurantatiedot heti, kun kuljetusliike on skannannut paketin.",
     "safetyTitle": "Turvallisuus",
-    "safetyBody": "14 päivän peruutusoikeus · viat korvataan.",
+    "safetyBody": "14 päivän peruutusoikeus · virheet korjataan lain mukaan.",
     "faqLink": "Usein kysytyt"
   },
   "fulfillment": {
@@ -181,8 +185,8 @@
     "etaShort": "7–18 arkipäivää",
     "etaDetail": "Useimmat tilaukset lähtevät varastolta 1–3 arkipäivän kuluessa maksusta. Sen jälkeen toimitus kestää yleensä 7–18 arkipäivää osoitteisiin Suomessa ja EU:ssa. Kansainvälisesti EU:n ulkopuolella se voi kestää kauemmin.",
     "tracking": "Saat seurantatiedot heti, kun kuljetusliike on skannannut paketin.",
-    "returns": "14 päivän peruutusoikeus käyttämättömille tuotteille alkuperäispakkauksessa. Vaurioituneet tai virheelliset tuotteet korvaamme.",
-    "guaranteeShort": "14 päivän peruutusoikeus · viat korvataan",
+    "returns": "14 päivän peruutusoikeus siitä, kun vastaanotit tuotteen. Tuotteen virheet korjataan kuluttajansuojalain mukaan.",
+    "guaranteeShort": "14 päivän peruutusoikeus · virheet korjataan lain mukaan",
     "secureCheckout": "Turvallinen kassa Shopifyn kautta"
   },
   "cart": {
@@ -255,11 +259,11 @@
       },
       {
         "question": "Voinko peruuttaa ostokseni?",
-        "answer": "14 päivän peruutusoikeus käyttämättömille tuotteille alkuperäispakkauksessa. Vaurioituneet tai virheelliset tuotteet korvaamme."
+        "answer": "Kyllä. Kuluttajana sinulla on 14 päivän peruutusoikeus siitä, kun vastaanotit tuotteen. Saat tutkia sen kuten myymälässä. Lähetä meille sähköpostia määräajassa, niin lähetämme palautusosoitteen. Peruuttamisessa maksat palautuspostin. Tuotteen virhe on reklamaatio — katso seuraava kysymys."
       },
       {
         "question": "Mitä teen, jos tuote on vaurioitunut tai väärä?",
-        "answer": "Lähetä meille sähköpostia 14 päivän kuluessa toimituksesta tilausnumerolla ja kuvilla. {brand} järjestää korvauksen tai hyvityksen, kun olemme vahvistaneet ongelman."
+        "answer": "Se on reklamaatio, ei peruutusoikeus. Lähetä meille sähköpostia tilausnumerolla ja kuvilla heti, kun huomaat virheen. Ilmoita virheestä kohtuullisessa ajassa (yleensä kahden kuukauden kuluessa havaitsemisesta). Virheessä maksamme palautuspostin ja hoidamme vaihdon tai hyvityksen."
       },
       {
         "question": "Missä tilaukset pakataan ja lähetetään?",
@@ -297,48 +301,86 @@
     "linkReturns": "Toimitus & palautukset",
     "linkPrivacy": "Tietosuoja",
     "linkTerms": "Ehdot",
-    "linkShop": "Valikoimaan"
+    "linkShop": "Valikoimaan",
+    "companyTitle": "Yritys",
+    "companyMissing": "Täydelliset yritystiedot näkyvät tilausvahvistuksessasi. Ota yhteyttä, jos tarvitset nimen, osoitteen tai Y-tunnuksen toisessa muodossa.",
+    "formTitle": "Lähetä viesti",
+    "name": "Nimi",
+    "email": "Sähköposti",
+    "subject": "Aihe",
+    "message": "Viesti",
+    "submit": "Lähetä",
+    "sending": "Lähetetään…",
+    "success": "Kiitos — olemme vastaanottaneet viestisi ja palaamme pian.",
+    "error": "Viestin lähetys epäonnistui. Yritä uudelleen tai lähetä sähköpostia suoraan.",
+    "notConfigured": "Yhteydenottolomaketta ei ole vielä määritetty. Lähetä sähköpostia sen sijaan."
   },
   "returns": {
     "metaTitle": "Toimitus & palautukset",
-    "metaDescription": "Miten {brand} lähettää tilaukset ja käsittelee palautukset.",
+    "metaDescription": "Miten {brand} lähettää tilaukset ja hoitaa peruutusoikeuden, virhevastuun ja palautukset.",
     "title": "Toimitus & palautukset",
-    "description": "Mitä voit odottaa toimituksessa ja miten saat apua, jos jokin ei ole kohdallaan.",
+    "description": "Mitä voit odottaa toimitukselta ja miten peruutusoikeus sekä tuotteen virheet hoidetaan.",
     "updated": "elokuu 2026",
     "shipping": {
       "title": "Toimitus",
       "paragraphs": [
-        "Lähetämme maailmanlaajuisesti sinne, missä kuljetusliikkeemme ja maksupalveluntarjoajamme sen sallivat. Toimituskulut ja vaihtoehdot lasketaan kassalla osoitteesi ja ostoskorin tuotteiden perusteella.",
-        "Useimmat tilaukset lähtevät varastolta 1–3 arkipäivän kuluessa maksusta. Sen jälkeen toimitus kestää yleensä 7–18 arkipäivää osoitteisiin Suomessa ja EU:ssa. Kansainvälisesti EU:n ulkopuolella se voi kestää kauemmin.",
-        "Saat seurantatiedot heti, kun kuljetusliike on skannannut paketin. Jos seurantaa ei näy useaan arkipäivään tilausvahvistuksen jälkeen, ota yhteyttä tilausnumerollasi."
+        "Lähetämme osoitteisiin, joissa kuljetusliikkeemme ja maksupalveluntarjoajamme sen sallivat. Toimituskulu näkyy kassalla osoitteesi ja ostoskorin perusteella ennen maksua.",
+        "Useimmat tilaukset lähtevät varastolta 1–3 arkipäivän kuluessa maksusta. Sen jälkeen toimitus kestää yleensä 7–18 arkipäivää osoitteisiin Suomessa ja EU:ssa. Kansainvälisesti EU:n ulkopuolella se voi kestää kauemmin. Lähde tästä ajasta — tuote lähetetään logistiikkakumppaneidemme varastolta, ei myymälähyllyltä.",
+        "Saat seurantatiedot heti, kun kuljetusliike on skannannut paketin. Jos seurantaa ei ole useaan arkipäivään tilausvahvistuksen jälkeen, ota yhteyttä tilausnumerollasi."
       ]
     },
     "customs": {
       "title": "Tulli & maksut",
       "paragraphs": [
-        "Kansainvälisiin tilauksiin voi kohdistua tuontitulleja, veroja tai selvitysmaksuja maastasi. Nämä maksut ovat vastuullasi, ellei kassalla toisin ilmoiteta."
+        "EU:n sisäiset toimitukset yksityishenkilöille myydään yleensä niin, että ALV käsitellään kassalla, ellei siellä toisin mainita. EU:n ulkopuolelle meneviin tilauksiin voi tulla tuontitulleja, veroja tai tullausmaksuja. Nämä maksut ovat vastuullasi, ellei kassa nimenomaisesti toisin ilmoita."
+      ]
+    },
+    "withdrawal": {
+      "title": "Peruutusoikeus",
+      "paragraphs": [
+        "Kuluttajana sinulla on 14 päivän peruutusoikeus. Määräaika lasketaan siitä päivästä, jona vastaanotit tuotteen, tai viimeisen tuotteen, jos tilaus tulee useassa erässä.",
+        "Saat avata pakkauksen ja tutkia tuotteen samalla tavalla kuin kivijalkamyymälässä. Peruutusoikeus ei pääty vain siksi, että pakkaus on avattu. Jos käytät tuotetta enemmän kuin sen ominaisuuksien ja toiminnan toteamiseksi tarvitaan, voimme vähentää arvon alenemisen.",
+        "Ilmoita meille määräajassa sähköpostitse. Sinun ei tarvitse perustella peruuttamista. Lähetämme palautusosoitteen ja ohjeet. Palauta tuote ilman aiheetonta viivytystä ja viimeistään 14 päivän kuluessa ilmoituksesta.",
+        "Peruuttamisessa maksat palautuspostin, ellei pakottava laki toisin määrää. Alkuperäistä lähtötoimitusta ei yleensä hyvitetä peruuttamisessa, paitsi siltä osin kuin se ylittää edullisimman tarjoamamme vakiotoimituksen — eikä silloin, kun olemme tehneet virheen.",
+        "Asuinmaasi pakottavat kuluttajasäännöt menevät tämän tekstin edelle, jos ne antavat sinulle vahvemman suojan."
+      ]
+    },
+    "complaints": {
+      "title": "Tuotteen virhe",
+      "paragraphs": [
+        "Jos tuote on vaurioitunut, virheellinen, poikkeaa olennaisesti kuvauksesta tai siinä on alkuperäinen vika, kyse on reklamaatiosta — ei peruutusoikeudesta. Korjaamme virheen vaihdolla, korjauksella tai hyvityksellä kuluttajansuojalain mukaan.",
+        "Ilmoita virheestä kohtuullisessa ajassa sen havaitsemisesta; kahden kuukauden kuluessa pidetään yleensä kohtuullisena. Ruotsissa reklamaatioaika on kolme vuotta vastaanottamisesta. Asuinmaasi pakottava virhevastuu on aina voimassa.",
+        "Lähetä meille sähköpostia tilausnumerolla ja kuvilla heti, kun huomaat ongelman. Tuotteen virheessä maksamme palautuspostin. Joissain tapauksissa hyvitämme tai vaihdamme ilman, että sinun tarvitsee lähettää tuotetta takaisin.",
+        "Sinulla on aina asuinmaasi pakottavat reklamaatio-oikeudet. Niistä ei voi sopia pois, eivätkä ne rajoitu 14 päivään."
       ]
     },
     "returns": {
-      "title": "Palautukset",
+      "title": "Näin palautat",
       "paragraphs": [
-        "14 päivän peruutusoikeus käyttämättömille tuotteille alkuperäispakkauksessa. Vaurioituneet tai virheelliset tuotteet korvaamme.",
-        "Jos tuote saapuu vaurioituneena, virheellisenä tai viallisena, lähetä meille sähköpostia 14 päivän kuluessa toimituksesta tilausnumerolla ja kuvilla. Järjestämme korvauksen tai hyvityksen, kun olemme vahvistaneet ongelman.",
-        "Peruutusoikeuden yhteydessä käyttämättömät tuotteet alkuperäispakkauksessa ja myyntikelpoisessa kunnossa voivat olla palautuskelpoisia 14 päivän kuluessa toimituksesta paikallisen kuluttajalainsäädännön mukaisesti. Avattuja tai käytettyjä tuotteita ei yleensä voida palauttaa varastoon, jos ne eivät ole olennaisesti muuttumattomassa kunnossa — ellei tuote ole virheellinen.",
-        "Hyväksytyt palautukset tulee lähettää seurattavalla tavalla. Alkuperäistä lähtötoimitusta ei yleensä hyvitetä, ellemme ole tehneet virhettä."
+        "Ota yhteyttä ennen kuin lähetät mitään, jotta voimme antaa oikean palautusosoitteen. Osoite voi vaihdella tuotteen ja asian mukaan.",
+        "Hyväksytyt palautukset tulee lähettää seurattavalla tavalla. Säilytä kuitti, kunnes olemme vahvistaneet paketin saapuneen.",
+        "Älä lähetä palautusta kuulematta meitä ensin — väärä osoite voi estää vastaanoton."
       ]
     },
     "refunds": {
       "title": "Hyvitykset",
       "paragraphs": [
-        "Hyvitykset tehdään alkuperäiselle maksutavalle sen jälkeen, kun olemme vastaanottaneet ja tarkastaneet hyväksytyn palautuksen, tai aiemmin, jos sovimme hyvityksestä ilman palautusta. Käsittely voi kestää useita arkipäiviä pankistasi tai korttiyhtiöstäsi riippuen."
+        "Hyvitykset maksetaan alkuperäiseen maksutapaan. Kun peruutat, palautamme tuotteesta maksamasi summan ilman aiheetonta viivytystä ja viimeistään 14 päivän kuluessa ilmoituksen vastaanottamisesta. Voimme pidättää hyvityksen, kunnes olemme saaneet tuotteen tai olet osoittanut sen lähetetyksi.",
+        "Tuotteen virheessä hyvitämme tai vaihdamme, kun olemme vahvistaneet ongelman, joissain tapauksissa aiemmin ja ilman palautusta. Pankkisi tai kortinmyöntäjäsi käsittely voi kestää vielä muutaman arkipäivän."
       ]
     },
     "lost": {
-      "title": "Kadonneet tai myöhästyneet paketit",
+      "title": "Kadonneet tai myöhässä olevat paketit",
       "paragraphs": [
-        "Jos seuranta pysähtyy pidemmäksi aikaa, ota yhteyttä, niin selvitämme asian kuljetusliikkeen kanssa. Lopputulos riippuu selvityksestä — korvaus, hyvitys tai jatkuva toimitus — ja pidämme sinut ajan tasalla."
+        "Jos seuranta on pysähtynyt pidemmäksi aikaa tai paketti ei saavu, ota yhteyttä, niin selvitämme kuljetusliikkeen kanssa. Lopputulos riippuu selvityksestä — vaihto, hyvitys tai toimituksen jatkaminen — ja pidämme sinut ajan tasalla. Sinun ei pidä joutua odottamaan kohtuuttoman kauan ilman tietoa."
       ]
+    },
+    "withdrawalForm": {
+      "title": "Peruuttamisilmoituksen malli",
+      "paragraphs": [
+        "Voit kopioida alla olevan mallin ja lähettää sen meille. Sinun ei tarvitse käyttää juuri näitä sanoja — selkeä viesti tilausnumerolla riittää."
+      ],
+      "template": "Vastaanottaja: {seller}\nSähköposti: {email}\n\nIlmoitan peruuttavani seuraavan tuotteen ostosopimuksen:\nTuote:\nTilausnumero:\nTilattu (päivä):\nVastaanotettu (päivä):\nNimi:\nOsoite:\nPäiväys:"
     },
     "help": {
       "title": "Tarvitsetko apua?",
@@ -355,9 +397,10 @@
     "description": "Miten {brand} käsittelee tietojasi, kun selaat, ostat ja vastaanotat tilauksia.",
     "updated": "elokuu 2026",
     "whoWeAre": {
-      "title": "Keitä olemme",
+      "title": "Rekisterinpitäjä",
       "paragraphs": [
-        "{brand} on verkkokauppa kotiin ja arkeen. Kassa ja tilausten käsittely tapahtuvat Shopifyn kautta. Tilaukset voivat täyttyä logistiikkakumppaneidemme toimesta puolestamme."
+        "{brand} on rekisterinpitäjä tässä kuvatulle käsittelylle. Tavarat myyvä yritys — ja henkilötiedoista vastaava taho — on se, joka ilmoitetaan yritystiedoissa, ehdoissa ja tilausvahvistuksessasi.",
+        "Kassa ja tilausten käsittely tapahtuvat Shopifyn kautta. Tilaukset pakataan ja lähetetään logistiikkakumppaneiden toimesta puolestamme."
       ]
     },
     "whatWeCollect": {
@@ -367,7 +410,8 @@
         "Yhteys- ja toimitustiedot, jotka annat kassalla (nimi, sähköposti, osoite, puhelin)",
         "Tilaushistoria, maksun tila ja toimituspäivitykset",
         "Tekniset tiedot, kuten laitetyyppi, selain ja likimääräinen sijainti, joita tarvitaan kaupan ylläpitoon",
-        "Ostoskoritiedot, jotka tallennetaan evästeeseen laitteellesi, jotta ostoskori säilyy selaamisen aikana"
+        "Ostoskoritiedot, jotka tallennetaan evästeeseen laitteellesi, jotta ostoskori säilyy selaamisen aikana",
+        "Tukeen lähettämäsi tiedot, esimerkiksi tilausnumero ja kuvat reklamaatiossa"
       ],
       "paragraphs": [
         "Korttimaksut käsittelee Shopify ja sen maksupalveluntarjoajat. Emme tallenna täydellisiä korttinumeroita palvelimillemme."
@@ -386,7 +430,8 @@
     "partners": {
       "title": "Kumppanit, jotka auttavat meitä",
       "paragraphs": [
-        "Jaamme vain tarvittavan tiedon palveluille, jotka auttavat kaupan pyörittämisessä — esimerkiksi Shopify (kassa, maksut, tilausten käsittely) ja fulfillment-kumppanit, jotka pakkaavat ja lähettävät tilauksesi. He käsittelevät tietoja omien käytäntöjensä ja ohjeidemme mukaisesti."
+        "Jaamme vain tarvittavan tiedon palveluille, jotka auttavat kaupan pyörittämisessä. Tämä kattaa Shopifyn (kassa, maksut, tilausten käsittely), kassaan liitetyt maksupalvelut, kuljetusliikkeet ja logistiikkakumppanit, jotka pakkaavat ja lähettävät tilauksesi.",
+        "He käsittelevät tietoja omien käytäntöjensä ja ohjeidemme mukaan. Ostos tehdään meiltä; olemme edelleen rekisterinpitäjä sille, miten tietoja käytetään kaupan täyttämiseen."
       ]
     },
     "cookies": {
@@ -399,15 +444,16 @@
     "retention": {
       "title": "Kuinka kauan säilytämme tietoja",
       "paragraphs": [
-        "Tilaus- ja asiakastiedot säilytetään niin kauan kuin on tarpeen ostosten täyttämiseen, palautusten tai riitojen käsittelyyn sekä lakisääteisten säilytysvaatimusten täyttämiseen. Ostoskorievästeet päättyvät, kun ne poistetaan tai vanhentuvat selaimessasi."
+        "Tilaus- ja asiakastiedot säilytetään niin kauan kuin on tarpeen ostosten täyttämiseen, palautusten, reklamaatioiden tai riitojen käsittelyyn sekä lakisääteisten säilytysvaatimusten täyttämiseen. Kirjanpitoaineistoa säilytetään Ruotsissa yleensä seitsemän vuotta. Ostoskorievästeet päättyvät, kun ne poistetaan tai vanhentuvat selaimessasi."
       ]
     },
     "yourChoices": {
-      "title": "Valintasi",
+      "title": "Oikeutesi",
       "paragraphs": [
-        "Asuinpaikastasi riippuen sinulla voi olla oikeus saada pääsy tiettyihin henkilötietoihin, oikaista, poistaa tai rajoittaa niitä tai vastustaa tiettyä käsittelyä. Voit myös kysyä meiltä, missä tietojasi on jaettu tilauksen täyttämistä varten.",
+        "Sinulla voi olla oikeus saada pääsy tiettyihin henkilötietoihin, oikaista, poistaa tai rajoittaa niitä, saada tiedot siirrettävässä muodossa, vastustaa tiettyä käsittelyä ja peruuttaa evästeitä koskeva suostumus. Voit myös kysyä, missä tietojasi on jaettu tilauksen täyttämistä varten.",
         "Tietosuojapyyntöä varten lähetä sähköpostia osoitteeseen {email}. Saatamme joutua varmistamaan henkilöllisyytesi ennen vastaamista.",
-        "Tietosuojapyyntöä varten ota yhteyttä yhteystietosivumme kautta. Saatamme joutua varmistamaan henkilöllisyytesi ennen vastaamista."
+        "Tietosuojapyyntöä varten ota yhteyttä yhteystietosivumme kautta. Saatamme joutua varmistamaan henkilöllisyytesi ennen vastaamista.",
+        "Sinulla on oikeus valittaa Ruotsin Integritetsskyddsmyndighetenille (IMY), imy.se, tai Suomen tietosuojavaltuutetulle, tietosuoja.fi. Jos asut toisessa ETA-maassa, voit myös kääntyä kansallisen valvontaviranomaisesi puoleen."
       ]
     },
     "children": {
@@ -421,6 +467,24 @@
       "paragraphs": [
         "Voimme päivittää tätä käytäntöä, kun kauppa tai kumppanimme muuttuvat. Sivun yläosassa oleva päivämäärä muuttuu, kun teemme sen."
       ]
+    },
+    "legalBases": {
+      "title": "Oikeusperuste",
+      "intro": "Käsittelemme henkilötietoja tietosuoja-asetuksen (GDPR) nojalla:",
+      "items": [
+        "Sopimus (6 artiklan 1 kohdan b alakohta) — tilauksen vastaanotto, toimitus ja tuki",
+        "Oikeudellinen velvoite (6 artiklan 1 kohdan c alakohta) — kirjanpito, verotus ja kuluttajansuoja",
+        "Oikeutettu etu (6 artiklan 1 kohdan f alakohta) — petosten ehkäisy, sivuston turvallisuus ja kaupan käytön ymmärtäminen ilman, että etusi sivuutetaan",
+        "Suostumus (6 artiklan 1 kohdan a alakohta) — mainosevästeet ja mainonnan mittaus sivuston suostumusalustan kautta. Voit peruuttaa suostumuksen milloin tahansa ilman, että se vaikuttaa ostoon"
+      ]
+    },
+    "transfers": {
+      "title": "Siirrot EU/ETA-alueen ulkopuolelle",
+      "paragraphs": [
+        "Shopify voi käsitellä tietoja EU/ETA-alueen ulkopuolella, muun muassa Yhdysvalloissa, Shopifyn tietosuojatiedoissaan kuvaamin suojatoimin.",
+        "Tilauksesi pakkaavat ja lähettävät logistiikkakumppanit voivat sijaita EU/ETA-alueen ulkopuolella, muun muassa Aasiassa. Silloin siirretään nimi, toimitusosoite, puhelinnumero ja toimitukseen tarvittavat tilaustiedot.",
+        "Kun tällainen siirto vaatii GDPR:n mukaista lisäsuojaa, käytämme asianmukaisia suojatoimia, esimerkiksi komission vakiosopimuslausekkeita. Voit kysyä meiltä, minne tietojasi on jaettu tietyn tilauksen osalta."
+      ]
     }
   },
   "terms": {
@@ -432,33 +496,35 @@
     "agreement": {
       "title": "Sopimus",
       "paragraphs": [
-        "Käyttämällä tätä sivustoa tai tekemällä tilauksen hyväksyt nämä ehdot ja tietosuojakäytäntömme. Jos et hyväksy, älä käytä kauppaa."
+        "Käyttämällä tätä sivustoa tai tekemällä tilauksen hyväksyt nämä ehdot ja tietosuojakäytäntömme. Jos et hyväksy, älä käytä kauppaa. Pakottava kuluttajansuoja menee ehtojen edelle, jos se antaa sinulle vahvemman suojan."
       ],
       "privacyLink": "Tietosuojakäytäntö"
     },
     "store": {
       "title": "Kauppa",
       "paragraphs": [
-        "{brand} myy tuotteita kotiin ja arkeen verkossa. Tuotesivut, hinnat ja saatavuus näytetään Shopify-pohjaisen katalogimme kautta ja voivat muuttua ilman ennakkoilmoitusta. Pyrimme pitämään kuvaukset paikkansapitävinä; pieniä eroja pakkauksessa tai kuvissa voi esiintyä."
+        "{brand} myy tuotteita kotiin ja arkeen verkossa. Tuotesivut, hinnat ja saatavuus näytetään Shopify-pohjaisen katalogimme kautta ja voivat muuttua ilman ennakkoilmoitusta. Pyrimme pitämään kuvaukset paikkansapitävinä; pieniä eroja pakkauksessa, värissä tai kuvissa voi esiintyä.",
+        "Se, että tuotteen voi ostaa, tarkoittaa että sen voi tilata logistiikkaverkostomme kautta — ei että se välttämättä olisi pohjoismaisessa myymälävarastossa."
       ]
     },
     "orders": {
       "title": "Tilaukset & maksu",
       "paragraphs": [
-        "Tilauksen tekeminen on tarjous ostaa. Me (tai Shopify puolestamme) vahvistamme hyväksynnän sähköpostitse, kun maksu onnistuu. Hinnat näytetään ennen kassaa; verot ja toimitus lasketaan kassalla tarvittaessa.",
-        "Maksun käsittelee turvallisesti Shopify ja sen maksupalveluntarjoajat. Pidätämme oikeuden hylätä tai peruuttaa tilauksen epäillyn petoksen, hintavirheen, varasto-ongelman tai toimitusrajoitusten vuoksi."
+        "Tilauksen tekeminen on tarjous ostaa. Me (tai Shopify puolestamme) vahvistamme hyväksynnän sähköpostitse, kun maksu onnistuu. Hinnat näytetään arvonlisäveroineen siltä osin kuin se on sovellettavissa, ellei toisin mainita. Toimitus lasketaan kassalla ennen maksua.",
+        "Maksun käsittelee turvallisesti Shopify ja sen maksupalveluntarjoajat. Pidätämme oikeuden hylätä tai peruuttaa tilauksen epäillyn petoksen, hintavirheen, varasto-ongelman tai toimitusrajoitusten vuoksi. Jos peruutamme maksun jälkeen, palautamme maksamasi summan."
       ]
     },
     "fulfillment": {
-      "title": "Täyttäminen",
+      "title": "Toimitus",
       "paragraphs": [
-        "Tilaukset täytetään logistiikkakumppaneidemme kautta. Käsittely- ja toimitusajat vaihtelevat kohteen ja tuotteen mukaan. Seuranta toimitetaan, kun se on saatavilla. Menetyksen riski siirtyy sinulle, kun kuljetusliike merkitsee paketin toimitetuksi, ellei paikallinen kuluttajalaki toisin määrää."
+        "Tilaukset pakataan ja lähetetään logistiikkakumppaneidemme toimesta. Olemme silti myyjä ja vastaamme siitä, että saat ostamasi. Käsittely- ja toimitusajat vaihtelevat kohteen ja tuotteen mukaan; lähde tuotesivun sekä Toimitus & palautukset -sivun ajoista.",
+        "Seuranta toimitetaan, kun se on saatavilla. Menetyksen riski siirtyy sinulle, kun tuote on hallussasi, ellei pakottava kuluttajalaki toisin määrää."
       ]
     },
     "personalUse": {
-      "title": "Henkilökohtainen käyttö",
+      "title": "Sivuston käyttö",
       "paragraphs": [
-        "Tuotteet myydään henkilökohtaiseen käyttöön. Älä väärinkäytä tämän sivuston sisältöä, yritä häiritä kauppaa tai raaputtaa katalogia kaupalliseen uudelleenkäyttöön ilman lupaa."
+        "Älä väärinkäytä tämän sivuston sisältöä, yritä häiritä kauppaa tai raaputtaa katalogia kaupalliseen uudelleenkäyttöön ilman lupaa."
       ]
     },
     "care": {
@@ -468,16 +534,16 @@
       ]
     },
     "returns": {
-      "title": "Palautukset",
+      "title": "Peruutusoikeus & reklamaatio",
       "paragraphs": [
-        "Toimitus, palautukset ja hyvitykset on kuvattu sivullamme Toimitus & palautukset. Paikalliset kuluttajaoikeudet, joista ei voida sopia pois, ovat edelleen voimassa."
+        "Toimitus, peruutusoikeus, virhevastuu ja hyvitykset on kuvattu sivullamme Toimitus & palautukset. Paikalliset kuluttajaoikeudet, joista ei voida sopia pois, ovat edelleen voimassa."
       ],
       "returnsLink": "Toimitus & palautukset"
     },
     "liability": {
       "title": "Vastuu",
       "paragraphs": [
-        "Lain sallimissa rajoissa {brand} ei ole vastuussa epäsuorista tai seurannaisvahingoista, jotka aiheutuvat sivuston tai tuotteiden käytöstä. Mikään näissä ehdoissa ei rajoita vastuuta kuolemasta tai henkilövahingosta, joka aiheutuu huolimattomuudesta, petoksesta tai muista oikeuksista, joita ei saa rajoittaa lain mukaan."
+        "Lain sallimissa rajoissa {brand} ei ole vastuussa epäsuorista tai seurannaisvahingoista, jotka aiheutuvat sivuston tai tuotteiden käytöstä. Mikään näissä ehdoissa ei rajoita vastuuta kuolemasta tai henkilövahingosta, joka aiheutuu huolimattomuudesta, petoksesta, tuotteen virheestä kuluttajansuojalain mukaan tai muista oikeuksista, joita ei saa rajoittaa lain nojalla."
       ]
     },
     "contact": {
@@ -487,15 +553,95 @@
         "Kysymyksiä näistä ehdoista: katso Yhteystiedot."
       ],
       "contactLink": "Yhteystiedot"
+    },
+    "seller": {
+      "title": "Myyjä",
+      "paragraphs": [
+        "Teet ostoksen {brand}-kaupasta. Tavaroiden myyjä on alla ja tilausvahvistuksessa ilmoitettu yritys. Vastaamme kaupasta myös silloin, kun logistiikkakumppanit pakkaavat ja lähettävät tilauksen."
+      ],
+      "missing": "Täydelliset yritystiedot näkyvät tilausvahvistuksessasi. Ota yhteyttä, jos tarvitset nimen, osoitteen tai Y-tunnuksen toisessa muodossa."
+    },
+    "law": {
+      "title": "Sovellettava laki & riita",
+      "paragraphs": [
+        "Sopimukseen sovelletaan Ruotsin lakia, lukuun ottamatta lainvalintasääntöjä, jotka johtaisivat toisen maan lakiin. Tämä ei vie sinulta asuinmaasi pakottavaa kuluttajansuojaa.",
+        "Riitatilanteessa: ota ensin yhteyttä meihin. Sen jälkeen voit kääntyä Ruotsin Allmänna reklamationsnämndenin (ARN) puoleen, arn.se, tai Suomen kuluttajariitalautakunnan puoleen, kuluttajariita.fi. Kuluttajaneuvonta voi myös auttaa."
+      ]
     }
   },
   "common": {
     "updated": "Päivitetty {date}",
-    "back": "Takaisin"
+    "back": "Takaisin",
+    "legalName": "Yritys",
+    "legalAddress": "Osoite",
+    "orgNumber": "Y-tunnus",
+    "vatNumber": "ALV-numero",
+    "legalEmail": "Sähköposti",
+    "tradingName": "Kauppanimi",
+    "returnsAddress": "Palautusosoite"
   },
   "notFound": {
     "title": "Sivua ei löytynyt",
     "body": "Tätä sivua tai tuotetta ei ole olemassa.",
     "cta": "Kauppaan"
+  },
+  "account": {
+    "metaTitle": "Oma tili",
+    "metaDescription": "Katso tilaukset, seuranta ja toivelista {brand}-kaupassa.",
+    "title": "Oma tili",
+    "welcome": "Hei {name}",
+    "welcomeGuest": "Oma tili",
+    "loginTitle": "Kirjaudu",
+    "loginBody": "Kirjaudu Shopifyn kautta nähdäksesi tilaukset, seurannan ja toivelistan.",
+    "loginCta": "Kirjaudu",
+    "loginError": "Kirjautuminen epäonnistui. Yritä uudelleen.",
+    "logout": "Kirjaudu ulos",
+    "notConfigured": "Asiakastilejä ei ole vielä määritetty. Lisää Customer Account API -tiedot ympäristöön.",
+    "ordersTitle": "Tilaukset",
+    "ordersEmpty": "Sinulla ei ole vielä tilauksia.",
+    "ordersCta": "Valikoimaan",
+    "ordersView": "Näytä tilaus",
+    "ordersLoadMore": "Näytä vanhemmat tilaukset",
+    "orderTitle": "Tilaus {name}",
+    "orderBack": "← Kaikki tilaukset",
+    "orderPlaced": "Tehty {date}",
+    "orderFinancial": "Maksu",
+    "orderFulfillment": "Toimitus",
+    "orderItems": "Tuotteet",
+    "orderShipping": "Toimitusosoite",
+    "orderTotals": "Yhteenveto",
+    "orderSubtotal": "Välisumma",
+    "orderShippingCost": "Toimitus",
+    "orderTax": "ALV",
+    "orderTotal": "Yhteensä",
+    "orderTracking": "Seuranta",
+    "orderTrackingEmpty": "Seuranta näkyy täällä, kun paketti on lähtenyt varastosta.",
+    "orderTrackingNumber": "Seurantanumero {number}",
+    "orderTrackingLink": "Seuraa lähetystä",
+    "orderStatusPage": "Shopify-tilauksen tila",
+    "orderNotFound": "Tilausta ei löytynyt.",
+    "wishlistTitle": "Toivelista",
+    "wishlistEmpty": "Toivelistasi on tyhjä.",
+    "wishlistCta": "Selaa valikoimaa",
+    "navAccount": "Tili",
+    "navOrders": "Tilaukset",
+    "navWishlist": "Toivelista",
+    "shortcutOrders": "Tilaukset ja seuranta",
+    "shortcutWishlist": "Toivelista",
+    "shortcutShop": "Jatka ostoksia"
+  },
+  "wishlist": {
+    "add": "Lisää toivelistaan",
+    "remove": "Poista toivelistalta",
+    "saved": "Tallennettu"
+  },
+  "orderConfirmed": {
+    "metaTitle": "Kiitos tilauksestasi",
+    "title": "Kiitos — tilaus vastaanotettu",
+    "body": "Saat vahvistuksen sähköpostiin. Kun paketti lähtee varastosta, seuranta näkyy tililläsi.",
+    "orderLabel": "Tilaus {order}",
+    "viewOrders": "Näytä tilaukset",
+    "continueShopping": "Jatka ostoksia",
+    "loginHint": "Kirjaudu seurataaksesi tilausta ja seurantaa täällä."
   }
 }

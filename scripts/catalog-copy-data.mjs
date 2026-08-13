@@ -1074,6 +1074,550 @@ export const catalogCopy = [
       },
     ],
   }),
+
+  pack({
+    handle:
+      "desktop-wrought-iron-triangle-book-stand-creative-ins-wind-bookshelf-student-desk-bookend-table-book-stand-shelf-book-clip-book-rest",
+    title: t(
+      "Bokstöd i smide till skrivbordet",
+      "Bokstøtte i smijern til skrivebordet",
+      "Bogstøtte i smedejern til skrivebordet",
+      "Takorautainen kirjateline työpöydälle",
+    ),
+    metaTitle: t(
+      "Triangulärt bokstöd i smide",
+      "Triangulær bokstøtte i smijern",
+      "Triangulær bogstøtte i smedejern",
+      "Kolmiokirjateline takoraudasta",
+    ),
+    metaDescription: t(
+      "Öppet bokstöd i smidesjärn till skrivbordet. Svart eller vitt — för böcker som ska stå framme.",
+      "Åpen bokstøtte i smijern til skrivebordet. Svart eller hvit — til bøker som skal stå fremme.",
+      "Åben bogstøtte i smedejern til skrivebordet. Sort eller hvid — til bøger, der skal stå fremme.",
+      "Avoin takorautainen kirjateline työpöydälle. Musta tai valkoinen — kirjoille esillä.",
+    ),
+    body: t(
+      "<p>Ett öppet triangulärt bokstöd i smidesjärn — böckerna står framme på skrivbordet i stället för i en hög.</p><ul><li><strong>Luftig ram.</strong> Linjerna tar lite plats, hyllan syns inte som en låda.</li><li><strong>Till skrivbordet.</strong> Studie, vardagsrum eller sovrum — där du läser.</li><li><strong>Två färger.</strong> Svart eller vitt, välj ovan.</li></ul><p>Material: smidesjärn. Välj färg ovan.</p>",
+      "<p>En åpen, triangulær bokstøtte i smijern — bøkene står fremme på skrivebordet i stedet for i en haug.</p><ul><li><strong>Luftig ramme.</strong> Linjene tar lite plass, hyllen synes ikke som en kasse.</li><li><strong>Til skrivebordet.</strong> Studie, stue eller soverom — der du leser.</li><li><strong>To farger.</strong> Svart eller hvit, velg over.</li></ul><p>Materiale: smijern. Velg farge over.</p>",
+      "<p>En åben, triangulær bogstøtte i smedejern — bøgerne står fremme på skrivebordet i stedet for i en bunke.</p><ul><li><strong>Luftig ramme.</strong> Linjerne fylder lidt, hylden ligner ikke en kasse.</li><li><strong>Til skrivebordet.</strong> Studie, stue eller soveværelse — der, hvor du læser.</li><li><strong>To farver.</strong> Sort eller hvid, vælg ovenfor.</li></ul><p>Materiale: smedejern. Vælg farve ovenfor.</p>",
+      "<p>Avoin kolmiokirjateline takoraudasta — kirjat seisovat työpöydällä eivätkä pinossa.</p><ul><li><strong>Kevyt runko.</strong> Viivat vievät vähän tilaa, hylly ei näytä laatikolta.</li><li><strong>Työpöydälle.</strong> Työhuone, olohuone tai makuuhuone — sinne missä luet.</li><li><strong>Kaksi väriä.</strong> Musta tai valkoinen, valitse yllä.</li></ul><p>Materiaali: takorauta. Valitse väri yllä.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: COLOR,
+        values: {
+          Black: t("Svart", "Svart", "Sort", "Musta"),
+          White: t("Vit", "Hvit", "Hvid", "Valkoinen"),
+        },
+      },
+    ],
+  }),
+
+  pack({
+    handle: "folding-lifting-desktop-notebook-tablet-computer-stand",
+    title: t(
+      "Vikbart laptopställ till skrivbordet",
+      "Sammenleggbart laptopstativ til skrivebordet",
+      "Sammenklappeligt laptopstativ til skrivebordet",
+      "Taitettava teline kannettavalle",
+    ),
+    metaTitle: t(
+      "Vikbart laptopställ",
+      "Sammenleggbart laptopstativ",
+      "Sammenklappeligt laptopstativ",
+      "Taitettava teline",
+    ),
+    metaDescription: t(
+      "Höj- och vikbart ställ till laptop och surfplatta, 11–17 tum. Silver eller svart. Öppet 24 × 17 × 20 cm.",
+      "Hev- og sammenleggbart stativ til laptop og nettbrett, 11–17 tommer. Sølv eller svart. Åpent 24 × 17 × 20 cm.",
+      "Hæve- og sammenklappeligt stativ til laptop og tablet, 11–17 tommer. Sølv eller sort. Åbent 24 × 17 × 20 cm.",
+      "Säädettävä taittoteline kannettavalle ja tabletille, 11–17 tuumaa. Hopea tai musta. Auki 24 × 17 × 20 cm.",
+    ),
+    body: t(
+      "<p>Ett vikbart ställ som lyfter laptopen från bordet — skärmen kommer upp, och luften går under.</p><ul><li><strong>Justerbar vinkel.</strong> Lutningen följer hur du sitter.</li><li><strong>11–17 tum.</strong> Laptop eller surfplatta, med halkskydd i silikon.</li><li><strong>Ihophällt.</strong> Ca 24 × 5 × 2 cm i väskan, 24 × 17 × 20 cm uppfällt.</li></ul><p>Färg: silver eller svart. En i förpackningen.</p>",
+      "<p>Et sammenleggbart stativ som løfter laptopen fra bordet — skjermen kommer opp, og luften går under.</p><ul><li><strong>Justerbar vinkel.</strong> Helningen følger hvordan du sitter.</li><li><strong>11–17 tommer.</strong> Laptop eller nettbrett, med sklisikring i silikon.</li><li><strong>Sammenlagt.</strong> Ca. 24 × 5 × 2 cm i vesken, 24 × 17 × 20 cm utfelt.</li></ul><p>Farge: sølv eller svart. Én i esken.</p>",
+      "<p>Et sammenklappeligt stativ, der løfter laptopen fra bordet — skærmen kommer op, og luften går under.</p><ul><li><strong>Justerbar vinkel.</strong> Hældningen følger, hvordan du sidder.</li><li><strong>11–17 tommer.</strong> Laptop eller tablet, med skridsikring i silikone.</li><li><strong>Sammenklappet.</strong> Ca. 24 × 5 × 2 cm i tasken, 24 × 17 × 20 cm udfoldet.</li></ul><p>Farve: sølv eller sort. Én i æsken.</p>",
+      "<p>Taitettava teline, joka nostaa kannettavan pöydältä — näyttö nousee ja ilma kulkee alta.</p><ul><li><strong>Säädettävä kulma.</strong> Kallistus seuraa istuma-asentoa.</li><li><strong>11–17 tuumaa.</strong> Kannettava tai tabletti, silikoninen liukueste.</li><li><strong>Taitettuna.</strong> N. 24 × 5 × 2 cm laukussa, 24 × 17 × 20 cm avattuna.</li></ul><p>Väri: hopea tai musta. Yksi pakkauksessa.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: COLOR,
+        values: {
+          Black: t("Svart", "Svart", "Sort", "Musta"),
+          Silver: t("Silver", "Sølv", "Sølv", "Hopea"),
+        },
+      },
+      {
+        sourceName: "Quantity",
+        name: t("Antal", "Antall", "Antal", "Määrä"),
+        values: { Q1pc: t("1 st", "1 stk", "1 stk", "1 kpl") },
+      },
+    ],
+  }),
+
+  pack({
+    handle:
+      "rotating-lunar-eclipse-wall-lamp-modern-minimalist-living-room-ledl-wall-lamp-balcony-bedside-wall-lamp",
+    title: t(
+      "Vägglampa med vridbar månskiva",
+      "Vegglampe med dreibar måneskive",
+      "Væglampe med drejelig måneskive",
+      "Seinävalaisin kääntyvällä kiekolla",
+    ),
+    metaTitle: t(
+      "Vridbar LED-vägglampa",
+      "Dreibar LED-vegglampe",
+      "Drejelig LED-væglampe",
+      "Kääntyvä LED-seinävalaisin",
+    ),
+    metaDescription: t(
+      "LED-vägglampa med vridbar skiva. Aluminium, 220 V, dragströmbrytare. Svart eller vit, vitt eller varmt ljus.",
+      "LED-vegglampe med dreibar skive. Aluminium, 220 V, snorbryter. Svart eller hvit, hvitt eller varmt lys.",
+      "LED-væglampe med drejelig skive. Aluminium, 220 V, snorswitch. Sort eller hvid, hvidt eller varmt lys.",
+      "LED-seinävalaisin kääntyvällä kiekolla. Alumiini, 220 V, nyörikytkin. Musta tai valkoinen, valkoinen tai lämmin valo.",
+    ),
+    body: t(
+      "<p>En rund LED-vägglampa med vridbar skiva — ljuset blir en skära eller en hel cirkel, beroende på hur du vrider.</p><ul><li><strong>Vridbar skiva.</strong> Ställ hur mycket ljus som ska synas.</li><li><strong>Två ljusfärger.</strong> Vitt eller varmt, välj ovan.</li><li><strong>Dragströmbrytare.</strong> Tänd från sladden, utan extra strömbrytare på väggen.</li></ul><p>Ljuskälla: LED. Spänning: 220 V. Skärm: aluminium. Svart eller vit.</p>",
+      "<p>En rund LED-vegglampe med dreibar skive — lyset blir en sigd eller en hel sirkel, etter hvordan du vrir.</p><ul><li><strong>Dreibar skive.</strong> Still hvor mye lys som skal synes.</li><li><strong>To lysfarger.</strong> Hvitt eller varmt, velg over.</li><li><strong>Snorbryter.</strong> Tenn fra snoren, uten ekstra bryter på veggen.</li></ul><p>Lyskilde: LED. Spenning: 220 V. Skjerm: aluminium. Svart eller hvit.</p>",
+      "<p>En rund LED-væglampe med drejelig skive — lyset bliver en segl eller en hel cirkel, alt efter hvordan du drejer.</p><ul><li><strong>Drejelig skive.</strong> Stil, hvor meget lys der skal ses.</li><li><strong>To lysfarver.</strong> Hvidt eller varmt, vælg ovenfor.</li><li><strong>Snorswitch.</strong> Tænd fra snoren, uden ekstra afbryder på væggen.</li></ul><p>Lyskilde: LED. Spænding: 220 V. Skærm: aluminium. Sort eller hvid.</p>",
+      "<p>Pyöreä LED-seinävalaisin kääntyvällä kiekolla — valo on sirppi tai täysi ympyrä sen mukaan miten käännät.</p><ul><li><strong>Kääntyvä kiekko.</strong> Säädä, kuinka paljon valoa näkyy.</li><li><strong>Kaksi valonväriä.</strong> Valkoinen tai lämmin, valitse yllä.</li><li><strong>Nyörikytkin.</strong> Sytytä nyöristä, ilman erillistä kytkintä seinässä.</li></ul><p>Valonlähde: LED. Jännite: 220 V. Varjostin: alumiini. Musta tai valkoinen.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: COLOR,
+        values: {
+          Black: t("Svart", "Svart", "Sort", "Musta"),
+          White: t("Vit", "Hvit", "Hvid", "Valkoinen"),
+        },
+      },
+      {
+        sourceName: "style",
+        name: t("Ljus", "Lys", "Lys", "Valo"),
+        values: {
+          "White light": t("Vitt ljus", "Hvitt lys", "Hvidt lys", "Valkoinen valo"),
+          "warm light": t("Varmt ljus", "Varmt lys", "Varmt lys", "Lämmin valo"),
+        },
+      },
+    ],
+  }),
+
+  pack({
+    handle:
+      "ins-wooden-cute-mushroom-led-night-light-with-touch-switch-bedside-table-lamp-for-bedroom-childrens-room-sleeping-night-lamps-home-decor",
+    title: t(
+      "Svamplampa i trä med touch",
+      "Sopplampe i tre med touch",
+      "Svampelampe i træ med touch",
+      "Puinen sienilamppu kosketuksella",
+    ),
+    metaTitle: t(
+      "Svamplampa i trä",
+      "Sopplampe i tre",
+      "Svampelampe i træ",
+      "Puinen sienilamppu",
+    ),
+    metaDescription: t(
+      "Liten LED-nattlampa i trä, formad som en svamp. Touch, 2,4 W, ca 165 × 100 mm. Bok eller valnöt, modell A–D.",
+      "Liten LED-nattlampe i tre, formet som en sopp. Touch, 2,4 W, ca. 165 × 100 mm. Bøk eller valnøtt, modell A–D.",
+      "Lille LED-natlampe i træ, formet som en svamp. Touch, 2,4 W, ca. 165 × 100 mm. Bøg eller valnød, model A–D.",
+      "Pieni puinen LED-yövalo sienen muotoinen. Kosketus, 2,4 W, n. 165 × 100 mm. Pyökki tai pähkinä, malli A–D.",
+    ),
+    body: t(
+      "<p>En liten nattlampa i trä, formad som en svamp — mjukt sken på nattduksbordet, tänd med ett tryck.</p><ul><li><strong>Touch.</strong> Tänd och släck på lampan, utan extra strömbrytare.</li><li><strong>Två träslag.</strong> Bok eller valnöt, välj ovan.</li><li><strong>Fyra former.</strong> Modell A–D, samma mått ca 165 × 100 mm.</li></ul><p>Ljuskälla: LED, 2,4 W. Material: bok eller valnöt. Välj modell och färg ovan.</p>",
+      "<p>En liten nattlampe i tre, formet som en sopp — mykt skjær på nattbordet, tent med et trykk.</p><ul><li><strong>Touch.</strong> Tenn og slukk på lampen, uten ekstra bryter.</li><li><strong>To treslag.</strong> Bøk eller valnøtt, velg over.</li><li><strong>Fire former.</strong> Modell A–D, samme mål ca. 165 × 100 mm.</li></ul><p>Lyskilde: LED, 2,4 W. Materiale: bøk eller valnøtt. Velg modell og farge over.</p>",
+      "<p>En lille natlampe i træ, formet som en svamp — blødt skær på natbordet, tændt med et tryk.</p><ul><li><strong>Touch.</strong> Tænd og sluk på lampen, uden ekstra afbryder.</li><li><strong>To træsorter.</strong> Bøg eller valnød, vælg ovenfor.</li><li><strong>Fire former.</strong> Model A–D, samme mål ca. 165 × 100 mm.</li></ul><p>Lyskilde: LED, 2,4 W. Materiale: bøg eller valnød. Vælg model og farve ovenfor.</p>",
+      "<p>Pieni puinen yövalo sienen muotoinen — pehmeä valo yöpöydälle, sytytys kosketuksella.</p><ul><li><strong>Kosketus.</strong> Sytytä ja sammuta lampusta, ilman erillistä kytkintä.</li><li><strong>Kaksi puulajia.</strong> Pyökki tai pähkinä, valitse yllä.</li><li><strong>Neljä muotoa.</strong> Malli A–D, samat mitat n. 165 × 100 mm.</li></ul><p>Valonlähde: LED, 2,4 W. Materiaali: pyökki tai pähkinä. Valitse malli ja väri yllä.</p>",
+    ),
+    options: [
+      {
+        sourceName: "style",
+        name: STYLE,
+        values: {
+          A: t("Modell A", "Modell A", "Model A", "Malli A"),
+          B: t("Modell B", "Modell B", "Model B", "Malli B"),
+          C: t("Modell C", "Modell C", "Model C", "Malli C"),
+          D: t("Modell D", "Modell D", "Model D", "Malli D"),
+        },
+      },
+      {
+        sourceName: "Color",
+        name: COLOR,
+        values: {
+          Beech: t("Bok", "Bøk", "Bøg", "Pyökki"),
+          "Walnut color": t("Valnöt", "Valnøtt", "Valnød", "Pähkinä"),
+        },
+      },
+      {
+        sourceName: "Electrical outlet",
+        name: t("Effekt", "Effekt", "Effekt", "Teho"),
+        values: { "2.4W": t("2,4 W", "2,4 W", "2,4 W", "2,4 W") },
+      },
+    ],
+  }),
+
+  pack({
+    handle:
+      "magnetic-cable-clip-under-desk-cable-management-adjustable-cord-holder-wire-organizer-and-cable-management-wire-keeper",
+    title: t(
+      "Magnetiska kabelkrokar under skrivbordet",
+      "Magnetiske kabelkroker under skrivebordet",
+      "Magnetiske kabelkroge under skrivebordet",
+      "Magneettiset kaapelikoukut pöydän alle",
+    ),
+    metaTitle: t(
+      "Kabelkrokar under skrivbordet",
+      "Kabelkroker under skrivebordet",
+      "Kabelkroge under skrivebordet",
+      "Kaapelikoukut pöydän alle",
+    ),
+    metaDescription: t(
+      "Självhäftande krokar i ABS som håller sladdarna under bordet. Max 2 kg. Välj färg och antal.",
+      "Selvklebende kroker i ABS som holder ledningene under bordet. Maks 2 kg. Velg farge og antall.",
+      "Selvklæbende kroge i ABS, der holder ledningerne under bordet. Maks. 2 kg. Vælg farve og antal.",
+      "Tarrakiinnitteiset ABS-koukut pitävät johdot pöydän alla. Enintään 2 kg. Valitse väri ja määrä.",
+    ),
+    body: t(
+      "<p>Små krokar att fästa under skrivbordet — sladdarna hänger där, inte på golvet.</p><ul><li><strong>Utan skruv.</strong> Tejp mot undersidan, utan märke i skivan.</li><li><strong>De flesta sladdar.</strong> Laddkabel, USB, HDMI eller nätsladd, upp till ca 2 kg.</li><li><strong>Flera pack.</strong> Vit, svart eller blandat — välj antal ovan.</li></ul><p>Material: ABS. Max last ca 2 kg. Välj modell ovan.</p>",
+      "<p>Små kroker å feste under skrivebordet — ledningene henger der, ikke på gulvet.</p><ul><li><strong>Uten skrue.</strong> Teip mot undersiden, uten merke i platen.</li><li><strong>De fleste ledninger.</strong> Ladekabel, USB, HDMI eller nettledning, opptil ca. 2 kg.</li><li><strong>Flere pakker.</strong> Hvit, svart eller blandet — velg antall over.</li></ul><p>Materiale: ABS. Maks last ca. 2 kg. Velg modell over.</p>",
+      "<p>Små kroge at fæste under skrivebordet — ledningerne hænger der, ikke på gulvet.</p><ul><li><strong>Uden skrue.</strong> Tape mod undersiden, uden mærke i pladen.</li><li><strong>De fleste ledninger.</strong> Ladekabel, USB, HDMI eller netledning, op til ca. 2 kg.</li><li><strong>Flere pakker.</strong> Hvid, sort eller blandet — vælg antal ovenfor.</li></ul><p>Materiale: ABS. Maks. last ca. 2 kg. Vælg model ovenfor.</p>",
+      "<p>Pienet koukut pöydän alle — johdot roikkuvat siellä, eivät lattialla.</p><ul><li><strong>Ilman ruuvia.</strong> Tarra alapintaan, ilman jälkeä levyssä.</li><li><strong>Useimmat johdot.</strong> Latausjohto, USB, HDMI tai virtajohto, enintään n. 2 kg.</li><li><strong>Useita pakkauksia.</strong> Valkoinen, musta tai sekoitus — valitse määrä yllä.</li></ul><p>Materiaali: ABS. Enimmäiskuorma n. 2 kg. Valitse malli yllä.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: STYLE,
+        values: {
+          "12pcs White": t("12-pack, vit", "12-pack, hvit", "12-pak, hvid", "12-pack, valkoinen"),
+          "1PC": t("1 st", "1 stk", "1 stk", "1 kpl"),
+          "2PCS": t("2 st", "2 stk", "2 stk", "2 kpl"),
+          "3 black and 3 white": t("3 svart + 3 vit", "3 svart + 3 hvit", "3 sort + 3 hvid", "3 mustaa + 3 valkoista"),
+          "3PackBlack": t("3-pack, svart", "3-pack, svart", "3-pak, sort", "3-pack, musta"),
+          "3Packwhite": t("3-pack, vit", "3-pack, hvit", "3-pak, hvid", "3-pack, valkoinen"),
+          "4PCS": t("4 st", "4 stk", "4 stk", "4 kpl"),
+          "6 Pack Black": t("6-pack, svart", "6-pack, svart", "6-pak, sort", "6-pack, musta"),
+          "6 Pack White": t("6-pack, vit", "6-pack, hvit", "6-pak, hvid", "6-pack, valkoinen"),
+          Black: t("Svart", "Svart", "Sort", "Musta"),
+          "Black 10pcs": t("10-pack, svart", "10-pack, svart", "10-pak, sort", "10-pack, musta"),
+          "Black 12pcs": t("12-pack, svart", "12-pack, svart", "12-pak, sort", "12-pack, musta"),
+          "Black 5pcs": t("5-pack, svart", "5-pack, svart", "5-pak, sort", "5-pack, musta"),
+          Set1: t("Set 1", "Sett 1", "Sæt 1", "Setti 1"),
+          Set2: t("Set 2", "Sett 2", "Sæt 2", "Setti 2"),
+          Set3: t("Set 3", "Sett 3", "Sæt 3", "Setti 3"),
+          Set4: t("Set 4", "Sett 4", "Sæt 4", "Setti 4"),
+          "White 20pcs": t("20-pack, vit", "20-pack, hvit", "20-pak, hvid", "20-pack, valkoinen"),
+        },
+      },
+    ],
+  }),
+
+  pack({
+    handle: "weeding-garden-kneepad-hassock",
+    title: t(
+      "Knäskydd till trädgården",
+      "Knebeskyttere til hagen",
+      "Knæbeskyttere til haven",
+      "Polvisuojat puutarhaan",
+    ),
+    metaTitle: t(
+      "Knäskydd till odlingen",
+      "Knebeskyttere til hagen",
+      "Knæbeskyttere til haven",
+      "Polvisuojat puutarhaan",
+    ),
+    metaDescription: t(
+      "Knäskydd i neopren till ogräset och jorden. Ett par — svart, grönt eller lila.",
+      "Knebeskyttere i neopren til ugress og jord. Ett par — svart, grønt eller lilla.",
+      "Knæbeskyttere i neopren til ukrudt og jord. Ét par — sort, grønt eller lilla.",
+      "Neopreenipolvisuojat kitkentään ja maahan. Pari — musta, vihreä tai lila.",
+    ),
+    body: t(
+      "<p>Mjuka knäskydd i neopren när du sitter på huk i jorden — ett par, inte en kudde att släpa.</p><ul><li><strong>Neopren.</strong> Ger efter mot sten och fukt, utan att bli styvt.</li><li><strong>Till odlingen.</strong> Ogräs, plantering, samma arbete på knä.</li><li><strong>Tre färger.</strong> Svart, grönt eller lila. Välj par eller enstaka ovan.</li></ul><p>Material: neopren. Vuxenstorlek. Välj färg ovan.</p>",
+      "<p>Myke knebeskyttere i neopren når du sitter på huk i jorda — ett par, ikke en pute å slepe.</p><ul><li><strong>Neopren.</strong> Gir etter mot stein og fukt, uten å bli stivt.</li><li><strong>Til hagen.</strong> Ugress, planting, samme arbeid på kne.</li><li><strong>Tre farger.</strong> Svart, grønt eller lilla. Velg par eller enkelt over.</li></ul><p>Materiale: neopren. Voksenstørrelse. Velg farge over.</p>",
+      "<p>Bløde knæbeskyttere i neopren, når du sidder på hug i jorden — ét par, ikke en pude at slæbe.</p><ul><li><strong>Neopren.</strong> Giver efter mod sten og fugt, uden at blive stift.</li><li><strong>Til haven.</strong> Ukrudt, plantning, samme arbejde på knæ.</li><li><strong>Tre farver.</strong> Sort, grønt eller lilla. Vælg par eller enkelt ovenfor.</li></ul><p>Materiale: neopren. Voksenstørrelse. Vælg farve ovenfor.</p>",
+      "<p>Pehmeät neopreenipolvisuojat kyykyssä maassa — pari, ei raahattava tyyny.</p><ul><li><strong>Neopreeni.</strong> Joustaa kiveä ja kosteutta vasten, ilman jäykistymistä.</li><li><strong>Puutarhaan.</strong> Rikkaruoho, istutus, sama työ polvillaan.</li><li><strong>Kolme väriä.</strong> Musta, vihreä tai lila. Valitse pari tai yksittäinen yllä.</li></ul><p>Materiaali: neopreeni. Aikuisten koko. Valitse väri yllä.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: COLOR,
+        values: {
+          Black: t("Svart", "Svart", "Sort", "Musta"),
+          Green: t("Grön", "Grønn", "Grøn", "Vihreä"),
+          Purple: t("Lila", "Lilla", "Lilla", "Lila"),
+          "Single purple": t("Lila, 1 st", "Lilla, 1 stk", "Lilla, 1 stk", "Lila, 1 kpl"),
+        },
+      },
+    ],
+  }),
+
+  pack({
+    handle: "heart-shaped-memory-foam-leg-pillow-contour-legacy-leg-pillow",
+    title: t(
+      "Benkudde i memoryskum",
+      "Benpute i memoryskum",
+      "Benpude i memoryskum",
+      "Muistivaahtotyyny jaloille",
+    ),
+    metaTitle: t(
+      "Hjärformad benkudde",
+      "Hjerteformet benpute",
+      "Hjerteformet benpude",
+      "Sydämenmuotoinen jalkatyyny",
+    ),
+    metaDescription: t(
+      "Hjärformad kudde i memoryskum att ha mellan knäna, ca 25 × 23 × 13 cm. Välj färg och antal.",
+      "Hjerteformet pute i memoryskum å ha mellom knærne, ca. 25 × 23 × 13 cm. Velg farge og antall.",
+      "Hjerteformet pude i memoryskum at have mellem knæene, ca. 25 × 23 × 13 cm. Vælg farve og antal.",
+      "Sydämenmuotoinen muistivaahtotyyny polvien väliin, n. 25 × 23 × 13 cm. Valitse väri ja määrä.",
+    ),
+    body: t(
+      "<p>En hjärformad kudde i memoryskum att lägga mellan knäna — den fyller ut, utan att trycka hårt.</p><ul><li><strong>Memoryskum.</strong> Kärnan ger efter och går tillbaka.</li><li><strong>Litet format.</strong> Ca 25 × 23 × 13 cm, till en person.</li><li><strong>Flera färger.</strong> Kudde eller extra överdrag, 1–3 stycken.</li></ul><p>Kärna: memoryskum (polyuretan). Överdrag: kationisk väv. Välj färg och antal ovan.</p>",
+      "<p>En hjerteformet pute i memoryskum å legge mellom knærne — den fyller ut, uten å trykke hardt.</p><ul><li><strong>Memoryskum.</strong> Kjernen gir etter og går tilbake.</li><li><strong>Lite format.</strong> Ca. 25 × 23 × 13 cm, til én person.</li><li><strong>Flere farger.</strong> Pute eller ekstra trekk, 1–3 stykker.</li></ul><p>Kjerne: memoryskum (polyuretan). Trekk: kationisk vev. Velg farge og antall over.</p>",
+      "<p>En hjerteformet pude i memoryskum at lægge mellem knæene — den fylder ud, uden at trykke hårdt.</p><ul><li><strong>Memoryskum.</strong> Kernen giver efter og går tilbage.</li><li><strong>Lille format.</strong> Ca. 25 × 23 × 13 cm, til én person.</li><li><strong>Flere farver.</strong> Pude eller ekstra betræk, 1–3 stykker.</li></ul><p>Kerne: memoryskum (polyuretan). Betræk: kationisk væv. Vælg farve og antal ovenfor.</p>",
+      "<p>Sydämenmuotoinen muistivaahtotyyny polvien väliin — täyttää tilan ilman kovaa painetta.</p><ul><li><strong>Muistivaahto.</strong> Ydin myötää ja palautuu.</li><li><strong>Pieni koko.</strong> N. 25 × 23 × 13 cm, yhdelle.</li><li><strong>Useita värejä.</strong> Tyyny tai erillinen päällinen, 1–3 kpl.</li></ul><p>Ydin: muistivaahto (polyuretaani). Päällinen: kationinen kangas. Valitse väri ja määrä yllä.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: COLOR,
+        values: {
+          "1.White pillowcase": t("Vitt överdrag", "Hvitt trekk", "Hvidt betræk", "Valkoinen päällinen"),
+          "1.White": t("Vit", "Hvit", "Hvid", "Valkoinen"),
+          "4D grid gray pillowcase": t("Grått 4D-överdrag", "Grått 4D-trekk", "Gråt 4D-betræk", "Harmaa 4D-päällinen"),
+          "4D grid gray": t("Grå 4D", "Grå 4D", "Grå 4D", "Harmaa 4D"),
+          "Blue pillowcase": t("Blått överdrag", "Blått trekk", "Blåt betræk", "Sininen päällinen"),
+          Blue: t("Blå", "Blå", "Blå", "Sininen"),
+          "Gray pillowcase": t("Grått överdrag", "Grått trekk", "Gråt betræk", "Harmaa päällinen"),
+          Grey: t("Grå", "Grå", "Grå", "Harmaa"),
+          "Heart lemon yellow pillowcase": t(
+            "Citron, hjärta, överdrag",
+            "Sitron, hjerte, trekk",
+            "Citron, hjerte, betræk",
+            "Sitruuna, sydän, päällinen",
+          ),
+          "Heart shaped Tianhu Blue": t("Tianhu-blå, hjärta", "Tianhu-blå, hjerte", "Tianhu-blå, hjerte", "Tianhu-sininen, sydän"),
+          "Heart shaped Tianhu pillowcase": t(
+            "Tianhu, hjärta, överdrag",
+            "Tianhu, hjerte, trekk",
+            "Tianhu, hjerte, betræk",
+            "Tianhu, sydän, päällinen",
+          ),
+          "Heart shaped cherry pillowcase": t(
+            "Körsbär, hjärta, överdrag",
+            "Kirsebær, hjerte, trekk",
+            "Kirsebær, hjerte, betræk",
+            "Kirsikka, sydän, päällinen",
+          ),
+          "Heart shaped cherry red": t("Körsbärsröd, hjärta", "Kirsebærrød, hjerte", "Kirsebærrød, hjerte", "Kirsikanpunainen, sydän"),
+          "Heart shaped geranium blue": t("Geraniumblå, hjärta", "Geraniumblå, hjerte", "Geraniumblå, hjerte", "Pelargoninsininen, sydän"),
+          "Heart shaped gray pillowcase": t(
+            "Grått hjärta, överdrag",
+            "Grått hjerte, trekk",
+            "Gråt hjerte, betræk",
+            "Harmaa sydän, päällinen",
+          ),
+          "Heart shaped green": t("Grön, hjärta", "Grønn, hjerte", "Grøn, hjerte", "Vihreä, sydän"),
+          "Heart shaped lemon yellow": t("Citron, hjärta", "Sitron, hjerte", "Citron, hjerte", "Sitruuna, sydän"),
+          "Heart shaped orange pillowcase": t(
+            "Orange, hjärta, överdrag",
+            "Oransje, hjerte, trekk",
+            "Orange, hjerte, betræk",
+            "Oranssi, sydän, päällinen",
+          ),
+          "Heart shaped orange": t("Orange, hjärta", "Oransje, hjerte", "Orange, hjerte", "Oranssi, sydän"),
+          "Heart shaped sky blue": t("Himmelblå, hjärta", "Himmelblå, hjerte", "Himmelblå, hjerte", "Taivaansininen, sydän"),
+          "Heartshaped gray": t("Grå, hjärta", "Grå, hjerte", "Grå, hjerte", "Harmaa, sydän"),
+          "Navy Blue pillowcase": t("Marinblått överdrag", "Marineblått trekk", "Marineblåt betræk", "Laivastonsininen päällinen"),
+          "Navy Blue": t("Marinblå", "Marineblå", "Marineblå", "Laivastonsininen"),
+          "Red pillowcase": t("Rött överdrag", "Rødt trekk", "Rødt betræk", "Punainen päällinen"),
+          Red: t("Röd", "Rød", "Rød", "Punainen"),
+          Set: t("Set", "Sett", "Sæt", "Setti"),
+          Set1: t("Set 2", "Sett 2", "Sæt 2", "Setti 2"),
+          Set2: t("Set 3", "Sett 3", "Sæt 3", "Setti 3"),
+          "Sky Blue": t("Himmelblå", "Himmelblå", "Himmelblå", "Taivaansininen"),
+          White: t("Vit 2", "Hvit 2", "Hvid 2", "Valkoinen 2"),
+          "White2.": t("Vit 3", "Hvit 3", "Hvid 3", "Valkoinen 3"),
+          "Yellow pillowcase": t("Gult överdrag", "Gult trekk", "Gult betræk", "Keltainen päällinen"),
+          Yellow: t("Gul", "Gul", "Gul", "Keltainen"),
+        },
+      },
+      {
+        sourceName: "Size",
+        name: SIZE,
+        values: {
+          "25x23x13cm": t("25 × 23 × 13 cm", "25 × 23 × 13 cm", "25 × 23 × 13 cm", "25 × 23 × 13 cm"),
+        },
+      },
+      {
+        sourceName: "quantity",
+        name: t("Antal", "Antall", "Antal", "Määrä"),
+        values: {
+          "1PCS": t("1 st", "1 stk", "1 stk", "1 kpl"),
+          "2PCS": t("2 st", "2 stk", "2 stk", "2 kpl"),
+          "3PCS": t("3 st", "3 stk", "3 stk", "3 kpl"),
+        },
+      },
+    ],
+  }),
+
+  pack({
+    handle:
+      "4-in-1-multifunctional-hair-removal-brush-pet-dog-cat-hair-cleaner-brush-cat-hair-remover-window-screen-cleaning-tool-gadgets",
+    title: t(
+      "4-i-1 borste mot hår och damm",
+      "4-i-1 børste mot hår og støv",
+      "4-i-1 børste mod hår og støv",
+      "4-in-1 harja karvoille ja pölylle",
+    ),
+    metaTitle: t(
+      "Borste mot hår och damm",
+      "Børste mot hår og støv",
+      "Børste mod hår og støv",
+      "Harja karvoille ja pölylle",
+    ),
+    metaDescription: t(
+      "Mjuk borste i flanell till hår, damm och myggnät. Torr eller fuktig, ca 45 × 18 cm. 1 eller 2 stycken.",
+      "Myk børste i flanell til hår, støv og insektnett. Tørr eller fuktig, ca. 45 × 18 cm. 1 eller 2 stykker.",
+      "Blød børste i flannel til hår, støv og insektnet. Tør eller fugtig, ca. 45 × 18 cm. 1 eller 2 stykker.",
+      "Pehmeä flanelliharja karvoille, pölylle ja hyönteisverkkoon. Kuiva tai kostea, n. 45 × 18 cm. 1 tai 2 kpl.",
+    ),
+    body: t(
+      "<p>En mjuk borste i flanell till hår och damm — kläder, soffa, matta eller myggnät, torr eller fuktig.</p><ul><li><strong>Torr eller våt.</strong> Lätt damm torrt, mer envis smuts med fukt.</li><li><strong>Förlängning.</strong> Handtaget kan sättas ihop, plus en liten borste till springor.</li><li><strong>Ett eller två.</strong> Ca 45 × 18 cm. Välj antal ovan.</li></ul><p>Material: plast och flanell. Välj 1 eller 2 st.</p>",
+      "<p>En myk børste i flanell til hår og støv — klær, sofa, teppe eller insektnett, tørr eller fuktig.</p><ul><li><strong>Tørr eller våt.</strong> Lett støv tørt, mer gjenstridig skitt med fukt.</li><li><strong>Forlengelse.</strong> Håndtaket kan settes sammen, pluss en liten børste til sprekker.</li><li><strong>Én eller to.</strong> Ca. 45 × 18 cm. Velg antall over.</li></ul><p>Materiale: plast og flanell. Velg 1 eller 2 stk.</p>",
+      "<p>En blød børste i flannel til hår og støv — tøj, sofa, tæppe eller insektnet, tør eller fugtig.</p><ul><li><strong>Tør eller våd.</strong> Let støv tørt, mere genstridig snavs med fugt.</li><li><strong>Forlængelse.</strong> Håndtaget kan samles, plus en lille børste til sprækker.</li><li><strong>Én eller to.</strong> Ca. 45 × 18 cm. Vælg antal ovenfor.</li></ul><p>Materiale: plast og flannel. Vælg 1 eller 2 stk.</p>",
+      "<p>Pehmeä flanelliharja karvoille ja pölylle — vaatteet, sohva, matto tai hyönteisverkko, kuiva tai kostea.</p><ul><li><strong>Kuiva tai märkä.</strong> Kevyt pöly kuivana, sitkeämpi lika kosteana.</li><li><strong>Jatkovarsi.</strong> Kahva kootaan, plus pieni harja rakoihin.</li><li><strong>Yksi tai kaksi.</strong> N. 45 × 18 cm. Valitse määrä yllä.</li></ul><p>Materiaali: muovi ja flanelli. Valitse 1 tai 2 kpl.</p>",
+    ),
+    options: [
+      {
+        sourceName: "style",
+        name: STYLE,
+        values: {
+          "Hair removal brush": t("Hårborste", "Hårbørste", "Hårbørste", "Karvaharja"),
+        },
+      },
+      {
+        sourceName: "quantity",
+        name: t("Antal", "Antall", "Antal", "Määrä"),
+        values: {
+          "1PC": t("1 st", "1 stk", "1 stk", "1 kpl"),
+          "2PCS": t("2 st", "2 stk", "2 stk", "2 kpl"),
+        },
+      },
+    ],
+  }),
+
+  pack({
+    handle: "memory-foam-waist-cushion",
+    title: t(
+      "Ländkudde i memoryskum",
+      "Korsryggpute i memoryskum",
+      "Lændepude i memoryskum",
+      "Muistivaahtotyyny alaselälle",
+    ),
+    metaTitle: t(
+      "Ländkudde till stolen",
+      "Korsryggpute til stolen",
+      "Lændepude til stolen",
+      "Alaselkätyyny tuoliin",
+    ),
+    metaDescription: t(
+      "Kudde i memoryskum till stolen. Mocka och flanell. Välj slät eller mesh — flera färger.",
+      "Pute i memoryskum til stolen. Semsket og flanell. Velg glatt eller mesh — flere farger.",
+      "Pude i memoryskum til stolen. Ruskind og flannel. Vælg glat eller mesh — flere farver.",
+      "Muistivaahtotyyny tuoliin. Mokkanahka ja flanelli. Valitse sileä tai verkko — useita värejä.",
+    ),
+    body: t(
+      "<p>En kudde i memoryskum mot ländryggen — den ger efter när du sitter, och går tillbaka när du reser dig.</p><ul><li><strong>Memoryskum.</strong> Formen följer ryggen, utan hård kant.</li><li><strong>Två ytor.</strong> Slät eller mesh, i samma färg.</li><li><strong>Flera färger.</strong> Svart, blå, grå, lila, kaffe, rosaröd eller bambu.</li></ul><p>Material: memoryskum med mocka och flanell. Välj färg och utförande ovan.</p>",
+      "<p>En pute i memoryskum mot korsryggen — den gir etter når du sitter, og går tilbake når du reiser deg.</p><ul><li><strong>Memoryskum.</strong> Formen følger ryggen, uten hard kant.</li><li><strong>To flater.</strong> Glatt eller mesh, i samme farge.</li><li><strong>Flere farger.</strong> Svart, blå, grå, lilla, kaffe, rosarød eller bambus.</li></ul><p>Materiale: memoryskum med semsket og flanell. Velg farge og utførelse over.</p>",
+      "<p>En pude i memoryskum mod lænden — den giver efter, når du sidder, og går tilbage, når du rejser dig.</p><ul><li><strong>Memoryskum.</strong> Formen følger ryggen, uden hård kant.</li><li><strong>To flader.</strong> Glat eller mesh, i samme farve.</li><li><strong>Flere farver.</strong> Sort, blå, grå, lilla, kaffe, rosarød eller bambus.</li></ul><p>Materiale: memoryskum med ruskind og flannel. Vælg farve og udførelse ovenfor.</p>",
+      "<p>Muistivaahtotyyny alaselkää vasten — myötää istuessa ja palautuu kun nouset.</p><ul><li><strong>Muistivaahto.</strong> Muoto seuraa selkää ilman kovaa reunaa.</li><li><strong>Kaksi pintaa.</strong> Sileä tai verkko, samassa värissä.</li><li><strong>Useita värejä.</strong> Musta, sininen, harmaa, lila, kahvi, ruusunpunainen tai bambu.</li></ul><p>Materiaali: muistivaahto, mokka ja flanelli. Valitse väri ja toteutus yllä.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: COLOR,
+        values: {
+          "Bamboo fiber": t("Bambu", "Bambus", "Bambus", "Bambu"),
+          "Black mesh": t("Svart mesh", "Svart mesh", "Sort mesh", "Musta verkko"),
+          Black: t("Svart", "Svart", "Sort", "Musta"),
+          "Blue mesh": t("Blå mesh", "Blå mesh", "Blå mesh", "Sininen verkko"),
+          Blue: t("Blå", "Blå", "Blå", "Sininen"),
+          "Coffee mesh": t("Kaffe mesh", "Kaffe mesh", "Kaffe mesh", "Kahvi, verkko"),
+          Coffee: t("Kaffe", "Kaffe", "Kaffe", "Kahvi"),
+          "Grey mesh": t("Grå mesh", "Grå mesh", "Grå mesh", "Harmaa verkko"),
+          Grey: t("Grå", "Grå", "Grå", "Harmaa"),
+          "Purple mesh": t("Lila mesh", "Lilla mesh", "Lilla mesh", "Lila verkko"),
+          Purple: t("Lila", "Lilla", "Lilla", "Lila"),
+          "Rose red mesh": t("Rosaröd mesh", "Rosarød mesh", "Rosarød mesh", "Ruusunpunainen verkko"),
+          "Rose red": t("Rosaröd", "Rosarød", "Rosarød", "Ruusunpunainen"),
+        },
+      },
+      {
+        sourceName: "style",
+        name: STYLE,
+        values: { Set: t("Set", "Sett", "Sæt", "Setti") },
+      },
+    ],
+  }),
+
+  pack({
+    handle: "memory-foam-slippers",
+    title: t(
+      "Tofflor i memoryskum",
+      "Tøfler i memoryskum",
+      "Tøfler i memoryskum",
+      "Muistivaahtotossut",
+    ),
+    metaTitle: t(
+      "Tofflor i memoryskum",
+      "Tøfler i memoryskum",
+      "Tøfler i memoryskum",
+      "Muistivaahtotossut",
+    ),
+    metaDescription: t(
+      "Tofflor med memoryskum, bomullsovandel och TPR-sula. Välj färg och storlek S–XL eller 36–43.",
+      "Tøfler med memoryskum, bomullsovandel og TPR-såle. Velg farge og størrelse S–XL eller 36–43.",
+      "Tøfler med memoryskum, bomuldsovandel og TPR-sål. Vælg farve og størrelse S–XL eller 36–43.",
+      "Muistivaahtotossut, puuvillapäällinen ja TPR-pohja. Valitse väri ja koko S–XL tai 36–43.",
+    ),
+    body: t(
+      "<p>Mjuka tofflor med memoryskum i sulan — de ger efter under foten, med grepp mot golvet.</p><ul><li><strong>Memoryskum.</strong> Sulan följer steget, utan hård kant.</li><li><strong>TPR under.</strong> Halkskydd mot klinkern, bomull ovanpå.</li><li><strong>Flera storlekar.</strong> S–XL eller 36–43. Svart, grå, kaffe, khaki, lila eller röd.</li></ul><p>Ovandel: bomull. Sula: TPR. Välj färg och storlek ovan.</p>",
+      "<p>Myke tøfler med memoryskum i sålen — de gir etter under foten, med grep mot gulvet.</p><ul><li><strong>Memoryskum.</strong> Sålen følger steget, uten hard kant.</li><li><strong>TPR under.</strong> Skrisikring mot flisen, bomull oppå.</li><li><strong>Flere størrelser.</strong> S–XL eller 36–43. Svart, grå, kaffe, khaki, lilla eller rød.</li></ul><p>Overdel: bomull. Såle: TPR. Velg farge og størrelse over.</p>",
+      "<p>Bløde tøfler med memoryskum i sålen — de giver efter under foden, med greb mod gulvet.</p><ul><li><strong>Memoryskum.</strong> Sålen følger trinnet, uden hård kant.</li><li><strong>TPR under.</strong> Skridsikring mod flisen, bomuld ovenpå.</li><li><strong>Flere størrelser.</strong> S–XL eller 36–43. Sort, grå, kaffe, khaki, lilla eller rød.</li></ul><p>Overdel: bomuld. Sål: TPR. Vælg farve og størrelse ovenfor.</p>",
+      "<p>Pehmeät tossut muistivaahdolla pohjassa — myötäävät jalan alla ja pitävät lattiaan.</p><ul><li><strong>Muistivaahto.</strong> Pohja seuraa askelta ilman kovaa reunaa.</li><li><strong>TPR alla.</strong> Liukueste laattaan, puuvilla päällä.</li><li><strong>Useita kokoja.</strong> S–XL tai 36–43. Musta, harmaa, kahvi, khaki, lila tai punainen.</li></ul><p>Päällinen: puuvilla. Pohja: TPR. Valitse väri ja koko yllä.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: COLOR,
+        values: {
+          Black: t("Svart", "Svart", "Sort", "Musta"),
+          Coffee: t("Kaffe", "Kaffe", "Kaffe", "Kahvi"),
+          Grey: t("Grå", "Grå", "Grå", "Harmaa"),
+          Khaki: t("Khaki", "Khaki", "Khaki", "Khaki"),
+          Purple: t("Lila", "Lilla", "Lilla", "Lila"),
+          Red: t("Röd", "Rød", "Rød", "Punainen"),
+        },
+      },
+      {
+        sourceName: "Size",
+        name: SIZE,
+        values: {
+          L: t("L, 42–43", "L, 42–43", "L, 42–43", "L, 42–43"),
+          M: t("M, 40–41", "M, 40–41", "M, 40–41", "M, 40–41"),
+          S: t("S, 38–39", "S, 38–39", "S, 38–39", "S, 38–39"),
+          XL: t("XL, 44–45", "XL, 44–45", "XL, 44–45", "XL, 44–45"),
+          "36 37": t("36–37", "36–37", "36–37", "36–37"),
+          "38 39": t("38–39", "38–39", "38–39", "38–39"),
+          "40 41": t("40–41", "40–41", "40–41", "40–41"),
+          "42 43": t("42–43", "42–43", "42–43", "42–43"),
+        },
+      },
+    ],
+  }),
 ];
 
 export const catalogCopyByHandle = new Map(

@@ -5,11 +5,11 @@ import { useDictionary } from "@/components/dictionary-provider";
 import {
   activeFilterCount,
   catalogPriceStep,
-  paginationItems,
   resolvedPriceRange,
   sanitizeFilters,
   SORT_KEYS,
   type CatalogFilters,
+  type CatalogPageInfo,
   type PriceBounds,
   type SortKey,
 } from "@/lib/catalog-filters";
@@ -152,7 +152,6 @@ function emptyKeepSort(filters: CatalogFilters): CatalogFilters {
     sale: false,
     stock: false,
     sort: filters.sort,
-    page: 1,
   };
 }
 
@@ -390,7 +389,7 @@ export function CollectionChips({
 }: {
   collections: CollectionSummary[];
   value: string | null;
-  allCount: number;
+  allCount: number | null;
   onChange: (handle: string | null) => void;
 }) {
   const { dict } = useDictionary();
@@ -405,7 +404,7 @@ export function CollectionChips({
         active={!value}
         onClick={() => onChange(null)}
         label={dict.products.filters.allCategories}
-        count={allCount}
+        count={allCount ?? undefined}
       />
       {collections.map((collection) => (
         <Chip
@@ -643,65 +642,35 @@ export function SortControl({
 }
 
 export function CatalogPagination({
-  page,
-  pages,
-  onChange,
+  pageInfo,
+  onPrevious,
+  onNext,
 }: {
-  page: number;
-  pages: number;
-  onChange: (page: number) => void;
+  pageInfo: CatalogPageInfo;
+  onPrevious: () => void;
+  onNext: () => void;
 }) {
-  const { dict, t } = useDictionary();
+  const { dict } = useDictionary();
   const copy = dict.products.filters;
-  if (pages <= 1) return null;
-
-  const items = paginationItems(page, pages);
+  if (!pageInfo.hasNextPage && !pageInfo.hasPreviousPage) return null;
 
   return (
     <nav
-      aria-label={t(copy.page, { page, pages })}
-      className="mt-16 flex flex-wrap items-center justify-center gap-x-1 gap-y-3 border-t border-border/60 pt-12"
+      aria-label={copy.next}
+      className="mt-16 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 border-t border-border/60 pt-12"
     >
       <button
         type="button"
-        disabled={page <= 1}
-        onClick={() => onChange(page - 1)}
+        disabled={!pageInfo.hasPreviousPage}
+        onClick={onPrevious}
         className="px-3 py-2 text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:text-muted"
       >
         {copy.previous}
       </button>
-
-      {items.map((item, index) =>
-        item === "gap" ? (
-          <span
-            key={`gap-${index}`}
-            aria-hidden
-            className="px-1 text-sm text-muted"
-          >
-            …
-          </span>
-        ) : (
-          <button
-            key={item}
-            type="button"
-            aria-label={t(copy.goToPage, { page: item })}
-            aria-current={item === page ? "page" : undefined}
-            onClick={() => onChange(item)}
-            className={`min-w-9 px-2.5 py-2 text-[0.72rem] font-medium tracking-[0.12em] uppercase tabular-nums transition ${
-              item === page
-                ? "text-foreground underline decoration-glow decoration-1 underline-offset-8"
-                : "text-muted hover:text-foreground"
-            }`}
-          >
-            {item}
-          </button>
-        ),
-      )}
-
       <button
         type="button"
-        disabled={page >= pages}
-        onClick={() => onChange(page + 1)}
+        disabled={!pageInfo.hasNextPage}
+        onClick={onNext}
         className="px-3 py-2 text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:text-muted"
       >
         {copy.next}

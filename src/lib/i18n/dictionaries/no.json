@@ -10,7 +10,9 @@
     "viewAll": "Vis alle",
     "openCart": "Åpne handlekurv",
     "openCartWithCount": "Åpne handlekurv, {count} varer",
-    "language": "Språk"
+    "language": "Språk",
+    "account": "Konto",
+    "login": "Logg inn"
   },
   "announcement": {
     "label": "Butikknyheter",
@@ -44,14 +46,16 @@
     "shopHeading": "Handle",
     "collection": "Kolleksjon",
     "cart": "Handlekurv",
-    "helpHeading": "Hjelp",
+    "helpHeading": "Kundesenter",
     "about": "Om oss",
     "faq": "Vanlige spørsmål",
     "shippingReturns": "Frakt & retur",
     "contact": "Kontakt",
-    "legalHeading": "Juridisk",
+    "legalHeading": "Informasjon",
     "privacy": "Personvern",
     "terms": "Vilkår",
+    "orgNumber": "Org.nr {orgNumber}",
+    "vatNumber": "MVA {vatNumber}",
     "shippingBadge": "Sendes innen {processing} · Sporing på hver ordre"
   },
   "home": {
@@ -173,7 +177,7 @@
     "trackingTitle": "Sporing",
     "trackingBody": "Du får sporing så snart transportøren har skannet pakken.",
     "safetyTitle": "Trygghet",
-    "safetyBody": "14 dagers angrerett · defekter erstattes.",
+    "safetyBody": "14 dagers angrerett · feil utbedres etter loven.",
     "faqLink": "Vanlige spørsmål"
   },
   "fulfillment": {
@@ -181,8 +185,8 @@
     "etaShort": "7–18 virkedager",
     "etaDetail": "De fleste ordrer forlater lageret innen 1–3 virkedager etter betaling. Deretter tar leveransen vanligvis 7–18 virkedager til adresser i Norge og EU. Internasjonalt utenfor EU kan det ta lengre tid.",
     "tracking": "Du får sporing så snart transportøren har skannet pakken.",
-    "returns": "14 dagers angrerett for ubrukte varer i originalemballasje. Skadede eller feilaktige produkter erstatter vi.",
-    "guaranteeShort": "14 dagers angrerett · defekter erstattes",
+    "returns": "14 dagers angrerett fra du mottok varen. Feil ved varen utbedres etter forbrukerkjøpsloven.",
+    "guaranteeShort": "14 dagers angrerett · feil utbedres etter loven",
     "secureCheckout": "Sikker kasse via Shopify"
   },
   "cart": {
@@ -255,11 +259,11 @@
       },
       {
         "question": "Kan jeg angre kjøpet?",
-        "answer": "14 dagers angrerett for ubrukte varer i originalemballasje. Skadede eller feilaktige produkter erstatter vi."
+        "answer": "Ja. Som forbruker har du 14 dagers angrerett fra du mottok varen. Du kan undersøke den som i en butikk. Send oss e-post innen fristen, så sender vi returadresse. Ved angrerett betaler du returfrakten. Feil ved varen er en reklamasjon — se neste spørsmål."
       },
       {
         "question": "Hva gjør jeg hvis produktet er skadet eller feil?",
-        "answer": "Send oss e-post innen 14 dager fra levering med ordrenummer og bilder. {brand} ordner erstatning eller refusjon når vi har bekreftet problemet."
+        "answer": "Det er en reklamasjon, ikke angrerett. Send oss e-post med ordrenummer og bilder så snart du oppdager feilen. I Norge kan du reklamere i to år, og fem år for ting som er ment å vare vesentlig lenger. Ved feil betaler vi returfrakten og ordner erstatning eller refusjon."
       },
       {
         "question": "Hvor pakkes og sendes ordrene?",
@@ -286,6 +290,8 @@
     "emailCta": "Send e-post til support",
     "emailSubject": "{brand} support",
     "emailFallback": "Svar på Shopify-ordrebekreftelsen din, eller bruk kontaktopplysningene i fraktmeldingen. For å vise en offentlig supportadresse her, sett NEXT_PUBLIC_SUPPORT_EMAIL i miljøet ditt.",
+    "companyTitle": "Selskap",
+    "companyMissing": "Fullstendige selskapsopplysninger fremgår av ordrebekreftelsen din. Kontakt oss hvis du trenger navn, adresse eller organisasjonsnummer i et annet format.",
     "beforeTitle": "Før du skriver",
     "beforeIntro": "Hvis du tar med følgende, svarer vi raskere:",
     "beforeItems": [
@@ -297,48 +303,84 @@
     "linkReturns": "Frakt & retur",
     "linkPrivacy": "Personvern",
     "linkTerms": "Vilkår",
-    "linkShop": "Til sortimentet"
+    "linkShop": "Til sortimentet",
+    "formTitle": "Send melding",
+    "name": "Navn",
+    "email": "E-post",
+    "subject": "Emne",
+    "message": "Melding",
+    "submit": "Send",
+    "sending": "Sender…",
+    "success": "Takk — vi har mottatt meldingen din og kommer snart tilbake.",
+    "error": "Kunne ikke sende meldingen. Prøv igjen eller e-post oss direkte.",
+    "notConfigured": "Kontaktskjemaet er ikke konfigurert ennå. Send oss e-post i stedet."
   },
   "returns": {
     "metaTitle": "Frakt & retur",
-    "metaDescription": "Hvordan {brand} sender ordrer og håndterer retur.",
+    "metaDescription": "Hvordan {brand} sender ordrer og håndterer angrerett, reklamasjon og retur.",
     "title": "Frakt & retur",
-    "description": "Hva du kan forvente ved levering, og hvordan du får hjelp hvis noe ikke stemmer.",
+    "description": "Hva du kan forvente ved levering, og hvordan angrerett og feil ved varen håndteres.",
     "updated": "august 2026",
     "shipping": {
       "title": "Frakt",
       "paragraphs": [
-        "Vi sender verden over der transportørene og betalingsleverandørene våre tillater det. Fraktkostnad og alternativer beregnes i kassen ut fra adressen din og varene i handlekurven.",
-        "De fleste ordrer forlater lageret innen 1–3 virkedager etter betaling. Deretter tar leveransen vanligvis 7–18 virkedager til adresser i Norge og EU. Internasjonalt utenfor EU kan det ta lengre tid.",
+        "Vi sender til adresser der transportørene og betalingsleverandørene våre tillater det. Fraktkostnad vises i kassen ut fra adressen din og varene i handlekurven, før du betaler.",
+        "De fleste ordrer forlater lageret innen 1–3 virkedager etter betaling. Deretter tar leveransen vanligvis 7–18 virkedager til adresser i Norge og EU. Internasjonalt utenfor EU kan det ta lengre tid. Ta utgangspunkt i den tiden — varen sendes fra logistikkpartnernes lager, ikke fra en butikkhylle.",
         "Du får sporing så snart transportøren har skannet pakken. Hvis sporing mangler flere virkedager etter ordrebekreftelsen, kontakt oss med ordrenummeret ditt."
       ]
     },
     "customs": {
       "title": "Toll & avgifter",
       "paragraphs": [
-        "Internasjonale ordrer kan belastes med importtoll, skatter eller klareringsgebyrer fra landet ditt. Disse avgiftene er ditt ansvar med mindre kassen uttrykkelig angir noe annet."
+        "Leveranser innen EU til privatpersoner selges som regel med merverdiavgift håndtert i kassen, med mindre noe annet fremgår der. Ordrer til land utenfor EU kan belastes med importtoll, skatter eller klareringsgebyrer. Slike avgifter er ditt ansvar med mindre kassen uttrykkelig angir noe annet."
+      ]
+    },
+    "withdrawal": {
+      "title": "Angrerett",
+      "paragraphs": [
+        "Som forbruker har du 14 dagers angrerett etter angrerettloven. Fristen regnes fra den dagen du mottok varen, eller den siste varen hvis ordren kommer i flere sendinger.",
+        "Du kan åpne emballasjen og undersøke varen på samme måte som i en fysisk butikk. Angreretten opphører ikke bare fordi pakken er åpnet. Hvis du bruker varen mer enn det som trengs for å fastslå egenskapene og funksjonen, kan vi gjøre fradrag for verdireduksjon.",
+        "Gi oss beskjed innen fristen via e-post. Du trenger ikke begrunne hvorfor du angrer. Vi sender returadresse og instruksjoner. Du skal sende varen tilbake uten unødig opphold og senest innen 14 dager fra du varslet oss.",
+        "Ved angrerett betaler du returfrakten, med mindre noe annet følger av ufravikelig lov. Opprinnelig utgående frakt refunderes som regel ikke når du angrer, unntatt den delen som overstiger den billigste standardfrakten vi tilbød — og ikke når vi har gjort en feil.",
+        "Ufravikelige forbrukerregler i landet du bor i går foran denne teksten hvis de gir deg et sterkere vern."
+      ]
+    },
+    "complaints": {
+      "title": "Feil ved varen",
+      "paragraphs": [
+        "Hvis varen er skadet, feilaktig, skiller seg vesentlig fra beskrivelsen eller har en opprinnelig mangel, er det en reklamasjon — ikke angrerett. Da utbedrer vi feilen ved omlevering, retting eller refusjon etter forbrukerkjøpsloven.",
+        "I Norge kan du reklamere i to år fra du mottok varen, og fem år for ting som er ment å vare vesentlig lenger. Du skal reklamere innen rimelig tid etter at du oppdaget feilen.",
+        "Send oss e-post med ordrenummer og bilder så snart du oppdager problemet. Ved feil ved varen betaler vi returfrakten. I noen tilfeller refunderer eller erstatter vi uten at du trenger å sende varen tilbake.",
+        "Du har alltid de ufravikelige reklamasjonsrettighetene som gjelder i landet du bor i. De kan ikke avtales bort og er ikke begrenset til 14 dager."
       ]
     },
     "returns": {
-      "title": "Retur",
+      "title": "Slik gjør du en retur",
       "paragraphs": [
-        "14 dagers angrerett for ubrukte varer i originalemballasje. Skadede eller feilaktige produkter erstatter vi.",
-        "Hvis en vare ankommer skadet, feilaktig eller defekt, send oss e-post innen 14 dager fra levering med ordrenummer og bilder. Vi ordner erstatning eller refusjon når vi har bekreftet problemet.",
-        "Ved angrerett kan ubrukte produkter i originalemballasje og salgbar stand være berettiget innen 14 dager fra levering, med forbehold om lokal forbrukerlov. Varer som er åpnet eller brukt, kan som regel ikke returneres til lager hvis de ikke lenger er i vesentlig uendret stand — med mindre produktet er feilaktig.",
-        "Godkjente returer skal sendes med sporbar metode. Opprinnelig utgående frakt refunderes vanligvis ikke med mindre vi har gjort en feil."
+        "Kontakt oss før du sender noe, slik at vi kan gi riktig returadresse. Adressen kan variere avhengig av vare og sak.",
+        "Godkjente returer skal sendes med sporbar metode. Ta vare på kvitteringen til vi har bekreftet at pakken er kommet frem.",
+        "Ikke send en retur uten å høre fra oss først — feil adresse kan gjøre at vi ikke kan motta forsendelsen."
       ]
     },
     "refunds": {
       "title": "Refusjoner",
       "paragraphs": [
-        "Refusjoner gjøres til opprinnelig betalingsmetode etter at vi har mottatt og gjennomgått en godkjent retur, eller tidligere når vi avtaler refusjon uten retur. Behandlingen kan ta flere virkedager avhengig av banken eller kortleverandøren din."
+        "Refusjoner gjøres til opprinnelig betalingsmetode. Når du angrer, betaler vi tilbake det du har betalt for varen uten unødig opphold og senest innen 14 dager fra vi mottok meldingen din. Vi kan holde tilbake refusjonen til vi har fått varen, eller du har vist at den er sendt.",
+        "Ved feil ved varen refunderer eller erstatter vi når vi har bekreftet problemet, i noen tilfeller tidligere og uten retur. Behandlingen hos banken eller kortutstederen din kan ta noen virkedager til."
       ]
     },
     "lost": {
       "title": "Tapte eller forsinkede pakker",
       "paragraphs": [
-        "Hvis sporingen står stille over lengre tid, kontakt oss så undersøker vi med transportøren. Utfallet avhenger av undersøkelsen — erstatning, refusjon eller fortsatt levering — og vi holder deg oppdatert."
+        "Hvis sporingen står stille over lengre tid, eller pakken aldri kommer frem, kontakt oss så undersøker vi med transportøren. Utfallet avhenger av undersøkelsen — erstatning, refusjon eller fortsatt levering — og vi holder deg oppdatert. Du skal ikke måtte vente urimelig lenge uten beskjed."
       ]
+    },
+    "withdrawalForm": {
+      "title": "Mal for angrenotifikasjon",
+      "paragraphs": [
+        "Du kan kopiere malen under og sende den til oss på e-post. Du må ikke bruke akkurat disse ordene — en tydelig melding med ordrenummer er nok."
+      ],
+      "template": "Til: {seller}\nE-post: {email}\n\nJeg gir herved beskjed om at jeg trer tilbake fra avtalen om kjøp av følgende vare:\nProdukt:\nOrdrenummer:\nBestilt (dato):\nMottatt (dato):\nNavn:\nAdresse:\nDato:"
     },
     "help": {
       "title": "Trenger du hjelp?",
@@ -355,9 +397,10 @@
     "description": "Hvordan {brand} håndterer informasjonen din når du surfer, handler og mottar ordrer.",
     "updated": "august 2026",
     "whoWeAre": {
-      "title": "Hvem vi er",
+      "title": "Behandlingsansvarlig",
       "paragraphs": [
-        "{brand} er en nettbutikk for hjem og hverdag. Kasse og ordrebehandling skjer via Shopify. Ordrer kan fullføres av logistikkpartnerne våre på våre vegne."
+        "{brand} er behandlingsansvarlig for behandlingen som beskrives her. Selskapet som selger varene — og som er ansvarlig for personopplysningene — er det som angis under selskapsopplysninger, i vilkårene og i ordrebekreftelsen din.",
+        "Kasse og ordrebehandling skjer via Shopify. Ordrer pakkes og sendes av logistikkpartnere på våre vegne."
       ]
     },
     "whatWeCollect": {
@@ -367,7 +410,8 @@
         "Kontakt- og leveringsopplysninger som du oppgir i kassen (navn, e-post, adresse, telefon)",
         "Ordrehistorikk, betalingsstatus og leveringsoppdateringer",
         "Tekniske opplysninger som enhetstype, nettleser og omtrentlig sted som trengs for å drive butikken",
-        "Handlekurvinformasjon som lagres i en cookie på enheten din slik at handlekurven beholdes mens du surfer"
+        "Handlekurvinformasjon som lagres i en cookie på enheten din slik at handlekurven beholdes mens du surfer",
+        "Opplysninger du sender til support, for eksempel ordrenummer og bilder ved reklamasjon"
       ],
       "paragraphs": [
         "Kortbetalinger håndteres av Shopify og deres betalingsleverandører. Vi lagrer ikke fullstendige kortnumre på våre servere."
@@ -383,10 +427,29 @@
         "For å oppfylle juridiske, skattemessige og regnskapsmessige krav der de gjelder"
       ]
     },
+    "legalBases": {
+      "title": "Behandlingsgrunnlag",
+      "intro": "Vi behandler personopplysninger med grunnlag i personvernforordningen (GDPR):",
+      "items": [
+        "Avtale (artikkel 6.1 b) — for å motta, levere og gi support på ordren din",
+        "Rettslig forpliktelse (artikkel 6.1 c) — regnskap, skatt og forbrukerrett",
+        "Berettiget interesse (artikkel 6.1 f) — å forebygge svindel, holde nettstedet sikkert og forstå hvordan butikken brukes, uten å overstyre interessene dine",
+        "Samtykke (artikkel 6.1 a) — annonsecookies og annonsemåling via samtykkeplattformen på nettstedet. Du kan trekke samtykket når som helst uten at det påvirker kjøpet"
+      ]
+    },
     "partners": {
       "title": "Partnere som hjelper oss",
       "paragraphs": [
-        "Vi deler kun det som trengs med tjenester som hjelper til å drive butikken — for eksempel Shopify (kasse, betalinger, ordrebehandling) og fulfillmentpartnere som pakker og sender ordren din. De behandler opplysninger i henhold til egne retningslinjer og våre instruksjoner."
+        "Vi deler kun det som trengs med tjenester som hjelper til å drive butikken. Det omfatter Shopify (kasse, betalinger, ordrebehandling), betalingsleverandører tilknyttet kassen, transportører og logistikkpartnere som pakker og sender ordren din.",
+        "De behandler opplysninger etter egne retningslinjer og etter instruksjonene våre. Du handler hos oss; vi er fortsatt behandlingsansvarlige for hvordan opplysningene brukes for å oppfylle kjøpet."
+      ]
+    },
+    "transfers": {
+      "title": "Overføring utenfor EU/EØS",
+      "paragraphs": [
+        "Shopify kan behandle opplysninger i land utenfor EU/EØS, blant annet i USA, med de vernetiltakene Shopify beskriver i personverninformasjonen sin.",
+        "Logistikkpartnere som pakker og sender ordren din kan finnes utenfor EU/EØS, blant annet i Asia. Da overføres navn, leveringsadresse, telefonnummer og de ordreopplysningene som trengs for at varen skal nå deg.",
+        "Når en slik overføring krever ekstra vern etter GDPR, bruker vi egnede tiltak, for eksempel EU-kommisjonens standardavtaler. Du kan spørre oss hvor opplysningene dine er delt for en gitt ordre."
       ]
     },
     "cookies": {
@@ -399,15 +462,16 @@
     "retention": {
       "title": "Hvor lenge vi lagrer det",
       "paragraphs": [
-        "Ordre- og kundeopplysninger lagres så lenge det trengs for å fullføre kjøp, håndtere retur eller tvister og oppfylle lovpålagte lagringskrav. Handlekurvinformasjonskapsler opphører når de slettes eller utløper i nettleseren din."
+        "Ordre- og kundeopplysninger lagres så lenge det trengs for å fullføre kjøp, håndtere retur, reklamasjon eller tvister og oppfylle lovpålagte lagringskrav. Regnskapsunderlag oppbevares i Sverige som regel i sju år. Handlekurvinformasjonskapsler opphører når de slettes eller utløper i nettleseren din."
       ]
     },
     "yourChoices": {
-      "title": "Dine valg",
+      "title": "Dine rettigheter",
       "paragraphs": [
-        "Avhengig av hvor du bor kan du ha rett til å få tilgang til, rette, slette eller begrense visse personopplysninger, eller protestere mot viss behandling. Du kan også spørre oss hvor opplysningene dine er delt for ordreoppfyllelse.",
+        "Du kan ha rett til å få tilgang til, rette, slette eller begrense visse personopplysninger, å få ut opplysninger i et portabelt format, å protestere mot visse behandlinger og å trekke samtykke til informasjonskapsler. Du kan også spørre oss hvor opplysningene dine er delt for ordreoppfyllelse.",
         "For en personvernhenvendelse, send e-post til {email}. Vi kan måtte verifisere identiteten din før vi svarer.",
-        "For en personvernhenvendelse, kontakt oss via kontaktsiden vår. Vi kan måtte verifisere identiteten din før vi svarer."
+        "For en personvernhenvendelse, kontakt oss via kontaktsiden vår. Vi kan måtte verifisere identiteten din før vi svarer.",
+        "Du har rett til å klage til Integritetsskyddsmyndigheten (IMY) i Sverige, imy.se, eller til Datatilsynet i Norge, datatilsynet.no. Bor du i et annet EØS-land kan du også henvende deg til din nasjonale tilsynsmyndighet."
       ]
     },
     "children": {
@@ -432,33 +496,42 @@
     "agreement": {
       "title": "Avtale",
       "paragraphs": [
-        "Ved å bruke dette nettstedet eller legge inn en ordre godtar du disse vilkårene og vår Personvernpolicy. Hvis du ikke godtar, ikke bruk butikken."
+        "Ved å bruke dette nettstedet eller legge inn en ordre godtar du disse vilkårene og vår Personvernpolicy. Hvis du ikke godtar, ikke bruk butikken. Ufravikelig forbrukerrett går foran vilkårene hvis den gir deg et sterkere vern."
       ],
       "privacyLink": "Personvernpolicy"
+    },
+    "seller": {
+      "title": "Selger",
+      "paragraphs": [
+        "Du handler hos {brand}. Selger av varene er selskapet som angis nedenfor og i ordrebekreftelsen din. Vi er ansvarlige for kjøpet også når logistikkpartnere pakker og sender ordren."
+      ],
+      "missing": "Fullstendige selskapsopplysninger fremgår av ordrebekreftelsen din. Kontakt oss hvis du trenger navn, adresse eller organisasjonsnummer i et annet format."
     },
     "store": {
       "title": "Butikken",
       "paragraphs": [
-        "{brand} selger produkter for hjem og hverdag online. Produktsider, priser og tilgjengelighet vises via vår Shopify-drevne katalog og kan endres uten forhåndsvarsel. Vi gjør vårt beste for å holde beskrivelser korrekte; små forskjeller i emballasje eller bilder kan forekomme."
+        "{brand} selger produkter for hjem og hverdag online. Produktsider, priser og tilgjengelighet vises via vår Shopify-drevne katalog og kan endres uten forhåndsvarsel. Vi gjør vårt beste for å holde beskrivelser korrekte; små forskjeller i emballasje, farge eller bilder kan forekomme.",
+        "At en vare kan kjøpes betyr at den kan bestilles via logistikknettet vårt — ikke at den nødvendigvis ligger på et nordisk butikklager."
       ]
     },
     "orders": {
       "title": "Ordrer & betaling",
       "paragraphs": [
-        "Å legge inn en ordre er et tilbud om å kjøpe. Vi (eller Shopify på våre vegne) bekrefter aksept via e-post når betalingen lykkes. Priser vises før utsjekking; skatter og frakt beregnes i kassen der det er aktuelt.",
-        "Betaling behandles sikkert av Shopify og deres betalingsleverandører. Vi forbeholder oss retten til å avslå eller avbryte en ordre ved mistanke om svindel, prisfeil, lagerproblemer eller fraktbegrensninger."
+        "Å legge inn en ordre er et tilbud om å kjøpe. Vi (eller Shopify på våre vegne) bekrefter aksept via e-post når betalingen lykkes. Priser vises inkludert merverdiavgift der det er aktuelt, med mindre noe annet fremgår. Frakt beregnes i kassen før du betaler.",
+        "Betaling behandles sikkert av Shopify og deres betalingsleverandører. Vi forbeholder oss retten til å avslå eller avbryte en ordre ved mistanke om svindel, prisfeil, lagerproblemer eller fraktbegrensninger. Hvis vi avbryter etter betaling, refunderer vi det du har betalt."
       ]
     },
     "fulfillment": {
-      "title": "Oppfyllelse",
+      "title": "Levering",
       "paragraphs": [
-        "Ordrer fullføres via logistikkpartnerne våre. Behandlings- og leveringstider varierer avhengig av destinasjon og produkt. Sporing gis når den er tilgjengelig. Risikoen for tap går over til deg når transportøren markerer pakken som levert, med mindre lokal forbrukerlov sier noe annet."
+        "Ordrer pakkes og sendes av logistikkpartnerne våre. Vi er fortsatt selger og ansvarlige for at du får det du har kjøpt. Behandlings- og leveringstider varierer med destinasjon og produkt; ta utgangspunkt i tidene på produktsiden og under Frakt & retur.",
+        "Sporing gis når den er tilgjengelig. Risikoen for tap går over til deg når varen er kommet i din besittelse, med mindre ufravikelig forbrukerlov sier noe annet."
       ]
     },
     "personalUse": {
-      "title": "Personlig bruk",
+      "title": "Bruk av nettstedet",
       "paragraphs": [
-        "Produkter selges for personlig bruk. Misbruk ikke innhold fra dette nettstedet, ikke forsøk å forstyrre butikken eller skrape katalogen for kommersiell gjenbruk uten tillatelse."
+        "Misbruk ikke innhold fra dette nettstedet, ikke forsøk å forstyrre butikken eller skrape katalogen for kommersiell gjenbruk uten tillatelse."
       ]
     },
     "care": {
@@ -468,16 +541,23 @@
       ]
     },
     "returns": {
-      "title": "Retur",
+      "title": "Angrerett & reklamasjon",
       "paragraphs": [
-        "Frakt, retur og refusjoner er beskrevet på siden vår om Frakt & retur. Lokale forbrukerrettigheter som ikke kan avtales bort gjelder fortsatt."
+        "Frakt, angrerett, reklamasjon og refusjoner er beskrevet på siden vår om Frakt & retur. Lokale forbrukerrettigheter som ikke kan avtales bort gjelder fortsatt."
       ],
       "returnsLink": "Frakt & retur"
     },
     "liability": {
       "title": "Ansvar",
       "paragraphs": [
-        "I den utstrekning loven tillater er {brand} ikke ansvarlig for indirekte eller følgeskader som oppstår ved bruk av nettstedet eller produktene. Ingenting i disse vilkårene begrenser ansvar for dødsfall eller personskade forårsaket av uaktsomhet, svindel eller andre rettigheter som ikke kan begrenses etter loven."
+        "I den utstrekning loven tillater er {brand} ikke ansvarlig for indirekte eller følgeskader som oppstår ved bruk av nettstedet eller produktene. Ingenting i disse vilkårene begrenser ansvar for dødsfall eller personskade forårsaket av uaktsomhet, svindel, mangel ved varen etter forbrukerkjøpsloven eller andre rettigheter som ikke kan begrenses etter loven."
+      ]
+    },
+    "law": {
+      "title": "Lovvalg & tvist",
+      "paragraphs": [
+        "Avtalen reguleres av svensk rett, med unntak av lovvalgsregler som ville føre til et annet lands lov. Dette tar ikke fra deg ufravikelig forbrukervern i landet du bor i.",
+        "Ved tvist: kontakt oss først. Du kan deretter henvende deg til Allmänna reklamationsnämnden (ARN) i Sverige, arn.se, eller til Forbrukertilsynet og Forbrukerrådet i Norge. Du kan også klage til Forbrukerklageutvalget. Kommunal forbrukerveiledning kan gi råd."
       ]
     },
     "contact": {
@@ -491,11 +571,77 @@
   },
   "common": {
     "updated": "Oppdatert {date}",
-    "back": "Tilbake"
+    "back": "Tilbake",
+    "legalName": "Selskap",
+    "legalAddress": "Adresse",
+    "orgNumber": "Organisasjonsnummer",
+    "vatNumber": "MVA-nummer",
+    "legalEmail": "E-post",
+    "tradingName": "Handelsnavn",
+    "returnsAddress": "Returadresse"
   },
   "notFound": {
     "title": "Siden ble ikke funnet",
     "body": "Den siden eller det produktet finnes ikke.",
     "cta": "Til butikken"
+  },
+  "account": {
+    "metaTitle": "Min konto",
+    "metaDescription": "Se ordrer, sporing og ønskeliste hos {brand}.",
+    "title": "Min konto",
+    "welcome": "Hei {name}",
+    "welcomeGuest": "Min konto",
+    "loginTitle": "Logg inn",
+    "loginBody": "Logg inn med Shopify for å se ordrer, sporing og ønskelisten din.",
+    "loginCta": "Logg inn",
+    "loginError": "Innloggingen mislyktes. Prøv igjen.",
+    "logout": "Logg ut",
+    "notConfigured": "Kundekontoer er ikke konfigurert ennå. Legg til Customer Account API-opplysninger i miljøet.",
+    "ordersTitle": "Ordrer",
+    "ordersEmpty": "Du har ingen ordrer ennå.",
+    "ordersCta": "Til sortimentet",
+    "ordersView": "Vis ordre",
+    "ordersLoadMore": "Vis eldre ordrer",
+    "orderTitle": "Ordre {name}",
+    "orderBack": "← Alle ordrer",
+    "orderPlaced": "Lagt {date}",
+    "orderFinancial": "Betaling",
+    "orderFulfillment": "Levering",
+    "orderItems": "Varer",
+    "orderShipping": "Leveringsadresse",
+    "orderTotals": "Oppsummering",
+    "orderSubtotal": "Delsum",
+    "orderShippingCost": "Frakt",
+    "orderTax": "MVA",
+    "orderTotal": "Totalt",
+    "orderTracking": "Sporing",
+    "orderTrackingEmpty": "Sporing vises her når pakken har forlatt lageret.",
+    "orderTrackingNumber": "Sporingsnummer {number}",
+    "orderTrackingLink": "Følg forsendelsen",
+    "orderStatusPage": "Shopify ordrestatus",
+    "orderNotFound": "Ordren ble ikke funnet.",
+    "wishlistTitle": "Ønskeliste",
+    "wishlistEmpty": "Ønskelisten din er tom.",
+    "wishlistCta": "Utforsk sortimentet",
+    "navAccount": "Konto",
+    "navOrders": "Ordrer",
+    "navWishlist": "Ønskeliste",
+    "shortcutOrders": "Se ordrer og sporing",
+    "shortcutWishlist": "Ønskeliste",
+    "shortcutShop": "Fortsett å handle"
+  },
+  "wishlist": {
+    "add": "Lagre i ønskelisten",
+    "remove": "Fjern fra ønskelisten",
+    "saved": "Lagret"
+  },
+  "orderConfirmed": {
+    "metaTitle": "Takk for bestillingen",
+    "title": "Takk — ordren er mottatt",
+    "body": "Du får en bekreftelse på e-post. Når pakken forlater lageret, vises sporing i kontoen din.",
+    "orderLabel": "Ordre {order}",
+    "viewOrders": "Se mine ordrer",
+    "continueShopping": "Fortsett å handle",
+    "loginHint": "Logg inn for å følge ordren og sporingen her."
   }
 }

@@ -8,6 +8,7 @@ import { useDictionary } from "@/components/dictionary-provider";
 import { ProductTrust } from "@/components/product-trust";
 import { ProductViewingActivity } from "@/components/product-viewing-activity";
 import { ProductPrice } from "@/components/product-price";
+import { WishlistButton } from "@/components/wishlist-button";
 import {
   metaContentIdFromGid,
   trackAddToCart,
@@ -25,11 +26,16 @@ import {
 type ProductFormProps = {
   product: Product;
   onVariantChange?: (variant: ProductVariant | null) => void;
+  wishlistSaved?: boolean;
 };
 
 type PendingMode = "add" | "buy" | null;
 
-export function ProductForm({ product, onVariantChange }: ProductFormProps) {
+export function ProductForm({
+  product,
+  onVariantChange,
+  wishlistSaved = false,
+}: ProductFormProps) {
   const { dict, t } = useDictionary();
   const router = useRouter();
   const { openCart, setCart } = useCart();
@@ -257,6 +263,13 @@ export function ProductForm({ product, onVariantChange }: ProductFormProps) {
             ? dict.products.adding
             : dict.products.addToCart}
         </button>
+        <div className="flex items-center justify-center gap-2 text-sm text-muted">
+          <WishlistButton
+            productId={product.id}
+            initialSaved={wishlistSaved}
+          />
+          <span>{wishlistSaved ? dict.wishlist.saved : dict.wishlist.add}</span>
+        </div>
         <p className="text-center text-xs font-light leading-relaxed text-muted">
           {t(dict.products.secureEta, {
             processing: dict.fulfillment.processingShort,

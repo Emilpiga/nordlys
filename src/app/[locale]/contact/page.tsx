@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { LegalPage, LegalSection } from "@/components/legal-page";
+import { ContactForm } from "@/components/contact-form";
+import { LegalFacts, LegalPage, LegalSection } from "@/components/legal-page";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
+import {
+  getLegalIdentity,
+  hasRegisteredEntity,
+  identityFactItems,
+} from "@/lib/legal";
 import { shopifyConfig } from "@/lib/shopify/config";
 import {
   localeAlternates,
@@ -42,7 +48,8 @@ export default async function ContactPage({ params }: Props) {
 
   const dict = await getDictionary(locale);
   const brand = shopifyConfig.storeName;
-  const email = shopifyConfig.supportEmail;
+  const identity = getLegalIdentity();
+  const email = identity.email;
   const c = dict.contact;
   const updatedLabel = t(dict.common.updated, { date: c.updated });
   const emailSubject = t(c.emailSubject, { brand });
@@ -54,6 +61,10 @@ export default async function ContactPage({ params }: Props) {
       description={c.description}
       updated={updatedLabel}
     >
+      <LegalSection title={c.formTitle}>
+        <ContactForm />
+      </LegalSection>
+
       <LegalSection title={c.emailTitle}>
         {email ? (
           <>
@@ -70,7 +81,7 @@ export default async function ContactPage({ params }: Props) {
             <p>
               <a
                 href={`mailto:${email}?subject=${encodeURIComponent(emailSubject)}`}
-                className="btn-primary mt-2"
+                className="btn-secondary mt-2"
               >
                 {c.emailCta}
               </a>
@@ -79,6 +90,11 @@ export default async function ContactPage({ params }: Props) {
         ) : (
           <p>{c.emailFallback}</p>
         )}
+      </LegalSection>
+
+      <LegalSection title={c.companyTitle}>
+        <LegalFacts items={identityFactItems(dict.common, identity)} />
+        {!hasRegisteredEntity(identity) ? <p>{c.companyMissing}</p> : null}
       </LegalSection>
 
       <LegalSection title={c.beforeTitle}>

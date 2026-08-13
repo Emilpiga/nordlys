@@ -3,6 +3,7 @@
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
 import { SiteLogo } from "@/components/site-logo";
+import { getLegalIdentity, hasRegisteredEntity } from "@/lib/legal";
 import { shopifyConfig } from "@/lib/shopify/config";
 
 const linkClass =
@@ -14,6 +15,19 @@ const headingClass =
 export function SiteFooter() {
   const { dict, t } = useDictionary();
   const year = new Date().getFullYear();
+  const identity = getLegalIdentity();
+  const companyBits = [
+    identity.legalName && identity.legalName !== identity.tradingName
+      ? identity.legalName
+      : "",
+    identity.orgNumber
+      ? t(dict.footer.orgNumber, { orgNumber: identity.orgNumber })
+      : "",
+    identity.vatNumber
+      ? t(dict.footer.vatNumber, { vatNumber: identity.vatNumber })
+      : "",
+    identity.address,
+  ].filter(Boolean);
 
   return (
     <footer className="relative mt-auto overflow-hidden">
@@ -109,9 +123,14 @@ export function SiteFooter() {
       </div>
 
       <div className="relative flex flex-col gap-3 border-t border-border/60 px-5 py-8 text-[0.72rem] font-light tracking-[0.08em] text-muted sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:tracking-[0.12em]">
-        <p>
-          © {year} {shopifyConfig.storeName}
-        </p>
+        <div className="space-y-1">
+          <p>
+            © {year} {identity.legalName || shopifyConfig.storeName}
+          </p>
+          {hasRegisteredEntity(identity) && companyBits.length ? (
+            <p>{companyBits.join(" · ")}</p>
+          ) : null}
+        </div>
         <p className="uppercase">
           {t(dict.footer.shippingBadge, {
             processing: dict.fulfillment.processingShort,

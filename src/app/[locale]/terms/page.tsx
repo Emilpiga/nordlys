@@ -2,9 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
-import { LegalPage, LegalSection } from "@/components/legal-page";
+import { LegalFacts, LegalPage, LegalSection } from "@/components/legal-page";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
+import {
+  getLegalIdentity,
+  hasRegisteredEntity,
+  identityFactItems,
+  legalCopyVars,
+} from "@/lib/legal";
 import { shopifyConfig } from "@/lib/shopify/config";
 import {
   localeAlternates,
@@ -69,22 +75,23 @@ export default async function TermsPage({ params }: Props) {
   if (!isLocale(locale)) notFound();
 
   const dict = await getDictionary(locale);
-  const brand = shopifyConfig.storeName;
-  const email = shopifyConfig.supportEmail;
+  const identity = getLegalIdentity();
+  const vars = legalCopyVars(identity);
+  const email = identity.email;
   const tm = dict.terms;
   const updatedLabel = t(dict.common.updated, { date: tm.updated });
 
   return (
     <LegalPage
       title={tm.title}
-      description={t(tm.description, { brand })}
+      description={t(tm.description, vars)}
       updated={updatedLabel}
     >
       <LegalSection title={tm.agreement.title}>
         {tm.agreement.paragraphs.map((paragraph) => (
           <p key={paragraph}>
             {withLinkedPhrase(
-              paragraph,
+              t(paragraph, vars),
               tm.agreement.privacyLink,
               localePath(locale, "/privacy"),
             )}
@@ -92,33 +99,41 @@ export default async function TermsPage({ params }: Props) {
         ))}
       </LegalSection>
 
+      <LegalSection title={tm.seller.title}>
+        {tm.seller.paragraphs.map((paragraph) => (
+          <p key={paragraph}>{t(paragraph, vars)}</p>
+        ))}
+        <LegalFacts items={identityFactItems(dict.common, identity)} />
+        {!hasRegisteredEntity(identity) ? <p>{tm.seller.missing}</p> : null}
+      </LegalSection>
+
       <LegalSection title={tm.store.title}>
         {tm.store.paragraphs.map((paragraph) => (
-          <p key={paragraph}>{t(paragraph, { brand })}</p>
+          <p key={paragraph}>{t(paragraph, vars)}</p>
         ))}
       </LegalSection>
 
       <LegalSection title={tm.orders.title}>
         {tm.orders.paragraphs.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
+          <p key={paragraph}>{t(paragraph, vars)}</p>
         ))}
       </LegalSection>
 
       <LegalSection title={tm.fulfillment.title}>
         {tm.fulfillment.paragraphs.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
+          <p key={paragraph}>{t(paragraph, vars)}</p>
         ))}
       </LegalSection>
 
       <LegalSection title={tm.personalUse.title}>
         {tm.personalUse.paragraphs.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
+          <p key={paragraph}>{t(paragraph, vars)}</p>
         ))}
       </LegalSection>
 
       <LegalSection title={tm.care.title}>
         {tm.care.paragraphs.map((paragraph) => (
-          <p key={paragraph}>{t(paragraph, { brand })}</p>
+          <p key={paragraph}>{t(paragraph, vars)}</p>
         ))}
       </LegalSection>
 
@@ -126,7 +141,7 @@ export default async function TermsPage({ params }: Props) {
         {tm.returns.paragraphs.map((paragraph) => (
           <p key={paragraph}>
             {withLinkedPhrase(
-              paragraph,
+              t(paragraph, vars),
               tm.returns.returnsLink,
               localePath(locale, "/returns"),
             )}
@@ -136,7 +151,13 @@ export default async function TermsPage({ params }: Props) {
 
       <LegalSection title={tm.liability.title}>
         {tm.liability.paragraphs.map((paragraph) => (
-          <p key={paragraph}>{t(paragraph, { brand })}</p>
+          <p key={paragraph}>{t(paragraph, vars)}</p>
+        ))}
+      </LegalSection>
+
+      <LegalSection title={tm.law.title}>
+        {tm.law.paragraphs.map((paragraph) => (
+          <p key={paragraph}>{t(paragraph, vars)}</p>
         ))}
       </LegalSection>
 

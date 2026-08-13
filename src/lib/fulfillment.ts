@@ -13,7 +13,7 @@ export const fulfillment = {
   tracking:
     "Du får spårning så snart transportören har skannat paketet.",
   returns:
-    "14 dagars ångerrätt för oanvända varor i originalförpackning. Skadade eller felaktiga produkter ersätter vi.",
-  guaranteeShort: "14 dagars ångerrätt · defekter ersätts",
+    "14 dagars ångerrätt från att du tog emot varan. Fel på varan åtgärdas enligt konsumentköplagen.",
+  guaranteeShort: "14 dagars ångerrätt · fel åtgärdas enligt lag",
   secureCheckout: "Säker kassa via Shopify",
 } as const;

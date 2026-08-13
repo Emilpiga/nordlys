@@ -1,0 +1,31 @@
+api_version = "2026-01"
+
+[[extensions]]
+name = "thank-you-continue"
+handle = "thank-you-continue"
+type = "ui_extension"
+
+[[extensions.targeting]]
+module = "./src/ThankYouContinue.jsx"
+target = "purchase.thank-you.block.render"
+
+[[extensions.targeting]]
+module = "./src/OrderStatusContinue.jsx"
+target = "customer-account.order-status.block.render"
+
+[extensions.capabilities]
+api_access = true
+network_access = false
+
+[extensions.settings]
+[[extensions.settings.fields]]
+key = "storefront_url"
+type = "single_line_text_field"
+name = "Storefront URL"
+description = "Public storefront origin, e.g. https://www.vardagsstil.se"
+
+[[extensions.settings.fields]]
+key = "default_locale"
+type = "single_line_text_field"
+name = "Default locale"
+description = "Locale path segment (sv, no, da, or fi)"

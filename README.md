@@ -95,6 +95,11 @@ Fill `.env.local`:
 |----------|---------|
 | `NEXT_PUBLIC_STORE_NAME` | Your brand name |
 | `NEXT_PUBLIC_SUPPORT_EMAIL` | Public support inbox (Contact / legal pages) |
+| `NEXT_PUBLIC_LEGAL_NAME` | Registered company name (shown on legal pages and footer) |
+| `NEXT_PUBLIC_LEGAL_ADDRESS` | Geographic business address |
+| `NEXT_PUBLIC_ORG_NUMBER` | Organisationsnummer / CVR / Y-tunnus |
+| `NEXT_PUBLIC_VAT_NUMBER` | VAT / momsregistreringsnummer |
+| `NEXT_PUBLIC_RETURNS_ADDRESS` | Optional fixed returns address (otherwise emailed on request) |
 | `NEXT_PUBLIC_META_PIXEL_ID` | Meta Pixel ID (loads only after cookie consent) |
 | `NEXT_PUBLIC_FACEBOOK_APP_ID` | Facebook App ID for `fb:app_id` (Sharing Debugger / Meta) |
 | `NEXT_PUBLIC_GOOGLE_ADS_ID` | Google Ads tag ID `AW-…` (same consent gate) |
@@ -104,23 +109,65 @@ Fill `.env.local`:
 | `SHOPIFY_STOREFRONT_API_VERSION` | `2026-04` |
 | `SHOPIFY_STOREFRONT_LANGUAGE` | Fallback language code, e.g. `SV` (URL locale overrides) |
 | `SHOPIFY_STOREFRONT_COUNTRY` | Fallback country code, e.g. `SE` (URL locale overrides) |
+| `NEXT_PUBLIC_SITE_URL` | Canonical origin (OAuth callbacks, SEO) |
+| `SHOPIFY_CUSTOMER_ACCOUNT_CLIENT_ID` | Headless → Customer Account API (confidential) |
+| `SHOPIFY_CUSTOMER_ACCOUNT_CLIENT_SECRET` | Matching confidential client secret |
+| `SHOPIFY_CUSTOMER_ACCOUNT_CALLBACK_URL` | HTTPS callback, e.g. `https://…/api/auth/callback` |
+| `CUSTOMER_SESSION_SECRET` | Optional cookie sealing secret |
+| `RESEND_API_KEY` | Resend API key for the contact form |
+| `RESEND_FROM_EMAIL` | Verified from address, e.g. `Harbor <hello@domain.com>` |
 
 Open [http://localhost:3000](http://localhost:3000) (redirects to `/sv` by default). Language selector is in the header.
+
+## 4. Customer accounts
+
+1. Shopify Admin → **Settings → Customer accounts** → enable **Customer accounts**.
+2. **Sales channels → Headless → your storefront → Customer Account API**:
+   - Client type: **Confidential**
+   - Callback URL: `https://YOUR_DOMAIN/api/auth/callback` (ngrok HTTPS URL in local dev — Shopify rejects `localhost` / `http`)
+   - Logout / post-logout redirect: your storefront origin
+   - Scopes include customer read/write as exposed by Headless
+3. Copy client id + secret into `.env.local`.
+4. Create the wishlist metafield (once):
+
+```bash
+node scripts/ensure-wishlist-metafield.mjs
+```
+
+Namespace/key: `harbor.wishlist` (`json`, customer account `READ_WRITE`).
+
+Routes: `/[locale]/account`, `/account/orders`, `/account/orders/[id]`, `/account/wishlist`.
+
+## 5. Contact (Resend)
+
+1. Create a [Resend](https://resend.com) account and verify your sending domain.
+2. Set `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `NEXT_PUBLIC_SUPPORT_EMAIL`.
+3. Contact page posts via server action to your support inbox.
+
+## 6. Post-purchase landing + Checkout UI extension
+
+Shopify Checkout always lands on Shopify’s thank-you page (auto-redirect to your domain is blocked).
+
+1. Storefront page: `/[locale]/order/confirmed` (clears cart, optional Purchase pixel).
+2. Deploy the app in [`shopify-app/`](shopify-app/) — see [`shopify-app/README.md`](shopify-app/README.md).
+3. In Checkout editor, enable the **thank-you-continue** block and set **Storefront URL** + locale.
 
 ## What’s included
 
 - Locales: Swedish, Norwegian, Danish, Finnish (`/sv`, `/no`, `/da`, `/fi`)
-- Home, product grid, product detail, cart drawer + cart page
+- Home, product grid (cursor pagination via Storefront API), product detail, cart drawer + cart page
 - Cookie-backed Shopify Cart with Markets `buyerIdentity`
 - Checkout redirect to Shopify Checkout URL
-- About, FAQ, Privacy, Terms, Shipping & returns, Contact
+- Customer Account API login, orders, tracking, wishlist
+- Contact form (Resend) + About, FAQ, Privacy, Terms, Shipping & returns
+- Branded order confirmation page + Checkout thank-you CTA extension
 - Consent Mode + ad pixels
 - Graceful empty state when Shopify credentials are missing
 
-## What’s not in v1 (on purpose)
+## What’s not in this storefront (on purpose)
 
-- Customer accounts
-- Custom checkout (needs Shopify Plus)
+- Custom checkout (Shopify-hosted Checkout)
+- Automatic redirect off Shopify thank-you (Checkout Extensibility limitation)
 - Direct CJ API (use the Shopify app)
 - Domain-per-country (`.se` / `.no`) — subpaths only
 - CMS / blog
@@ -129,11 +176,14 @@ Open [http://localhost:3000](http://localhost:3000) (redirects to `/sv` by defau
 
 1. Push to GitHub.
 2. Import on [Vercel](https://vercel.com).
-3. Add the same env vars.
+3. Add the same env vars (including Customer Account callback = production HTTPS URL).
 4. In Shopify, allow your production domain for the Headless / custom storefront channel if prompted.
-5. Point DNS at Vercel.
+5. Register the production OAuth callback + logout URLs in Headless Customer Account API settings.
+6. Point DNS at Vercel.
+7. Deploy / enable the Checkout UI extension (`shopify-app/`).
 
 ## Sibling split
 
 - **Storefront / brand / ads** — this Next.js app + creatives
 - **Ops** — Shopify Admin + CJ imports, fulfillment rules, refunds
+- **Checkout CTA** — `shopify-app/` thank-you extension

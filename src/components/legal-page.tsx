@@ -47,3 +47,22 @@ export function LegalSection({
     </section>
   );
 }
+
+export function LegalFacts({
+  items,
+}: {
+  items: { label: string; value: string }[];
+}) {
+  const visible = items.filter((item) => item.value.trim());
+  if (!visible.length) return null;
+
+  return (
+    <ul className="space-y-2">
+      {visible.map((item) => (
+        <li key={item.label}>
+          <span className="text-foreground">{item.label}:</span> {item.value}
+        </li>
+      ))}
+    </ul>
+  );
+}

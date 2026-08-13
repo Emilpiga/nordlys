@@ -156,6 +156,13 @@ export async function removeCartLineAction(lineId: string) {
   return updateCartLineAction(lineId, 0);
 }
 
+export async function clearCartAction() {
+  await clearCartId();
+  const locale = await readLocale();
+  revalidateCartPaths(locale);
+  return { ok: true as const };
+}
+
 /** Sync Markets country + Storefront language when the shopper changes locale. */
 export async function updateCartLocaleAction(locale: string) {
   if (!isLocale(locale)) return { ok: false as const };

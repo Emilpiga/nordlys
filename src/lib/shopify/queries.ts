@@ -140,3 +140,94 @@ export const SEARCH_PRODUCTS_QUERY = /* GraphQL */ `
   }
   ${PRODUCT_CARD_FRAGMENT}
 `;
+
+export const GET_PRODUCTS_BY_IDS_QUERY = /* GraphQL */ `
+  query GetProductsByIds(
+    $ids: [ID!]!
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    nodes(ids: $ids) {
+      ... on Product {
+        ...ProductCardFields
+      }
+    }
+  }
+  ${PRODUCT_CARD_FRAGMENT}
+`;
+
+export const GET_PRODUCTS_PAGE_QUERY = /* GraphQL */ `
+  query GetProductsPage(
+    $first: Int
+    $last: Int
+    $after: String
+    $before: String
+    $sortKey: ProductSortKeys
+    $reverse: Boolean
+    $query: String
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    products(
+      first: $first
+      last: $last
+      after: $after
+      before: $before
+      sortKey: $sortKey
+      reverse: $reverse
+      query: $query
+    ) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      nodes {
+        ...ProductCardFields
+      }
+    }
+  }
+  ${PRODUCT_CARD_FRAGMENT}
+`;
+
+export const GET_COLLECTION_PRODUCTS_PAGE_QUERY = /* GraphQL */ `
+  query GetCollectionProductsPage(
+    $handle: String!
+    $first: Int
+    $last: Int
+    $after: String
+    $before: String
+    $sortKey: ProductCollectionSortKeys
+    $reverse: Boolean
+    $filters: [ProductFilter!]
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    collection(handle: $handle) {
+      id
+      handle
+      title
+      products(
+        first: $first
+        last: $last
+        after: $after
+        before: $before
+        sortKey: $sortKey
+        reverse: $reverse
+        filters: $filters
+      ) {
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+          startCursor
+          endCursor
+        }
+        nodes {
+          ...ProductCardFields
+        }
+      }
+    }
+  }
+  ${PRODUCT_CARD_FRAGMENT}
+`;

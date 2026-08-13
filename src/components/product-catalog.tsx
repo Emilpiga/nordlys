@@ -14,15 +14,15 @@ import {
 } from "@/components/product-filters";
 import {
   activeFilterCount,
-  applyCatalogFilters,
   catalogPriceBounds,
   emptyFilters,
-  paginateCatalog,
   parseFilters,
   sanitizeFilters,
   serializeFilters,
   type CatalogFilters,
+  type CatalogPageInfo,
   type CatalogQuery,
+  type PriceBounds,
 } from "@/lib/catalog-filters";
 import type { CollectionSummary, Product } from "@/lib/shopify/types";
 
@@ -32,6 +32,8 @@ type ProductCatalogProps = {
   products: Product[];
   collections: CollectionSummary[];
   initialQuery: CatalogQuery;
+  pageInfo: CatalogPageInfo;
+  bounds?: PriceBounds;
 };
 
 export function ProductCatalog({
@@ -40,49 +42,37 @@ export function ProductCatalog({
   products,
   collections,
   initialQuery,
+  pageInfo,
+  bounds: boundsProp,
 }: ProductCatalogProps) {
   const { dict, t } = useDictionary();
   const copy = dict.products.filters;
   const router = useRouter();
   const pathname = usePathname();
-  const bounds = useMemo(() => catalogPriceBounds(products), [products]);
+  const bounds = useMemo(
+    () => boundsProp ?? catalogPriceBounds(products),
+    [boundsProp, products],
+  );
   const [filters, setFilters] = useState<CatalogFilters>(() =>
-    sanitizeFilters(parseFilters(initialQuery), catalogPriceBounds(products)),
+    sanitizeFilters(parseFilters(initialQuery), bounds),
   );
   const [drawerOpen, setDrawerOpen] = useState(false);
   const skipUrl = useRef(true);
-  const skipScroll = useRef(true);
   const catalogRef = useRef<HTMLDivElement>(null);
-
-  const visible = useMemo(
-    () => applyCatalogFilters(products, collections, filters, bounds),
-    [products, collections, filters, bounds],
-  );
-  const paged = useMemo(
-    () => paginateCatalog(visible, filters.page),
-    [visible, filters.page],
-  );
-  const current = useMemo(
-    () => sanitizeFilters(filters, bounds, paged.pages),
-    [filters, bounds, paged.pages],
-  );
+  const current = sanitizeFilters(filters, bounds);
   const activeCount = activeFilterCount(current, bounds);
   const currencyCode =
     products[0]?.priceRange.minVariantPrice.currencyCode ?? "SEK";
   const countLabel =
-    paged.total === 0
+    products.length === 0
       ? t(copy.countMany, { count: 0 })
-      : paged.pages > 1
-        ? t(copy.range, { from: paged.from, to: paged.to, total: paged.total })
-        : paged.total === 1
-          ? copy.countOne
-          : t(copy.countMany, { count: paged.total });
+      : products.length === 1
+        ? copy.countOne
+        : t(copy.countMany, { count: products.length });
 
   useEffect(() => {
-    if (current.page !== filters.page) {
-      setFilters((prev) => ({ ...prev, page: current.page }));
-    }
-  }, [current.page, filters.page]);
+    setFilters(sanitizeFilters(parseFilters(initialQuery), bounds));
+  }, [initialQuery, bounds]);
 
   useEffect(() => {
     if (skipUrl.current) {
@@ -90,7 +80,7 @@ export function ProductCatalog({
       return;
     }
 
-    const query = serializeFilters(current, bounds, paged.pages);
+    const query = serializeFilters(current, bounds);
     const next = query ? `${pathname}?${query}` : pathname;
     const href = `${pathname}${window.location.search}`;
     if (href === next) return;
@@ -100,22 +90,32 @@ export function ProductCatalog({
     }, 180);
 
     return () => window.clearTimeout(timer);
-  }, [current, bounds, paged.pages, pathname, router]);
-
-  useEffect(() => {
-    if (skipScroll.current) {
-      skipScroll.current = false;
-      return;
-    }
-    catalogRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, [current.page]);
+  }, [current, bounds, pathname, router]);
 
   function changeFilters(next: CatalogFilters) {
-    setFilters({ ...next, page: 1 });
+    setFilters(next);
   }
 
   function resetFilters() {
     setFilters(emptyFilters());
+  }
+
+  function goNext() {
+    if (!pageInfo.endCursor) return;
+    const query = serializeFilters(current, bounds, {
+      after: pageInfo.endCursor,
+    });
+    router.push(query ? `${pathname}?${query}` : pathname);
+    catalogRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function goPrevious() {
+    if (!pageInfo.startCursor) return;
+    const query = serializeFilters(current, bounds, {
+      before: pageInfo.startCursor,
+    });
+    router.push(query ? `${pathname}?${query}` : pathname);
+    catalogRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   const panel = (
@@ -167,12 +167,12 @@ export function ProductCatalog({
           <CollectionChips
             collections={collections}
             value={current.collection}
-            allCount={products.length}
+            allCount={null}
             onChange={(collection) => changeFilters({ ...current, collection })}
           />
         </div>
 
-        {paged.total === 0 ? (
+        {products.length === 0 ? (
           <div className="max-w-md py-10">
             <p className="font-display text-3xl font-medium tracking-tight">
               {copy.emptyTitle}
@@ -180,21 +180,25 @@ export function ProductCatalog({
             <p className="mt-3 text-base font-light leading-relaxed text-muted">
               {copy.emptyBody}
             </p>
-            <button type="button" onClick={resetFilters} className="btn-primary mt-8">
+            <button
+              type="button"
+              onClick={resetFilters}
+              className="btn-primary mt-8"
+            >
               {copy.emptyCta}
             </button>
           </div>
         ) : (
           <>
             <div className="grid grid-cols-2 gap-x-5 gap-y-12 lg:grid-cols-4 lg:gap-x-6">
-              {paged.items.map((product) => (
+              {products.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
             <CatalogPagination
-              page={paged.page}
-              pages={paged.pages}
-              onChange={(page) => setFilters({ ...current, page })}
+              pageInfo={pageInfo}
+              onPrevious={goPrevious}
+              onNext={goNext}
             />
           </>
         )}

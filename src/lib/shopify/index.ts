@@ -23,8 +23,11 @@ import {
 import {
   GET_CART_QUERY,
   GET_COLLECTION_BY_HANDLE_QUERY,
+  GET_COLLECTION_PRODUCTS_PAGE_QUERY,
   GET_COLLECTIONS_QUERY,
   GET_PRODUCT_BY_HANDLE_QUERY,
+  GET_PRODUCTS_BY_IDS_QUERY,
+  GET_PRODUCTS_PAGE_QUERY,
   GET_PRODUCTS_QUERY,
   PREDICTIVE_SEARCH_QUERY,
   SEARCH_PRODUCTS_QUERY,
@@ -531,4 +534,217 @@ export async function updateCartBuyerIdentity(
   }
 
   return mapCart(data.cartBuyerIdentityUpdate.cart);
+}
+
+export type ProductPageInfo = {
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  startCursor: string | null;
+  endCursor: string | null;
+};
+
+export type ProductConnectionPage = {
+  products: Product[];
+  pageInfo: ProductPageInfo;
+};
+
+export type ProductSortKey =
+  | "BEST_SELLING"
+  | "PRICE"
+  | "TITLE"
+  | "CREATED_AT"
+  | "RELEVANCE";
+
+export async function getProductsByIds(
+  ids: string[],
+  locale?: string,
+): Promise<Product[]> {
+  if (!isShopifyConfigured() || ids.length === 0) return [];
+  const context = contextFromLocale(locale);
+
+  try {
+    const data = await shopifyFetch<{
+      nodes: Array<Parameters<typeof mapProductCard>[0] | null>;
+    }>({
+      query: GET_PRODUCTS_BY_IDS_QUERY,
+      variables: { ids },
+      context,
+      tags: [localeTag(locale, "products"), "products"],
+      cache: "no-store",
+    });
+
+    return data.nodes
+      .filter((node): node is Parameters<typeof mapProductCard>[0] =>
+        Boolean(node?.id),
+      )
+      .map(mapProductCard);
+  } catch (error) {
+    console.error("Failed to load products by id:", error);
+    return [];
+  }
+}
+
+export async function getProductsPage(input: {
+  first?: number;
+  last?: number;
+  after?: string | null;
+  before?: string | null;
+  sortKey?: ProductSortKey;
+  reverse?: boolean;
+  query?: string | null;
+  locale?: string;
+}): Promise<ProductConnectionPage> {
+  if (!isShopifyConfigured()) {
+    return {
+      products: [],
+      pageInfo: {
+        hasNextPage: false,
+        hasPreviousPage: false,
+        startCursor: null,
+        endCursor: null,
+      },
+    };
+  }
+
+  const context = contextFromLocale(input.locale);
+  const goingBack = Boolean(input.before);
+  const variables = {
+    first: goingBack ? null : (input.first ?? 12),
+    last: goingBack ? (input.last ?? 12) : null,
+    after: goingBack ? null : (input.after ?? null),
+    before: goingBack ? (input.before ?? null) : null,
+    sortKey: input.sortKey ?? "BEST_SELLING",
+    reverse: input.reverse ?? false,
+    query: input.query || null,
+  };
+
+  try {
+    const data = await shopifyFetch<{
+      products: {
+        pageInfo: ProductPageInfo;
+        nodes: Parameters<typeof mapProductCard>[0][];
+      };
+    }>({
+      query: GET_PRODUCTS_PAGE_QUERY,
+      variables,
+      context,
+      tags: [localeTag(input.locale, "products"), "products"],
+    });
+
+    return {
+      products: data.products.nodes.map(mapProductCard),
+      pageInfo: {
+        hasNextPage: data.products.pageInfo.hasNextPage,
+        hasPreviousPage: data.products.pageInfo.hasPreviousPage,
+        startCursor: data.products.pageInfo.startCursor ?? null,
+        endCursor: data.products.pageInfo.endCursor ?? null,
+      },
+    };
+  } catch (error) {
+    console.error("Failed to load products page:", error);
+    return {
+      products: [],
+      pageInfo: {
+        hasNextPage: false,
+        hasPreviousPage: false,
+        startCursor: null,
+        endCursor: null,
+      },
+    };
+  }
+}
+
+export async function getCollectionProductsPage(input: {
+  handle: string;
+  first?: number;
+  last?: number;
+  after?: string | null;
+  before?: string | null;
+  sortKey?: "BEST_SELLING" | "PRICE" | "TITLE" | "CREATED" | "MANUAL";
+  reverse?: boolean;
+  filters?: Record<string, unknown>[];
+  locale?: string;
+}): Promise<ProductConnectionPage & { collectionTitle: string | null }> {
+  if (!isShopifyConfigured()) {
+    return {
+      products: [],
+      collectionTitle: null,
+      pageInfo: {
+        hasNextPage: false,
+        hasPreviousPage: false,
+        startCursor: null,
+        endCursor: null,
+      },
+    };
+  }
+
+  const context = contextFromLocale(input.locale);
+  const goingBack = Boolean(input.before);
+  const variables = {
+    handle: input.handle,
+    first: goingBack ? null : (input.first ?? 12),
+    last: goingBack ? (input.last ?? 12) : null,
+    after: goingBack ? null : (input.after ?? null),
+    before: goingBack ? (input.before ?? null) : null,
+    sortKey: input.sortKey ?? "BEST_SELLING",
+    reverse: input.reverse ?? false,
+    filters: input.filters?.length ? input.filters : null,
+  };
+
+  try {
+    const data = await shopifyFetch<{
+      collection: {
+        title: string;
+        products: {
+          pageInfo: ProductPageInfo;
+          nodes: Parameters<typeof mapProductCard>[0][];
+        };
+      } | null;
+    }>({
+      query: GET_COLLECTION_PRODUCTS_PAGE_QUERY,
+      variables,
+      context,
+      tags: [
+        localeTag(input.locale, `collection:${input.handle}`),
+        `collection:${input.handle}`,
+        "collections",
+      ],
+    });
+
+    if (!data.collection) {
+      return {
+        products: [],
+        collectionTitle: null,
+        pageInfo: {
+          hasNextPage: false,
+          hasPreviousPage: false,
+          startCursor: null,
+          endCursor: null,
+        },
+      };
+    }
+
+    return {
+      collectionTitle: data.collection.title,
+      products: data.collection.products.nodes.map(mapProductCard),
+      pageInfo: {
+        hasNextPage: data.collection.products.pageInfo.hasNextPage,
+        hasPreviousPage: data.collection.products.pageInfo.hasPreviousPage,
+        startCursor: data.collection.products.pageInfo.startCursor ?? null,
+        endCursor: data.collection.products.pageInfo.endCursor ?? null,
+      },
+    };
+  } catch (error) {
+    console.error("Failed to load collection products page:", error);
+    return {
+      products: [],
+      collectionTitle: null,
+      pageInfo: {
+        hasNextPage: false,
+        hasPreviousPage: false,
+        startCursor: null,
+        endCursor: null,
+      },
+    };
+  }
 }
