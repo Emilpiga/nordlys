@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 180" role="img" aria-label="Vardagsstil.se">
+  <g transform="translate(16, 26)">
+    <rect width="128" height="128" fill="#1a1814"/>
+    <g transform="scale(2)">
+      <path d="M16 16.5 32 46 48 16.5h-7.2L32 35.2 23.2 16.5Z" fill="#f7f5f1"/>
+    </g>
+  </g>
+  <text x="168" y="98" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="64" font-weight="600" letter-spacing="-1.2" fill="#1a1814">ardagsstil<tspan fill="#6a655c">.se</tspan></text>
+</svg>
