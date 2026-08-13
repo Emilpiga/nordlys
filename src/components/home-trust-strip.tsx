@@ -107,7 +107,9 @@ export function HomeTrustStrip() {
   const items = [
     {
       key: "shipping" as const,
-      label: t(dict.home.trustShipping, { eta: dict.fulfillment.etaShort }),
+      label: t(dict.home.trustShipping, {
+        processing: dict.fulfillment.processingShort,
+      }),
       href: "/returns" as const,
     },
     {

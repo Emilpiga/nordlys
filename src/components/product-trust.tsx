@@ -11,7 +11,9 @@ export function ProductTrust() {
       title: dict.trust.shippingTitle,
       body: (
         <>
-          {t(dict.trust.shippingBody, { eta: dict.fulfillment.etaShort })}{" "}
+          {t(dict.trust.shippingBody, {
+            processing: dict.fulfillment.processingShort,
+          })}{" "}
           <LocaleLink
             href="/returns"
             className="underline-offset-4 transition hover:text-accent hover:underline"

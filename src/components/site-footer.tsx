@@ -114,7 +114,7 @@ export function SiteFooter() {
         </p>
         <p className="uppercase">
           {t(dict.footer.shippingBadge, {
-            eta: dict.fulfillment.etaShort,
+            processing: dict.fulfillment.processingShort,
           })}
         </p>
       </div>

@@ -46,7 +46,7 @@
     "legalHeading": "Juridiskt",
     "privacy": "Integritet",
     "terms": "Villkor",
-    "shippingBadge": "Leverans {eta} · Spårning på varje order"
+    "shippingBadge": "Skickas inom {processing} · Spårning på varje order"
   },
   "home": {
     "heroAlt": "{brand} — Produkter för vardagen",
@@ -54,7 +54,7 @@
     "heroHeadline": "Saker till hemmet och vardagen.",
     "heroSub": "Enkel stil. Tydliga priser. Produkter du faktiskt använder.",
     "heroCta": "Till sortimentet",
-    "trustShipping": "Leverans {eta}",
+    "trustShipping": "Skickas inom {processing}",
     "trustReturns": "14 dagars ångerrätt",
     "trustSecure": "Säker kassa",
     "featuredEyebrow": "Utvalda",
@@ -78,8 +78,8 @@
     "backToShop": "← Tillbaka till shoppen",
     "fallbackCategory": "Sortiment",
     "fallbackDescription": "En produkt för vardagen — enkel, användbar och redo att användas hemma.",
-    "shippingLabel": "Frakt",
-    "shippingValue": "Typiskt {eta} till SE/EU · Spårning på varje order",
+    "shippingLabel": "Avsändning",
+    "shippingValue": "Skickas inom {processing} efter betalning · Spårning på varje order",
     "careLabel": "Skötsel",
     "careValue": "Följ skötselråden på produktsidan och förpackningen.",
     "questionsLabel": "Frågor",
@@ -97,7 +97,7 @@
     "increaseQty": "Öka antal",
     "addError": "Kunde inte lägga till i kassen.",
     "checkoutError": "Kunde inte gå till kassan.",
-    "secureEta": "{secure} · Leverans {eta}",
+    "secureEta": "{secure} · Skickas inom {processing}",
     "noImage": "Ingen bild",
     "quickView": "Snabbvy",
     "chooseOptions": "Välj alternativ",
@@ -109,8 +109,8 @@
     "shopDescription": "Produkter till hemmet och vardagen — enkel stil, tydliga priser."
   },
   "trust": {
-    "shippingTitle": "Leverans",
-    "shippingBody": "Typiskt {eta} till Sverige och EU efter att betalningen gått igenom.",
+    "shippingTitle": "Avsändning",
+    "shippingBody": "De flesta ordrar skickas inom {processing} efter att betalningen gått igenom.",
     "shippingMore": "Mer om frakt",
     "trackingTitle": "Spårning",
     "trackingBody": "Du får spårning så snart transportören har skannat paketet.",
@@ -119,6 +119,7 @@
     "faqLink": "Vanliga frågor"
   },
   "fulfillment": {
+    "processingShort": "1–3 arbetsdagar",
     "etaShort": "7–18 arbetsdagar",
     "etaDetail": "De flesta ordrar lämnar lagret inom 1–3 arbetsdagar efter betalning. Därefter tar leveransen vanligtvis 7–18 arbetsdagar till adresser i Sverige och EU. Internationellt utanför EU kan det ta längre tid.",
     "tracking": "Du får spårning så snart transportören har skannat paketet.",

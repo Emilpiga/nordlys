@@ -163,7 +163,7 @@ export default async function ProductPage({ params }: Props) {
                   className="underline-offset-4 transition hover:text-accent hover:underline"
                 >
                   {t(dict.products.shippingValue, {
-                    eta: dict.fulfillment.etaShort,
+                    processing: dict.fulfillment.processingShort,
                   })}
                 </Link>
               </dd>

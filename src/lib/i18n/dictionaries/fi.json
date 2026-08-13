@@ -46,7 +46,7 @@
     "legalHeading": "Juridinen",
     "privacy": "Tietosuoja",
     "terms": "Ehdot",
-    "shippingBadge": "Toimitus {eta} · Seuranta jokaisessa tilauksessa"
+    "shippingBadge": "Lähetetään {processing} kuluessa · Seuranta jokaisessa tilauksessa"
   },
   "home": {
     "heroAlt": "{brand} — Tuotteita arkeen",
@@ -54,7 +54,7 @@
     "heroHeadline": "Tavaraa kotiin ja arkeen.",
     "heroSub": "Yksinkertainen tyyli. Selkeät hinnat. Tuotteita, joita oikeasti käytät.",
     "heroCta": "Valikoimaan",
-    "trustShipping": "Toimitus {eta}",
+    "trustShipping": "Lähetetään {processing} kuluessa",
     "trustReturns": "14 päivän peruutusoikeus",
     "trustSecure": "Turvallinen kassa",
     "featuredEyebrow": "Valitut",
@@ -78,8 +78,8 @@
     "backToShop": "← Takaisin kauppaan",
     "fallbackCategory": "Valikoima",
     "fallbackDescription": "Tuote arkeen — yksinkertainen, hyödyllinen ja valmis kotiin.",
-    "shippingLabel": "Toimitus",
-    "shippingValue": "Tyypillisesti {eta} FI/EU-alueelle · Seuranta jokaisessa tilauksessa",
+    "shippingLabel": "Lähetys",
+    "shippingValue": "Lähetetään {processing} kuluessa maksusta · Seuranta jokaisessa tilauksessa",
     "careLabel": "Hoito",
     "careValue": "Noudata tuotesivun ja pakkauksen hoito-ohjeita.",
     "questionsLabel": "Kysymykset",
@@ -97,7 +97,7 @@
     "increaseQty": "Lisää määrää",
     "addError": "Tuotetta ei voitu lisätä ostoskoriin.",
     "checkoutError": "Kassalle siirtyminen ei onnistunut.",
-    "secureEta": "{secure} · Toimitus {eta}",
+    "secureEta": "{secure} · Lähetetään {processing} kuluessa",
     "noImage": "Ei kuvaa",
     "quickView": "Pikakatselu",
     "chooseOptions": "Valitse vaihtoehdot",
@@ -109,8 +109,8 @@
     "shopDescription": "Tuotteita kotiin ja arkeen — yksinkertainen tyyli, selkeät hinnat."
   },
   "trust": {
-    "shippingTitle": "Toimitus",
-    "shippingBody": "Tyypillisesti {eta} Suomeen ja EU-alueelle, kun maksu on hyväksytty.",
+    "shippingTitle": "Lähetys",
+    "shippingBody": "Useimmat tilaukset lähtevät {processing} kuluessa maksun hyväksynnästä.",
     "shippingMore": "Lisää toimituksesta",
     "trackingTitle": "Seuranta",
     "trackingBody": "Saat seurantatiedot heti, kun kuljetusliike on skannannut paketin.",
@@ -119,6 +119,7 @@
     "faqLink": "Usein kysytyt"
   },
   "fulfillment": {
+    "processingShort": "1–3 arkipäivää",
     "etaShort": "7–18 arkipäivää",
     "etaDetail": "Useimmat tilaukset lähtevät varastolta 1–3 arkipäivän kuluessa maksusta. Sen jälkeen toimitus kestää yleensä 7–18 arkipäivää osoitteisiin Suomessa ja EU:ssa. Kansainvälisesti EU:n ulkopuolella se voi kestää kauemmin.",
     "tracking": "Saat seurantatiedot heti, kun kuljetusliike on skannannut paketin.",

@@ -46,7 +46,7 @@
     "legalHeading": "Juridisk",
     "privacy": "Personvern",
     "terms": "Vilkår",
-    "shippingBadge": "Levering {eta} · Sporing på hver ordre"
+    "shippingBadge": "Sendes innen {processing} · Sporing på hver ordre"
   },
   "home": {
     "heroAlt": "{brand} — Produkter for hverdagen",
@@ -54,7 +54,7 @@
     "heroHeadline": "Ting til hjemmet og hverdagen.",
     "heroSub": "Enkel stil. Tydelige priser. Produkter du faktisk bruker.",
     "heroCta": "Til sortimentet",
-    "trustShipping": "Levering {eta}",
+    "trustShipping": "Sendes innen {processing}",
     "trustReturns": "14 dagers angrerett",
     "trustSecure": "Sikker betaling",
     "featuredEyebrow": "Utvalgte",
@@ -78,8 +78,8 @@
     "backToShop": "← Tilbake til butikken",
     "fallbackCategory": "Sortiment",
     "fallbackDescription": "Et produkt for hverdagen — enkelt, nyttig og klart til å brukes hjemme.",
-    "shippingLabel": "Frakt",
-    "shippingValue": "Typisk {eta} til NO/EU · Sporing på hver ordre",
+    "shippingLabel": "Avsending",
+    "shippingValue": "Sendes innen {processing} etter betaling · Sporing på hver ordre",
     "careLabel": "Stell",
     "careValue": "Følg stellrådene på produktsiden og emballasjen.",
     "questionsLabel": "Spørsmål",
@@ -97,7 +97,7 @@
     "increaseQty": "Øk antall",
     "addError": "Kunne ikke legge til i handlekurven.",
     "checkoutError": "Kunne ikke gå til kassen.",
-    "secureEta": "{secure} · Levering {eta}",
+    "secureEta": "{secure} · Sendes innen {processing}",
     "noImage": "Ingen bilde",
     "quickView": "Hurtigvisning",
     "chooseOptions": "Velg alternativer",
@@ -109,8 +109,8 @@
     "shopDescription": "Produkter til hjemmet og hverdagen — enkel stil, tydelige priser."
   },
   "trust": {
-    "shippingTitle": "Levering",
-    "shippingBody": "Typisk {eta} til Norge og EU etter at betalingen er gjennomført.",
+    "shippingTitle": "Avsending",
+    "shippingBody": "De fleste ordrer sendes innen {processing} etter at betalingen er gjennomført.",
     "shippingMore": "Mer om frakt",
     "trackingTitle": "Sporing",
     "trackingBody": "Du får sporing så snart transportøren har skannet pakken.",
@@ -119,6 +119,7 @@
     "faqLink": "Vanlige spørsmål"
   },
   "fulfillment": {
+    "processingShort": "1–3 virkedager",
     "etaShort": "7–18 virkedager",
     "etaDetail": "De fleste ordrer forlater lageret innen 1–3 virkedager etter betaling. Deretter tar leveransen vanligvis 7–18 virkedager til adresser i Norge og EU. Internasjonalt utenfor EU kan det ta lengre tid.",
     "tracking": "Du får sporing så snart transportøren har skannet pakken.",

@@ -46,7 +46,7 @@
     "legalHeading": "Juridisk",
     "privacy": "Privatliv",
     "terms": "Vilkår",
-    "shippingBadge": "Levering {eta} · Sporing på hver ordre"
+    "shippingBadge": "Sendes inden {processing} · Sporing på hver ordre"
   },
   "home": {
     "heroAlt": "{brand} — Produkter til hverdagen",
@@ -54,7 +54,7 @@
     "heroHeadline": "Ting til hjemmet og hverdagen.",
     "heroSub": "Enkel stil. Tydelige priser. Produkter du faktisk bruger.",
     "heroCta": "Til sortimentet",
-    "trustShipping": "Levering {eta}",
+    "trustShipping": "Sendes inden {processing}",
     "trustReturns": "14 dages fortrydelsesret",
     "trustSecure": "Sikker betaling",
     "featuredEyebrow": "Udvalgte",
@@ -78,8 +78,8 @@
     "backToShop": "← Tilbage til shoppen",
     "fallbackCategory": "Sortiment",
     "fallbackDescription": "Et produkt til hverdagen — enkelt, brugbart og klar til at bruges derhjemme.",
-    "shippingLabel": "Fragt",
-    "shippingValue": "Typisk {eta} til DK/EU · Sporing på hver ordre",
+    "shippingLabel": "Afsendelse",
+    "shippingValue": "Sendes inden {processing} efter betaling · Sporing på hver ordre",
     "careLabel": "Pleje",
     "careValue": "Følg plejerådene på produktsiden og emballagen.",
     "questionsLabel": "Spørgsmål",
@@ -97,7 +97,7 @@
     "increaseQty": "Øg antal",
     "addError": "Kunne ikke lægge i kurven.",
     "checkoutError": "Kunne ikke gå til kassen.",
-    "secureEta": "{secure} · Levering {eta}",
+    "secureEta": "{secure} · Sendes inden {processing}",
     "noImage": "Intet billede",
     "quickView": "Hurtigvisning",
     "chooseOptions": "Vælg alternativer",
@@ -109,8 +109,8 @@
     "shopDescription": "Produkter til hjemmet og hverdagen — enkel stil, tydelige priser."
   },
   "trust": {
-    "shippingTitle": "Levering",
-    "shippingBody": "Typisk {eta} til Danmark og EU, når betalingen er gennemført.",
+    "shippingTitle": "Afsendelse",
+    "shippingBody": "De fleste ordrer sendes inden {processing}, når betalingen er gennemført.",
     "shippingMore": "Mere om fragt",
     "trackingTitle": "Sporing",
     "trackingBody": "Du får sporing, så snart transportøren har scannet pakken.",
@@ -119,6 +119,7 @@
     "faqLink": "Ofte stillede spørgsmål"
   },
   "fulfillment": {
+    "processingShort": "1–3 hverdage",
     "etaShort": "7–18 hverdage",
     "etaDetail": "De fleste ordrer forlader lageret inden for 1–3 hverdage efter betaling. Derefter tager leveringen typisk 7–18 hverdage til adresser i Danmark og EU. Internationalt uden for EU kan det tage længere tid.",
     "tracking": "Du får sporing, så snart transportøren har scannet pakken.",
