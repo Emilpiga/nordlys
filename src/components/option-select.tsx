@@ -11,7 +11,7 @@ import { createPortal } from "react-dom";
 
 export type OptionSelectItem = {
   value: string;
-  disabled?: boolean;
+  unavailable?: boolean;
 };
 
 type OptionSelectProps = {
@@ -101,30 +101,29 @@ export function OptionSelect({
         return;
       }
 
-      const enabled = options.filter((option) => !option.disabled);
-      if (enabled.length === 0) return;
+      if (options.length === 0) return;
       const currentIndex = Math.max(
         0,
-        enabled.findIndex((option) => option.value === highlight),
+        options.findIndex((option) => option.value === highlight),
       );
 
       if (event.key === "ArrowDown") {
         event.preventDefault();
-        setHighlight(enabled[(currentIndex + 1) % enabled.length].value);
+        setHighlight(options[(currentIndex + 1) % options.length].value);
       } else if (event.key === "ArrowUp") {
         event.preventDefault();
         setHighlight(
-          enabled[(currentIndex - 1 + enabled.length) % enabled.length].value,
+          options[(currentIndex - 1 + options.length) % options.length].value,
         );
       } else if (event.key === "Home") {
         event.preventDefault();
-        setHighlight(enabled[0].value);
+        setHighlight(options[0].value);
       } else if (event.key === "End") {
         event.preventDefault();
-        setHighlight(enabled[enabled.length - 1].value);
+        setHighlight(options[options.length - 1].value);
       } else if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        const next = enabled.find((option) => option.value === highlight);
+        const next = options.find((option) => option.value === highlight);
         if (next) {
           onChange(next.value);
           setOpen(false);
@@ -213,19 +212,15 @@ export function OptionSelect({
                     key={option.value}
                     role="option"
                     aria-selected={selected}
-                    aria-disabled={option.disabled || undefined}
                   >
                     <button
                       ref={active ? activeRef : undefined}
                       type="button"
-                      disabled={option.disabled}
-                      onMouseEnter={() => {
-                        if (!option.disabled) setHighlight(option.value);
-                      }}
+                      onMouseEnter={() => setHighlight(option.value)}
                       onClick={() => choose(option.value)}
                       className={`flex w-full items-center justify-between gap-3 px-3.5 py-2 text-left text-sm transition ${
-                        option.disabled
-                          ? "cursor-not-allowed text-muted/50 line-through"
+                        option.unavailable
+                          ? "text-muted/50 line-through hover:bg-[color-mix(in_oklab,var(--mist)_40%,white)]"
                           : active
                             ? "bg-[color-mix(in_oklab,var(--mist)_70%,white)] text-foreground"
                             : "text-foreground/85 hover:bg-[color-mix(in_oklab,var(--mist)_40%,white)]"

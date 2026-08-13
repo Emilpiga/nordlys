@@ -6,6 +6,7 @@ import { addToCartAction } from "@/app/actions/cart";
 import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { ProductTrust } from "@/components/product-trust";
+import { ProductViewingActivity } from "@/components/product-viewing-activity";
 import { formatMoney } from "@/lib/format";
 import {
   metaContentIdFromGid,
@@ -16,7 +17,7 @@ import type { Product, ProductVariant } from "@/lib/shopify/types";
 import {
   findVariant,
   hasSelectableOptions,
-  isOptionValueAvailable,
+  isOptionValueInStock,
   optionsFromVariant,
   selectOptionValue,
 } from "@/lib/shopify/variants";
@@ -175,17 +176,15 @@ export function ProductForm({ product, onVariantChange }: ProductFormProps) {
                   {option.values.map((value) => {
                     if (value === "Default Title") return null;
                     const active = selectedOptions[option.name] === value;
-                    const available = isOptionValueAvailable(
+                    const inStock = isOptionValueInStock(
                       product.variants,
                       option.name,
                       value,
-                      selectedOptions,
                     );
                     return (
                       <button
                         key={value}
                         type="button"
-                        disabled={!available && !active}
                         aria-pressed={active}
                         onClick={() =>
                           setSelectedOptions((current) =>
@@ -200,9 +199,9 @@ export function ProductForm({ product, onVariantChange }: ProductFormProps) {
                         className={`min-w-12 border px-4 py-2.5 text-sm transition ${
                           active
                             ? "border-foreground bg-foreground text-on-accent"
-                            : available
+                            : inStock
                               ? "border-border/80 bg-transparent text-foreground hover:border-foreground/50"
-                              : "cursor-not-allowed border-border/50 text-muted/55 line-through opacity-55"
+                              : "border-border/50 text-muted/55 line-through opacity-55 hover:border-foreground/40 hover:opacity-80"
                         }`}
                       >
                         {value}
@@ -242,6 +241,8 @@ export function ProductForm({ product, onVariantChange }: ProductFormProps) {
           </button>
         </div>
       </div>
+
+      <ProductViewingActivity productId={product.id} />
 
       <div className="space-y-3">
         <button

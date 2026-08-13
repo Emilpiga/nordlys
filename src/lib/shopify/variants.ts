@@ -13,23 +13,19 @@ export function findVariant(
   );
 }
 
-/**
- * True when an in-stock variant exists for this option value while keeping
- * the other currently selected options fixed.
- */
-export function isOptionValueAvailable(
+/** True when any in-stock variant uses this option value, regardless of siblings. */
+export function isOptionValueInStock(
   variants: ProductVariant[],
   optionName: string,
   value: string,
-  selected: Record<string, string>,
 ): boolean {
-  return variants.some((variant) => {
-    if (!variant.availableForSale) return false;
-    return variant.selectedOptions.every((option) => {
-      if (option.name === optionName) return option.value === value;
-      return selected[option.name] === option.value;
-    });
-  });
+  return variants.some(
+    (variant) =>
+      variant.availableForSale &&
+      variant.selectedOptions.some(
+        (option) => option.name === optionName && option.value === value,
+      ),
+  );
 }
 
 /**

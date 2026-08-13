@@ -14,7 +14,7 @@ import type { Product } from "@/lib/shopify/types";
 import {
   findVariant,
   hasSelectableOptions,
-  isOptionValueAvailable,
+  isOptionValueInStock,
   optionsFromVariant,
   selectOptionValue,
 } from "@/lib/shopify/variants";
@@ -201,13 +201,11 @@ export function ProductQuickView({
                             value={selectedOptions[option.name] ?? values[0]}
                             options={values.map((value) => ({
                               value,
-                              disabled:
-                                !isOptionValueAvailable(
-                                  product.variants,
-                                  option.name,
-                                  value,
-                                  selectedOptions,
-                                ) && selectedOptions[option.name] !== value,
+                              unavailable: !isOptionValueInStock(
+                                product.variants,
+                                option.name,
+                                value,
+                              ),
                             }))}
                             onChange={(value) =>
                               setSelectedOptions((current) =>
@@ -225,17 +223,15 @@ export function ProductQuickView({
                             {values.map((value) => {
                               const active =
                                 selectedOptions[option.name] === value;
-                              const available = isOptionValueAvailable(
+                              const inStock = isOptionValueInStock(
                                 product.variants,
                                 option.name,
                                 value,
-                                selectedOptions,
                               );
                               return (
                                 <button
                                   key={value}
                                   type="button"
-                                  disabled={!available && !active}
                                   aria-pressed={active}
                                   onClick={() =>
                                     setSelectedOptions((current) =>
@@ -250,9 +246,9 @@ export function ProductQuickView({
                                   className={`min-w-12 border px-3.5 py-2 text-sm transition ${
                                     active
                                       ? "border-foreground bg-foreground text-on-accent"
-                                      : available
+                                      : inStock
                                         ? "border-border/80 hover:border-foreground/50"
-                                        : "cursor-not-allowed border-border/50 text-muted/55 line-through opacity-55"
+                                        : "border-border/50 text-muted/55 line-through opacity-55 hover:border-foreground/40 hover:opacity-80"
                                   }`}
                                 >
                                   {value}
