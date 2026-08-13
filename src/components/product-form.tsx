@@ -263,13 +263,11 @@ export function ProductForm({
             ? dict.products.adding
             : dict.products.addToCart}
         </button>
-        <div className="flex items-center justify-center gap-2 text-sm text-muted">
-          <WishlistButton
-            productId={product.id}
-            initialSaved={wishlistSaved}
-          />
-          <span>{wishlistSaved ? dict.wishlist.saved : dict.wishlist.add}</span>
-        </div>
+        <WishlistButton
+          productId={product.id}
+          initialSaved={wishlistSaved}
+          variant="labeled"
+        />
         <p className="text-center text-xs font-light leading-relaxed text-muted">
           {t(dict.products.secureEta, {
             processing: dict.fulfillment.processingShort,

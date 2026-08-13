@@ -104,12 +104,13 @@ export function sanitizeFilters(
   filters: CatalogFilters,
   bounds: PriceBounds,
 ): CatalogFilters {
+  // Drop floor/ceiling values — max === bounds.min (often 0) empties the catalog.
   const min =
-    filters.min != null && filters.min > bounds.min && filters.min <= bounds.max
+    filters.min != null && filters.min > bounds.min && filters.min < bounds.max
       ? filters.min
       : null;
   const max =
-    filters.max != null && filters.max < bounds.max && filters.max >= bounds.min
+    filters.max != null && filters.max < bounds.max && filters.max > bounds.min
       ? filters.max
       : null;
 

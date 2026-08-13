@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { AccountNav } from "@/components/account-nav";
+import { AccountSection, AccountShell } from "@/components/account-shell";
 import { LocaleLink } from "@/components/locale-link";
 import {
   decodeOrderParam,
@@ -17,6 +17,15 @@ import { localeAlternates, ogLocaleFor, socialMetadata } from "@/lib/seo";
 type Props = {
   params: Promise<{ locale: string; id: string }>;
 };
+
+function navLabels(dict: Awaited<ReturnType<typeof getDictionary>>) {
+  return {
+    account: dict.account.navAccount,
+    orders: dict.account.navOrders,
+    wishlist: dict.account.navWishlist,
+    logout: dict.account.logout,
+  };
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, id } = await params;
@@ -54,9 +63,15 @@ export default async function AccountOrderDetailPage({ params }: Props) {
 
   if (!auth.configured || !auth.customer) {
     return (
-      <div className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8">
-        <p className="text-muted">{dict.account.notConfigured}</p>
-      </div>
+      <AccountShell
+        locale={locale}
+        eyebrow={dict.account.eyebrow}
+        title={dict.account.ordersTitle}
+      >
+        <p className="text-base font-light leading-relaxed text-muted">
+          {dict.account.notConfigured}
+        </p>
+      </AccountShell>
     );
   }
 
@@ -66,15 +81,25 @@ export default async function AccountOrderDetailPage({ params }: Props) {
   const order = await getCustomerOrder(orderId);
   if (!order) {
     return (
-      <div className="mx-auto w-full max-w-3xl px-5 pb-20 pt-12 sm:px-8">
-        <p className="text-muted">{dict.account.orderNotFound}</p>
-        <LocaleLink
-          href="/account/orders"
-          className="mt-6 inline-flex text-accent underline-offset-4 hover:underline"
-        >
-          {dict.account.orderBack}
-        </LocaleLink>
-      </div>
+      <AccountShell
+        locale={locale}
+        eyebrow={dict.account.eyebrow}
+        title={dict.account.ordersTitle}
+        active="orders"
+        labels={navLabels(dict)}
+      >
+        <div className="space-y-5">
+          <p className="text-base font-light leading-relaxed text-muted">
+            {dict.account.orderNotFound}
+          </p>
+          <LocaleLink
+            href="/account/orders"
+            className="inline-flex text-[0.72rem] font-medium tracking-[0.12em] uppercase text-accent transition hover:underline"
+          >
+            {dict.account.orderBack}
+          </LocaleLink>
+        </div>
+      </AccountShell>
     );
   }
 
@@ -83,34 +108,23 @@ export default async function AccountOrderDetailPage({ params }: Props) {
   }).format(new Date(order.processedAt));
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-5 pb-20 pt-12 sm:px-8 sm:pb-28 sm:pt-16">
-      <LocaleLink
-        href="/account/orders"
-        className="text-[0.72rem] font-medium tracking-[0.12em] uppercase text-muted transition hover:text-foreground"
-      >
-        {dict.account.orderBack}
-      </LocaleLink>
+    <AccountShell
+      locale={locale}
+      eyebrow={dict.account.eyebrow}
+      title={t(dict.account.orderTitle, { name: order.name })}
+      description={t(dict.account.orderPlaced, { date })}
+      active="orders"
+      labels={navLabels(dict)}
+    >
+      <div className="space-y-10">
+        <LocaleLink
+          href="/account/orders"
+          className="inline-flex text-[0.72rem] font-medium tracking-[0.12em] uppercase text-muted transition hover:text-foreground"
+        >
+          ← {dict.account.orderBack}
+        </LocaleLink>
 
-      <h1 className="mt-4 font-display text-5xl font-medium tracking-tight sm:text-6xl">
-        {t(dict.account.orderTitle, { name: order.name })}
-      </h1>
-      <p className="mt-3 text-base font-light text-muted">
-        {t(dict.account.orderPlaced, { date })}
-      </p>
-
-      <div className="mt-10 space-y-10">
-        <AccountNav
-          locale={locale}
-          active="orders"
-          labels={{
-            account: dict.account.navAccount,
-            orders: dict.account.navOrders,
-            wishlist: dict.account.navWishlist,
-            logout: dict.account.logout,
-          }}
-        />
-
-        <div className="grid gap-3 text-sm sm:grid-cols-2">
+        <div className="grid gap-3 border-b border-border/60 pb-8 text-sm sm:grid-cols-2">
           <p>
             <span className="text-muted">{dict.account.orderFinancial}: </span>
             {order.financialStatus || "—"}
@@ -121,28 +135,25 @@ export default async function AccountOrderDetailPage({ params }: Props) {
           </p>
         </div>
 
-        <section>
-          <h2 className="font-display text-2xl font-medium tracking-tight">
-            {dict.account.orderTracking}
-          </h2>
+        <AccountSection title={dict.account.orderTracking}>
           {order.fulfillments.length === 0 ||
           order.fulfillments.every((f) => f.tracking.length === 0) ? (
-            <p className="mt-3 text-base font-light text-muted">
+            <p className="text-base font-light leading-relaxed text-muted">
               {dict.account.orderTrackingEmpty}
             </p>
           ) : (
-            <ul className="mt-4 space-y-4">
+            <ul>
               {order.fulfillments.map((fulfillment) =>
                 fulfillment.tracking.map((track, index) => (
                   <li
                     key={`${fulfillment.id}-${track.number || index}`}
-                    className="border-b border-border/60 pb-4"
+                    className="border-b border-border/60 py-4 first:pt-0"
                   >
                     {track.company ? (
                       <p className="font-medium">{track.company}</p>
                     ) : null}
                     {track.number ? (
-                      <p className="mt-1 text-sm text-muted">
+                      <p className="mt-1 text-sm font-light text-muted">
                         {t(dict.account.orderTrackingNumber, {
                           number: track.number,
                         })}
@@ -168,22 +179,19 @@ export default async function AccountOrderDetailPage({ params }: Props) {
               href={order.statusPageUrl}
               target="_blank"
               rel="noreferrer"
-              className="mt-4 inline-flex text-[0.72rem] font-medium tracking-[0.12em] uppercase text-muted hover:text-foreground"
+              className="inline-flex text-[0.72rem] font-medium tracking-[0.12em] uppercase text-muted transition hover:text-foreground"
             >
               {dict.account.orderStatusPage}
             </a>
           ) : null}
-        </section>
+        </AccountSection>
 
-        <section>
-          <h2 className="font-display text-2xl font-medium tracking-tight">
-            {dict.account.orderItems}
-          </h2>
-          <ul className="mt-4 space-y-4">
+        <AccountSection title={dict.account.orderItems}>
+          <ul>
             {order.lineItems.map((item, index) => (
               <li
                 key={`${item.name}-${index}`}
-                className="flex gap-4 border-b border-border/60 pb-4"
+                className="flex gap-4 border-b border-border/60 py-4 first:pt-0"
               >
                 {item.imageUrl ? (
                   <div className="relative h-16 w-16 shrink-0 overflow-hidden bg-mist">
@@ -199,11 +207,13 @@ export default async function AccountOrderDetailPage({ params }: Props) {
                 <div className="min-w-0 flex-1">
                   <p className="font-medium">{item.title}</p>
                   {item.variantTitle ? (
-                    <p className="mt-0.5 text-sm text-muted">
+                    <p className="mt-0.5 text-sm font-light text-muted">
                       {item.variantTitle}
                     </p>
                   ) : null}
-                  <p className="mt-1 text-sm text-muted">×{item.quantity}</p>
+                  <p className="mt-1 text-sm font-light text-muted">
+                    ×{item.quantity}
+                  </p>
                 </div>
                 {item.price ? (
                   <p className="shrink-0 tabular-nums text-sm">
@@ -213,29 +223,25 @@ export default async function AccountOrderDetailPage({ params }: Props) {
               </li>
             ))}
           </ul>
-        </section>
+        </AccountSection>
 
         {order.shippingAddress?.length ? (
-          <section>
-            <h2 className="font-display text-2xl font-medium tracking-tight">
-              {dict.account.orderShipping}
-            </h2>
-            <div className="mt-3 space-y-1 text-base font-light text-muted">
+          <AccountSection title={dict.account.orderShipping}>
+            <div className="space-y-1 text-base font-light leading-relaxed text-muted">
               {order.shippingAddress.map((line) => (
                 <p key={line}>{line}</p>
               ))}
             </div>
-          </section>
+          </AccountSection>
         ) : null}
 
-        <section>
-          <h2 className="font-display text-2xl font-medium tracking-tight">
-            {dict.account.orderTotals}
-          </h2>
-          <dl className="mt-3 space-y-2 text-sm">
+        <AccountSection title={dict.account.orderTotals}>
+          <dl className="space-y-2 text-sm">
             {order.subtotal ? (
               <div className="flex justify-between gap-4">
-                <dt className="text-muted">{dict.account.orderSubtotal}</dt>
+                <dt className="font-light text-muted">
+                  {dict.account.orderSubtotal}
+                </dt>
                 <dd className="tabular-nums">
                   {formatMoney(order.subtotal, moneyLocale)}
                 </dd>
@@ -243,7 +249,9 @@ export default async function AccountOrderDetailPage({ params }: Props) {
             ) : null}
             {order.totalShipping ? (
               <div className="flex justify-between gap-4">
-                <dt className="text-muted">{dict.account.orderShippingCost}</dt>
+                <dt className="font-light text-muted">
+                  {dict.account.orderShippingCost}
+                </dt>
                 <dd className="tabular-nums">
                   {formatMoney(order.totalShipping, moneyLocale)}
                 </dd>
@@ -251,21 +259,21 @@ export default async function AccountOrderDetailPage({ params }: Props) {
             ) : null}
             {order.totalTax ? (
               <div className="flex justify-between gap-4">
-                <dt className="text-muted">{dict.account.orderTax}</dt>
+                <dt className="font-light text-muted">{dict.account.orderTax}</dt>
                 <dd className="tabular-nums">
                   {formatMoney(order.totalTax, moneyLocale)}
                 </dd>
               </div>
             ) : null}
-            <div className="flex justify-between gap-4 border-t border-border/60 pt-2 font-medium">
+            <div className="flex justify-between gap-4 border-t border-border/60 pt-3 font-medium">
               <dt>{dict.account.orderTotal}</dt>
               <dd className="tabular-nums">
                 {formatMoney(order.totalPrice, moneyLocale)}
               </dd>
             </div>
           </dl>
-        </section>
+        </AccountSection>
       </div>
-    </div>
+    </AccountShell>
   );
 }

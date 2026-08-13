@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AccountNav } from "@/components/account-nav";
-import { LocaleLink } from "@/components/locale-link";
+import { AccountEmptyState, AccountShell } from "@/components/account-shell";
 import { ProductCard } from "@/components/product-card";
 import { requireCustomer } from "@/lib/customer-account/require";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
@@ -11,6 +10,15 @@ import { shopifyConfig } from "@/lib/shopify/config";
 import { localeAlternates, ogLocaleFor, socialMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
+
+function navLabels(dict: Awaited<ReturnType<typeof getDictionary>>) {
+  return {
+    account: dict.account.navAccount,
+    orders: dict.account.navOrders,
+    wishlist: dict.account.navWishlist,
+    logout: dict.account.logout,
+  };
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -43,9 +51,15 @@ export default async function WishlistPage({ params }: Props) {
 
   if (!auth.configured || !auth.customer) {
     return (
-      <div className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8">
-        <p className="text-muted">{dict.account.notConfigured}</p>
-      </div>
+      <AccountShell
+        locale={locale}
+        eyebrow={dict.account.eyebrow}
+        title={dict.account.wishlistTitle}
+      >
+        <p className="text-base font-light leading-relaxed text-muted">
+          {dict.account.notConfigured}
+        </p>
+      </AccountShell>
     );
   }
 
@@ -55,35 +69,25 @@ export default async function WishlistPage({ params }: Props) {
   );
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-5 pb-20 pt-12 sm:px-8 sm:pb-28 sm:pt-16">
-      <h1 className="font-display text-5xl font-medium tracking-tight sm:text-6xl">
-        {dict.account.wishlistTitle}
-      </h1>
-
-      <div className="mt-10 max-w-3xl">
-        <AccountNav
-          locale={locale}
-          active="wishlist"
-          labels={{
-            account: dict.account.navAccount,
-            orders: dict.account.navOrders,
-            wishlist: dict.account.navWishlist,
-            logout: dict.account.logout,
-          }}
-        />
-      </div>
-
+    <AccountShell
+      locale={locale}
+      eyebrow={dict.account.eyebrow}
+      title={dict.account.wishlistTitle}
+      description={dict.account.wishlistIntro}
+      active="wishlist"
+      labels={navLabels(dict)}
+      wide
+    >
       {products.length === 0 ? (
-        <div className="mt-10 space-y-4">
-          <p className="text-base font-light text-muted">
-            {dict.account.wishlistEmpty}
-          </p>
-          <LocaleLink href="/products" className="btn-primary inline-flex">
-            {dict.account.wishlistCta}
-          </LocaleLink>
+        <div className="max-w-3xl">
+          <AccountEmptyState
+            body={dict.account.wishlistEmpty}
+            cta={dict.account.wishlistCta}
+            href="/products"
+          />
         </div>
       ) : (
-        <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-5 gap-y-12 lg:grid-cols-4 lg:gap-x-6">
           {products.map((product) => (
             <ProductCard
               key={product.id}
@@ -93,6 +97,6 @@ export default async function WishlistPage({ params }: Props) {
           ))}
         </div>
       )}
-    </div>
+    </AccountShell>
   );
 }

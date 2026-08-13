@@ -588,6 +588,7 @@
   "account": {
     "metaTitle": "Min konto",
     "metaDescription": "Se ordrer, sporing og ønskeliste hos {brand}.",
+    "eyebrow": "Konto",
     "title": "Min konto",
     "welcome": "Hei {name}",
     "welcomeGuest": "Min konto",
@@ -597,13 +598,15 @@
     "loginError": "Innloggingen mislyktes. Prøv igjen.",
     "logout": "Logg ut",
     "notConfigured": "Kundekontoer er ikke konfigurert ennå. Legg til Customer Account API-opplysninger i miljøet.",
+    "overviewEmail": "Innlogget som",
     "ordersTitle": "Ordrer",
+    "ordersIntro": "Dine ordrer og sporing.",
     "ordersEmpty": "Du har ingen ordrer ennå.",
     "ordersCta": "Til sortimentet",
     "ordersView": "Vis ordre",
     "ordersLoadMore": "Vis eldre ordrer",
     "orderTitle": "Ordre {name}",
-    "orderBack": "← Alle ordrer",
+    "orderBack": "Alle ordrer",
     "orderPlaced": "Lagt {date}",
     "orderFinancial": "Betaling",
     "orderFulfillment": "Levering",
@@ -621,9 +624,10 @@
     "orderStatusPage": "Shopify ordrestatus",
     "orderNotFound": "Ordren ble ikke funnet.",
     "wishlistTitle": "Ønskeliste",
+    "wishlistIntro": "Produkter du har lagret til senere.",
     "wishlistEmpty": "Ønskelisten din er tom.",
     "wishlistCta": "Utforsk sortimentet",
-    "navAccount": "Konto",
+    "navAccount": "Oversikt",
     "navOrders": "Ordrer",
     "navWishlist": "Ønskeliste",
     "shortcutOrders": "Se ordrer og sporing",
@@ -633,7 +637,9 @@
   "wishlist": {
     "add": "Lagre i ønskelisten",
     "remove": "Fjern fra ønskelisten",
-    "saved": "Lagret"
+    "saved": "Lagret",
+    "loginRequired": "Logg inn for å lagre i ønskelisten.",
+    "error": "Kunne ikke oppdatere ønskelisten. Prøv igjen."
   },
   "orderConfirmed": {
     "metaTitle": "Takk for bestillingen",

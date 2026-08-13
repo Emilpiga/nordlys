@@ -39,6 +39,32 @@ function BagIcon({ className }: { className?: string }) {
   );
 }
 
+function AccountIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <circle
+        cx="12"
+        cy="8"
+        r="3.25"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
+      <path
+        d="M5.5 19.25c1.35-3.1 3.55-4.75 6.5-4.75s5.15 1.65 6.5 4.75"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 function ChevronIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -210,10 +236,11 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
 
           <LocaleLink
             href="/account"
-            className="hidden uppercase transition hover:text-foreground sm:inline"
+            aria-label={dict.nav.account}
+            className="relative inline-flex h-9 w-9 items-center justify-center text-foreground transition hover:text-accent"
             onClick={() => setShopOpen(false)}
           >
-            {dict.nav.account}
+            <AccountIcon className="h-[1.35rem] w-[1.35rem]" />
           </LocaleLink>
 
           <button

@@ -116,7 +116,7 @@ export function FilterPanel({
               onChange({
                 ...filters,
                 min: min <= bounds.min ? null : min,
-                max: max >= bounds.max ? null : max,
+                max: max >= bounds.max || max <= bounds.min ? null : max,
               })
             }
           />
@@ -248,8 +248,15 @@ function PriceRange({
 
   function commit(nextMin: number, nextMax: number) {
     if (!ready.current) return;
-    if (nextMin === min && nextMax === max) return;
-    onChange(nextMin, nextMax);
+    // Keep a usable span; collapsing to the floor reads as "no products".
+    let lo = Math.min(nextMin, nextMax);
+    let hi = Math.max(nextMin, nextMax);
+    if (hi <= bounds.min) {
+      lo = bounds.min;
+      hi = bounds.max;
+    }
+    if (lo === min && hi === max) return;
+    onChange(lo, hi);
   }
 
   return (
@@ -344,7 +351,7 @@ export function FilterBar({
                     onChange({
                       ...filters,
                       min: min <= bounds.min ? null : min,
-                      max: max >= bounds.max ? null : max,
+                      max: max >= bounds.max || max <= bounds.min ? null : max,
                     })
                   }
                 />

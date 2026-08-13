@@ -588,6 +588,7 @@
   "account": {
     "metaTitle": "Min konto",
     "metaDescription": "Se ordrer, tracking og ønskeliste hos {brand}.",
+    "eyebrow": "Konto",
     "title": "Min konto",
     "welcome": "Hej {name}",
     "welcomeGuest": "Min konto",
@@ -597,13 +598,15 @@
     "loginError": "Login mislykkedes. Prøv igen.",
     "logout": "Log ud",
     "notConfigured": "Kundekonti er ikke konfigureret endnu. Tilføj Customer Account API-oplysninger i miljøet.",
+    "overviewEmail": "Logget ind som",
     "ordersTitle": "Ordrer",
+    "ordersIntro": "Dine ordrer og tracking.",
     "ordersEmpty": "Du har ingen ordrer endnu.",
     "ordersCta": "Til sortimentet",
     "ordersView": "Vis ordre",
     "ordersLoadMore": "Vis ældre ordrer",
     "orderTitle": "Ordre {name}",
-    "orderBack": "← Alle ordrer",
+    "orderBack": "Alle ordrer",
     "orderPlaced": "Afgivet {date}",
     "orderFinancial": "Betaling",
     "orderFulfillment": "Levering",
@@ -621,9 +624,10 @@
     "orderStatusPage": "Shopify ordrestatus",
     "orderNotFound": "Ordren blev ikke fundet.",
     "wishlistTitle": "Ønskeliste",
+    "wishlistIntro": "Produkter du har gemt til senere.",
     "wishlistEmpty": "Din ønskeliste er tom.",
     "wishlistCta": "Udforsk sortimentet",
-    "navAccount": "Konto",
+    "navAccount": "Oversigt",
     "navOrders": "Ordrer",
     "navWishlist": "Ønskeliste",
     "shortcutOrders": "Se ordrer og tracking",
@@ -633,7 +637,9 @@
   "wishlist": {
     "add": "Gem på ønskeliste",
     "remove": "Fjern fra ønskeliste",
-    "saved": "Gemt"
+    "saved": "Gemt",
+    "loginRequired": "Log ind for at gemme på ønskelisten.",
+    "error": "Kunne ikke opdatere ønskelisten. Prøv igen."
   },
   "orderConfirmed": {
     "metaTitle": "Tak for din ordre",

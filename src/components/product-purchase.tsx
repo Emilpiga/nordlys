@@ -37,7 +37,7 @@ export function ProductPurchase({
       </div>
 
       <div className="animate-rise lg:sticky lg:top-28 lg:self-start lg:py-4">
-        {header}
+        <div>{header}</div>
         <div className="mt-10 border-t border-border/70 pt-8">
           <ProductForm
             product={product}
@@ -45,7 +45,7 @@ export function ProductPurchase({
             wishlistSaved={wishlistSaved}
           />
         </div>
-        {footer}
+        {footer ? <div>{footer}</div> : null}
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AccountNav } from "@/components/account-nav";
+import { AccountEmptyState, AccountShell } from "@/components/account-shell";
 import { LocaleLink } from "@/components/locale-link";
 import {
   encodeOrderParam,
@@ -17,6 +17,15 @@ type Props = {
   params: Promise<{ locale: string }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
+
+function navLabels(dict: Awaited<ReturnType<typeof getDictionary>>) {
+  return {
+    account: dict.account.navAccount,
+    orders: dict.account.navOrders,
+    wishlist: dict.account.navWishlist,
+    logout: dict.account.logout,
+  };
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -55,43 +64,38 @@ export default async function AccountOrdersPage({
 
   if (!auth.configured || !auth.customer) {
     return (
-      <div className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8">
-        <p className="text-muted">{dict.account.notConfigured}</p>
-      </div>
+      <AccountShell
+        locale={locale}
+        eyebrow={dict.account.eyebrow}
+        title={dict.account.ordersTitle}
+      >
+        <p className="text-base font-light leading-relaxed text-muted">
+          {dict.account.notConfigured}
+        </p>
+      </AccountShell>
     );
   }
 
   const { orders, pageInfo } = await getCustomerOrders(10, after);
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-5 pb-20 pt-12 sm:px-8 sm:pb-28 sm:pt-16">
-      <h1 className="font-display text-5xl font-medium tracking-tight sm:text-6xl">
-        {dict.account.ordersTitle}
-      </h1>
-
-      <div className="mt-10 space-y-8">
-        <AccountNav
-          locale={locale}
-          active="orders"
-          labels={{
-            account: dict.account.navAccount,
-            orders: dict.account.navOrders,
-            wishlist: dict.account.navWishlist,
-            logout: dict.account.logout,
-          }}
+    <AccountShell
+      locale={locale}
+      eyebrow={dict.account.eyebrow}
+      title={dict.account.ordersTitle}
+      description={dict.account.ordersIntro}
+      active="orders"
+      labels={navLabels(dict)}
+    >
+      {orders.length === 0 ? (
+        <AccountEmptyState
+          body={dict.account.ordersEmpty}
+          cta={dict.account.ordersCta}
+          href="/products"
         />
-
-        {orders.length === 0 ? (
-          <div className="space-y-4">
-            <p className="text-base font-light text-muted">
-              {dict.account.ordersEmpty}
-            </p>
-            <LocaleLink href="/products" className="btn-primary inline-flex">
-              {dict.account.ordersCta}
-            </LocaleLink>
-          </div>
-        ) : (
-          <ul className="space-y-4">
+      ) : (
+        <div className="space-y-8">
+          <ul>
             {orders.map((order) => {
               const date = new Intl.DateTimeFormat(moneyLocale, {
                 dateStyle: "medium",
@@ -99,12 +103,12 @@ export default async function AccountOrdersPage({
               return (
                 <li
                   key={order.id}
-                  className="border-b border-border/60 pb-4"
+                  className="border-b border-border/60 py-5 first:pt-0"
                 >
                   <div className="flex flex-wrap items-baseline justify-between gap-3">
-                    <div>
+                    <div className="min-w-0">
                       <p className="font-medium text-foreground">{order.name}</p>
-                      <p className="mt-1 text-sm text-muted">
+                      <p className="mt-1 text-sm font-light text-muted">
                         {t(dict.account.orderPlaced, { date })}
                         {order.fulfillmentStatus
                           ? ` · ${order.fulfillmentStatus}`
@@ -125,17 +129,17 @@ export default async function AccountOrdersPage({
               );
             })}
           </ul>
-        )}
 
-        {pageInfo.hasNextPage && pageInfo.endCursor ? (
-          <LocaleLink
-            href={`/account/orders?after=${encodeURIComponent(pageInfo.endCursor)}`}
-            className="inline-flex text-[0.72rem] font-medium tracking-[0.12em] uppercase text-muted transition hover:text-foreground"
-          >
-            {dict.account.ordersLoadMore}
-          </LocaleLink>
-        ) : null}
-      </div>
-    </div>
+          {pageInfo.hasNextPage && pageInfo.endCursor ? (
+            <LocaleLink
+              href={`/account/orders?after=${encodeURIComponent(pageInfo.endCursor)}`}
+              className="inline-flex text-[0.72rem] font-medium tracking-[0.12em] uppercase text-muted transition hover:text-foreground"
+            >
+              {dict.account.ordersLoadMore}
+            </LocaleLink>
+          ) : null}
+        </div>
+      )}
+    </AccountShell>
   );
 }

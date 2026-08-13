@@ -588,6 +588,7 @@
   "account": {
     "metaTitle": "Oma tili",
     "metaDescription": "Katso tilaukset, seuranta ja toivelista {brand}-kaupassa.",
+    "eyebrow": "Tili",
     "title": "Oma tili",
     "welcome": "Hei {name}",
     "welcomeGuest": "Oma tili",
@@ -597,13 +598,15 @@
     "loginError": "Kirjautuminen epäonnistui. Yritä uudelleen.",
     "logout": "Kirjaudu ulos",
     "notConfigured": "Asiakastilejä ei ole vielä määritetty. Lisää Customer Account API -tiedot ympäristöön.",
+    "overviewEmail": "Kirjautuneena",
     "ordersTitle": "Tilaukset",
+    "ordersIntro": "Tilauksesi ja seuranta.",
     "ordersEmpty": "Sinulla ei ole vielä tilauksia.",
     "ordersCta": "Valikoimaan",
     "ordersView": "Näytä tilaus",
     "ordersLoadMore": "Näytä vanhemmat tilaukset",
     "orderTitle": "Tilaus {name}",
-    "orderBack": "← Kaikki tilaukset",
+    "orderBack": "Kaikki tilaukset",
     "orderPlaced": "Tehty {date}",
     "orderFinancial": "Maksu",
     "orderFulfillment": "Toimitus",
@@ -621,9 +624,10 @@
     "orderStatusPage": "Shopify-tilauksen tila",
     "orderNotFound": "Tilausta ei löytynyt.",
     "wishlistTitle": "Toivelista",
+    "wishlistIntro": "Tuotteet, jotka olet tallentanut myöhemmäksi.",
     "wishlistEmpty": "Toivelistasi on tyhjä.",
     "wishlistCta": "Selaa valikoimaa",
-    "navAccount": "Tili",
+    "navAccount": "Yhteenveto",
     "navOrders": "Tilaukset",
     "navWishlist": "Toivelista",
     "shortcutOrders": "Tilaukset ja seuranta",
@@ -633,7 +637,9 @@
   "wishlist": {
     "add": "Lisää toivelistaan",
     "remove": "Poista toivelistalta",
-    "saved": "Tallennettu"
+    "saved": "Tallennettu",
+    "loginRequired": "Kirjaudu sisään tallentaaksesi toivelistaan.",
+    "error": "Toivelistaa ei voitu päivittää. Yritä uudelleen."
   },
   "orderConfirmed": {
     "metaTitle": "Kiitos tilauksestasi",

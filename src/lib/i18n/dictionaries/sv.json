@@ -588,6 +588,7 @@
   "account": {
     "metaTitle": "Mitt konto",
     "metaDescription": "Se ordrar, spårning och önskelista hos {brand}.",
+    "eyebrow": "Konto",
     "title": "Mitt konto",
     "welcome": "Hej {name}",
     "welcomeGuest": "Mitt konto",
@@ -597,13 +598,15 @@
     "loginError": "Inloggningen misslyckades. Försök igen.",
     "logout": "Logga ut",
     "notConfigured": "Kundkonton är inte konfigurerade ännu. Lägg till Customer Account API-uppgifter i miljön.",
+    "overviewEmail": "Inloggad som",
     "ordersTitle": "Ordrar",
+    "ordersIntro": "Dina ordrar och spårning.",
     "ordersEmpty": "Du har inga ordrar än.",
     "ordersCta": "Till sortimentet",
     "ordersView": "Visa order",
     "ordersLoadMore": "Visa äldre ordrar",
     "orderTitle": "Order {name}",
-    "orderBack": "← Alla ordrar",
+    "orderBack": "Alla ordrar",
     "orderPlaced": "Lagd {date}",
     "orderFinancial": "Betalning",
     "orderFulfillment": "Leverans",
@@ -621,9 +624,10 @@
     "orderStatusPage": "Shopify orderstatus",
     "orderNotFound": "Ordern hittades inte.",
     "wishlistTitle": "Önskelista",
+    "wishlistIntro": "Produkter du sparat till senare.",
     "wishlistEmpty": "Din önskelista är tom.",
     "wishlistCta": "Utforska sortimentet",
-    "navAccount": "Konto",
+    "navAccount": "Översikt",
     "navOrders": "Ordrar",
     "navWishlist": "Önskelista",
     "shortcutOrders": "Se ordrar & spårning",
@@ -633,7 +637,9 @@
   "wishlist": {
     "add": "Spara till önskelista",
     "remove": "Ta bort från önskelista",
-    "saved": "Sparad"
+    "saved": "Sparad",
+    "loginRequired": "Logga in för att spara till önskelistan.",
+    "error": "Kunde inte uppdatera önskelistan. Försök igen."
   },
   "orderConfirmed": {
     "metaTitle": "Tack för din order",

@@ -36,6 +36,12 @@ import type {
 } from "./types";
 import { parseWishlistValue } from "./types";
 import { getLocaleConfig, isLocale, localePath } from "@/lib/i18n/locales";
+import {
+  clearWishlistCookie,
+  hasWishlistCookie,
+  readWishlistCookie,
+  writeWishlistCookie,
+} from "@/lib/wishlist-cookie";
 
 export {
   CustomerAccountAuthError,
@@ -129,6 +135,7 @@ export async function buildLogoutUrl(returnTo: string) {
   const openId = await getOpenIdConfiguration();
   const idToken = await getIdToken();
   await clearCustomerTokens();
+  await clearWishlistCookie();
 
   const url = new URL(openId.end_session_endpoint);
   if (idToken) url.searchParams.set("id_token_hint", idToken);
@@ -158,6 +165,14 @@ export const getCustomerProfile = cache(
       }>({ query: CUSTOMER_QUERY });
 
       const customer = data.customer;
+      const fromMetafield = parseWishlistValue(customer.metafield?.value);
+      const fromCookie = await readWishlistCookie(customer.id);
+      // Cookie is source of truth once written (metafield sync may be blocked
+      // until harbor.wishlist has Customer Account READ_WRITE in Admin).
+      const wishlistProductIds = (await hasWishlistCookie())
+        ? fromCookie
+        : fromMetafield;
+
       return {
         id: customer.id,
         firstName: customer.firstName ?? null,
@@ -165,7 +180,7 @@ export const getCustomerProfile = cache(
         email: customer.emailAddress?.emailAddress ?? null,
         phone: customer.phoneNumber?.phoneNumber ?? null,
         defaultAddress: customer.defaultAddress?.formatted ?? null,
-        wishlistProductIds: parseWishlistValue(customer.metafield?.value),
+        wishlistProductIds,
       };
     } catch (error) {
       if (error instanceof CustomerAccountAuthError) return null;
@@ -328,30 +343,38 @@ export async function setWishlistProductIds(productIds: string[]) {
   const profile = await getCustomerProfile();
   if (!profile) throw new CustomerAccountAuthError();
 
-  const unique = Array.from(new Set(productIds));
-  const data = await customerAccountFetch<{
-    metafieldsSet: {
-      userErrors: { message: string }[];
-    };
-  }>({
-    query: METAFIELDS_SET_MUTATION,
-    variables: {
-      metafields: [
-        {
-          namespace: WISHLIST_NAMESPACE,
-          key: WISHLIST_KEY,
-          ownerId: profile.id,
-          type: "json",
-          value: JSON.stringify(unique),
-        },
-      ],
-    },
-  });
+  const unique = await writeWishlistCookie(profile.id, productIds);
 
-  if (data.metafieldsSet.userErrors.length) {
-    throw new Error(
-      data.metafieldsSet.userErrors.map((error) => error.message).join("\n"),
-    );
+  // Best-effort Shopify metafield sync (requires harbor.wishlist definition
+  // with Customer Account READ_WRITE). Cookie is source of truth either way.
+  try {
+    const data = await customerAccountFetch<{
+      metafieldsSet: {
+        userErrors: { message: string }[];
+      };
+    }>({
+      query: METAFIELDS_SET_MUTATION,
+      variables: {
+        metafields: [
+          {
+            namespace: WISHLIST_NAMESPACE,
+            key: WISHLIST_KEY,
+            ownerId: profile.id,
+            type: "json",
+            value: JSON.stringify(unique),
+          },
+        ],
+      },
+    });
+
+    if (data.metafieldsSet.userErrors.length) {
+      console.warn(
+        "Wishlist metafield sync skipped:",
+        data.metafieldsSet.userErrors.map((error) => error.message).join("\n"),
+      );
+    }
+  } catch (error) {
+    console.warn("Wishlist metafield sync skipped:", error);
   }
 
   return unique;

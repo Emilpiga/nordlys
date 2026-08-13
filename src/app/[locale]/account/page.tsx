@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AccountNav } from "@/components/account-nav";
-import { LocaleLink } from "@/components/locale-link";
+import {
+  AccountLinkRow,
+  AccountShell,
+} from "@/components/account-shell";
 import {
   getCustomerProfile,
   isCustomerAccountConfigured,
@@ -16,6 +18,15 @@ type Props = {
   params: Promise<{ locale: string }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
+
+function navLabels(dict: Awaited<ReturnType<typeof getDictionary>>) {
+  return {
+    account: dict.account.navAccount,
+    orders: dict.account.navOrders,
+    wishlist: dict.account.navWishlist,
+    logout: dict.account.logout,
+  };
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -55,23 +66,29 @@ export default async function AccountPage({ params, searchParams }: Props) {
     customer?.email ||
     null;
 
-  return (
-    <div className="mx-auto w-full max-w-3xl px-5 pb-20 pt-12 sm:px-8 sm:pb-28 sm:pt-16">
-      <h1 className="font-display text-5xl font-medium tracking-tight sm:text-6xl">
-        {displayName
-          ? t(dict.account.welcome, { name: displayName })
-          : dict.account.welcomeGuest}
-      </h1>
-
-      {!configured ? (
-        <p className="mt-6 text-base font-light leading-relaxed text-muted">
+  if (!configured) {
+    return (
+      <AccountShell
+        locale={locale}
+        eyebrow={dict.account.eyebrow}
+        title={dict.account.welcomeGuest}
+      >
+        <p className="text-base font-light leading-relaxed text-muted">
           {dict.account.notConfigured}
         </p>
-      ) : !customer ? (
-        <div className="mt-8 max-w-lg space-y-5">
-          <p className="text-base font-light leading-relaxed text-muted">
-            {dict.account.loginBody}
-          </p>
+      </AccountShell>
+    );
+  }
+
+  if (!customer) {
+    return (
+      <AccountShell
+        locale={locale}
+        eyebrow={dict.account.eyebrow}
+        title={dict.account.welcomeGuest}
+        description={dict.account.loginBody}
+      >
+        <div className="space-y-5">
           {loginError ? (
             <p className="text-sm text-accent">{dict.account.loginError}</p>
           ) : null}
@@ -82,54 +99,47 @@ export default async function AccountPage({ params, searchParams }: Props) {
             {dict.account.loginCta}
           </a>
         </div>
-      ) : (
-        <div className="mt-10 space-y-10">
-          <AccountNav
-            locale={locale}
-            active="account"
-            labels={{
-              account: dict.account.navAccount,
-              orders: dict.account.navOrders,
-              wishlist: dict.account.navWishlist,
-              logout: dict.account.logout,
-            }}
+      </AccountShell>
+    );
+  }
+
+  return (
+    <AccountShell
+      locale={locale}
+      eyebrow={dict.account.eyebrow}
+      title={
+        displayName
+          ? t(dict.account.welcome, { name: displayName })
+          : dict.account.welcomeGuest
+      }
+      description={
+        customer.email
+          ? `${dict.account.overviewEmail} ${customer.email}`
+          : null
+      }
+      active="account"
+      labels={navLabels(dict)}
+    >
+      <ul>
+        <li>
+          <AccountLinkRow
+            href="/account/orders"
+            label={dict.account.shortcutOrders}
           />
-
-          {customer.email ? (
-            <p className="text-base font-light text-muted">{customer.email}</p>
-          ) : null}
-
-          <ul className="space-y-3">
-            <li>
-              <LocaleLink
-                href="/account/orders"
-                className="flex items-center justify-between border-b border-border/60 py-4 text-base transition hover:text-accent"
-              >
-                <span>{dict.account.shortcutOrders}</span>
-                <span aria-hidden>→</span>
-              </LocaleLink>
-            </li>
-            <li>
-              <LocaleLink
-                href="/account/wishlist"
-                className="flex items-center justify-between border-b border-border/60 py-4 text-base transition hover:text-accent"
-              >
-                <span>{dict.account.shortcutWishlist}</span>
-                <span aria-hidden>→</span>
-              </LocaleLink>
-            </li>
-            <li>
-              <LocaleLink
-                href="/products"
-                className="flex items-center justify-between border-b border-border/60 py-4 text-base transition hover:text-accent"
-              >
-                <span>{dict.account.shortcutShop}</span>
-                <span aria-hidden>→</span>
-              </LocaleLink>
-            </li>
-          </ul>
-        </div>
-      )}
-    </div>
+        </li>
+        <li>
+          <AccountLinkRow
+            href="/account/wishlist"
+            label={dict.account.shortcutWishlist}
+          />
+        </li>
+        <li>
+          <AccountLinkRow
+            href="/products"
+            label={dict.account.shortcutShop}
+          />
+        </li>
+      </ul>
+    </AccountShell>
   );
 }
