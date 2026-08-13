@@ -3,67 +3,79 @@
 import Image from "next/image";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
-import { categoryParamFromId } from "@/lib/shopify/taxonomy";
-import type { ProductCategory } from "@/lib/shopify/types";
-import type { ProductImage } from "@/lib/shopify/types";
-
-export type HomeCategory = ProductCategory & {
-  image: ProductImage | null;
-};
+import type { CollectionSummary } from "@/lib/shopify/types";
 
 type HomeCategoryGuideProps = {
-  categories: HomeCategory[];
+  collections: CollectionSummary[];
 };
 
-export function HomeCategoryGuide({ categories }: HomeCategoryGuideProps) {
+export function HomeCategoryGuide({ collections }: HomeCategoryGuideProps) {
   const { dict } = useDictionary();
 
-  if (categories.length === 0) return null;
+  if (collections.length === 0) return null;
+
+  const oddTail =
+    collections.length > 1 && collections.length % 2 === 1;
 
   return (
-    <section className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
-      <div className="mb-12 max-w-xl sm:mb-14">
-        <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
-          {dict.home.categoryEyebrow}
-        </p>
-        <h2 className="mt-3 font-display text-4xl font-medium tracking-tight sm:text-5xl">
-          {dict.home.categoryTitle}
-        </h2>
-        <p className="mt-4 text-base font-light leading-relaxed text-muted">
-          {dict.home.categorySub}
-        </p>
+    <section
+      id="categories"
+      className="relative flex min-h-[100svh] flex-col scroll-mt-[var(--header-height)] md:flex-row"
+    >
+      <div className="relative z-10 flex w-full shrink-0 flex-col justify-center border-b border-border/70 bg-frost px-5 py-14 sm:px-8 md:sticky md:top-[var(--header-height)] md:h-[calc(100svh-var(--header-height))] md:w-[var(--rail-width)] md:border-b-0 md:border-r md:self-start">
+        <div className="mx-auto w-full max-w-md md:mx-0">
+          <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
+            {dict.home.categoryEyebrow}
+          </p>
+          <h2 className="mt-4 font-display text-[1.85rem] font-medium leading-[1.15] tracking-tight sm:text-[2.15rem]">
+            {dict.home.categoryTitle}
+          </h2>
+          <p className="mt-5 max-w-sm text-base font-light leading-relaxed text-muted">
+            {dict.home.categorySub}
+          </p>
+        </div>
       </div>
 
-      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-        {categories.map((category) => {
-          const href = `/categories/${encodeURIComponent(categoryParamFromId(category.id))}`;
+      <ul className="grid flex-1 grid-cols-1 gap-[2px] bg-mist sm:grid-cols-2 sm:auto-rows-[minmax(50svh,1fr)] md:min-h-svh md:gap-[3px]">
+        {collections.map((collection, index) => {
+          const wideTail = oddTail && index === collections.length - 1;
 
           return (
-            <li key={category.id}>
+            <li
+              key={collection.id}
+              className={`relative min-h-[50svh] ${wideTail ? "sm:col-span-2" : ""}`}
+            >
               <LocaleLink
-                href={href}
-                className="group relative block min-h-[14rem] overflow-hidden rounded-2xl bg-mist sm:min-h-[16rem]"
+                href={`/collections/${encodeURIComponent(collection.handle)}`}
+                className="group absolute inset-0 block overflow-hidden"
               >
-                {category.image ? (
+                {collection.image ? (
                   <Image
-                    src={category.image.url}
-                    alt={category.image.altText || category.name}
+                    src={collection.image.url}
+                    alt={collection.image.altText || collection.title}
                     fill
-                    className="object-cover transition duration-[900ms] ease-out group-hover:scale-[1.04]"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover object-center transition duration-[900ms] ease-out group-hover:scale-[1.04]"
+                    sizes={
+                      wideTail
+                        ? "(max-width: 640px) 100vw, 54vw"
+                        : "(max-width: 640px) 100vw, (max-width: 768px) 50vw, 27vw"
+                    }
                   />
-                ) : null}
+                ) : (
+                  <div className="absolute inset-0 bg-mist" />
+                )}
+
                 <div
                   aria-hidden
-                  className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,32,28,0.08)_0%,rgba(20,32,28,0.55)_100%)]"
+                  className="absolute inset-0 bg-[linear-gradient(180deg,transparent_42%,rgba(20,18,14,0.58)_100%)]"
                 />
                 <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
                   <p className="font-display text-2xl font-medium tracking-tight text-white sm:text-3xl">
-                    {category.name}
+                    {collection.title}
                   </p>
                   <p className="mt-1 text-[0.72rem] font-medium tracking-[0.14em] uppercase text-white/75">
-                    {category.productCount}{" "}
-                    {category.productCount === 1
+                    {collection.productCount}{" "}
+                    {collection.productCount === 1
                       ? dict.home.productOne
                       : dict.home.productMany}
                   </p>

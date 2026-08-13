@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { CategoryChips } from "@/components/category-chips";
 import { EmptyCatalog } from "@/components/setup-banner";
 import { ProductCard } from "@/components/product-card";
@@ -10,7 +10,6 @@ import {
   getCollectionByHandle,
   getCollections,
   getProducts,
-  getProductsByCategory,
 } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
 import {
@@ -18,33 +17,29 @@ import {
   ogLocaleFor,
   socialMetadata,
 } from "@/lib/seo";
-import { categoryParamFromId } from "@/lib/shopify/taxonomy";
 
-type Props = { params: Promise<{ locale: string; id: string }> };
+type Props = { params: Promise<{ locale: string; handle: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale, id } = await params;
+  const { locale, handle } = await params;
   if (!isLocale(locale)) return {};
 
-  const collection = await getCollectionByHandle(id, locale);
-  if (collection) {
-    return { title: collection.title };
-  }
+  const collection = await getCollectionByHandle(handle, locale);
+  if (!collection) return { title: "Rum" };
 
-  const { category, products } = await getProductsByCategory(id, 100, locale);
-  if (!category) return { title: "Kategori" };
-
-  const description = `${category.name} · ${shopifyConfig.storeName} — ${category.productCount}`;
-  const image = products.find((product) => product.featuredImage)?.featuredImage;
-  const path = `/categories/${encodeURIComponent(categoryParamFromId(category.id))}`;
+  const description =
+    collection.description ||
+    `${collection.title} · ${shopifyConfig.storeName}`;
+  const image = collection.image;
+  const path = `/collections/${encodeURIComponent(collection.handle)}`;
   const alternates = localeAlternates(locale, path);
 
   return {
-    title: category.name,
+    title: collection.title,
     description,
     alternates,
     ...socialMetadata({
-      title: `${category.name} · ${shopifyConfig.storeName}`,
+      title: `${collection.title} · ${shopifyConfig.storeName}`,
       description,
       url: alternates.canonical,
       locale: ogLocaleFor(locale),
@@ -54,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
               url: image.url,
               width: image.width,
               height: image.height,
-              alt: category.name,
+              alt: collection.title,
             },
           ]
         : undefined,
@@ -62,23 +57,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function CategoryPage({ params }: Props) {
-  const { locale, id } = await params;
+export default async function CollectionPage({ params }: Props) {
+  const { locale, handle } = await params;
   if (!isLocale(locale)) notFound();
 
-  const asCollection = await getCollectionByHandle(id, locale);
-  if (asCollection) {
-    redirect(localePath(locale, `/collections/${asCollection.handle}`));
-  }
-
   const dict = await getDictionary(locale);
-  const [{ category, products }, collections, catalog] = await Promise.all([
-    getProductsByCategory(id, 100, locale),
+  const [collection, collections, products] = await Promise.all([
+    getCollectionByHandle(handle, locale),
     getCollections(24, locale),
     getProducts(100, locale),
   ]);
 
-  if (!category) notFound();
+  if (!collection) notFound();
 
   return (
     <div className="mx-auto w-full max-w-6xl px-5 pb-14 pt-12 sm:px-8 sm:pb-20 sm:pt-16">
@@ -94,19 +84,28 @@ export default async function CategoryPage({ params }: Props) {
           {dict.nav.categories}
         </p>
         <h1 className="mt-3 font-display text-5xl font-medium tracking-tight sm:text-6xl">
-          {category.name}
+          {collection.title}
         </h1>
+        {collection.description ? (
+          <p className="mt-4 text-base font-light leading-relaxed text-muted">
+            {collection.description}
+          </p>
+        ) : null}
       </div>
 
       <div className="mb-12">
-        <CategoryChips collections={collections} allCount={catalog.length} />
+        <CategoryChips
+          collections={collections}
+          activeHandle={collection.handle}
+          allCount={products.length}
+        />
       </div>
 
-      {products.length === 0 ? (
+      {collection.products.length === 0 ? (
         <EmptyCatalog />
       ) : (
         <div className="grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-7">
-          {products.map((product) => (
+          {collection.products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

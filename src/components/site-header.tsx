@@ -3,15 +3,15 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
+import { HeaderSearch } from "@/components/header-search";
 import { LanguageSelector } from "@/components/language-selector";
 import { LocaleLink } from "@/components/locale-link";
 import { SiteLogo } from "@/components/site-logo";
 import { shopifyConfig } from "@/lib/shopify/config";
-import { categoryParamFromId } from "@/lib/shopify/taxonomy";
-import type { ProductCategory } from "@/lib/shopify/types";
+import type { CollectionSummary } from "@/lib/shopify/types";
 
 type SiteHeaderProps = {
-  categories?: ProductCategory[];
+  collections?: CollectionSummary[];
 };
 
 function BagIcon({ className }: { className?: string }) {
@@ -58,28 +58,17 @@ function ChevronIcon({ className }: { className?: string }) {
   );
 }
 
-export function SiteHeader({ categories = [] }: SiteHeaderProps) {
+export function SiteHeader({ collections = [] }: SiteHeaderProps) {
   const { dict, t } = useDictionary();
   const { cart, openCart } = useCart();
   const cartCount = cart?.totalQuantity ?? 0;
-  const [progress, setProgress] = useState(0);
   const [shopOpen, setShopOpen] = useState(false);
   const panelId = useId();
   const shopRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const countLabel =
     cartCount > 99 ? "99+" : cartCount > 0 ? String(cartCount) : null;
-  const hasCategories = categories.length > 0;
-
-  useEffect(() => {
-    const update = () => {
-      setProgress(Math.min(1, window.scrollY / 72));
-    };
-
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
-  }, []);
+  const hasCategories = collections.length > 0;
 
   useEffect(() => {
     if (!shopOpen) return;
@@ -122,33 +111,25 @@ export function SiteHeader({ categories = [] }: SiteHeaderProps) {
     closeTimer.current = setTimeout(() => setShopOpen(false), 120);
   }
 
-  // Keep a readable light bar over dark hero imagery; deepen on scroll.
-  const veil = Math.min(0.94, 0.72 + progress * 0.24);
-  const blur = 10 + progress * 8;
-  const border = 0.06 + progress * 0.08;
-
   return (
-    <header
-      className="fixed inset-x-0 top-0 z-40 border-b"
-      style={{
-        backgroundColor: `rgba(247, 245, 241, ${veil.toFixed(3)})`,
-        backdropFilter: `blur(${blur.toFixed(1)}px)`,
-        WebkitBackdropFilter: `blur(${blur.toFixed(1)}px)`,
-        borderBottomColor: `rgba(26, 24, 20, ${border.toFixed(3)})`,
-      }}
-    >
-      <div className="mx-auto flex h-[4.25rem] w-full max-w-6xl items-center justify-between gap-6 px-5 sm:h-[4.5rem] sm:px-8">
-        <LocaleLink
-          href="/"
-          aria-label={shopifyConfig.storeName}
-          className="inline-flex shrink-0 items-center"
-          onClick={() => setShopOpen(false)}
-        >
-          <SiteLogo size="header" priority />
-        </LocaleLink>
+    <header className="sticky top-0 z-40 border-b border-border/70 bg-frost">
+      <div className="flex h-[var(--header-height)] w-full items-center justify-between gap-6 px-5 sm:px-8 md:grid md:grid-cols-[var(--rail-width)_minmax(0,1fr)] md:gap-0 md:px-0">
+        <div className="flex h-full items-center md:border-r md:border-border/70 md:px-8">
+          <LocaleLink
+            href="/"
+            aria-label={shopifyConfig.storeName}
+            className="inline-flex shrink-0 items-center"
+            onClick={() => setShopOpen(false)}
+          >
+            <SiteLogo size="header" priority />
+          </LocaleLink>
+        </div>
 
-        <nav className="flex items-center gap-7 text-[0.8rem] font-medium tracking-[0.14em] uppercase text-foreground/70">
-          <div
+        <div className="flex min-w-0 flex-1 items-center justify-end gap-3 md:h-full md:items-stretch md:justify-between md:gap-0">
+          <HeaderSearch collections={collections} />
+
+          <nav className="flex shrink-0 items-center gap-5 text-[0.8rem] font-medium tracking-[0.14em] uppercase text-foreground/70 sm:gap-7 md:px-8">
+            <div
             ref={shopRef}
             className="relative"
             onMouseEnter={openShop}
@@ -205,16 +186,16 @@ export function SiteHeader({ categories = [] }: SiteHeaderProps) {
                   </div>
 
                   <ul className="mt-4 grid grid-cols-1 gap-1 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-1">
-                    {categories.map((category) => (
-                      <li key={category.id}>
+                    {collections.map((collection) => (
+                      <li key={collection.id}>
                         <LocaleLink
-                          href={`/categories/${encodeURIComponent(categoryParamFromId(category.id))}`}
+                          href={`/collections/${encodeURIComponent(collection.handle)}`}
                           onClick={() => setShopOpen(false)}
                           className="flex items-baseline justify-between gap-3 px-2 py-2.5 text-[0.78rem] font-normal normal-case tracking-normal text-foreground/85 transition hover:bg-[color-mix(in_oklab,var(--mist)_55%,white)] hover:text-foreground"
                         >
-                          <span>{category.name}</span>
+                          <span>{collection.title}</span>
                           <span className="tabular-nums text-[0.68rem] text-muted">
-                            {category.productCount}
+                            {collection.productCount}
                           </span>
                         </LocaleLink>
                       </li>
@@ -247,7 +228,8 @@ export function SiteHeader({ categories = [] }: SiteHeaderProps) {
               </span>
             ) : null}
           </button>
-        </nav>
+          </nav>
+        </div>
       </div>
     </header>
   );

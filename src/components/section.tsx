@@ -3,15 +3,18 @@ import type { ReactNode } from "react";
 type SectionProps = {
   children: ReactNode;
   className?: string;
+  id?: string;
 };
 
 /**
  * Editorial section with no background of its own — the page aurora shows
  * through, so there is no hard transition at the edges.
  */
-export function AmbientSection({ children, className = "" }: SectionProps) {
+export function AmbientSection({ children, className = "", id }: SectionProps) {
   return (
-    <section className={`ambient-section ${className}`}>{children}</section>
+    <section id={id} className={`ambient-section ${className}`}>
+      {children}
+    </section>
   );
 }
 

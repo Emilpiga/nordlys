@@ -1,109 +1,110 @@
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { HomeHero, type HeroMosaicImage } from "@/components/home-hero";
 import { HomeCategoryGuide } from "@/components/home-category-guide";
-import { AmbientSection, SectionRule } from "@/components/section";
+import { HomeTrustStrip } from "@/components/home-trust-strip";
 import { EmptyCatalog } from "@/components/setup-banner";
-import { HomeHero } from "@/components/home-hero";
-import { ProductCard } from "@/components/product-card";
-import { getDictionary, t } from "@/lib/i18n/get-dictionary";
-import { isLocale, localePath } from "@/lib/i18n/locales";
-import { getProducts } from "@/lib/shopify";
-import { categoriesFromProducts } from "@/lib/shopify/taxonomy";
+import {
+  HERO_MOSAIC_TILE_COUNT,
+  isPortraitOrSquare,
+} from "@/lib/home-mosaic";
+import { isLocale } from "@/lib/i18n/locales";
+import { getCollections, getProducts } from "@/lib/shopify";
 import { isShopifyConfigured, shopifyConfig } from "@/lib/shopify/config";
-import type { Product } from "@/lib/shopify/types";
+import type { Product, ProductImage } from "@/lib/shopify/types";
 
 type Props = { params: Promise<{ locale: string }> };
 
-function categoriesWithImages(products: Product[]) {
-  return categoriesFromProducts(products).map((category) => {
-    const sample = products.find(
-      (product) => product.category?.id === category.id && product.featuredImage,
-    );
-    return {
-      ...category,
-      image: sample?.featuredImage ?? null,
-    };
-  });
+function shuffle<T>(items: T[]) {
+  const next = [...items];
+  for (let i = next.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [next[i], next[j]] = [next[j], next[i]];
+  }
+  return next;
+}
+
+function imageKey(url: string) {
+  try {
+    const parsed = new URL(url);
+    return `${parsed.origin}${parsed.pathname}`;
+  } catch {
+    return url.split("?")[0] ?? url;
+  }
+}
+
+function tileFromImage(
+  product: Product,
+  image: ProductImage | null | undefined,
+): HeroMosaicImage | null {
+  if (!image?.url) return null;
+  const width = image.width || 0;
+  const height = image.height || 0;
+  if (width > 0 && height > 0 && !isPortraitOrSquare(width, height)) return null;
+  return {
+    url: image.url,
+    alt: image.altText || product.title,
+    product,
+  };
+}
+
+/** One upright image per product so each tile maps to add / quick view. */
+function mosaicImagesFromCatalog(
+  products: Product[],
+  count: number,
+): HeroMosaicImage[] {
+  const seen = new Set<string>();
+  const unique: HeroMosaicImage[] = [];
+
+  for (const product of shuffle(products)) {
+    const tile =
+      tileFromImage(product, product.featuredImage) ??
+      product.images
+        .map((image) => tileFromImage(product, image))
+        .find(Boolean) ??
+      null;
+    if (!tile) continue;
+    const key = imageKey(tile.url);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    unique.push(tile);
+  }
+
+  if (unique.length === 0) return [];
+
+  const tiles: HeroMosaicImage[] = [];
+  while (tiles.length < count) {
+    tiles.push(...unique);
+  }
+  return tiles.slice(0, count);
 }
 
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
-  const dict = await getDictionary(locale);
   const brand = shopifyConfig.storeName;
-  const catalog = await getProducts(100, locale);
-  const featured = catalog.slice(0, 4);
-  const categories = categoriesWithImages(catalog);
+  const [catalog, collections] = await Promise.all([
+    getProducts(100, locale),
+    getCollections(24, locale),
+  ]);
+  const mosaicImages = mosaicImagesFromCatalog(
+    catalog,
+    HERO_MOSAIC_TILE_COUNT,
+  );
 
   return (
     <div>
-      <HomeHero storeName={brand} />
+      <HomeHero storeName={brand} mosaicImages={mosaicImages} />
 
-      <AmbientSection className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
-        <div className="mb-12 flex flex-col gap-6 sm:mb-14 sm:flex-row sm:items-end sm:justify-between">
-          <div className="max-w-xl">
-            <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
-              {dict.home.featuredEyebrow}
-            </p>
-            <h2 className="mt-3 font-display text-4xl font-medium tracking-tight sm:text-5xl">
-              {dict.home.featuredTitle}
-            </h2>
-            <p className="mt-3 text-base font-light leading-relaxed text-muted">
-              {dict.home.featuredSub}
-            </p>
-          </div>
-          <Link
-            href={localePath(locale, "/products")}
-            className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted transition hover:text-foreground"
-          >
-            {dict.home.featuredAll}
-          </Link>
-        </div>
+      <HomeTrustStrip />
 
-        {!isShopifyConfigured() || featured.length === 0 ? (
+      {!isShopifyConfigured() || collections.length === 0 ? (
+        <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
           <EmptyCatalog />
-        ) : (
-          <div className="grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-4 lg:gap-x-7">
-            {featured.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        )}
-      </AmbientSection>
-
-      <SectionRule />
-
-      <AmbientSection className="mx-auto grid w-full max-w-6xl gap-12 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16">
-        <div>
-          <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
-            {dict.home.atmosphereEyebrow}
-          </p>
-          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight sm:text-5xl">
-            {dict.home.atmosphereTitle}
-          </h2>
-          <p className="mt-5 max-w-md text-base font-light leading-relaxed text-muted">
-            {t(dict.home.atmosphereBody, { brand })}
-          </p>
         </div>
-        <div className="relative min-h-[300px] overflow-hidden rounded-2xl sm:min-h-[420px]">
-          <Image
-            src="/winter-lighting.png"
-            alt={dict.home.atmosphereAlt}
-            fill
-            className="object-cover object-center"
-            sizes="(max-width: 1024px) 100vw, 55vw"
-          />
-        </div>
-      </AmbientSection>
-
-      {categories.length > 0 ? (
-        <>
-          <SectionRule />
-          <HomeCategoryGuide categories={categories} />
-        </>
-      ) : null}
+      ) : (
+        <HomeCategoryGuide collections={collections} />
+      )}
     </div>
   );
 }

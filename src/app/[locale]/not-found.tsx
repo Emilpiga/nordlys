@@ -16,7 +16,7 @@ export default async function NotFound() {
   const dict = await getDictionary(locale);
 
   return (
-    <div className="mx-auto flex min-h-[50vh] w-full max-w-6xl flex-col items-start justify-center px-5 pb-16 pt-28 sm:px-8 sm:pt-32">
+    <div className="mx-auto flex min-h-[50vh] w-full max-w-6xl flex-col items-start justify-center px-5 pb-16 pt-12 sm:px-8 sm:pt-16">
       <h1 className="font-display text-4xl tracking-tight">
         {dict.notFound.title}
       </h1>

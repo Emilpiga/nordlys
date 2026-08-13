@@ -26,6 +26,11 @@ export const PRODUCT_CARD_FRAGMENT = /* GraphQL */ `
     featuredImage {
       ...ImageFields
     }
+    images(first: 12) {
+      nodes {
+        ...ImageFields
+      }
+    }
     priceRange {
       minVariantPrice {
         ...MoneyFields
@@ -130,6 +135,14 @@ export const COLLECTION_CARD_FRAGMENT = /* GraphQL */ `
     image {
       ...ImageFields
     }
+    products(first: 100) {
+      nodes {
+        id
+        featuredImage {
+          ...ImageFields
+        }
+      }
+    }
   }
   ${IMAGE_FRAGMENT}
 `;
@@ -144,7 +157,7 @@ export const COLLECTION_FRAGMENT = /* GraphQL */ `
     image {
       ...ImageFields
     }
-    products(first: 48) {
+    products(first: 100) {
       nodes {
         ...ProductCardFields
       }

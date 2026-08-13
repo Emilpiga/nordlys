@@ -30,6 +30,7 @@ type ShopifyProductCard = {
   title: string;
   category?: ShopifyCategory;
   featuredImage: ShopifyImage;
+  images?: { nodes: NonNullable<ShopifyImage>[] };
   priceRange: {
     minVariantPrice: ShopifyMoney;
     maxVariantPrice: ShopifyMoney;
@@ -117,6 +118,13 @@ export function mapProductCard(product: ShopifyProductCard): Product {
     }),
   );
 
+  const gallery = (product.images?.nodes ?? [])
+    .map((image) => mapImage(image))
+    .filter((image): image is ProductImage => Boolean(image));
+  const featured = mapImage(product.featuredImage);
+  const images =
+    gallery.length > 0 ? gallery : featured ? [featured] : [];
+
   return {
     id: product.id,
     handle: product.handle,
@@ -126,8 +134,8 @@ export function mapProductCard(product: ShopifyProductCard): Product {
     category: product.category
       ? { id: product.category.id, name: product.category.name }
       : null,
-    featuredImage: mapImage(product.featuredImage),
-    images: product.featuredImage ? [mapImage(product.featuredImage)!] : [],
+    featuredImage: featured,
+    images,
     priceRange: product.priceRange,
     options: product.options ?? [],
     variants,
@@ -168,6 +176,7 @@ type ShopifyCollectionCard = {
   title: string;
   description: string;
   image: ShopifyImage;
+  products?: { nodes: { id?: string; featuredImage: ShopifyImage }[] };
 };
 
 type ShopifyCollection = ShopifyCollectionCard & {
@@ -178,12 +187,26 @@ type ShopifyCollection = ShopifyCollectionCard & {
 export function mapCollectionCard(
   collection: ShopifyCollectionCard,
 ): CollectionSummary {
+  const seen = new Set<string>();
+  const sampleImages: ProductImage[] = [];
+
+  for (const node of collection.products?.nodes ?? []) {
+    const image = mapImage(node.featuredImage);
+    if (!image?.url) continue;
+    const key = image.url.split("?")[0] ?? image.url;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    sampleImages.push(image);
+  }
+
   return {
     id: collection.id,
     handle: collection.handle,
     title: collection.title,
     description: collection.description,
-    image: mapImage(collection.image),
+    image: mapImage(collection.image) ?? sampleImages[0] ?? null,
+    productCount: collection.products?.nodes?.length ?? 0,
+    sampleImages,
   };
 }
 

@@ -82,9 +82,31 @@ export type CollectionSummary = {
   title: string;
   description: string;
   image: ProductImage | null;
+  productCount: number;
+  sampleImages: ProductImage[];
 };
 
 export type Collection = CollectionSummary & {
   descriptionHtml: string;
   products: Product[];
+};
+
+export type SearchProductHit = {
+  id: string;
+  handle: string;
+  title: string;
+  featuredImage: ProductImage | null;
+  price: Money;
+};
+
+export type SearchCollectionHit = {
+  id: string;
+  handle: string;
+  title: string;
+};
+
+export type CatalogSearchResult = {
+  products: SearchProductHit[];
+  collections: SearchCollectionHit[];
+  suggestions: string[];
 };

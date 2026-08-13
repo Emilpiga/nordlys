@@ -26,15 +26,20 @@ import {
   GET_COLLECTIONS_QUERY,
   GET_PRODUCT_BY_HANDLE_QUERY,
   GET_PRODUCTS_QUERY,
+  PREDICTIVE_SEARCH_QUERY,
+  SEARCH_PRODUCTS_QUERY,
 } from "./queries";
 import type {
   Cart,
+  CatalogSearchResult,
   Collection,
   CollectionSummary,
   Product,
   ProductCategory,
+  SearchCollectionHit,
+  SearchProductHit,
 } from "./types";
-import { isBrowsableCollection } from "./collections";
+import { isBrowsableCollection, roomsFromCollections } from "./collections";
 import {
   categoriesFromProducts,
   categoryIdFromParam,
@@ -175,10 +180,11 @@ export async function getCollections(
       tags: [localeTag(locale, "collections"), "collections"],
     });
 
-    return data.collections.nodes
-      .map(mapCollectionCard)
-      .filter(isBrowsableCollection)
-      .slice(0, first);
+    return roomsFromCollections(
+      data.collections.nodes
+        .map(mapCollectionCard)
+        .filter(isBrowsableCollection),
+    ).slice(0, first);
   } catch (error) {
     if (
       error instanceof ShopifyAuthError ||
@@ -224,6 +230,137 @@ export async function getCollectionByHandle(
     }
     console.error(`Failed to load collection "${handle}":`, error);
     return null;
+  }
+}
+
+function mapSearchHit(product: {
+  id: string;
+  handle: string;
+  title: string;
+  featuredImage: Parameters<typeof mapProductCard>[0]["featuredImage"];
+  priceRange: { minVariantPrice: { amount: string; currencyCode: string } };
+}): SearchProductHit {
+  return {
+    id: product.id,
+    handle: product.handle,
+    title: product.title,
+    featuredImage: product.featuredImage
+      ? {
+          url: product.featuredImage.url,
+          altText: product.featuredImage.altText,
+          width: product.featuredImage.width,
+          height: product.featuredImage.height,
+        }
+      : null,
+    price: product.priceRange.minVariantPrice,
+  };
+}
+
+const emptySearch: CatalogSearchResult = {
+  products: [],
+  collections: [],
+  suggestions: [],
+};
+
+export async function predictiveSearch(
+  query: string,
+  locale?: string,
+  limit = 6,
+): Promise<CatalogSearchResult> {
+  const q = query.trim();
+  if (!q || !isShopifyConfigured()) return emptySearch;
+  const context = contextFromLocale(locale);
+
+  try {
+    const data = await shopifyFetch<{
+      predictiveSearch: {
+        products: Parameters<typeof mapSearchHit>[0][];
+        collections: SearchCollectionHit[];
+        queries: { text: string }[];
+      } | null;
+    }>({
+      query: PREDICTIVE_SEARCH_QUERY,
+      variables: { query: q, limit },
+      context,
+      tags: [localeTag(locale, "search"), "search"],
+      revalidate: 30,
+    });
+
+    const result = data.predictiveSearch;
+    if (!result) return emptySearch;
+
+    return {
+      products: result.products.map(mapSearchHit),
+      collections: result.collections.map((collection) => ({
+        id: collection.id,
+        handle: collection.handle,
+        title: collection.title,
+      })),
+      suggestions: result.queries
+        .map((item) => item.text.trim())
+        .filter(Boolean),
+    };
+  } catch (error) {
+    if (
+      error instanceof ShopifyAuthError ||
+      error instanceof ShopifyNotConfiguredError
+    ) {
+      console.error(error.message);
+      return emptySearch;
+    }
+    console.error("Predictive search failed:", error);
+    const products = await searchProducts(q, 6, locale);
+    return {
+      products: products.map((product) => ({
+        id: product.id,
+        handle: product.handle,
+        title: product.title,
+        featuredImage: product.featuredImage,
+        price: product.priceRange.minVariantPrice,
+      })),
+      collections: [],
+      suggestions: [],
+    };
+  }
+}
+
+export async function searchProducts(
+  query: string,
+  first = 24,
+  locale?: string,
+): Promise<Product[]> {
+  const q = query.trim();
+  if (!q || !isShopifyConfigured()) return [];
+  const context = contextFromLocale(locale);
+
+  try {
+    const data = await shopifyFetch<{
+      search: {
+        nodes: Array<Parameters<typeof mapProductCard>[0] | Record<string, never>>;
+      };
+    }>({
+      query: SEARCH_PRODUCTS_QUERY,
+      variables: { query: q, first },
+      context,
+      tags: [localeTag(locale, "search"), "search"],
+      revalidate: 60,
+    });
+
+    return data.search.nodes
+      .filter((node): node is Parameters<typeof mapProductCard>[0] =>
+        Boolean(node && "handle" in node && node.handle),
+      )
+      .map(mapProductCard);
+  } catch (error) {
+    if (
+      error instanceof ShopifyAuthError ||
+      error instanceof ShopifyNotConfiguredError
+    ) {
+      console.error(error.message);
+      return [];
+    }
+    console.error("Failed to search products:", error);
+    return [];
   }
 }
 

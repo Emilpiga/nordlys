@@ -1,11 +1,7 @@
 import type { MetadataRoute } from "next";
 import { locales, localePath } from "@/lib/i18n/locales";
-import { getProducts } from "@/lib/shopify";
+import { getCollections, getProducts } from "@/lib/shopify";
 import { getSiteUrl } from "@/lib/site-url";
-import {
-  categoriesFromProducts,
-  categoryParamFromId,
-} from "@/lib/shopify/taxonomy";
 
 export const revalidate = 3600;
 
@@ -33,9 +29,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
-  // Product catalog language does not change handles; use default locale fetch.
-  const products = await getProducts(250);
-  const categories = categoriesFromProducts(products);
+  const [products, collections] = await Promise.all([
+    getProducts(250),
+    getCollections(24),
+  ]);
 
   const productRoutes: MetadataRoute.Sitemap = locales.flatMap((locale) =>
     products.map((product) => ({
@@ -46,11 +43,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
-  const categoryRoutes: MetadataRoute.Sitemap = locales.flatMap((locale) =>
-    categories.map((category) => ({
+  const collectionRoutes: MetadataRoute.Sitemap = locales.flatMap((locale) =>
+    collections.map((collection) => ({
       url: `${baseUrl}${localePath(
         locale,
-        `/categories/${encodeURIComponent(categoryParamFromId(category.id))}`,
+        `/collections/${encodeURIComponent(collection.handle)}`,
       )}`,
       lastModified: now,
       changeFrequency: "weekly" as const,
@@ -58,5 +55,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
-  return [...staticRoutes, ...productRoutes, ...categoryRoutes];
+  return [...staticRoutes, ...productRoutes, ...collectionRoutes];
 }

@@ -50,7 +50,7 @@ export default async function FaqPage({ params }: Props) {
   }));
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-5 pb-20 pt-28 sm:px-8 sm:pb-28 sm:pt-32">
+    <div className="mx-auto w-full max-w-3xl px-5 pb-20 pt-12 sm:px-8 sm:pb-28 sm:pt-16">
       <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
         {dict.faq.eyebrow}
       </p>

@@ -47,7 +47,7 @@ export default async function AboutPage({ params }: Props) {
 
   return (
     <div>
-      <div className="mx-auto w-full max-w-6xl px-5 pt-28 sm:px-8 sm:pt-32">
+      <div className="mx-auto w-full max-w-6xl px-5 pt-12 sm:px-8 sm:pt-16">
         <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
           {t(a.eyebrow, { brand })}
         </p>

@@ -2,12 +2,11 @@
 
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
-import type { ProductCategory } from "@/lib/shopify/types";
-import { categoryParamFromId } from "@/lib/shopify/taxonomy";
+import type { CollectionSummary } from "@/lib/shopify/types";
 
 type CategoryChipsProps = {
-  categories: ProductCategory[];
-  activeId?: string;
+  collections: CollectionSummary[];
+  activeHandle?: string;
   allCount?: number;
 };
 
@@ -17,45 +16,42 @@ const idleClass =
   "border-border/80 text-muted hover:border-foreground/50 hover:text-foreground";
 
 export function CategoryChips({
-  categories,
-  activeId,
+  collections,
+  activeHandle,
   allCount,
 }: CategoryChipsProps) {
   const { dict } = useDictionary();
 
-  if (categories.length === 0) return null;
-
-  const activeParam = activeId ? categoryParamFromId(activeId) : null;
+  if (collections.length === 0) return null;
 
   return (
     <nav aria-label={dict.nav.categories} className="flex flex-wrap gap-2">
       <LocaleLink
         href="/products"
         className={`border px-3.5 py-2 text-[0.68rem] font-medium tracking-[0.14em] uppercase transition ${
-          !activeParam ? activeClass : idleClass
+          !activeHandle ? activeClass : idleClass
         }`}
-        style={!activeParam ? { color: "var(--on-accent)" } : undefined}
+        style={!activeHandle ? { color: "var(--on-accent)" } : undefined}
       >
         {dict.nav.viewAll}
         {typeof allCount === "number" ? (
           <span className="ml-1.5 tabular-nums opacity-70">{allCount}</span>
         ) : null}
       </LocaleLink>
-      {categories.map((category) => {
-        const param = categoryParamFromId(category.id);
-        const active = param === activeParam;
+      {collections.map((collection) => {
+        const active = collection.handle === activeHandle;
         return (
           <LocaleLink
-            key={category.id}
-            href={`/categories/${encodeURIComponent(param)}`}
+            key={collection.id}
+            href={`/collections/${encodeURIComponent(collection.handle)}`}
             className={`border px-3.5 py-2 text-[0.68rem] font-medium tracking-[0.14em] uppercase transition ${
               active ? activeClass : idleClass
             }`}
             style={active ? { color: "var(--on-accent)" } : undefined}
           >
-            {category.name}
+            {collection.title}
             <span className="ml-1.5 tabular-nums opacity-70">
-              {category.productCount}
+              {collection.productCount}
             </span>
           </LocaleLink>
         );

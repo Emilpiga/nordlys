@@ -25,7 +25,7 @@ import {
   buildOrganizationJsonLd,
   buildWebSiteJsonLd,
 } from "@/lib/json-ld";
-import { getProductCategories } from "@/lib/shopify";
+import { getCollections } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
 import { getMarketingPixelConfig } from "@/lib/consent";
 import { socialMetadata } from "@/lib/seo";
@@ -112,9 +112,9 @@ export default async function LocaleLayout({
   const locale: Locale = localeParam;
   const config = getLocaleConfig(locale);
 
-  const [cart, categories, dict] = await Promise.all([
+  const [cart, collections, dict] = await Promise.all([
     getCartAction(),
-    getProductCategories(100, locale),
+    getCollections(24, locale),
     getDictionary(locale),
   ]);
 
@@ -141,7 +141,7 @@ export default async function LocaleLayout({
         <AdPixels />
         <DictionaryProvider locale={locale} dict={dict}>
           <CartProvider cart={cart}>
-            <SiteHeader categories={categories} />
+            <SiteHeader collections={collections} />
             <main className="flex-1">{children}</main>
             <SiteFooter />
             <CartDrawer />

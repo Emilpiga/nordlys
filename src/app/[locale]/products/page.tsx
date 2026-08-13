@@ -5,14 +5,13 @@ import { EmptyCatalog } from "@/components/setup-banner";
 import { ProductCard } from "@/components/product-card";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { isLocale } from "@/lib/i18n/locales";
-import { getProducts } from "@/lib/shopify";
+import { getCollections, getProducts } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
 import {
   localeAlternates,
   ogLocaleFor,
   socialMetadata,
 } from "@/lib/seo";
-import { categoriesFromProducts } from "@/lib/shopify/taxonomy";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -43,11 +42,13 @@ export default async function ProductsPage({ params }: Props) {
   if (!isLocale(locale)) notFound();
 
   const dict = await getDictionary(locale);
-  const products = await getProducts(100, locale);
-  const categories = categoriesFromProducts(products);
+  const [products, collections] = await Promise.all([
+    getProducts(100, locale),
+    getCollections(24, locale),
+  ]);
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-5 pb-14 pt-28 sm:px-8 sm:pb-20 sm:pt-32">
+    <div className="mx-auto w-full max-w-6xl px-5 pb-14 pt-12 sm:px-8 sm:pb-20 sm:pt-16">
       <div className="mb-8 max-w-xl">
         <h1 className="font-display text-5xl font-medium tracking-tight sm:text-6xl">
           {dict.products.shopTitle}
@@ -58,7 +59,7 @@ export default async function ProductsPage({ params }: Props) {
       </div>
 
       <div className="mb-12">
-        <CategoryChips categories={categories} allCount={products.length} />
+        <CategoryChips collections={collections} allCount={products.length} />
       </div>
 
       {products.length === 0 ? (
