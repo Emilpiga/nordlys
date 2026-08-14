@@ -7,6 +7,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   applicationName: shopifyConfig.storeName,
   icons: brandIcons(),
+  verification: {
+    google: "bSh4H3La9pPmKiYkKZU5-UlDiHSzk3c4mV6WCHExLho",
+  },
 };
 
 /** Pass-through root — `<html>` / `<body>` live in `[locale]/layout`. */
