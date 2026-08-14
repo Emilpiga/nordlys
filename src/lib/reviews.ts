@@ -1,38 +1,24 @@
+import "server-only";
+
 import reviewsData from "@/data/reviews.json";
+import { defaultLocale } from "@/lib/i18n/locales";
 import {
-  REVIEW_AUTHORS,
-  REVIEW_COUNT_MAX,
-  REVIEW_COUNT_MIN,
-  REVIEW_TEMPLATES,
-} from "@/data/review-pool";
-import { defaultLocale, getLocaleConfig, type Locale } from "@/lib/i18n/locales";
+  formatReviewAverage,
+  formatReviewDate,
+} from "@/lib/review-format";
+import type {
+  LocalizedReview,
+  LocalizedText,
+  ReviewRecord,
+  ReviewSummary,
+} from "@/lib/review-types";
 
-export type LocalizedText = Record<string, string>;
-
-export type ReviewRecord = {
-  id: string;
-  rating: number;
-  date: string;
-  author: string;
-  location: string;
-  title: LocalizedText;
-  body: LocalizedText;
-};
-
-export type LocalizedReview = {
-  id: string;
-  productHandle: string;
-  rating: number;
-  date: string;
-  author: string;
-  location: string;
-  title: string;
-  body: string;
-};
-
-export type ReviewSummary = {
-  average: number;
-  count: number;
+export { formatReviewAverage, formatReviewDate };
+export type {
+  LocalizedReview,
+  LocalizedText,
+  ReviewRecord,
+  ReviewSummary,
 };
 
 type ReviewsFile = {
@@ -43,7 +29,6 @@ type ReviewsFile = {
 const data = reviewsData as ReviewsFile;
 
 const reviewIndex = new Map<string, { handle: string; review: ReviewRecord }>();
-const expandedCache = new Map<string, ReviewRecord[]>();
 
 for (const [handle, reviews] of Object.entries(data.products)) {
   for (const review of reviews) {
@@ -51,95 +36,8 @@ for (const [handle, reviews] of Object.entries(data.products)) {
   }
 }
 
-function hashString(value: string) {
-  let hash = 2166136261;
-  for (let i = 0; i < value.length; i += 1) {
-    hash ^= value.charCodeAt(i);
-    hash = Math.imul(hash, 16777619);
-  }
-  return hash >>> 0;
-}
-
-function mulberry32(seed: number) {
-  let state = seed || 1;
-  return () => {
-    state = (state + 0x6d2b79f5) | 0;
-    let t = Math.imul(state ^ (state >>> 15), 1 | state);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-function pickUnique<T>(
-  items: T[],
-  used: Set<number>,
-  rand: () => number,
-): T {
-  if (used.size >= items.length) used.clear();
-  let index = Math.floor(rand() * items.length);
-  let guard = 0;
-  while (used.has(index) && guard < items.length) {
-    index = (index + 1) % items.length;
-    guard += 1;
-  }
-  used.add(index);
-  return items[index];
-}
-
-function extraDate(rand: () => number, offset: number) {
-  const daysAgo = 6 + offset * 8 + Math.floor(rand() * 16);
-  const date = new Date(Date.UTC(2026, 7, 8));
-  date.setUTCDate(date.getUTCDate() - daysAgo);
-  return date.toISOString().slice(0, 10);
-}
-
-function expandReviews(handle: string, curated: ReviewRecord[]): ReviewRecord[] {
-  const cached = expandedCache.get(handle);
-  if (cached) return cached;
-
-  const rand = mulberry32(hashString(handle));
-  const target =
-    REVIEW_COUNT_MIN +
-    Math.floor(rand() * (REVIEW_COUNT_MAX - REVIEW_COUNT_MIN + 1));
-  const extraCount = Math.max(0, target - curated.length);
-
-  const usedAuthors = new Set(
-    curated.map((review) => review.author.toLowerCase()),
-  );
-  const usedTemplates = new Set<number>();
-  const usedAuthorIndexes = new Set<number>();
-  const extras: ReviewRecord[] = [];
-
-  for (let i = 0; i < extraCount; i += 1) {
-    const template = pickUnique(REVIEW_TEMPLATES, usedTemplates, rand);
-    let author = pickUnique(REVIEW_AUTHORS, usedAuthorIndexes, rand);
-    let spins = 0;
-    while (usedAuthors.has(author.author.toLowerCase()) && spins < 8) {
-      author = pickUnique(REVIEW_AUTHORS, usedAuthorIndexes, rand);
-      spins += 1;
-    }
-    usedAuthors.add(author.author.toLowerCase());
-
-    extras.push({
-      id: `${handle}-x${i + 1}`,
-      rating: template.rating,
-      date: extraDate(rand, i),
-      author: author.author,
-      location: author.location,
-      title: template.title,
-      body: template.body,
-    });
-  }
-
-  const expanded = [...curated, ...extras];
-  expandedCache.set(handle, expanded);
-  return expanded;
-}
-
 function reviewsFor(handle: string): ReviewRecord[] {
-  const curated = data.products[handle];
-  if (!curated?.length) return [];
-  return expandReviews(handle, curated);
+  return data.products[handle] ?? [];
 }
 
 function pickText(record: LocalizedText, locale: string) {
@@ -191,6 +89,15 @@ export function getReviewSummary(handle: string): ReviewSummary | null {
   };
 }
 
+export function getAllReviewSummaries(): Record<string, ReviewSummary> {
+  const summaries: Record<string, ReviewSummary> = {};
+  for (const handle of Object.keys(data.products)) {
+    const summary = getReviewSummary(handle);
+    if (summary) summaries[handle] = summary;
+  }
+  return summaries;
+}
+
 export function getFeaturedTestimonials(locale: string): LocalizedReview[] {
   return data.featured.flatMap((id) => {
     const entry = reviewIndex.get(id);
@@ -199,22 +106,3 @@ export function getFeaturedTestimonials(locale: string): LocalizedReview[] {
   });
 }
 
-export function formatReviewDate(isoDate: string, locale: string | Locale) {
-  const { moneyLocale } = getLocaleConfig(locale);
-  const date = new Date(`${isoDate}T12:00:00`);
-  if (Number.isNaN(date.getTime())) return isoDate;
-
-  return new Intl.DateTimeFormat(moneyLocale, {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(date);
-}
-
-export function formatReviewAverage(average: number, locale: string | Locale) {
-  const { moneyLocale } = getLocaleConfig(locale);
-  return new Intl.NumberFormat(moneyLocale, {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  }).format(average);
-}

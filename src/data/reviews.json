@@ -1,5 +1,9 @@
 {
-  "featured": ["cutting-board-1", "eye-mask-1", "watering-can-1"],
+  "featured": [
+    "cutting-board-1",
+    "eye-mask-1",
+    "watering-can-1"
+  ],
   "products": {
     "304-stainless-steel-cutting-board": [
       {
@@ -38,6 +42,44 @@
           "no": "Hygienisk og enkel å tørke av, det stemmer. Stålet er glatt mot en våt benkeplate. Jeg har en klut under når jeg stykkjer en hel kylling, ellers sklir det.",
           "da": "Hygiejnisk og nemt at tørre af, det passer. Stålet er glat på en våd bordplade. Jeg har et viskestykke under, når jeg parterer en hel kylling, ellers glider det.",
           "fi": "Hygieeninen ja helppo pyyhkiä, se pitää paikkansa. Teräs on liukas märällä tasolla. Laitan rätin alle, kun paloittelen kokonaisen kanan — muuten se luistaa."
+        }
+      },
+      {
+        "id": "steel-board-3",
+        "rating": 5,
+        "date": "2026-08-02",
+        "author": "Ebba K.",
+        "location": "Östersund",
+        "title": {
+          "sv": "Tog den stora, 30 × 46. Den får plats i hoen.",
+          "no": "Tok den store, 30 × 46. Den får plass i vasken.",
+          "da": "Tog den store, 30 × 46. Den kan være i vasken.",
+          "fi": "Otin ison, 30 × 46. Se mahtuu altaaseen."
+        },
+        "body": {
+          "sv": "Jag var rädd att den skulle vara för lång. Den går ner i diskhon på tvären och jag kan skölja av den utan att vattnet rinner ut på golvet. Inget trä som sväller, inget plast som får skåror.",
+          "no": "Jeg var redd den skulle være for lang. Den går ned i vasken på tvers, og jeg kan skylle den av uten at vannet renner ut på gulvet. Ikke tre som svelter, ikke plast som får riper.",
+          "da": "Jeg var bange for, at den ville være for lang. Den går ned i vasken på tværs, og jeg kan skylle den af uden at vandet løber ud på gulvet. Intet træ der svulmer, ingen plast der får ridser.",
+          "fi": "Pelkäsin että se on liian pitkä. Se menee altaaseen poikittain ja voin huuhdella ilman että vesi valuu lattialle. Ei turpoavaa puuta, ei naarmuuntuvaa muovia."
+        }
+      },
+      {
+        "id": "steel-board-4",
+        "rating": 3,
+        "date": "2026-03-08",
+        "author": "Håkon L.",
+        "location": "Fredrikstad",
+        "title": {
+          "sv": "Hygieniskt. Knivarna blir slöa fortare.",
+          "no": "Hygienisk. Knivene blir sløve fortere.",
+          "da": "Hygiejnisk. Knivene bliver sløve hurtigere.",
+          "fi": "Hygieeninen. Veitset tylsyvät nopeammin."
+        },
+        "body": {
+          "sv": "Jag gillar att den inte suger i sig köttsaft. Men stål mot stål sliter på eggarna mer än trä. Jag har den till kyckling och fisk, och tar fram träbrädan när jag ska skära mycket grönsaker.",
+          "no": "Jeg liker at den ikke suger til seg kjøttsaft. Men stål mot stål sliter mer på eggene enn tre. Jeg har den til kylling og fisk, og tar frem trebrettet når jeg skal skjære mye grønnsaker.",
+          "da": "Jeg kan lide, at den ikke suger kødsaft. Men stål mod stål slider mere på æggen end træ. Jeg har den til kylling og fisk og tager træbrættet frem, når jeg skal skære mange grøntsager.",
+          "fi": "Tykkään ettei se ime lihasnestettä. Mutta teräs terästä vasten kuluttaa terää enemmän kuin puu. Käytän sitä kanaa ja kalaa varten, ja otan puulaudan kun leikkaan paljon kasviksia."
         }
       }
     ],
@@ -79,6 +121,63 @@
           "da": "Kassen gør, at det føles som en gave, ikke bare bestik i en papæske. Skeerne er fladere end Ikea-skeerne, vi havde, så suppe er lidt klodset. Ellers er sættet komplet — kniv, gaffel, ske og teske.",
           "fi": "Laatikko tekee tästä lahjan, ei pelkkiä aterimia pahvilaatikossa. Lusikat ovat matalampia kuin vanhat Ikea-lusikat, joten keitto on hieman kömpelömpää. Muuten setti on täysi — veitsi, haarukka, lusikka ja teelusikka."
         }
+      },
+      {
+        "id": "cutlery-3",
+        "rating": 5,
+        "date": "2026-07-24",
+        "author": "Freja W.",
+        "location": "Horsens",
+        "title": {
+          "sv": "Guldet blev bröllopspresenten de faktiskt använder",
+          "no": "Gullet ble bryllupsgaven de faktisk bruker",
+          "da": "Guldet blev bryllupsgaven, de faktisk bruger",
+          "fi": "Kulta oli häälahja jota he oikeasti käyttävät"
+        },
+        "body": {
+          "sv": "Köpte guldsetet till min bror. Trälådan gjorde att det kändes som en present, inte en kartong med bestick. De har redan dukats med det till söndagsmiddagen — 36 delar räcker när båda släkterna kommer.",
+          "no": "Kjøpte gullsettet til broren min. Trelassen gjorde at det føltes som en gave, ikke en eske med bestikk. De har allerede dekket med det til søndagsmiddagen — 36 deler rekker når begge slektene kommer.",
+          "da": "Købte guldsættet til min bror. Trækassen gjorde, at det føltes som en gave, ikke en æske med bestik. De har allerede dækket med det til søndagsmiddagen — 36 dele rækker, når begge familier kommer.",
+          "fi": "Ostin kultasetin veljelleni. Puulaatikko teki siitä lahjan, ei aterimien pahvilaatikkoa. He ovat jo kattaneet sillä sunnuntaina — 36 osaa riittää kun molemmat suvut tulevat."
+        }
+      },
+      {
+        "id": "cutlery-4",
+        "rating": 4,
+        "date": "2026-05-19",
+        "author": "Saara P.",
+        "location": "Hämeenlinna",
+        "title": {
+          "sv": "Roséguld ser bra ut. Knivarna är lite lätta.",
+          "no": "Roségull ser bra ut. Knivene er litt lette.",
+          "da": "Roséguld ser godt ud. Knivene er lidt lette.",
+          "fi": "Ruusukulta näyttää hyvältä. Veitset ovat hieman kevyet."
+        },
+        "body": {
+          "sv": "Finishen matchar kaffekopparna vi redan hade. Teskedarna är lagom, matknivarna väger mindre än de gamla. Inget som går sönder — man märker det bara när man skär en hårdare brödskiva.",
+          "no": "Finishen matcher kaffekoppene vi allerede hadde. Teskjeene er passe, matknivene veier mindre enn de gamle. Ingenting som går i stykker — man merker det bare når man skjærer en hardere brødskive.",
+          "da": "Finishen matcher kaffekopperne, vi allerede havde. Teskeerne er tilpas, madknivene vejer mindre end de gamle. Intet der går i stykker — man mærker det kun, når man skærer et hårdere brød.",
+          "fi": "Pinta sopii kahvikuppeihin jotka meillä jo oli. Teelusikat ovat sopivat, ruokaveitset kevyempiä kuin vanhat. Mikään ei hajoa — sen huomaa vain kun leikkaa kovempaa leipää."
+        }
+      },
+      {
+        "id": "cutlery-5",
+        "rating": 5,
+        "date": "2026-02-27",
+        "author": "Even G.",
+        "location": "Haugesund",
+        "title": {
+          "sv": "Svart set mot mörkt träbord. Ser ut som vi ansträngt oss.",
+          "no": "Svart sett mot mørkt trebord. Ser ut som vi har anstrengt oss.",
+          "da": "Sort sæt mod mørkt træbord. Ser ud, som om vi har anstrengt os.",
+          "fi": "Musta setti tummaa puupöytää vasten. Näyttää siltä että näimme vaivaa."
+        },
+        "body": {
+          "sv": "Vi ville inte ha mer blankt silver. Det svarta syns mot duken och går i maskinen utan att bli fläckigt. Nio kuvert räcker till den lägenhet vi har — vi har inte ätit med blandade bestick sen dess.",
+          "no": "Vi ville ikke ha mer blankt sølv. Det svarte synes mot duken og tåler maskinen uten å bli flekkete. Ni kuverter rekker til leiligheten vi har — vi har ikke spist med blandet bestikk siden.",
+          "da": "Vi ville ikke have mere blankt sølv. Det sorte ses mod dugen og tåler maskinen uden at blive plettet. Ni kuverter rækker til den lejlighed, vi har — vi har ikke spist med blandet bestik siden.",
+          "fi": "Emme halunneet enempää kiiltävää hopeaa. Musta erottuu liinaa vasten ja kestää koneen ilman tahroja. Yhdeksän kuvertia riittää meidän kämppään — emme ole syöneet sekaisin aterimin sen jälkeen."
+        }
       }
     ],
     "3d-colored-animal-light-desk-lamp-animal-series-decorative-night-light-animal-elephant-owl-cat-vintage-table-lamp-home-decoration": [
@@ -119,6 +218,25 @@
           "da": "Farverne i resinet ses tydeligere live — de advarer om, at hver figur er lidt unik, og det passer. USB-ledningen når præcis til stikkontakten bag sengen. Havde den stået på kommoden, havde vi skulle bruge en forlænger.",
           "fi": "Resinin värit näkyvät livenä selvemmin — he varoittavat että jokainen hahmo on hieman erilainen, ja se pitää paikkansa. USB-johto yltää juuri pistorasiaan sängyn takana. Lipastolla olisimme tarvinneet jatkojohdon."
         }
+      },
+      {
+        "id": "animal-lamp-3",
+        "rating": 5,
+        "date": "2026-06-30",
+        "author": "Louise H.",
+        "location": "Næstved",
+        "title": {
+          "sv": "Ugglan till min systerdotter. Hon släcker den själv nu.",
+          "no": "Uglen til niesen min. Hun slukker den selv nå.",
+          "da": "Uglen til min niece. Hun slukker den selv nu.",
+          "fi": "Pöllö siskontyttärelleni. Hän sammuttaa sen itse nyt."
+        },
+        "body": {
+          "sv": "15 cm, precis lagom på en barnhylla. Det är en nattlampa, inte en läslampa, och det sa jag till henne. Hon tycker den är en kompis. Resinet är lite ojämnt i färgen, vilket gör att den inte ser massproducerad ut.",
+          "no": "15 cm, akkurat passe på en barnehylle. Det er en nattlampe, ikke en leselampe, og det sa jeg til henne. Hun synes den er en venn. Resinet er litt ujevnt i fargen, så den ser ikke masseprodusert ut.",
+          "da": "15 cm, præcis tilpas på en børnehylde. Det er en natlampe, ikke en læselampe, og det sagde jeg til hende. Hun synes, den er en ven. Resinet er lidt ujævnt i farven, så den ikke ser masseproduceret ud.",
+          "fi": "15 cm, juuri sopiva lastenhyllylle. Se on yövalo, ei lukulamppu, ja sanoin sen hänelle. Hänestä se on kaveri. Resinin väri on hieman epätasainen, joten se ei näytä teollisesti tehdyltä."
+        }
       }
     ],
     "7-pcs-stainless-steel-silicone-kitchen-utensil-slotted-spatula-turner-ladle-serving-spoon-pasta-server-cooking-set": [
@@ -158,6 +276,44 @@
           "no": "Godt grep også når jeg har våte hender fra pastavannet. Pastaskjeen er for stor til 2-litersgryten vår — resten av settet holder fint. Stålskaftene blir ikke varme som de gamle metallskjeene.",
           "da": "Godt greb, også når jeg har våde hænder fra pastavandet. Pastaskeen er for stor til vores 2-liters gryde — resten af sættet rækker fint. Stålskafterne bliver ikke varme som de gamle metalskeer.",
           "fi": "Hyvä ote vaikka kädet ovat märät pastavedestä. Pastakauha on liian iso kahden litran kattilaan — muu setti riittää. Teräsvarret eivät kuumene kuten vanhat metallikauhat."
+        }
+      },
+      {
+        "id": "utensils-3",
+        "rating": 5,
+        "date": "2026-08-06",
+        "author": "Gustav M.",
+        "location": "Gävle",
+        "title": {
+          "sv": "Bytte ut en låda med tre olika set",
+          "no": "Byttet ut en skuff med tre forskjellige sett",
+          "da": "Skiftede en skuffe med tre forskellige sæt",
+          "fi": "Vaihdoin laatikon jossa oli kolme eri settiä"
+        },
+        "body": {
+          "sv": "Vi hade slevar från tre olika köp. Nu hänger sju delar i samma linje vid spisen. Silikonet mot den belagda pannan var det jag ville ha, stålskaften det jag inte visste att jag saknade.",
+          "no": "Vi hadde øser fra tre forskjellige kjøp. Nå henger sju deler i samme linje ved komfyren. Silikonet mot den belagte pannen var det jeg ville ha, stålskaftene det jeg ikke visste at jeg savnet.",
+          "da": "Vi havde øseskeer fra tre forskellige køb. Nu hænger syv dele i samme linje ved komfuret. Silikonen mod den belagte pande var det, jeg ville have, stålskafterne det, jeg ikke vidste, jeg manglede.",
+          "fi": "Meillä oli kauhoja kolmesta eri ostoksesta. Nyt seitsemän osaa riippuu samassa linjassa lieden vieressä. Silikoni pinnoitettua pannua vasten oli se mitä hain, teräsvarret se mitä en tiennyt kaipaavani."
+        }
+      },
+      {
+        "id": "utensils-4",
+        "rating": 3,
+        "date": "2026-04-12",
+        "author": "Liisa M.",
+        "location": "Joensuu",
+        "title": {
+          "sv": "Tomatsåsen lämnade en hinna på silikonet",
+          "no": "Tomatsausen lot en hinne på silikonet",
+          "da": "Tomatsaucen efterlod en hinde på silikonen",
+          "fi": "Tomaattikastike jätti kalvon silikoniin"
+        },
+        "body": {
+          "sv": "Sleven och stekspaden gör jobbet. Efter en ragù fick silikonkanten en orange ton som inte går ur i maskinen. Inget som smakar, bara fult. Jag kokar dem med bakpulver ibland. Fungerar, men jag hade hoppats slippa.",
+          "no": "Øsen og stekespaden gjør jobben. Etter en ragù fikk silikonkanten en oransje tone som ikke går ut i maskinen. Ingenting som smaker, bare stygt. Jeg koker dem med natron av og til. Fungerer, men jeg hadde håpet å slippe.",
+          "da": "Øseskeen og stegespaden gør arbejdet. Efter en ragù fik silikonekanten en orange tone, der ikke går af i maskinen. Intet der smager, bare grimt. Jeg koger dem med bagepulver indimellem. Virker, men jeg havde håbet at slippe.",
+          "fi": "Kauha ja lasta hoitavat homman. Ragùn jälkeen silikonireunaan jäi oranssi sävy joka ei lähde koneessa. Ei maistu, näyttää vain rumalta. Keitän niitä joskus soodalla. Toimii, mutta olisin toivonut ettei tarvitsisi."
         }
       }
     ],
@@ -239,6 +395,25 @@
           "da": "Den er kun nogle centimeter høj. Tæt på kan man se, at det er LED. Fra sofaen holder illusionen. Du skal have et USB-stik i nærheden — den kører ikke på batteri, hvilket jeg troede først.",
           "fi": "Se on vain joitain senttejä korkea. Lähietäisyydeltä näkee että se on LED. Sohvalta illuusio riittää. USB-liitäntä pitää olla lähellä — se ei käy paristolla, vaikka niin luulin."
         }
+      },
+      {
+        "id": "flame-light-3",
+        "rating": 5,
+        "date": "2026-07-31",
+        "author": "Thea D.",
+        "location": "Ålesund",
+        "title": {
+          "sv": "Transparent glas, USB från powerbanken i fönstret",
+          "no": "Gjennomsiktig glass, USB fra powerbanken i vinduet",
+          "da": "Gennemsigtigt glas, USB fra powerbanken i vinduet",
+          "fi": "Kirkas lasi, USB ikkunan varavirtalähteestä"
+        },
+        "body": {
+          "sv": "Vi har inget uttag i fönstersmygen. En liten powerbank bakom en kruka räcker en hel kväll. Lågan rör sig, inte bara en stilla punkt. Gäster frågar om det är ett riktigt ljus tills de kommer nära.",
+          "no": "Vi har ikke uttak i vindussmyget. En liten powerbank bak en krukke rekker en hel kveld. Flammen beveger seg, ikke bare et stille punkt. Gjester spør om det er et ekte lys til de kommer nær.",
+          "da": "Vi har ikke stikkontakt i vinduesindfatningen. En lille powerbank bag en krukke rækker en hel aften. Flammen bevæger sig, ikke kun et stille punkt. Gæster spørger, om det er et rigtigt lys, indtil de kommer tæt på.",
+          "fi": "Ikkunasyvennyksessä ei ole pistorasiaa. Pieni varavirtalähde ruukun takana riittää illaksi. Liekki liikkuu, ei ole vain paikallaan. Vieraat kysyvät onko se oikea kynttilä kunnes tulevat lähelle."
+        }
       }
     ],
     "led-tablet-reading-light-rechargeable": [
@@ -278,6 +453,44 @@
           "no": "Én lading holder flere kvelder — 1200 mAh høres lite ut, men det stemmer. Første kvelden måtte jeg slåss med leddet for å få vinkelen. Så har den sittet. Jeg tok den svarte.",
           "da": "Én opladning holder flere aftener — 1200 mAh lyder ikke af meget, men det passer. Den første aften skulle jeg slås med leddet for at få vinklen. Så har den siddet. Jeg tog den sorte.",
           "fi": "Yksi lataus kestää usean illan — 1200 mAh kuulostaa vähältä, mutta se pitää paikkansa. Ensimmäisenä iltana jouduin vääntämään niveltä kulman takia. Sitten se asettui. Otin mustan."
+        }
+      },
+      {
+        "id": "reading-light-3",
+        "rating": 5,
+        "date": "2026-06-22",
+        "author": "Emilia H.",
+        "location": "Lahti",
+        "title": {
+          "sv": "Rosa, till Kindlen. Tre färger, jag kör den mittersta.",
+          "no": "Rosa, til Kindlen. Tre farger, jeg kjører den midterste.",
+          "da": "Rosa, til Kindlen. Tre farver, jeg kører den midterste.",
+          "fi": "Pinkki, Kindleen. Kolme väriä, käytän keskimmäistä."
+        },
+        "body": {
+          "sv": "Klämman sitter på ett pappersfodral utan att märka sidorna. Det kallaste ljuset är för vasst för kvällen, det varmaste för gult. Mittenläget plus dimmer är det jag använder. Har inte laddat på en vecka.",
+          "no": "Klemmen sitter på et papircover uten å merke sidene. Det kaldeste lyset er for skarpt om kvelden, det varmeste for gult. Midten pluss dimmer er det jeg bruker. Har ikke ladet på en uke.",
+          "da": "Klemmen sidder på et papircover uden at mærke siderne. Det koldeste lys er for skarpt om aftenen, det varmeste for gult. Midterindstillingen plus dæmper er det, jeg bruger. Har ikke ladet i en uge.",
+          "fi": "Klipsu pysyy paperikannessa merkitseättä sivuja. Kylmin valo on illalla liian terävä, lämpimin liian keltainen. Keskiasento plus himmennin on se mitä käytän. En ole ladannut viikkoon."
+        }
+      },
+      {
+        "id": "reading-light-4",
+        "rating": 4,
+        "date": "2026-03-03",
+        "author": "Petter S.",
+        "location": "Tønsberg",
+        "title": {
+          "sv": "Timern är det jag inte visste att jag behövde",
+          "no": "Timeren er det jeg ikke visste at jeg trengte",
+          "da": "Timeren er det, jeg ikke vidste, jeg havde brug for",
+          "fi": "Ajastin oli se mitä en tiennyt tarvitsevani"
+        },
+        "body": {
+          "sv": "Jag somnar med surfplattan i knät. Lampan släcker sig själv, så jag vaknar inte av ett blått sken klockan tre. Klämman är tight mot ett tjockt fodral — jag får knacka den på plats. Sen sitter den.",
+          "no": "Jeg sovner med nettbrettet i fanget. Lampen slukker av seg selv, så jeg våkner ikke av et blått skjær klokken tre. Klemmen er tett mot et tykt etui — jeg må banke den på plass. Så sitter den.",
+          "da": "Jeg falder i søvn med tabletten i skødet. Lampen slukker af sig selv, så jeg vågner ikke af et blåt skær klokken tre. Klemmen er stram mod et tykt cover — jeg må banke den på plads. Så sidder den.",
+          "fi": "Nukahdan tabletti sylissä. Lamppu sammuu itsestään, joten en herää siniseen valoon kolmelta. Klipsu on tiukka paksua kuorta vasten — joudun naputtamaan sen paikalleen. Sitten se pysyy."
         }
       }
     ],
@@ -359,6 +572,63 @@
           "da": "Det glider ikke en millimeter, når jeg er i gang. Ulempen er, at det er klodset at løfte op af vasken bagefter — ibenholt og stål vejer. Jeg tørrer det af på bordet i stedet.",
           "fi": "Se ei luista milliäkään leikatessa. Haittapuoli on että se on kömpelö nostaa altaasta — eebenpuu ja teräs painavat. Pyyhin sen tiskillä."
         }
+      },
+      {
+        "id": "cutting-board-3",
+        "rating": 5,
+        "date": "2026-08-01",
+        "author": "Klara Ö.",
+        "location": "Kalmar",
+        "title": {
+          "sv": "En bräda för hela middagen, inte tre i hoen",
+          "no": "Ett brett til hele middagen, ikke tre i vasken",
+          "da": "Ét bræt til hele middagen, ikke tre i vasken",
+          "fi": "Yksi lauta koko illalliselle, ei kolmea altaassa"
+        },
+        "body": {
+          "sv": "47 centimeter är stort på en liten bänk, men jag slutar stapla brädor. Grönsaker på trä, kyckling på stål, vänd, klart. Den får stå framme. Den är för klumpig att gömma.",
+          "no": "47 centimeter er stort på en liten benk, men jeg slutter å stable brett. Grønnsaker på tre, kylling på stål, snu, ferdig. Det får stå fremme. Det er for klumpete å gjemme.",
+          "da": "47 centimeter er stort på et lille bord, men jeg holder op med at stable brætter. Grøntsager på træ, kylling på stål, vend, færdig. Det må stå fremme. Det er for klodset at gemme.",
+          "fi": "47 senttiä on iso pienellä tasolla, mutta lopetan lautojen pinoamisen. Kasvikset puulle, kana teräkselle, käännä, valmis. Se saa jäädä esille. Se on liian kömpelö piilottaa."
+        }
+      },
+      {
+        "id": "cutting-board-4",
+        "rating": 4,
+        "date": "2026-04-18",
+        "author": "Rasmus K.",
+        "location": "Helsingør",
+        "title": {
+          "sv": "Träsidan vill ha olja. Stålet vill ha en trasa.",
+          "no": "Tresiden vil ha olje. Stålet vil ha en klut.",
+          "da": "Træsiden vil have olie. Stålet vil have et viskestykke.",
+          "fi": "Puupuoli haluaa öljyä. Teräs haluaa rätin."
+        },
+        "body": {
+          "sv": "Efter en månad såg ebenholtsen torr ut. En omgång matolja och den ser ut som ny. Stålsidan torkar jag bara av. Två skötselråd, en bräda. Inte svårt, men det står inte så tydligt.",
+          "no": "Etter en måned så ibenholten tørr ut. En runde matolje, og den ser ny ut. Stålsiden tørker jeg bare av. To stellråd, ett brett. Ikke vanskelig, men det står ikke så tydelig.",
+          "da": "Efter en måned så ibenholten tør ud. En omgang madolie, og den ser ny ud. Stålsiden tørrer jeg bare af. To plejeråd, ét bræt. Ikke svært, men det står ikke så tydeligt.",
+          "fi": "Kuukauden jälkeen eebenpuu näytti kuivalta. Kerran ruokaöljyä ja se näyttää uudelta. Teräspuolen pyyhin vain. Kaksi hoito-ohjetta, yksi lauta. Ei vaikeaa, mutta se ei lue selvästi."
+        }
+      },
+      {
+        "id": "cutting-board-5",
+        "rating": 5,
+        "date": "2026-03-12",
+        "author": "Stina F.",
+        "location": "Trollhättan",
+        "title": {
+          "sv": "Gästen frågade var vi fått tag i den",
+          "no": "Gjesten spurte hvor vi hadde fått tak i den",
+          "da": "Gæsten spurgte, hvor vi havde fået fat i den",
+          "fi": "Vieras kysyi mistä saimme sen"
+        },
+        "body": {
+          "sv": "Den står framme som en grej, inte som en bräda man gömmer. Kvadratisk, mörkt trä mot ljust stål. Jag skickade länken innan kaffet var slut.",
+          "no": "Den står fremme som en greie, ikke som et brett man gjemmer. Kvadratisk, mørkt tre mot lyst stål. Jeg sendte linken før kaffen var slutt.",
+          "da": "Den står fremme som en ting, ikke som et bræt man gemmer. Kvadratisk, mørkt træ mod lyst stål. Jeg sendte linket, før kaffen var slut.",
+          "fi": "Se seisoo esillä tavarana, ei lautana jonka piilottaa. Neliö, tumma puu vaaleaa terästä vasten. Lähetin linkin ennen kuin kahvi loppui."
+        }
       }
     ],
     "copper-wine-glass-cocktail-mug-bar-cold-drink-pure-copper-cup": [
@@ -398,6 +668,25 @@
           "no": "Ser ut som på bildene når den er ny. Etter noen uker får kobberet en mørkere hinne. Jeg pusser den av og til, men liker faktisk når den ser brukt ut. Ren kobber, ikke et belegg som flasser.",
           "da": "Ser ud som på billederne, når den er ny. Efter et par uger får kobberet en mørkere hinde. Jeg pudser den indimellem, men kan faktisk lide, når den ser brugt ud. Rent kobber, ikke en belægning der skaller.",
           "fi": "Näyttää kuvien kaltaiselta uutena. Muutaman viikon jälkeen kupariin tulee tummempi kalvo. Kiillotan välillä, mutta pidän käytetyn näköisestä. Puhdasta kuparia, ei hilseilevää pinnoitetta."
+        }
+      },
+      {
+        "id": "copper-cup-3",
+        "rating": 5,
+        "date": "2026-06-16",
+        "author": "Silje R.",
+        "location": "Bodø",
+        "title": {
+          "sv": "Moscow mule i tvåmuggarspacket. Slut på bråket.",
+          "no": "Moscow mule i tomuggerpakken. Slutt på kranglingen.",
+          "da": "Moscow mule i tokop-pakken. Slut med skænderiet.",
+          "fi": "Moscow mule kahden mukin paketissa. Riita loppui."
+        },
+        "body": {
+          "sv": "Ren koppar, inte en foliehinna. Drinken blir kall utan att jag fyller glaset med is. Vi har dem på balkongen hela juli. Putsar dem när svärmor kommer, annars låter vi dem mörkna.",
+          "no": "Ren kobber, ikke en foliehinne. Drinken blir kald uten at jeg fyller glasset med is. Vi har dem på balkongen hele juli. Pusser dem når svigermor kommer, ellers lar vi dem mørkne.",
+          "da": "Rent kobber, ikke en foliehinde. Drinken bliver kold, uden at jeg fylder glasset med is. Vi har dem på altanen hele juli. Pudser dem, når svigermor kommer, ellers lader vi dem mørkne.",
+          "fi": "Puhdasta kuparia, ei foliohinnettä. Drinkki kylmenee ilman että täytän lasin jäällä. Ne ovat parvekkeella koko heinäkuun. Kiillotamme kun anoppi tulee, muuten annamme tummua."
         }
       }
     ],
@@ -439,6 +728,25 @@
           "da": "Føles mere som noget fra en cocktailbar end et tyndt festglas. Vaskes nemt. Den udstående kant gør, at den ikke kan stables, så den får sin egen hylde. Kobberbelagt ind- og udvendigt.",
           "fi": "Tuntuu enemmän cocktailbaarin mukilta kuin ohuelta juhlalasilta. Helppo pestä. Ulkoneva reuna estää pinoamisen, joten sille on oma hylly. Kuparipinnoite sisällä ja ulkona."
         }
+      },
+      {
+        "id": "hammered-mug-3",
+        "rating": 4,
+        "date": "2026-07-19",
+        "author": "Mette B.",
+        "location": "Kolding",
+        "title": {
+          "sv": "Diskmaskinen går. Vattenfläckarna syns i mönstret.",
+          "no": "Maskinen går. Vannflekkene synes i mønsteret.",
+          "da": "Maskinen går. Vandpletterne ses i mønstret.",
+          "fi": "Kone käy. Vesitahrat näkyvät kuviossa."
+        },
+        "body": {
+          "sv": "Halvliter räcker till teet och en kaka. Den rullade kanten är skön. Efter maskinen sitter det droppar i hammarmönstret — jag torkar av den, det tar tio sekunder. Inte ett fel, bara något man gör.",
+          "no": "Halvliter rekker til teen og en kake. Den rullede kanten er deilig. Etter maskinen sitter det dråper i hammermønsteret — jeg tørker den av, det tar ti sekunder. Ikke en feil, bare noe man gjør.",
+          "da": "En halv liter rækker til teen og en kage. Den rullede kant er dejlig. Efter maskinen sidder der dråber i hammermønstret — jeg tørrer den af, det tager ti sekunder. Ikke en fejl, bare noget man gør.",
+          "fi": "Puoli litraa riittää teelle ja palalle kakkua. Taitettu reuna on miellyttävä. Koneen jälkeen pisarat jäävät taottuun pintaan — pyyhin, kestää kymmenen sekuntia. Ei vika, vain juttu jonka tekee."
+        }
       }
     ],
     "ice-cubes-set-herbruikbare-chilling-stones-voor-whiskey-cooling-cube-koelen-rots-party-bar-tool": [
@@ -479,6 +787,44 @@
           "da": "Vi tog hjerter, 6-pak med tang. Saften bliver ikke vandet, og det var hele pointen. De skal ligge i fryseren et par timer først — det står tydeligt, men jeg missede det og undrede mig over, at der ikke skete noget.",
           "fi": "Otimme sydämet, 6-pack pihdillä. Mehu ei vesity, ja se oli koko juttu. Niiden pitää olla pakastimessa muutama tunti ensin — se lukee selvästi, mutta minulta meni ohi ja ihmettelin miksei mitään tapahdu."
         }
+      },
+      {
+        "id": "ice-cubes-3",
+        "rating": 5,
+        "date": "2026-08-04",
+        "author": "Magnus T.",
+        "location": "Herning",
+        "title": {
+          "sv": "Diamantform, tången följde med. Whiskyn håller sig.",
+          "no": "Diamantform, tangen fulgte med. Whiskyen holder seg.",
+          "da": "Diamantform, tangen fulgte med. Whiskyen holder sig.",
+          "fi": "Timanttimuoto, pihti tuli mukana. Viski pysyy."
+        },
+        "body": {
+          "sv": "Sex stycken plus tång, precis så man vill ha det när gäster tittar på. Två i glaset, resten i frysen. Ingen utspädning, ingen smak av frys. Jag sköljer dem och lägger tillbaka. Klart.",
+          "no": "Seks stykker pluss tang, akkurat slik man vil ha det når gjester ser på. To i glasset, resten i fryseren. Ingen uttynning, ingen frysmsmak. Jeg skyller dem og legger dem tilbake. Ferdig.",
+          "da": "Seks stykker plus tang, præcis som man vil have det, når gæster kigger med. To i glasset, resten i fryseren. Ingen fortynding, ingen frysersmag. Jeg skyller dem og lægger dem tilbage. Færdig.",
+          "fi": "Kuusi plus pihti, juuri niin kuin haluaa kun vieraat katsovat. Kaksi lasiin, loput pakastimeen. Ei laimennusta, ei pakastimen makua. Huuhtaisen ja laitan takaisin. Valmis."
+        }
+      },
+      {
+        "id": "ice-cubes-4",
+        "rating": 3,
+        "date": "2026-02-14",
+        "author": "Noora K.",
+        "location": "Rovaniemi",
+        "title": {
+          "sv": "Fyra timmar räcker inte om frysen är full",
+          "no": "Fire timer rekker ikke hvis fryseren er full",
+          "da": "Fire timer rækker ikke, hvis fryseren er fuld",
+          "fi": "Neljä tuntia ei riitä jos pakastin on täynnä"
+        },
+        "body": {
+          "sv": "Jag följde anvisningen, lade in kuberna bakom en låda med bär. De var ljumma i glaset. Nästa gång längst fram, över natten — då funkar de. Stålet kyler, men det måste vara kallt först. Inte fel, bara petigt.",
+          "no": "Jeg fulgte anvisningen og la bitene bak en eske med bær. De var lunkne i glasset. Neste gang lengst frem, over natten — da funker de. Stålet kjøler, men det må være kaldt først. Ikke feil, bare masete.",
+          "da": "Jeg fulgte anvisningen og lagde terningerne bag en kasse med bær. De var lunkne i glasset. Næste gang længst fremme, natten over — så virker de. Stålet køler, men det skal være koldt først. Ikke en fejl, bare nøjeregnende.",
+          "fi": "Noudatin ohjetta ja laitoin kuutiot marjalaatikon taakse. Ne olivat haaleita lasissa. Seuraavalla kerralla eteen, yön yli — sitten toimivat. Teräs jäähdyttää, mutta sen pitää olla kylmä ensin. Ei vika, vain tarkkaa."
+        }
       }
     ],
     "coffee-clip-spoon": [
@@ -518,6 +864,25 @@
           "no": "Fungerer like bra på teposen som på kaffen. Skjeen er litt grunn, så jeg tar to øsninger til kannen. Klemmen holder tett, og det var derfor jeg kjøpte den. Tok den i svart.",
           "da": "Virker lige så godt til teposen som til kaffen. Skeen er lidt flad, så jeg tager to øseskeefulde til kanden. Klemmen holder tæt, og det var derfor, jeg købte den. Tog den i sort.",
           "fi": "Toimii yhtä hyvin teepussille kuin kahville. Lusikka on hieman matala, joten otan kaksi mittaa kannuun. Klipsi pitää tiiviinä, ja sen takia ostin sen. Otin mustan."
+        }
+      },
+      {
+        "id": "coffee-spoon-3",
+        "rating": 5,
+        "date": "2026-07-07",
+        "author": "Onni V.",
+        "location": "Pori",
+        "title": {
+          "sv": "Tvåpack. En vid kaffet, en vid teet.",
+          "no": "Topack. Én ved kaffen, én ved teen.",
+          "da": "Topak. Én ved kaffen, én ved teen.",
+          "fi": "Kaksi kappaletta. Yksi kahvilla, yksi teellä."
+        },
+        "body": {
+          "sv": "Rostfritt och svart. Klämman håller en öppnad påse stående i burken, vilket de vanliga clipsen inte gör. 17 centimeter syns, så den försvinner inte. En dumt bra pryl.",
+          "no": "Rustfritt og svart. Klemmen holder en åpnet pose stående i boksen, noe de vanlige clipsene ikke gjør. 17 centimeter synes, så den forsvinner ikke. En dumt bra dings.",
+          "da": "Rustfrit og sort. Klemmen holder en åbnet pose stående i bøtten, hvilket de almindelige clips ikke gør. 17 centimeter ses, så den forsvinder ikke. En dumt god pryl.",
+          "fi": "Ruostumaton ja musta. Klipsi pitää avatun pussin pystyssä purkissa, toisin kuin tavalliset klipsit. 17 senttiä näkyy, joten se ei katoa. Tyhmän hyvä verme."
         }
       }
     ],
@@ -599,6 +964,44 @@
           "da": "Ryggen er nylon, så de ånder. Størrelse M sad stramt over knoerne første gang. Efter et par gange i haven er de blevet blødere. Rosa, hvis nogen spørger — virker lige så godt.",
           "fi": "Selkäpuoli on nailonia, joten ne hengittävät. Koko M istui tiukasti rystysissä ensimmäisellä kerralla. Parin pihapäivän jälkeen ne pehmenivät. Pinkki, jos joku ihmettelee — toimii ihan yhtä hyvin."
         }
+      },
+      {
+        "id": "garden-gloves-3",
+        "rating": 5,
+        "date": "2026-07-29",
+        "author": "Linnea D.",
+        "location": "Piteå",
+        "title": {
+          "sv": "XS i blått. Äntligen handskar som inte ramlar av.",
+          "no": "XS i blått. Endelig hansker som ikke faller av.",
+          "da": "XS i blåt. Endelig handsker, der ikke falder af.",
+          "fi": "XS sinisenä. Viimein hanskat jotka eivät putoa."
+        },
+        "body": {
+          "sv": "Vanliga M-handskar sladdrar på mig. De här sitter. Nitrilen i handflatan tar ogräset efter regn utan att jag får jord under naglarna. Ryggen andas, så jag tar inte av dem var femte minut.",
+          "no": "Vanlige M-hansker slaffer på meg. Disse sitter. Nitrilen i håndflaten tar ugresset etter regn uten at jeg får jord under neglene. Ryggen puster, så jeg tar dem ikke av hvert femte minutt.",
+          "da": "Almindelige M-handsker slasker på mig. De her sidder. Nitrilen i håndfladen tager ukrudtet efter regn, uden at jeg får jord under neglene. Ryggen ånder, så jeg tager dem ikke af hvert femte minut.",
+          "fi": "Tavalliset M-hanskat slarvaavat päälläni. Nämä istuvat. Nitriili kämmenessä ottaa rikkaruohon sateen jälkeen ilman että multa menee kynsien alle. Selkä hengittää, joten en riisu niitä viiden minuutin välein."
+        }
+      },
+      {
+        "id": "garden-gloves-4",
+        "rating": 4,
+        "date": "2026-05-08",
+        "author": "Kari O.",
+        "location": "Mo i Rana",
+        "title": {
+          "sv": "Till ogräs och krukor. Inte till de tjockaste rosornas ved.",
+          "no": "Til ugress og krukker. Ikke til de tykkeste rosenes ved.",
+          "da": "Til ukrudt og krukker. Ikke til de tykkeste roses ved.",
+          "fi": "Rikkaruohoon ja ruukkuihin. Ei paksuimpien ruusujen varsiin."
+        },
+        "body": {
+          "sv": "Tunna nog att känna vad man gör, vilket är poängen. En gammal buske med vedartade taggar gick igenom nitrilen en gång. Till vanlig beskärning och omplantering räcker de. Jag har grova handskar i förrådet för det andra.",
+          "no": "Tynne nok til å kjenne hva man gjør, og det er poenget. En gammel busk med vedaktige torner gikk gjennom nitrilen én gang. Til vanlig beskjæring og ompotting rekker de. Jeg har grove hansker på lageret til det andre.",
+          "da": "Tynde nok til at mærke, hvad man gør, og det er pointen. En gammel busk med vedagtige torne gik gennem nitrilen én gang. Til almindelig beskæring og ompotning rækker de. Jeg har grove handsker på lageret til det andet.",
+          "fi": "Tarpeeksi ohuet että tuntee mitä tekee, ja se on tarkoitus. Vanha pensas puumaisilla piikeillä meni nitriilin läpi kerran. Tavalliseen leikkuuseen ja uudelleenistutukseen ne riittävät. Raskaat hanskat ovat varastossa muuhun."
+        }
       }
     ],
     "solar-garden-light-garden-garden-grass-layout-plug-in-light-and-shadow-light": [
@@ -638,6 +1041,25 @@
           "no": "Første uken sto de i skyggen av huset og døde ved ti. Flyttet dem til sørsiden — nå lyser de som de skal. Solcelle, altså. Ikke magi. Dråpeformen i glass og stål ser fin ut også slukket.",
           "da": "Den første uge stod de i skyggen af huset og døde klokken ti. Flyttede dem til sydsiden — nu lyser de, som de skal. Solcelle, altså. Ikke magi. Dråbeformen i glas og stål ser fin ud også slukket.",
           "fi": "Ensimmäisen viikon ne seisoivat talon varjossa ja kuolivat kymmeneltä. Siirsin eteläsivulle — nyt ne palavat kuten pitää. Aurinkokenno siis. Ei taikuutta. Pisara lasia ja terästä näyttää hyvältä sammutettunakin."
+        }
+      },
+      {
+        "id": "solar-ripple-3",
+        "rating": 5,
+        "date": "2026-06-13",
+        "author": "Pia R.",
+        "location": "Hjørring",
+        "title": {
+          "sv": "Två droppar vid altanen. Inget eljobb.",
+          "no": "To dråper ved terrassen. Ingen elektrojobb.",
+          "da": "To dråber ved terrassen. Intet elarbejde.",
+          "fi": "Kaksi pisaraa terassin luona. Ei sähkötöitä."
+        },
+        "body": {
+          "sv": "Tryckte ner dem i gräset på en kvart. Glaset och stålet ser ut som något man ställt ut med flit, inte som plastlyktor. När solen gått ner ritar de ringar på plattorna. Det var det vi ville ha.",
+          "no": "Trykte dem ned i gresset på et kvarter. Glass og stål ser ut som noe man har satt ut med vilje, ikke som plastlykter. Når sola har gått ned, tegner de ringer på platene. Det var det vi ville ha.",
+          "da": "Trykkede dem ned i græsset på et kvarter. Glas og stål ser ud som noget, man har stillet ud med vilje, ikke som plastlygter. Når solen er gået ned, tegner de ringe på fliserne. Det var det, vi ville have.",
+          "fi": "Painoin ne nurmeen vartissa. Lasi ja teräs näyttävät tahallaan asetelluilta, ei muovilyhdyiltä. Auringon laskettua ne piirtävät renkaita laattoihin. Sitä me halusimme."
         }
       }
     ],
@@ -679,6 +1101,25 @@
           "da": "Nem at placere og pæn langs stien. I april døde den, før vi gik i seng. Nu i juni, med mere sol, holder den længere. Regn med årstiden, ikke med produktbilledet.",
           "fi": "Helppo sijoittaa ja sievä polun varrella. Huhtikuussa se kuoli ennen nukkumaanmenoa. Nyt kesäkuussa, kun aurinkoa on enemmän, se kestää pidempään. Laske vuodenaika, älä tuotekuva."
         }
+      },
+      {
+        "id": "solar-lawn-3",
+        "rating": 4,
+        "date": "2026-07-22",
+        "author": "Albin W.",
+        "location": "Falkenberg",
+        "title": {
+          "sv": "Sockeln på terrassen. 40 cm ser ut som den ska.",
+          "no": "Sokkelen på terrassen. 40 cm ser ut som den skal.",
+          "da": "Soklen på terrassen. 40 cm ser ud, som den skal.",
+          "fi": "Jalka terassilla. 40 cm näyttää siltä miltä pitää."
+        },
+        "body": {
+          "sv": "Markspett ville vi inte ha i trädäcket. Sockeln står stadigt. Formen är enkel, ljuset varmt. Inte en arbetslampa — mer en prick längs kanten så man ser var trappan slutar. Har stått i blåst utan att välta.",
+          "no": "Bakkespett ville vi ikke ha i tredekket. Sokkelen står stødig. Formen er enkel, lyset varmt. Ikke en arbeidslampe — mer en prikk langs kanten så man ser hvor trappen slutter. Har stått i vind uten å velte.",
+          "da": "Jordspyd ville vi ikke have i trædækket. Soklen står stabilt. Formen er enkel, lyset varmt. Ikke en arbejdslampe — mere en prik langs kanten, så man kan se, hvor trappen slutter. Har stået i blæst uden at vælte.",
+          "fi": "Maapiikkiä emme halunneet lautaterassiin. Jalka seisoo tukevasti. Muoto on yksinkertainen, valo lämmin. Ei työlamppu — enemmän merkki reunalla jotta näkee missä portaat loppuvat. Seissyt tuulessa kaatumatta."
+        }
       }
     ],
     "stainless-steel-watering-can-watering-can-long-mouth-garden-watering-can": [
@@ -718,6 +1159,63 @@
           "no": "Ingen slapp plastfølelse, den holder formen når den er fylt. Til vinduskarmen rekker én fylling. Til terrassen må jeg gå en ekstra runde, noe jeg kunne regnet ut. Tok den i roségull.",
           "da": "Ingen slasket plastfølelse, den holder formen, når den er fyldt. Til vindueskarmen rækker én fyldning. Til terrassen må jeg gå en ekstra runde, hvilket jeg kunne have regnet ud. Tog den i roséguld.",
           "fi": "Ei slarvaavaa muovituntua, se pitää muotonsa täytenä. Ikkunalaudalle riittää yksi täyttö. Terassille käyn ylimääräisen kierroksen, minkä olisin voinut laskea. Otin ruusukullan."
+        }
+      },
+      {
+        "id": "watering-can-3",
+        "rating": 5,
+        "date": "2026-08-03",
+        "author": "Tove S.",
+        "location": "Ystad",
+        "title": {
+          "sv": "Guldkannan står vid hoen. Jag gömmer den inte.",
+          "no": "Gullkannen står ved vasken. Jeg gjemmer den ikke.",
+          "da": "Guldkanden står ved vasken. Jeg gemmer den ikke.",
+          "fi": "Kultakannu on altaan vieressä. En piilota sitä."
+        },
+        "body": {
+          "sv": "Lång pip, 1,5 liter, precis till örterna på karmen. Den ser ut som den hör till köket, så den får stå framme. Jag fyller den ur kranen och är klar på en runda.",
+          "no": "Lang tut, 1,5 liter, akkurat til urtene på karmen. Den ser ut som den hører til på kjøkkenet, så den får stå fremme. Jeg fyller den i kranen og er ferdig på én runde.",
+          "da": "Lang tud, 1,5 liter, præcis til urterne på karmen. Den ser ud, som om den hører til i køkkenet, så den må stå fremme. Jeg fylder den i hanen og er færdig på én runde.",
+          "fi": "Pitkä tuiti, 1,5 litraa, juuri karmilla oleville yrteille. Se näyttää kuuluvan keittiöön, joten se saa jäädä esille. Täytän hanasta ja olen valmis yhdellä kierroksella."
+        }
+      },
+      {
+        "id": "watering-can-4",
+        "rating": 4,
+        "date": "2026-04-25",
+        "author": "Mikko R.",
+        "location": "Vaasa",
+        "title": {
+          "sv": "Tung när den är full. Pipen droppar sista skvätten.",
+          "no": "Tung når den er full. Tuten drypper den siste skvetten.",
+          "da": "Tung, når den er fuld. Tuden drypper den sidste skvat.",
+          "fi": "Painava täytenä. Tuiti tiputtaa viimeisen lorauksen."
+        },
+        "body": {
+          "sv": "Stål väger, det visste jag. 1,5 liter vatten plus kannan är mer än en plastkanna. Pipen är fin tills man sänker den — då kommer en droppe på karmen. Jag håller den kvar en sekund. Annars nöjd, tog roséguld.",
+          "no": "Stål veier, det visste jeg. 1,5 liter vann pluss kannen er mer enn en plastkanne. Tuten er fin til man senker den — da kommer en dråpe på karmen. Jeg holder den et sekund. Ellers fornøyd, tok roségull.",
+          "da": "Stål vejer, det vidste jeg. 1,5 liter vand plus kanden er mere end en plastkande. Tuden er fin, indtil man sænker den — så kommer der en dråbe på karmen. Jeg holder den et sekund. Ellers tilfreds, tog roséguld.",
+          "fi": "Teräs painaa, sen tiesin. 1,5 litraa vettä plus kannu on enemmän kuin muovikannu. Tuiti on hyvä kunnes laskee sen — sitten tippa karmille. Pidän sekunnin. Muuten tyytyväinen, otin ruusukullan."
+        }
+      },
+      {
+        "id": "watering-can-5",
+        "rating": 5,
+        "date": "2026-03-06",
+        "author": "Marte N.",
+        "location": "Lillehammer",
+        "title": {
+          "sv": "Köpte en till syster. Hennes basilika överlevde juni.",
+          "no": "Kjøpte én til søster. Basilikumen hennes overlevde juni.",
+          "da": "Købte én til søster. Hendes basilikum overlevede juni.",
+          "fi": "Ostin yhden siskolle. Hänen basilika selvisi kesäkuusta."
+        },
+        "body": {
+          "sv": "Hon hade en sladdrig plastkanna som stänkte över hela diskbänken. Den här pipen kommer in i krukan. Inte mer dramatiskt än så, och det räckte.",
+          "no": "Hun hadde en slapp plastkanne som sprutet over hele benken. Denne tuten kommer inn i krukken. Ikke mer dramatisk enn det, og det holdt.",
+          "da": "Hun havde en slasket plastkande, der sprøjtede ud over hele køkkenbordet. Den her tud kommer ind i krukken. Ikke mere dramatisk end det, og det rakte.",
+          "fi": "Hänellä oli slarvaava muovikannu joka roiskui ympäri tiskiä. Tämä tuiti menee ruukkuun. Ei sen dramaattisempaa, ja se riitti."
         }
       }
     ],
@@ -759,6 +1257,25 @@
           "da": "De fleste makeupspejle forstørrer, og det bliver jeg bare ør af. Det her er et rent spejl mod vinduet. Rosa ramme, den mindste størrelse. Fylder lidt, gør præcis det, den skal.",
           "fi": "Useimmat meikkipeilit suurentavat ja siitä tulee vain huimaava olo. Tämä on pelkkä kirkas peili ikkunaa vasten. Pinkki kehys, pienempi koko. Vie vähän tilaa, tekee juuri sen mitä pitää."
         }
+      },
+      {
+        "id": "makeup-mirror-3",
+        "rating": 5,
+        "date": "2026-07-11",
+        "author": "Helmi J.",
+        "location": "Seinäjoki",
+        "title": {
+          "sv": "Svart, den lilla. Får plats i väskan till föräldrarna.",
+          "no": "Svart, den lille. Får plass i vesken til foreldrene.",
+          "da": "Sort, den lille. Kan være i tasken til forældrene.",
+          "fi": "Musta, pieni. Mahtuu kassiin vanhempien luo."
+        },
+        "body": {
+          "sv": "18 centimeter hög, järnram, ingen förstoring. Jag ville ha något som står stadigt på ett främmande handfat. Den vickar inte. Spegeln är klar, inte grön som hotellspeglar.",
+          "no": "18 centimeter høy, jernramme, ingen forstørrelse. Jeg ville ha noe som står stødig på et fremmed servant. Den vingler ikke. Speilet er klart, ikke grønt som hotellspeil.",
+          "da": "18 centimeter høj, jernramme, ingen forstørrelse. Jeg ville have noget, der står stabilt på en fremmed vask. Den vipper ikke. Spejlet er klart, ikke grønt som hotelspejle.",
+          "fi": "18 senttiä korkea, rautakehys, ei suurennusta. Halusin jotain joka seisoo tukevasti vieraalla altaalla. Se ei huoju. Peili on kirkas, ei vihreä kuten hotellipeilit."
+        }
       }
     ],
     "laptop-desk-laptop-bed-table-with-foldable-legs-cup-slot-reading-holder-notebook-stand-breakfast-bed-tray-book-holder": [
@@ -798,6 +1315,44 @@
           "no": "Den lille laptopen min og en bok får plass, pluss telefonen i rillen. Prøvde med jobb-PCen på 16 tommer og måtte sitte sammenkrøpet. MDF-platen er glatt, ingenting som gynger.",
           "da": "Min lille laptop og en bog kan være der, plus telefonen i rillen. Prøvede med jobcomputeren på 16 tommer og måtte sidde sammenkrøbet. MDF-pladen er glat, intet der gynger.",
           "fi": "Pieni läppärini ja kirja mahtuvat, plus puhelin koloon. Kokeilin 16-tuumaista työkoneetta ja jouduin kyyristymään. MDF-levy on sileä, mikään ei horju."
+        }
+      },
+      {
+        "id": "laptop-desk-3",
+        "rating": 5,
+        "date": "2026-06-05",
+        "author": "Sigrid E.",
+        "location": "Kristiansund",
+        "title": {
+          "sv": "Använder den mer till frukost än till datorn",
+          "no": "Bruker den mer til frokost enn til PCen",
+          "da": "Bruger den mere til morgenmad end til computeren",
+          "fi": "Käytän enemmän aamiaiseen kuin koneeseen"
+        },
+        "body": {
+          "sv": "W-benen står på täcket utan att vika sig. Muggfacket och skåran till telefonen gör att jag slutar balansera porslin i knät. Hopfälld bakom dörren, som de lovade. MDF-skivan torkas av med en trasa.",
+          "no": "W-beina står på dynen uten å bøye seg. Koppholderen og rillen til telefonen gjør at jeg slutter å balansere porselen i fanget. Sammenlagt bak døren, som de lovet. MDF-platen tørkes av med en klut.",
+          "da": "W-benene står på dynen uden at bøje. Kopholderen og rillen til telefonen gør, at jeg holder op med at balancere porcelæn i skødet. Sammenklappet bag døren, som de lovede. MDF-pladen tørres af med en klud.",
+          "fi": "W-jalat seisovat peitolla taipumatta. Mukipaikka ja puhelimen kolo lopettavat posliinin tasapainottelun sylissä. Taitettuna oven takana, kuten luvattiin. MDF-levyn pyyhkii rätillä."
+        }
+      },
+      {
+        "id": "laptop-desk-4",
+        "rating": 3,
+        "date": "2026-04-09",
+        "author": "Mads L.",
+        "location": "Sønderborg",
+        "title": {
+          "sv": "Muggfacket är till ett glas, inte till en tekopp med öra",
+          "no": "Koppholderen er til et glass, ikke til en tekopp med hank",
+          "da": "Kopholderen er til et glas, ikke til en tekop med hank",
+          "fi": "Mukipaikka on lasille, ei korvalliselle teekupille"
+        },
+        "body": {
+          "sv": "Brickan är stadig och benen fälls som de ska. Koppen med öra får inte plats i hålet — jag ställer den bredvid. Till en 13-tummare funkar ytan. Till frukostallrik plus laptop blir det trångt. Jag använder den ändå.",
+          "no": "Brettet er stødig, og beina felles som de skal. Koppen med hank får ikke plass i hullet — jeg setter den ved siden av. Til en 13-tommer funker flaten. Til frokosttallerken pluss laptop blir det trangt. Jeg bruker den likevel.",
+          "da": "Bakken er stabil, og benene fældes, som de skal. Koppen med hank kan ikke være i hullet — jeg stiller den ved siden af. Til en 13-tommer virker fladen. Til morgenmads tallerken plus laptop bliver det trangt. Jeg bruger den alligevel.",
+          "fi": "Teline on tukeva ja jalat taittuvat kuten pitää. Korvallinen kuppi ei mahdu koloon — laitan viereen. 13-tuumaiselle pinta riittää. Aamiaislautanen plus läppäri on ahdasta. Käytän silti."
         }
       }
     ],
@@ -839,6 +1394,63 @@
           "da": "Ligger fladt i jakkelommen. Stroppen kan strammes, uden at den glider af. Issilket er køligt, men en varm nat i juni blev det lidt klistret. Mørket var alligevel det, jeg ville have.",
           "fi": "Menee litteänä takin taskuun. Hihnaa voi kiristää ilman että se lipsuu. Jääsilkki on viileä, mutta lämpimänä kesäkuun yönä se oli hieman tahmea. Pimeys oli silti se mitä hain."
         }
+      },
+      {
+        "id": "eye-mask-3",
+        "rating": 5,
+        "date": "2026-08-05",
+        "author": "Felix A.",
+        "location": "Skellefteå",
+        "title": {
+          "sv": "Skiftarbete. Svart mask. Jag sover klockan elva på förmiddagen.",
+          "no": "Skiftarbeid. Svart maske. Jeg sover klokken elleve formiddagen.",
+          "da": "Skiftearbejde. Sort maske. Jeg sover klokken elleve om formiddagen.",
+          "fi": "Vuorotyö. Musta maski. Nukun yhdeltätoista aamupäivällä."
+        },
+        "body": {
+          "sv": "Kuporna gör att ögonen inte trycks in i kudden. Memory foam låter som reklam tills man har sovit mot ett fönster i juni. Lycra mot huden, inte det där svettiga fleecen. Jag har den i nattdukslådan, inte i en reseväska.",
+          "no": "Kappene gjør at øynene ikke trykkes inn i puten. Memoryskum høres ut som reklame til man har sovet mot et vindu i juni. Lycra mot huden, ikke den der svette fleecen. Jeg har den i nattbordskuffen, ikke i en reiseveske.",
+          "da": "Kuplerne gør, at øjnene ikke trykkes ind i puden. Memoryskum lyder som reklame, indtil man har sovet mod et vindue i juni. Lycra mod huden, ikke den der svedige fleece. Jeg har den i natbordsskuffen, ikke i en rejsetaske.",
+          "fi": "Kuvut estävät silmiä painumasta tyynyyn. Muistivaahto kuulostaa mainokselta kunnes on nukkunut ikkunaa vasten kesäkuussa. Lycra ihoa vasten, ei se hikinen fleese. Pidän sitä yöpöydän laatikossa, en matkalaukussa."
+        }
+      },
+      {
+        "id": "eye-mask-4",
+        "rating": 4,
+        "date": "2026-05-21",
+        "author": "Ida M.",
+        "location": "Holstebro",
+        "title": {
+          "sv": "Rosé. Remmen krävde en natt innan den satt.",
+          "no": "Rosé. Stroppen krevde en natt før den satt.",
+          "da": "Rosé. Stroppen krævede en nat, før den sad.",
+          "fi": "Ruusu. Hihna vaati yhden yön ennen kuin istui."
+        },
+        "body": {
+          "sv": "Första kvällen drog jag åt för hårt och vaknade med ett märke. Andra natten ett snäpp lösare — då släpper inte ljuset in och det trycker inte. Issilket är svalt. Lite varm om man sover på mage i juli.",
+          "no": "Første kvelden trakk jeg til for hardt og våknet med et merke. Andre natten et hakk løsere — da slipper ikke lyset inn, og det trykker ikke. Issilket er kjølig. Litt varmt hvis man sover på magen i juli.",
+          "da": "Den første aften strammede jeg for hårdt og vågnede med et mærke. Anden nat et hak løsere — så slipper lyset ikke ind, og det trykker ikke. Issilket er køligt. Lidt varmt, hvis man sover på maven i juli.",
+          "fi": "Ensimmäisenä iltana kiristin liikaa ja heräsin jälki otsassa. Toisena yönä pykälä löysemmällä — valo ei pääse sisään eikä paina. Jääsilkki on viileä. Hieman lämmin jos nukkuu vatsallaan heinäkuussa."
+        }
+      },
+      {
+        "id": "eye-mask-5",
+        "rating": 5,
+        "date": "2026-02-20",
+        "author": "Antti F.",
+        "location": "Kajaani",
+        "title": {
+          "sv": "Köpte två. En hemma, en i skrivbordslådan.",
+          "no": "Kjøpte to. Én hjemme, én i skrivebordsskuffen.",
+          "da": "Købte to. Én hjemme, én i skrivebordsskuffen.",
+          "fi": "Ostin kaksi. Yksi kotona, yksi työpöydän laatikossa."
+        },
+        "body": {
+          "sv": "Jag tar en tupplur på kontoret ibland. Den platta 3D-formen gör att den inte ser ut som en sovmask i väskan. Silverfärgen var ett infall. Den gör samma jobb som den svarta hemma.",
+          "no": "Jeg tar en blund på kontoret av og til. Den flate 3D-formen gjør at den ikke ser ut som en sovemaske i vesken. Sølvfargen var et innfall. Den gjør samme jobben som den svarte hjemme.",
+          "da": "Jeg tager en lur på kontoret indimellem. Den flade 3D-form gør, at den ikke ser ud som en sovemaske i tasken. Sølvfarven var et indfald. Den gør det samme som den sorte derhjemme.",
+          "fi": "Torkun toimistolla välillä. Litteä 3D-muoto ei näytä unimaskilta kassissa. Hopea oli päähänpisto. Se hoitaa saman homman kuin musta kotona."
+        }
       }
     ],
     "silicone-usb-cable-winder-desktop-cable-organizer-management-multipurpose-clips-cables-protector-for-wired-headphones": [
@@ -878,6 +1490,25 @@
           "no": "Silikonet er mykt, så kabelen går inn og ut uten å klemmes. Første listen satte jeg på støvete maling, og den slapp etter en uke. Andre gangen tørket jeg av — da sitter den. Tre clips holdt til skjermen.",
           "da": "Silikonen er blød, så kablet går ind og ud uden at blive klemt. Den første liste satte jeg på støvet maling, og den slap efter en uge. Anden gang tørrede jeg af — så sidder den. Tre clips rakte til skærmen.",
           "fi": "Silikoni on pehmeää, joten johto menee sisään ja ulos puristumatta. Ensimmäisen listan kiinnitin pölyiseen maaliin ja se irtosi viikossa. Toisella kerralla pyyhin — sitten se pysyi. Kolme klipsiä riitti näytölle."
+        }
+      },
+      {
+        "id": "cable-clips-3",
+        "rating": 5,
+        "date": "2026-06-28",
+        "author": "Live T.",
+        "location": "Molde",
+        "title": {
+          "sv": "Sju clips längs kanten. Hörlurarna ligger kvar.",
+          "no": "Sju clips langs kanten. Hodetelefonene blir liggende.",
+          "da": "Syv clips langs kanten. Hovedtelefonerne bliver liggende.",
+          "fi": "Seitsemän klipsiä reunalla. Kuulokkeet pysyvät."
+        },
+        "body": {
+          "sv": "Svart silikon mot ett svart skrivbord, man ser dem knappt. Tejpen höll när jag torkade av kanten först. Laddare, lampa, hörlurar, extra USB — allt har en plats. Jag slutar dra i sladdar som hänger bakom.",
+          "no": "Svart silikon mot et svart skrivebord, man ser dem knapt. Teipen holdt da jeg tørket av kanten først. Lader, lampe, hodetelefoner, ekstra USB — alt har en plass. Jeg slutter å dra i ledninger som henger bak.",
+          "da": "Sort silikone mod et sort skrivebord, man ser dem næsten ikke. Tapen holdt, da jeg tørrede kanten af først. Oplader, lampe, hovedtelefoner, ekstra USB — det hele har en plads. Jeg holder op med at trække i ledninger, der hænger bagved.",
+          "fi": "Musta silikoni mustaa pöytää vasten, niitä tuskin näkee. Tarra piti kun pyyhin reunan ensin. Laturi, lamppu, kuulokkeet, extra USB — kaikella on paikka. Lopetan johtojen kiskomisen takaa."
         }
       }
     ]

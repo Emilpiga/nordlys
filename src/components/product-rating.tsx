@@ -3,10 +3,8 @@
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
 import { ReviewStars } from "@/components/review-stars";
-import {
-  formatReviewAverage,
-  getReviewSummary,
-} from "@/lib/reviews";
+import { useReviewSummary } from "@/components/review-summaries-provider";
+import { formatReviewAverage } from "@/lib/review-format";
 
 type ProductRatingProps = {
   handle: string;
@@ -22,7 +20,7 @@ export function ProductRating({
   onClick,
 }: ProductRatingProps) {
   const { locale, dict, t } = useDictionary();
-  const summary = getReviewSummary(handle);
+  const summary = useReviewSummary(handle);
   if (!summary) return null;
 
   const averageLabel = formatReviewAverage(summary.average, locale);

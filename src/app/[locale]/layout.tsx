@@ -9,6 +9,7 @@ import { CartDrawer } from "@/components/cart-drawer";
 import { CartProvider } from "@/components/cart-provider";
 import { ConsentModeBootstrap } from "@/components/consent-mode-bootstrap";
 import { DictionaryProvider } from "@/components/dictionary-provider";
+import { ReviewSummariesProvider } from "@/components/review-summaries-provider";
 import { JsonLd } from "@/components/json-ld";
 import { AnnouncementBanner } from "@/components/announcement-banner";
 import { SetupBanner } from "@/components/setup-banner";
@@ -32,6 +33,7 @@ import {
 import { getCollections } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
 import { getMarketingPixelConfig } from "@/lib/consent";
+import { getAllReviewSummaries } from "@/lib/reviews";
 import { socialMetadata, brandIcons } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
 
@@ -113,6 +115,7 @@ export default async function LocaleLayout({
     getDictionary(locale),
     getCustomerProfile(),
   ]);
+  const reviewSummaries = getAllReviewSummaries();
 
   const siteDescription = t(dict.meta.siteDescription, {
     brand: shopifyConfig.storeName,
@@ -137,18 +140,20 @@ export default async function LocaleLayout({
         <Analytics />
         <AdPixels />
         <DictionaryProvider locale={locale} dict={dict}>
-          <CartProvider cart={cart}>
-            <WishlistProvider
-              customerId={customer?.id ?? null}
-              productIds={customer?.wishlistProductIds ?? []}
-            >
-              <SessionRefresh enabled={Boolean(customer)} />
-              <SiteHeader collections={collections} />
-              <main className="flex-1">{children}</main>
-              <SiteFooter />
-              <CartDrawer />
-            </WishlistProvider>
-          </CartProvider>
+          <ReviewSummariesProvider summaries={reviewSummaries}>
+            <CartProvider cart={cart}>
+              <WishlistProvider
+                customerId={customer?.id ?? null}
+                productIds={customer?.wishlistProductIds ?? []}
+              >
+                <SessionRefresh enabled={Boolean(customer)} />
+                <SiteHeader collections={collections} />
+                <main className="flex-1">{children}</main>
+                <SiteFooter />
+                <CartDrawer />
+              </WishlistProvider>
+            </CartProvider>
+          </ReviewSummariesProvider>
         </DictionaryProvider>
       </body>
     </html>
