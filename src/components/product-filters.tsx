@@ -1,6 +1,14 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type PointerEvent as ReactPointerEvent,
+  type ReactNode,
+} from "react";
 import { useDictionary } from "@/components/dictionary-provider";
 import {
   activeFilterCount,
@@ -230,38 +238,126 @@ function PriceRange({
   currencyCode: string;
   onChange: (min: number, max: number) => void;
 }) {
-  const { locale } = useDictionary();
-  const ready = useRef(false);
+  const { locale, dict } = useDictionary();
+  const trackRef = useRef<HTMLDivElement>(null);
+  const drag = useRef<"min" | "max" | null>(null);
+  const latest = useRef({ min, max });
+  const [active, setActive] = useState<"min" | "max" | null>(null);
   const step = catalogPriceStep(bounds);
   const span = Math.max(1, bounds.max - bounds.min);
   const left = ((min - bounds.min) / span) * 100;
   const right = ((max - bounds.min) / span) * 100;
+  latest.current = { min, max };
+
   const money = (amount: number) =>
     formatMoney({ amount: String(amount), currencyCode }, locale);
 
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      ready.current = true;
-    }, 0);
-    return () => window.clearTimeout(timer);
-  }, []);
+  function snap(raw: number) {
+    const snapped = Math.round((raw - bounds.min) / step) * step + bounds.min;
+    return Math.min(bounds.max, Math.max(bounds.min, snapped));
+  }
+
+  function valueFromX(clientX: number) {
+    const rect = trackRef.current?.getBoundingClientRect();
+    if (!rect || rect.width <= 0) return bounds.min;
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    return snap(bounds.min + ratio * span);
+  }
 
   function commit(nextMin: number, nextMax: number) {
-    if (!ready.current) return;
-    // Keep a usable span; collapsing to the floor reads as "no products".
     let lo = Math.min(nextMin, nextMax);
     let hi = Math.max(nextMin, nextMax);
     if (hi <= bounds.min) {
       lo = bounds.min;
       hi = bounds.max;
     }
-    if (lo === min && hi === max) return;
+    if (lo === latest.current.min && hi === latest.current.max) return;
     onChange(lo, hi);
+  }
+
+  function apply(which: "min" | "max", next: number) {
+    const current = latest.current;
+    if (which === "min") commit(Math.min(next, current.max), current.max);
+    else commit(current.min, Math.max(next, current.min));
+  }
+
+  function pickHandle(clientX: number): "min" | "max" {
+    const next = valueFromX(clientX);
+    const current = latest.current;
+    const toMin = Math.abs(next - current.min);
+    const toMax = Math.abs(next - current.max);
+    if (toMin < toMax) return "min";
+    if (toMax < toMin) return "max";
+    return next < (current.min + current.max) / 2 ? "min" : "max";
+  }
+
+  function startDrag(event: ReactPointerEvent<HTMLDivElement>, which?: "min" | "max") {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    event.preventDefault();
+    const handle = which ?? pickHandle(event.clientX);
+    drag.current = handle;
+    setActive(handle);
+    event.currentTarget.setPointerCapture(event.pointerId);
+    apply(handle, valueFromX(event.clientX));
+  }
+
+  function onPointerMove(event: ReactPointerEvent<HTMLDivElement>) {
+    if (!drag.current) return;
+    apply(drag.current, valueFromX(event.clientX));
+  }
+
+  function endDrag(event: ReactPointerEvent<HTMLDivElement>) {
+    if (!drag.current) return;
+    drag.current = null;
+    setActive(null);
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  }
+
+  useEffect(() => {
+    const node = trackRef.current;
+    if (!node) return;
+
+    const blockScroll = (event: TouchEvent) => {
+      if (drag.current) event.preventDefault();
+    };
+
+    node.addEventListener("touchmove", blockScroll, { passive: false });
+    return () => node.removeEventListener("touchmove", blockScroll);
+  }, []);
+
+  function onThumbKeyDown(which: "min" | "max", event: ReactKeyboardEvent) {
+    const current = latest.current;
+    const value = which === "min" ? current.min : current.max;
+    let next = value;
+    if (event.key === "ArrowLeft" || event.key === "ArrowDown") next = value - step;
+    else if (event.key === "ArrowRight" || event.key === "ArrowUp") next = value + step;
+    else if (event.key === "Home") next = which === "min" ? bounds.min : current.min;
+    else if (event.key === "End") next = which === "min" ? current.max : bounds.max;
+    else return;
+    event.preventDefault();
+    apply(which, snap(next));
   }
 
   return (
     <div>
-      <div className="relative h-6">
+      <div
+        ref={trackRef}
+        className="relative h-11 touch-none select-none"
+        onPointerDown={(event) => {
+          const handle = (event.target as HTMLElement)
+            .closest("[data-handle]")
+            ?.getAttribute("data-handle");
+          startDrag(
+            event,
+            handle === "min" || handle === "max" ? handle : undefined,
+          );
+        }}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+      >
         <div
           aria-hidden
           className="absolute top-1/2 h-px w-full -translate-y-1/2 bg-border"
@@ -271,38 +367,76 @@ function PriceRange({
           className="absolute top-1/2 h-0.5 -translate-y-1/2 bg-glow"
           style={{ left: `${left}%`, width: `${Math.max(0, right - left)}%` }}
         />
-        <input
-          type="range"
-          className="catalog-range"
-          min={bounds.min}
-          max={bounds.max}
-          step={step}
+        <RangeThumb
+          which="min"
           value={min}
-          aria-label={money(min)}
-          onChange={(event) => {
-            const next = Number(event.target.value);
-            commit(Math.min(next, max), max);
-          }}
-        />
-        <input
-          type="range"
-          className="catalog-range"
           min={bounds.min}
-          max={bounds.max}
-          step={step}
+          max={max}
+          percent={left}
+          label={`${dict.products.filters.price} ${money(min)}`}
+          text={money(min)}
+          stacked={active === "min"}
+          onKeyDown={(event) => onThumbKeyDown("min", event)}
+        />
+        <RangeThumb
+          which="max"
           value={max}
-          aria-label={money(max)}
-          style={{ zIndex: 2 }}
-          onChange={(event) => {
-            const next = Number(event.target.value);
-            commit(min, Math.max(next, min));
-          }}
+          min={min}
+          max={bounds.max}
+          percent={right}
+          label={`${dict.products.filters.price} ${money(max)}`}
+          text={money(max)}
+          stacked={active === "max" || active == null}
+          onKeyDown={(event) => onThumbKeyDown("max", event)}
         />
       </div>
-      <div className="mt-3 flex items-center justify-between text-sm font-light text-muted">
+      <div className="mt-1 flex items-center justify-between text-sm font-light text-muted">
         <span className="tabular-nums">{money(min)}</span>
         <span className="tabular-nums">{money(max)}</span>
       </div>
+    </div>
+  );
+}
+
+function RangeThumb({
+  which,
+  value,
+  min,
+  max,
+  percent,
+  label,
+  text,
+  stacked,
+  onKeyDown,
+}: {
+  which: "min" | "max";
+  value: number;
+  min: number;
+  max: number;
+  percent: number;
+  label: string;
+  text: string;
+  stacked: boolean;
+  onKeyDown: (event: ReactKeyboardEvent) => void;
+}) {
+  return (
+    <div
+      data-handle={which}
+      role="slider"
+      tabIndex={0}
+      aria-label={label}
+      aria-valuemin={min}
+      aria-valuemax={max}
+      aria-valuenow={value}
+      aria-valuetext={text}
+      onKeyDown={onKeyDown}
+      className="absolute top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center outline-none"
+      style={{ left: `${percent}%`, zIndex: stacked ? 3 : 2 }}
+    >
+      <span
+        aria-hidden
+        className="h-3.5 w-3.5 border-2 border-frost bg-foreground shadow-[0_1px_4px_rgba(20,28,34,0.16)]"
+      />
     </div>
   );
 }

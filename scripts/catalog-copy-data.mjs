@@ -1618,6 +1618,307 @@ export const catalogCopy = [
       },
     ],
   }),
+
+  pack({
+    handle:
+      "socks-storage-box-bra-underwear-organizer-desktop-drawer-finishing-box-bathroom-plastic-storage-case-closet-organiser",
+    title: t(
+      "Förvaringslåda i plast till lådan",
+      "Oppbevaringsboks i plast til skuffen",
+      "Opbevaringskasse i plast til skuffen",
+      "Muovinen säilytyslaatikko laatikkoon",
+    ),
+    metaTitle: t(
+      "Förvaringslåda i plast",
+      "Oppbevaringsboks i plast",
+      "Opbevaringskasse i plast",
+      "Muovinen säilytyslaatikko",
+    ),
+    metaDescription: t(
+      "Vit låda i PP-plast till strumpor och underkläder. Välj 3 eller 5 fack.",
+      "Hvit boks i PP-plast til sokker og undertøy. Velg 3 eller 5 rom.",
+      "Hvid kasse i PP-plast til sokker og undertøj. Vælg 3 eller 5 rum.",
+      "Valkoinen PP-muovilaatikko sukille ja alusvaatteille. Valitse 3 tai 5 lokeroa.",
+    ),
+    body: t(
+      "<p>En vit låda i PP-plast att sätta i byrålådan — strumpor och underkläder i fack, inte i en hög.</p><ul><li><strong>Fack.</strong> 3 eller 5 rum, välj ovan.</li><li><strong>PP-plast.</strong> Lätt att torka av, utan tyg som suger fukt.</li><li><strong>Till lådan.</strong> Byrå, badrum eller skrivbord — där småplocket samlas.</li></ul><p>Material: PP-plast. Färg: vit. Välj antal fack ovan.</p>",
+      "<p>En hvit boks i PP-plast å sette i kommodeskuffen — sokker og undertøy i rom, ikke i en haug.</p><ul><li><strong>Rom.</strong> 3 eller 5 rom, velg over.</li><li><strong>PP-plast.</strong> Lett å tørke av, uten stoff som suger fukt.</li><li><strong>Til skuffen.</strong> Kommode, bad eller skrivebord — der småtingene samles.</li></ul><p>Materiale: PP-plast. Farge: hvit. Velg antall rom over.</p>",
+      "<p>En hvid kasse i PP-plast at sætte i kommodeskuffen — sokker og undertøj i rum, ikke i en bunke.</p><ul><li><strong>Rum.</strong> 3 eller 5 rum, vælg ovenfor.</li><li><strong>PP-plast.</strong> Nem at tørre af, uden stof der suger fugt.</li><li><strong>Til skuffen.</strong> Kommode, badeværelse eller skrivebord — der, hvor småtingene samles.</li></ul><p>Materiale: PP-plast. Farve: hvid. Vælg antal rum ovenfor.</p>",
+      "<p>Valkoinen PP-muovilaatikko lipaston laatikkoon — sukat ja alusvaatteet lokeroissa, ei pinossa.</p><ul><li><strong>Lokeroita.</strong> 3 tai 5 tilaa, valitse yllä.</li><li><strong>PP-muovi.</strong> Helppo pyyhkiä, ilman kosteutta imevää kangasta.</li><li><strong>Laatikkoon.</strong> Lipasto, kylpyhuone tai työpöytä — sinne missä pientä tavaraa kertyy.</li></ul><p>Materiaali: PP-muovi. Väri: valkoinen. Valitse lokeroiden määrä yllä.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: STYLE,
+        values: {
+          "3 lattice white": t("3 fack, vit", "3 rom, hvit", "3 rum, hvid", "3 lokeroa, valkoinen"),
+          "5 white": t("5 fack, vit", "5 rom, hvit", "5 rum, hvid", "5 lokeroa, valkoinen"),
+        },
+      },
+    ],
+  }),
+
+  pack({
+    handle: "stainless-steel-barbecue-spray-bottle",
+    title: t(
+      "Oljespray i stål till grillen",
+      "Oljespray i stål til grillen",
+      "Oliespray i stål til grillen",
+      "Öljysuihke terästä grillille",
+    ),
+    metaTitle: t(
+      "Oljespray 100 ml",
+      "Oljespray 100 ml",
+      "Oliespray 100 ml",
+      "Öljysuihke 100 ml",
+    ),
+    metaDescription: t(
+      "Sprayflaska i stål och glas, 100 ml, ca 4,2 × 18 cm. Till olja, vinäger eller citron — glas eller silver.",
+      "Sprayflaske i stål og glass, 100 ml, ca. 4,2 × 18 cm. Til olje, eddik eller sitron — glass eller sølv.",
+      "Sprayflaske i stål og glas, 100 ml, ca. 4,2 × 18 cm. Til olie, eddike eller citron — glas eller sølv.",
+      "Suihkepullo terästä ja lasia, 100 ml, n. 4,2 × 18 cm. Öljylle, etikalle tai sitruunalle — lasi tai hopea.",
+    ),
+    body: t(
+      "<p>En liten sprayflaska till oljan — ett tryck ger dimma över pannan eller grillen, utan att hälla för mycket.</p><ul><li><strong>100 ml.</strong> Ca 4,2 × 18 cm, lätt att ha vid spisen.</li><li><strong>Stål och glas.</strong> Till olja, soya, vinäger eller citron.</li><li><strong>Två utföranden.</strong> Glas eller silver, välj ovan.</li></ul><p>Material: rostfritt stål och glas. Volym: 100 ml. Pumpa några gånger första gången.</p>",
+      "<p>En liten sprayflaske til oljen — ett trykk gir tåke over pannen eller grillen, uten å helle for mye.</p><ul><li><strong>100 ml.</strong> Ca. 4,2 × 18 cm, lett å ha ved komfyren.</li><li><strong>Stål og glass.</strong> Til olje, soya, eddik eller sitron.</li><li><strong>To utførelser.</strong> Glass eller sølv, velg over.</li></ul><p>Materiale: rustfritt stål og glass. Volum: 100 ml. Pump noen ganger første gang.</p>",
+      "<p>En lille sprayflaske til olien — ét tryk giver tåge over panden eller grillen, uden at hælde for meget.</p><ul><li><strong>100 ml.</strong> Ca. 4,2 × 18 cm, nem at have ved komfuret.</li><li><strong>Stål og glas.</strong> Til olie, soya, eddike eller citron.</li><li><strong>To udførelser.</strong> Glas eller sølv, vælg ovenfor.</li></ul><p>Materiale: rustfrit stål og glas. Rumfang: 100 ml. Pump et par gange første gang.</p>",
+      "<p>Pieni suihkepullo öljylle — yksi painallus antaa sumun pannulle tai grillille ilman liikaa kaatamista.</p><ul><li><strong>100 ml.</strong> N. 4,2 × 18 cm, helppo pitää lieden vieressä.</li><li><strong>Teräs ja lasi.</strong> Öljylle, soijalle, etikalle tai sitruunalle.</li><li><strong>Kaksi toteutusta.</strong> Lasi tai hopea, valitse yllä.</li></ul><p>Materiaali: ruostumaton teräs ja lasi. Tilavuus: 100 ml. Pumppaa muutaman kerran ensimmäisellä käyttökerralla.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: STYLE,
+        values: {
+          Glass: t("Glas", "Glass", "Glas", "Lasi"),
+          Silver: t("Silver", "Sølv", "Sølv", "Hopea"),
+        },
+      },
+    ],
+  }),
+
+  pack({
+    handle:
+      "summer-sleeping-support-pillow-for-pregnant-women-u-shape-maternity-pillows-pregnancy-ice-silk",
+    title: t(
+      "U-kudde till graviditeten",
+      "U-pute til svangerskapet",
+      "U-pude til graviditeten",
+      "U-tyyny raskauteen",
+    ),
+    metaTitle: t(
+      "U-kudde 130 × 70 cm",
+      "U-pute 130 × 70 cm",
+      "U-pude 130 × 70 cm",
+      "U-tyyny 130 × 70 cm",
+    ),
+    metaDescription: t(
+      "U-formad kudde, 130 × 70 cm, med polyesterfyllning. Stöd under mage, höfter och rygg när du vilar. Fem färger.",
+      "U-formet pute, 130 × 70 cm, med polyesterfyll. Støtte under mage, hofter og rygg når du hviler. Fem farger.",
+      "U-formet pude, 130 × 70 cm, med polyesterfyld. Støtte under mave, hofter og ryg, når du hviler. Fem farver.",
+      "U-muotoinen tyyny, 130 × 70 cm, polyesteritäytteellä. Tukea vatsalle, lantiolle ja selälle levossa. Viisi väriä.",
+    ),
+    body: t(
+      "<p>En U-formad kudde att ha längs kroppen — mage, höfter och rygg får något att vila mot, utan extra kuddar i en hög.</p><ul><li><strong>U-form.</strong> En kudde som följer sidan när du ligger.</li><li><strong>130 × 70 cm.</strong> Polyesterfyllning, till en person.</li><li><strong>Fem färger.</strong> Mörkgrå, grå, grön, ljusblå eller rosa.</li></ul><p>Fyllning: 100 % polyester. Mått: 130 × 70 cm. Välj färg ovan.</p>",
+      "<p>En U-formet pute å ha langs kroppen — mage, hofter og rygg får noe å hvile mot, uten ekstra puter i en haug.</p><ul><li><strong>U-form.</strong> Én pute som følger siden når du ligger.</li><li><strong>130 × 70 cm.</strong> Polyesterfyll, til én person.</li><li><strong>Fem farger.</strong> Mørkegrå, grå, grønn, lyseblå eller rosa.</li></ul><p>Fyll: 100 % polyester. Mål: 130 × 70 cm. Velg farge over.</p>",
+      "<p>En U-formet pude at have langs kroppen — mave, hofter og ryg får noget at hvile mod, uden ekstra puder i en bunke.</p><ul><li><strong>U-form.</strong> Én pude, der følger siden, når du ligger.</li><li><strong>130 × 70 cm.</strong> Polyesterfyld, til én person.</li><li><strong>Fem farver.</strong> Mørkegrå, grå, grøn, lyseblå eller rosa.</li></ul><p>Fyld: 100 % polyester. Mål: 130 × 70 cm. Vælg farve ovenfor.</p>",
+      "<p>U-muotoinen tyyny vartalon viereen — vatsa, lantio ja selkä saavat tukea ilman erillisiä tyynyjä pinossa.</p><ul><li><strong>U-muoto.</strong> Yksi tyyny seuraa kylkeä maatessa.</li><li><strong>130 × 70 cm.</strong> Polyesteritäyte, yhdelle.</li><li><strong>Viisi väriä.</strong> Tummanharmaa, harmaa, vihreä, vaaleansininen tai pinkki.</li></ul><p>Täyte: 100 % polyesteri. Mitat: 130 × 70 cm. Valitse väri yllä.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: COLOR,
+        values: {
+          "Dark Grey": t("Mörkgrå", "Mørkegrå", "Mørkegrå", "Tummanharmaa"),
+          Green: t("Grön", "Grønn", "Grøn", "Vihreä"),
+          Grey: t("Grå", "Grå", "Grå", "Harmaa"),
+          "Light Blue": t("Ljusblå", "Lyseblå", "Lyseblå", "Vaaleansininen"),
+          Pink: t("Rosa", "Rosa", "Rosa", "Pinkki"),
+        },
+      },
+    ],
+  }),
+
+  pack({
+    handle: "thickened-flannel-lamb-wool-composite-double-blanket-leisure-blanket-gift-blanket",
+    title: t(
+      "Dubbel filt i flanell",
+      "Dobbel teppe i flanell",
+      "Dobbelt tæppe i flannel",
+      "Kaksinkertainen flanellihuopa",
+    ),
+    metaTitle: t(
+      "Flanellfilt ca 1 kg",
+      "Flanellteppe ca. 1 kg",
+      "Flanneltæppe ca. 1 kg",
+      "Flanellihuopa n. 1 kg",
+    ),
+    metaDescription: t(
+      "Tjockare filt i polyester, ca 1 kg. Twist, ränder, rutnät eller lamullsyta — välj mönster ovan.",
+      "Tykkere teppe i polyester, ca. 1 kg. Twist, striper, rutenett eller lamullsflate — velg mønster over.",
+      "Tykere tæppe i polyester, ca. 1 kg. Twist, striber, gitter eller lamuldsflade — vælg mønster ovenfor.",
+      "Paksumpi polyesterihuopa, n. 1 kg. Twist, raidat, ruudukko tai lampaankarvapinta — valitse kuvio yllä.",
+    ),
+    body: t(
+      "<p>En tjockare filt i polyester att ha i soffan — ca 1 kg, med flanell- eller lamullsyta beroende på modell.</p><ul><li><strong>Polyester.</strong> Ger efter, utan att kännas styv.</li><li><strong>Flera mönster.</strong> Twist, ränder, rutnät, våg eller enfärgad lamull.</li><li><strong>Till vardagen.</strong> En filt framme, inte bara i garderoben.</li></ul><p>Material: polyester. Vikt ca 1 kg. Krympning uppges till ca 5 %. Välj mönster ovan.</p>",
+      "<p>Et tykkere teppe i polyester til sofaen — ca. 1 kg, med flanell- eller lamullsflate etter modell.</p><ul><li><strong>Polyester.</strong> Gir etter, uten å kjennes stivt.</li><li><strong>Flere mønstre.</strong> Twist, striper, rutenett, bølge eller ensfarget lamull.</li><li><strong>Til hverdagen.</strong> Et teppe fremme, ikke bare i skapet.</li></ul><p>Materiale: polyester. Vekt ca. 1 kg. Krymping oppgis til ca. 5 %. Velg mønster over.</p>",
+      "<p>Et tykkere tæppe i polyester til sofaen — ca. 1 kg, med flannel- eller lamuldsflade efter model.</p><ul><li><strong>Polyester.</strong> Giver efter, uden at føles stift.</li><li><strong>Flere mønstre.</strong> Twist, striber, gitter, bølge eller ensfarvet lamuld.</li><li><strong>Til hverdagen.</strong> Et tæppe fremme, ikke kun i skabet.</li></ul><p>Materiale: polyester. Vægt ca. 1 kg. Krympning opgives til ca. 5 %. Vælg mønster ovenfor.</p>",
+      "<p>Paksumpi polyesterihuopa sohvalle — n. 1 kg, flanelli- tai lampaankarvapinta mallin mukaan.</p><ul><li><strong>Polyesteri.</strong> Myötää, ilman jäykkää tuntumaa.</li><li><strong>Useita kuvioita.</strong> Twist, raidat, ruudukko, aalto tai yksivärinen lampaankarva.</li><li><strong>Arkeen.</strong> Huopa esillä, ei vain kaapissa.</li></ul><p>Materiaali: polyesteri. Paino n. 1 kg. Kutistuma ilmoitettu n. 5 %. Valitse kuvio yllä.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: t("Mönster", "Mønster", "Mønster", "Kuvio"),
+        values: {
+          Colour1: t("Twist, blå", "Twist, blå", "Twist, blå", "Twist, sininen"),
+          Colour2: t("Twist, grå", "Twist, grå", "Twist, grå", "Twist, harmaa"),
+          Colour3: t("Twist, beige", "Twist, beige", "Twist, beige", "Twist, beige"),
+          Colour4: t("Fjäril, beige", "Sommerfugl, beige", "Sommerfugl, beige", "Perhonen, beige"),
+          Colour5: t("Randig, marin", "Stripete, marine", "Stribet, marine", "Raidallinen, merensininen"),
+          Colour6: t("Randig, röd", "Stripete, rød", "Stribet, rød", "Raidallinen, punainen"),
+          Colour7: t("Randig, grå", "Stripete, grå", "Stribet, grå", "Raidallinen, harmaa"),
+          Colour8: t("Rutig, marin", "Rutet, marine", "Ternet, marine", "Ruudullinen, merensininen"),
+          Colour9: t("Rutig, grå", "Rutet, grå", "Ternet, grå", "Ruudullinen, harmaa"),
+          Colour10: t("Rutig, beige", "Rutet, beige", "Ternet, beige", "Ruudullinen, beige"),
+          Colour11: t("Vågmönster", "Bølgemønster", "Bølgemønster", "Aaltokuvio"),
+          Colour12: t("Lamull, vit", "Lamull, hvit", "Lamuld, hvid", "Lampaankarva, valkoinen"),
+          Colour13: t("Lamull, grå", "Lamull, grå", "Lamuld, grå", "Lampaankarva, harmaa"),
+          Colour14: t("Lamull, svart", "Lamull, svart", "Lamuld, sort", "Lampaankarva, musta"),
+          Colour15: t("Lamull, brun", "Lamull, brun", "Lamuld, brun", "Lampaankarva, ruskea"),
+          Colour16: t("Lamull, flerfärgad", "Lamull, flerfarget", "Lamuld, flerfarvet", "Lampaankarva, monivärinen"),
+          Colour17: t("Lamull, blågrön", "Lamull, blågrønn", "Lamuld, blågrøn", "Lampaankarva, sinivihreä"),
+        },
+      },
+    ],
+  }),
+
+  pack({
+    handle: "flannel-sheets-solid-blanket",
+    title: t(
+      "Enfärgad flanellfilt",
+      "Ensfarget flanellteppe",
+      "Ensfarvet flanneltæppe",
+      "Yksivärinen flanellihuopa",
+    ),
+    metaTitle: t(
+      "Enfärgad flanellfilt",
+      "Ensfarget flanellteppe",
+      "Ensfarvet flanneltæppe",
+      "Yksivärinen flanellihuopa",
+    ),
+    metaDescription: t(
+      "Filt i polyesterflanell. Välj färg och mått — 70 × 100 cm upp till 200 × 230 cm.",
+      "Teppe i polyesterflanell. Velg farge og mål — 70 × 100 cm opp til 200 × 230 cm.",
+      "Tæppe i polyesterflannel. Vælg farve og mål — 70 × 100 cm op til 200 × 230 cm.",
+      "Polyesterflanellihuopa. Valitse väri ja mitta — 70 × 100 cm aina 200 × 230 cm asti.",
+    ),
+    body: t(
+      "<p>En enfärgad filt i polyesterflanell — till soffan eller sängen, utan mönster som ska matcha allt annat.</p><ul><li><strong>Polyester.</strong> Mjuk yta, lätt att skaka ut.</li><li><strong>Fem mått.</strong> Från 70 × 100 cm till 200 × 230 cm.</li><li><strong>Åtta färger.</strong> Blå, kaffe, grön, grå, khaki, rosa, röd eller gul.</li></ul><p>Material: polyester. Välj färg och storlek ovan.</p>",
+      "<p>Et ensfarget teppe i polyesterflanell — til sofaen eller sengen, uten mønster som skal matche alt annet.</p><ul><li><strong>Polyester.</strong> Myk flate, lett å riste ut.</li><li><strong>Fem mål.</strong> Fra 70 × 100 cm til 200 × 230 cm.</li><li><strong>Åtte farger.</strong> Blå, kaffe, grønn, grå, khaki, rosa, rød eller gul.</li></ul><p>Materiale: polyester. Velg farge og størrelse over.</p>",
+      "<p>Et ensfarvet tæppe i polyesterflannel — til sofaen eller sengen, uden mønster der skal matche alt andet.</p><ul><li><strong>Polyester.</strong> Blød flade, nem at ryste ud.</li><li><strong>Fem mål.</strong> Fra 70 × 100 cm til 200 × 230 cm.</li><li><strong>Otte farver.</strong> Blå, kaffe, grøn, grå, khaki, rosa, rød eller gul.</li></ul><p>Materiale: polyester. Vælg farve og størrelse ovenfor.</p>",
+      "<p>Yksivärinen polyesterflanellihuopa — sohvalle tai sänkyyn, ilman kuviota joka pitäisi sopia kaikkeen.</p><ul><li><strong>Polyesteri.</strong> Pehmeä pinta, helppo ravistaa.</li><li><strong>Viisi kokoa.</strong> 70 × 100 cm:stä 200 × 230 cm:iin.</li><li><strong>Kahdeksan väriä.</strong> Sininen, kahvi, vihreä, harmaa, khaki, pinkki, punainen tai keltainen.</li></ul><p>Materiaali: polyesteri. Valitse väri ja koko yllä.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: COLOR,
+        values: {
+          Blue: t("Blå", "Blå", "Blå", "Sininen"),
+          Coffee: t("Kaffe", "Kaffe", "Kaffe", "Kahvi"),
+          Green: t("Grön", "Grønn", "Grøn", "Vihreä"),
+          Grey: t("Grå", "Grå", "Grå", "Harmaa"),
+          Khaki: t("Khaki", "Khaki", "Khaki", "Khaki"),
+          Pink: t("Rosa", "Rosa", "Rosa", "Pinkki"),
+          Red: t("Röd", "Rød", "Rød", "Punainen"),
+          Yellow: t("Gul", "Gul", "Gul", "Keltainen"),
+        },
+      },
+      {
+        sourceName: "Size",
+        name: SIZE,
+        values: {
+          "150x200": t("150 × 200 cm", "150 × 200 cm", "150 × 200 cm", "150 × 200 cm"),
+          "180x200": t("180 × 200 cm", "180 × 200 cm", "180 × 200 cm", "180 × 200 cm"),
+          "200x230": t("200 × 230 cm", "200 × 230 cm", "200 × 230 cm", "200 × 230 cm"),
+          "100x150": t("100 × 150 cm", "100 × 150 cm", "100 × 150 cm", "100 × 150 cm"),
+          "70x100": t("70 × 100 cm", "70 × 100 cm", "70 × 100 cm", "70 × 100 cm"),
+        },
+      },
+    ],
+  }),
+
+  pack({
+    handle:
+      "vegetable-cutter-kitchen-accessories-fruit-potato-peeler-carrot-cheese-grater-vegetable-slicer",
+    title: t(
+      "Grönsaksskärare med fyra blad",
+      "Grønnsakskutter med fire blader",
+      "Grøntsagsskærer med fire blade",
+      "Vihannesleikkuri neljällä terällä",
+    ),
+    metaTitle: t(
+      "Grönsaksskärare med skål",
+      "Grønnsakskutter med bolle",
+      "Grøntsagsskærer med skål",
+      "Vihannesleikkuri kulholla",
+    ),
+    metaDescription: t(
+      "Skärare i stål och ABS, ca 28,5 × 8,5 cm. Fyra blad, handskydd och skål. Grå eller skopmodell.",
+      "Kutter i stål og ABS, ca. 28,5 × 8,5 cm. Fire blader, håndbeskyttelse og bolle. Grå eller øsemodell.",
+      "Skærer i stål og ABS, ca. 28,5 × 8,5 cm. Fire blade, håndbeskyttelse og skål. Grå eller øsemodel.",
+      "Leikkuri terästä ja ABS:ää, n. 28,5 × 8,5 cm. Neljä terää, käsisuoja ja kulho. Harmaa tai kauhamalli.",
+    ),
+    body: t(
+      "<p>En mandolin med skål under — fyra blad till julienne, våg och skiva, plus ett skydd för fingrarna.</p><ul><li><strong>Fyra blad.</strong> 4 mm och 3 mm julienne, vågig skiva och slät skiva.</li><li><strong>Skål och sil.</strong> Skär ner i skålen, skölj i silen.</li><li><strong>Två modeller.</strong> Grå eller skopmodell, ca 28,5 × 8,5 cm.</li></ul><p>Material: rostfritt stål och ABS. Välj modell ovan.</p>",
+      "<p>En mandolin med bolle under — fire blader til julienne, bølge og skive, pluss et vern for fingrene.</p><ul><li><strong>Fire blader.</strong> 4 mm og 3 mm julienne, bølget skive og glatt skive.</li><li><strong>Bolle og sil.</strong> Kutt ned i bollen, skyll i silen.</li><li><strong>To modeller.</strong> Grå eller øsemodell, ca. 28,5 × 8,5 cm.</li></ul><p>Materiale: rustfritt stål og ABS. Velg modell over.</p>",
+      "<p>En mandolin med skål under — fire blade til julienne, bølge og skive, plus et værn til fingrene.</p><ul><li><strong>Fire blade.</strong> 4 mm og 3 mm julienne, bølget skive og glat skive.</li><li><strong>Skål og si.</strong> Skær ned i skålen, skyl i sien.</li><li><strong>To modeller.</strong> Grå eller øsemodel, ca. 28,5 × 8,5 cm.</li></ul><p>Materiale: rustfrit stål og ABS. Vælg model ovenfor.</p>",
+      "<p>Mandoliini kulholla alla — neljä terää julienneen, aaltoon ja viipaleeseen, plus sormisuoja.</p><ul><li><strong>Neljä terää.</strong> 4 mm ja 3 mm julienne, aaltoileva ja sileä viipale.</li><li><strong>Kulho ja siivilä.</strong> Leikkaa kulhoon, huuhtele siivilässä.</li><li><strong>Kaksi mallia.</strong> Harmaa tai kauhamalli, n. 28,5 × 8,5 cm.</li></ul><p>Materiaali: ruostumaton teräs ja ABS. Valitse malli yllä.</p>",
+    ),
+    options: [
+      {
+        sourceName: "style",
+        name: STYLE,
+        values: {
+          Grey: t("Grå", "Grå", "Grå", "Harmaa"),
+          "Scoop type": t("Skopmodell", "Øsemodell", "Øsemodel", "Kauhamalli"),
+        },
+      },
+    ],
+  }),
+
+  pack({
+    handle: "kitchen-gadgets-cooking-silicone-spatula-spoon-set",
+    title: t(
+      "Köksredskap 16 delar i silikon",
+      "Kjøkkenredskaper 16 deler i silikon",
+      "Køkkenredskaber 16 dele i silikone",
+      "16-osaiset keittiövälineet silikonia",
+    ),
+    metaTitle: t(
+      "Köksredskap 16 delar",
+      "Kjøkkenredskaper 16 deler",
+      "Køkkenredskaber 16 dele",
+      "Keittiövälineet 16 osaa",
+    ),
+    metaDescription: t(
+      "16-delars köksset i stål och silikon. Slev och stekspade i samma svarta linje — till spisen och ugnen.",
+      "16-dels kjøkkensett i stål og silikon. Øse og stekespade i samme svarte linje — til komfyr og ovn.",
+      "16-deles køkkensæt i stål og silikone. Øseske og stegespade i samme sorte linje — til komfur og ovn.",
+      "16-osainen keittiösetti terästä ja silikonia. Kauha ja lasta samaa mustaa linjaa — liedelle ja uuniin.",
+    ),
+    body: t(
+      "<p>Ett 16-delars köksset i stål och silikon — slev, stekspade och övriga redskap i samma svarta linje vid spisen.</p><ul><li><strong>Silikon mot pannan.</strong> Mjukare mot belagda ytor än bara metall.</li><li><strong>Stål i skaftet.</strong> Stabilt att röra med, utan att böja sig i första taget.</li><li><strong>Ett set.</strong> Sexton delar, svart, till matlagning och bakning.</li></ul><p>Material: rostfritt stål och silikon. Färg: svart. 16 delar i setet.</p>",
+      "<p>Et 16-dels kjøkkensett i stål og silikon — øse, stekespade og resten av redskapene i samme svarte linje ved komfyren.</p><ul><li><strong>Silikon mot pannen.</strong> Mykere mot belagte flater enn bare metall.</li><li><strong>Stål i skaftet.</strong> Stabilt å røre med, uten å bøye seg med en gang.</li><li><strong>Ett sett.</strong> Seksten deler, svart, til matlaging og baking.</li></ul><p>Materiale: rustfritt stål og silikon. Farge: svart. 16 deler i settet.</p>",
+      "<p>Et 16-deles køkkensæt i stål og silikone — øseske, stegespade og resten af redskaberne i samme sorte linje ved komfuret.</p><ul><li><strong>Silikone mod panden.</strong> Blødere mod belagte overflader end rent metal.</li><li><strong>Stål i skaftet.</strong> Stabilt at røre med, uden at bøje med det samme.</li><li><strong>Ét sæt.</strong> Seksten dele, sort, til madlavning og bagning.</li></ul><p>Materiale: rustfrit stål og silikone. Farve: sort. 16 dele i sættet.</p>",
+      "<p>16-osainen keittiösetti terästä ja silikonia — kauha, paistinlasta ja muut välineet samaa mustaa linjaa lieden ääressä.</p><ul><li><strong>Silikoni pannaa vasten.</strong> Pehmeämpi pinnoitetuille pinnoille kuin pelkkä metalli.</li><li><strong>Teräs varressa.</strong> Vakaa sekoittaa, ilman että taipuu heti.</li><li><strong>Yksi setti.</strong> Kuusitoista osaa, musta, ruoanlaittoon ja leivontaan.</li></ul><p>Materiaali: ruostumaton teräs ja silikoni. Väri: musta. 16 osaa setissä.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: COLOR,
+        values: { Black: t("Svart", "Svart", "Sort", "Musta") },
+      },
+    ],
+  }),
 ];
 
 export const catalogCopyByHandle = new Map(

@@ -35,6 +35,7 @@ export default async function HomePage({ params }: Props) {
         headline={dict.home.heroHeadline}
         sub={dict.home.heroSub}
         cta={dict.home.heroCta}
+        ctaHref="/products"
         alt={t(dict.home.heroAlt, { brand })}
       />
 
