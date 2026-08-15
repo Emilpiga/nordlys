@@ -215,7 +215,9 @@
     "each": "{price} kpl",
     "remove": "Poista",
     "viewFullCart": "Näytä koko ostoskori",
-    "drawerTrust": "Toimitus {eta} · Seuranta"
+    "drawerTrust": "Toimitus {eta} · Seuranta",
+    "discount": "{percent} % alennus",
+    "discountApplied": "10 % alennus on lisätty tilaukseen"
   },
   "about": {
     "metaTitle": "Tietoa meistä",
@@ -649,5 +651,14 @@
     "viewOrders": "Näytä tilaukset",
     "continueShopping": "Jatka ostoksia",
     "loginHint": "Kirjaudu seurataaksesi tilausta ja seurantaa täällä."
+  },
+  "deal": {
+    "eyebrow": "Tarjous",
+    "title": "Haluatko {percent} % alennuksen?",
+    "body": "Sano kyllä, niin vähennämme {percent} % seuraavasta tilauksestasi.",
+    "yes": "Kyllä, kiitos!",
+    "no": "Ei kiitos!",
+    "applied": "Valmista — {percent} % alennus lisätään seuraavaan tilaukseesi.",
+    "error": "Alennusta ei voitu lisätä juuri nyt. Yritä uudelleen."
   }
 }

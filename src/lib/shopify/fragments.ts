@@ -179,6 +179,15 @@ export const CART_FRAGMENT = /* GraphQL */ `
         ...MoneyFields
       }
     }
+    discountCodes {
+      applicable
+      code
+    }
+    discountAllocations {
+      discountedAmount {
+        ...MoneyFields
+      }
+    }
     lines(first: 100) {
       nodes {
         id

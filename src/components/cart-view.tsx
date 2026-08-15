@@ -7,6 +7,7 @@ import {
   removeCartLineAction,
   updateCartLineAction,
 } from "@/app/actions/cart";
+import { CartDiscountLine } from "@/components/cart-discount-line";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
 import { formatMoney } from "@/lib/format";
@@ -152,6 +153,7 @@ export function CartView({ cart }: CartViewProps) {
               <dt className="text-muted">{dict.cart.subtotal}</dt>
               <dd>{formatMoney(cart.cost.subtotalAmount, locale)}</dd>
             </div>
+            <CartDiscountLine cart={cart} />
             <div className="flex justify-between gap-4">
               <dt className="text-muted">{dict.cart.shipping}</dt>
               <dd className="text-muted">{dict.cart.shippingCheckout}</dd>

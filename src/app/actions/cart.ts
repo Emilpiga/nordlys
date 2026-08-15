@@ -10,6 +10,8 @@ import {
   updateCartBuyerIdentity,
   updateCartLines,
 } from "@/lib/shopify";
+import { getAcceptedWelcomeDiscountCodes } from "@/lib/welcome-deal";
+import { applyWelcomeDeal } from "@/lib/welcome-deal-apply";
 import {
   defaultLocale,
   isLocale,
@@ -116,12 +118,21 @@ export async function addToCartAction(merchandiseId: string, quantity = 1) {
       } catch (error) {
         console.error("addCartLines failed, creating a new cart:", error);
         await clearCartId();
-        cart = await createCart(lines, locale);
+        cart = await createCart(
+          lines,
+          locale,
+          await getAcceptedWelcomeDiscountCodes(),
+        );
       }
     } else {
-      cart = await createCart(lines, locale);
+      cart = await createCart(
+        lines,
+        locale,
+        await getAcceptedWelcomeDiscountCodes(),
+      );
     }
 
+    cart = await applyWelcomeDeal(cart, locale);
     await writeCartId(cart.id);
     revalidateCartPaths(locale);
 

@@ -16,6 +16,7 @@ import {
 import {
   CART_BUYER_IDENTITY_UPDATE_MUTATION,
   CART_CREATE_MUTATION,
+  CART_DISCOUNT_CODES_UPDATE_MUTATION,
   CART_LINES_ADD_MUTATION,
   CART_LINES_REMOVE_MUTATION,
   CART_LINES_UPDATE_MUTATION,
@@ -395,6 +396,7 @@ export async function getCart(
 export async function createCart(
   lines: { merchandiseId: string; quantity: number }[],
   locale?: string,
+  discountCodes?: string[],
 ): Promise<Cart> {
   const context = contextFromLocale(locale);
 
@@ -408,6 +410,7 @@ export async function createCart(
     variables: {
       lines,
       buyerIdentity: { countryCode: context.country },
+      discountCodes: discountCodes?.length ? discountCodes : undefined,
     },
     context,
     cache: "no-store",
@@ -534,6 +537,38 @@ export async function updateCartBuyerIdentity(
   }
 
   return mapCart(data.cartBuyerIdentityUpdate.cart);
+}
+
+export async function updateCartDiscountCodes(
+  cartId: string,
+  discountCodes: string[],
+  locale?: string,
+): Promise<Cart> {
+  const context = contextFromLocale(locale);
+
+  const data = await shopifyFetch<{
+    cartDiscountCodesUpdate: {
+      cart: Parameters<typeof mapCart>[0] | null;
+      userErrors: UserErrors;
+      warnings?: { code?: string | null; message: string }[];
+    };
+  }>({
+    query: CART_DISCOUNT_CODES_UPDATE_MUTATION,
+    variables: { cartId, discountCodes },
+    context,
+    cache: "no-store",
+  });
+
+  for (const warning of data.cartDiscountCodesUpdate.warnings ?? []) {
+    console.warn("Shopify discount warning:", warning.message);
+  }
+
+  assertNoUserErrors(data.cartDiscountCodesUpdate.userErrors);
+  if (!data.cartDiscountCodesUpdate.cart) {
+    throw new Error("Failed to update cart discount codes.");
+  }
+
+  return mapCart(data.cartDiscountCodesUpdate.cart);
 }
 
 export type ProductPageInfo = {

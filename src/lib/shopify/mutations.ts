@@ -4,10 +4,17 @@ export const CART_CREATE_MUTATION = /* GraphQL */ `
   mutation CartCreate(
     $lines: [CartLineInput!]
     $buyerIdentity: CartBuyerIdentityInput
+    $discountCodes: [String!]
     $country: CountryCode
     $language: LanguageCode
   ) @inContext(country: $country, language: $language) {
-    cartCreate(input: { lines: $lines, buyerIdentity: $buyerIdentity }) {
+    cartCreate(
+      input: {
+        lines: $lines
+        buyerIdentity: $buyerIdentity
+        discountCodes: $discountCodes
+      }
+    ) {
       cart {
         ...CartFields
       }
@@ -93,6 +100,30 @@ export const CART_BUYER_IDENTITY_UPDATE_MUTATION = /* GraphQL */ `
       }
       userErrors {
         field
+        message
+      }
+    }
+  }
+  ${CART_FRAGMENT}
+`;
+
+export const CART_DISCOUNT_CODES_UPDATE_MUTATION = /* GraphQL */ `
+  mutation CartDiscountCodesUpdate(
+    $cartId: ID!
+    $discountCodes: [String!]
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    cartDiscountCodesUpdate(cartId: $cartId, discountCodes: $discountCodes) {
+      cart {
+        ...CartFields
+      }
+      userErrors {
+        field
+        message
+      }
+      warnings {
+        code
         message
       }
     }

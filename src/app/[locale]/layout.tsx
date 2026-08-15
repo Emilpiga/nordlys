@@ -7,6 +7,7 @@ import { AdPixels } from "@/components/ad-pixels";
 import { AuroraBackdrop } from "@/components/aurora-backdrop";
 import { CartDrawer } from "@/components/cart-drawer";
 import { CartProvider } from "@/components/cart-provider";
+import { WelcomeDealPopup } from "@/components/welcome-deal-popup";
 import { ConsentModeBootstrap } from "@/components/consent-mode-bootstrap";
 import { DictionaryProvider } from "@/components/dictionary-provider";
 import { ReviewSummariesProvider } from "@/components/review-summaries-provider";
@@ -36,6 +37,7 @@ import { getMarketingPixelConfig } from "@/lib/consent";
 import { getAllReviewSummaries } from "@/lib/reviews";
 import { socialMetadata, brandIcons } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
+import { isWelcomeDealEligible } from "@/lib/welcome-deal";
 
 const { adsenseClientId } = getMarketingPixelConfig();
 
@@ -109,12 +111,14 @@ export default async function LocaleLayout({
   const locale: Locale = localeParam;
   const config = getLocaleConfig(locale);
 
-  const [cart, collections, dict, customer] = await Promise.all([
-    getCartAction(),
-    getCollections(24, locale),
-    getDictionary(locale),
-    getCustomerProfile(),
-  ]);
+  const [cart, collections, dict, customer, welcomeDealEligible] =
+    await Promise.all([
+      getCartAction(),
+      getCollections(24, locale),
+      getDictionary(locale),
+      getCustomerProfile(),
+      isWelcomeDealEligible(),
+    ]);
   const reviewSummaries = getAllReviewSummaries();
 
   const siteDescription = t(dict.meta.siteDescription, {
@@ -151,6 +155,7 @@ export default async function LocaleLayout({
                 <main className="flex-1">{children}</main>
                 <SiteFooter />
                 <CartDrawer />
+                {welcomeDealEligible ? <WelcomeDealPopup /> : null}
               </WishlistProvider>
             </CartProvider>
           </ReviewSummariesProvider>

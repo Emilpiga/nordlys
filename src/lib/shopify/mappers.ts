@@ -76,6 +76,8 @@ type ShopifyCart = {
     subtotalAmount: ShopifyMoney;
     totalAmount: ShopifyMoney;
   };
+  discountCodes?: { applicable: boolean; code: string }[];
+  discountAllocations?: { discountedAmount: ShopifyMoney }[];
   lines: {
     nodes: {
       id: string;
@@ -224,12 +226,33 @@ export function mapCollection(collection: ShopifyCollection): Collection {
   };
 }
 
+function mapDiscountTotal(
+  allocations: { discountedAmount: ShopifyMoney }[] | undefined,
+): ShopifyMoney | null {
+  if (!allocations?.length) return null;
+  let total = 0;
+  let currencyCode = allocations[0]?.discountedAmount.currencyCode;
+  for (const allocation of allocations) {
+    const amount = Number(allocation.discountedAmount.amount);
+    if (!Number.isFinite(amount) || amount <= 0) continue;
+    total += amount;
+    currencyCode = allocation.discountedAmount.currencyCode;
+  }
+  if (!currencyCode || total <= 0) return null;
+  return { amount: total.toFixed(2), currencyCode };
+}
+
 export function mapCart(cart: ShopifyCart): Cart {
   return {
     id: cart.id,
     checkoutUrl: normalizeCheckoutUrl(cart.checkoutUrl),
     totalQuantity: cart.totalQuantity,
     cost: cart.cost,
+    discountCodes: (cart.discountCodes ?? []).map((entry) => ({
+      code: entry.code,
+      applicable: entry.applicable,
+    })),
+    discountTotal: mapDiscountTotal(cart.discountAllocations),
     lines: cart.lines.nodes.map((line) => ({
       id: line.id,
       quantity: line.quantity,

@@ -215,7 +215,9 @@
     "each": "{price} styck",
     "remove": "Ta bort",
     "viewFullCart": "Visa full kasse",
-    "drawerTrust": "Leverans {eta} · Spårning"
+    "drawerTrust": "Leverans {eta} · Spårning",
+    "discount": "{percent}% rabatt",
+    "discountApplied": "10% rabatt är tillagd på ordern"
   },
   "about": {
     "metaTitle": "Om oss",
@@ -649,5 +651,14 @@
     "viewOrders": "Se mina ordrar",
     "continueShopping": "Fortsätt handla",
     "loginHint": "Logga in för att följa ordern och spårningen här."
+  },
+  "deal": {
+    "eyebrow": "Erbjudande",
+    "title": "Vill du ha {percent}% rabatt?",
+    "body": "Säg ja så drar vi av {percent}% på din nästa order.",
+    "yes": "Ja, tack!",
+    "no": "Nej, tack!",
+    "applied": "Klart — {percent}% rabatt läggs på din nästa order.",
+    "error": "Rabatten kunde inte läggas till just nu. Försök igen."
   }
 }

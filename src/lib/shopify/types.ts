@@ -65,6 +65,11 @@ export type CartLine = {
   };
 };
 
+export type CartDiscountCode = {
+  code: string;
+  applicable: boolean;
+};
+
 export type Cart = {
   id: string;
   checkoutUrl: string;
@@ -73,6 +78,8 @@ export type Cart = {
     subtotalAmount: Money;
     totalAmount: Money;
   };
+  discountCodes: CartDiscountCode[];
+  discountTotal: Money | null;
   lines: CartLine[];
 };
 

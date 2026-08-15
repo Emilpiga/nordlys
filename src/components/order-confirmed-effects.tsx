@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { clearCartAction } from "@/app/actions/cart";
+import { markWelcomeDealUsedAction } from "@/app/actions/welcome-deal";
 import { useCart } from "@/components/cart-provider";
 import { trackPurchase } from "@/lib/meta-pixel";
 
@@ -24,6 +25,7 @@ export function OrderConfirmedEffects({
     ran.current = true;
 
     void clearCartAction().then(() => setCart(null));
+    void markWelcomeDealUsedAction();
 
     if (typeof value === "number" && currency) {
       trackPurchase({

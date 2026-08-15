@@ -7,6 +7,7 @@ import {
   removeCartLineAction,
   updateCartLineAction,
 } from "@/app/actions/cart";
+import { CartDiscountLine } from "@/components/cart-discount-line";
 import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
@@ -228,6 +229,7 @@ export function CartDrawer() {
                   {formatMoney(cart.cost.subtotalAmount, locale)}
                 </p>
               </div>
+              <CartDiscountLine cart={cart} variant="drawer" />
               <p className="mt-1 text-xs font-light text-muted">
                 {dict.cart.shipping} · {dict.cart.shippingCheckout}
               </p>

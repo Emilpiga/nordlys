@@ -111,7 +111,7 @@ Fill `.env.local`:
 | `SHOPIFY_STOREFRONT_LANGUAGE` | Fallback language code, e.g. `SV` (URL locale overrides) |
 | `SHOPIFY_STOREFRONT_COUNTRY` | Fallback country code, e.g. `SE` (URL locale overrides) |
 | `NEXT_PUBLIC_SITE_URL` | Canonical origin (OAuth callbacks, SEO) |
-| `SHOPIFY_CUSTOMER_ACCOUNT_CLIENT_ID` | Headless → Customer Account API (confidential) |
+| `SHOPIFY_WELCOME_DISCOUNT_CODE` | Discount code for the 10% popup deal (default `VARDAG10`) |
 | `SHOPIFY_CUSTOMER_ACCOUNT_CLIENT_SECRET` | Matching confidential client secret |
 | `SHOPIFY_CUSTOMER_ACCOUNT_CALLBACK_URL` | HTTPS callback, e.g. `https://…/api/auth/callback` |
 | `CUSTOMER_SESSION_SECRET` | Optional cookie sealing secret |
@@ -145,7 +145,23 @@ Routes: `/[locale]/account`, `/account/orders`, `/account/orders/[id]`, `/accoun
 2. Set `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `NEXT_PUBLIC_SUPPORT_EMAIL`.
 3. Contact page posts via server action to your support inbox.
 
-## 6. Post-purchase landing + Checkout UI extension
+## 6. Welcome 10% discount popup
+
+A delayed popup asks visitors who have not taken the deal yet: **Vill du ha 10% rabatt?** (`Ja, tack!` / `Nej, tack!`).
+
+- **Yes** applies Shopify discount code `VARDAG10` (or `SHOPIFY_WELCOME_DISCOUNT_CODE`) to the current cart, or to the next cart they create.
+- **No** hides the popup for 14 days.
+- After checkout (`/order/confirmed`) the deal is marked used on that device so it is not applied again.
+
+Create the code in Shopify Admin **before** turning this on in production:
+
+1. **Discounts → Create discount → Discount code**
+2. Code: `VARDAG10` (must match the env value)
+3. Type: **Percentage**, **10%**, applies to the entire order
+4. **Limit to one use per customer** (uses checkout email)
+5. Save, then set `SHOPIFY_WELCOME_DISCOUNT_CODE=VARDAG10` locally and on Vercel
+
+## 7. Post-purchase landing + Checkout UI extension
 
 Shopify Checkout always lands on Shopify’s thank-you page (auto-redirect to your domain is blocked).
 
@@ -158,6 +174,7 @@ Shopify Checkout always lands on Shopify’s thank-you page (auto-redirect to yo
 - Locales: Swedish, Norwegian, Danish, Finnish (`/sv`, `/no`, `/da`, `/fi`)
 - Home, product grid (cursor pagination via Storefront API), product detail, cart drawer + cart page
 - Cookie-backed Shopify Cart with Markets `buyerIdentity`
+- 10% welcome-deal popup (Shopify discount code on next checkout)
 - Checkout redirect to Shopify Checkout URL (branded `checkout.` subdomain or `*.myshopify.com`)
 - Customer Account API login, orders, tracking, wishlist
 - Contact form (Resend) + About, FAQ, Privacy, Terms, Shipping & returns

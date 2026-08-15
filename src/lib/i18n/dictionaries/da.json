@@ -215,7 +215,9 @@
     "each": "{price} stk.",
     "remove": "Fjern",
     "viewFullCart": "Se fuld kurv",
-    "drawerTrust": "Levering {eta} · Sporing"
+    "drawerTrust": "Levering {eta} · Sporing",
+    "discount": "{percent}% rabat",
+    "discountApplied": "10% rabat er tilføjet ordren"
   },
   "about": {
     "metaTitle": "Om os",
@@ -649,5 +651,14 @@
     "viewOrders": "Se mine ordrer",
     "continueShopping": "Fortsæt med at handle",
     "loginHint": "Log ind for at følge ordren og tracking her."
+  },
+  "deal": {
+    "eyebrow": "Tilbud",
+    "title": "Vil du have {percent}% rabat?",
+    "body": "Sig ja, så trækker vi {percent}% på din næste ordre.",
+    "yes": "Ja tak!",
+    "no": "Nej tak!",
+    "applied": "Klar — {percent}% rabat lægges på din næste ordre.",
+    "error": "Rabatten kunne ikke tilføjes lige nu. Prøv igen."
   }
 }
