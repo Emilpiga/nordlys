@@ -110,7 +110,7 @@ export const CART_BUYER_IDENTITY_UPDATE_MUTATION = /* GraphQL */ `
 export const CART_DISCOUNT_CODES_UPDATE_MUTATION = /* GraphQL */ `
   mutation CartDiscountCodesUpdate(
     $cartId: ID!
-    $discountCodes: [String!]
+    $discountCodes: [String!]!
     $country: CountryCode
     $language: LanguageCode
   ) @inContext(country: $country, language: $language) {
