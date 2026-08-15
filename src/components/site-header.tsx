@@ -139,7 +139,7 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-frost">
-      <div className="flex h-[var(--header-height)] w-full items-center justify-between gap-6 px-5 sm:px-8 md:grid md:grid-cols-[var(--rail-width)_minmax(0,1fr)] md:gap-0 md:px-0">
+      <div className="flex h-[var(--header-height)] w-full items-center justify-between gap-3 px-4 sm:gap-6 sm:px-8 md:grid md:grid-cols-[var(--rail-width)_minmax(0,1fr)] md:gap-0 md:px-0">
         <div className="flex h-full items-center md:border-r md:border-border/70 md:px-8">
           <LocaleLink
             href="/"
@@ -151,10 +151,10 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
           </LocaleLink>
         </div>
 
-        <div className="flex min-w-0 flex-1 items-center justify-end gap-3 md:h-full md:items-stretch md:justify-between md:gap-0">
+        <div className="flex min-w-0 items-center justify-end gap-1.5 sm:gap-3 md:h-full md:flex-1 md:items-stretch md:justify-between md:gap-0">
           <HeaderSearch collections={collections} />
 
-          <nav className="flex shrink-0 items-center gap-5 text-[0.8rem] font-medium tracking-[0.14em] uppercase text-foreground/70 sm:gap-7 md:px-8">
+          <nav className="flex shrink-0 items-center gap-2.5 text-[0.72rem] font-medium tracking-[0.12em] uppercase text-foreground/70 sm:gap-5 sm:text-[0.8rem] sm:tracking-[0.14em] md:gap-7 md:px-8">
             <div
             ref={shopRef}
             className="relative"

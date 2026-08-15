@@ -386,7 +386,7 @@ export function HeaderSearch({ collections = [] }: HeaderSearchProps) {
     "w-full appearance-none text-sm font-light text-foreground outline-none transition placeholder:text-muted/70 [&::-webkit-search-cancel-button]:hidden";
 
   return (
-    <div ref={rootRef} className="relative flex h-full min-w-0 w-full md:flex-1">
+    <div ref={rootRef} className="relative flex h-full w-auto shrink-0 md:min-w-0 md:w-full md:flex-1">
       <div className="relative hidden h-full min-w-0 w-full md:block">
         <form onSubmit={submit} className="relative h-full">
           <label htmlFor={inputId} className="sr-only">

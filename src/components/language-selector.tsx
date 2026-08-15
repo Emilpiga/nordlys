@@ -98,17 +98,17 @@ export function LanguageSelector() {
         aria-controls={listId}
         aria-haspopup="listbox"
         onClick={() => setOpen((value) => !value)}
-        className="inline-flex items-center gap-2 text-foreground/70 transition hover:text-foreground disabled:opacity-50"
+        className="inline-flex h-9 w-9 items-center justify-center text-foreground/70 transition hover:text-foreground disabled:opacity-50 sm:h-auto sm:w-auto sm:gap-2"
       >
         <LocaleFlag
           locale={locale}
           className="h-3.5 w-[1.35rem] shrink-0 overflow-hidden shadow-[0_0_0_1px_rgba(26,24,20,0.1)]"
         />
-        <span className="text-[0.72rem] font-medium tracking-[0.14em] uppercase">
+        <span className="hidden text-[0.72rem] font-medium tracking-[0.14em] uppercase sm:inline">
           {current.language}
         </span>
         <ChevronIcon
-          className={`h-2.5 w-2.5 transition ${open ? "rotate-180" : ""}`}
+          className={`hidden h-2.5 w-2.5 transition sm:block ${open ? "rotate-180" : ""}`}
         />
       </button>
 
