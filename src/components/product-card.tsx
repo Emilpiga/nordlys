@@ -1,19 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useTransition, type MouseEvent } from "react";
-import { useRouter } from "next/navigation";
-import { addToCartAction } from "@/app/actions/cart";
-import { useCart } from "@/components/cart-provider";
+import { useState, type MouseEvent } from "react";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
 import { ProductQuickView } from "@/components/product-quick-view";
 import { ProductRating } from "@/components/product-rating";
 import { ProductPrice, SaleBadge } from "@/components/product-price";
 import { WishlistButton } from "@/components/wishlist-button";
-import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
 import type { Product } from "@/lib/shopify/types";
-import { hasSelectableOptions } from "@/lib/shopify/variants";
 
 type ProductCardProps = {
   product: Product;
@@ -25,68 +20,18 @@ export function ProductCard({
   wishlistSaved = false,
 }: ProductCardProps) {
   const { dict } = useDictionary();
-  const router = useRouter();
-  const { openCart, setCart } = useCart();
   const [quickOpen, setQuickOpen] = useState(false);
-  const [isPending, startTransition] = useTransition();
-  const [status, setStatus] = useState<"idle" | "error">("idle");
 
   const image = product.featuredImage;
   const defaultVariant =
     product.variants.find((variant) => variant.availableForSale) ??
     product.variants[0];
-  const needsOptions = hasSelectableOptions(product);
-  const canQuickAdd = Boolean(defaultVariant?.availableForSale);
-
-  function onQuickAdd(event: MouseEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    if (!canQuickAdd) return;
-
-    if (needsOptions) {
-      setQuickOpen(true);
-      return;
-    }
-
-    setStatus("idle");
-    startTransition(async () => {
-      try {
-        const result = await addToCartAction(defaultVariant!.id, 1);
-        if (!result?.ok) {
-          setStatus("error");
-          return;
-        }
-        trackAddToCart({
-          contentIds: [metaContentIdFromGid(defaultVariant!.id)],
-          contentName: product.title,
-          contentType: "product",
-          value: Number(defaultVariant!.price.amount),
-          currency: defaultVariant!.price.currencyCode,
-          numItems: 1,
-        });
-        setCart(result.cart);
-        openCart();
-        router.refresh();
-      } catch {
-        setStatus("error");
-      }
-    });
-  }
 
   function onQuickView(event: MouseEvent) {
     event.preventDefault();
     event.stopPropagation();
     setQuickOpen(true);
   }
-
-  const addLabel = isPending
-    ? dict.products.adding
-    : status === "error"
-      ? dict.products.tryAgain
-      : needsOptions
-        ? dict.products.chooseOptions
-        : dict.products.addToCart;
 
   return (
     <>
@@ -127,32 +72,23 @@ export function ProductCard({
             shopifyCompareAt={defaultVariant?.compareAtPrice}
           />
 
-          <div className="absolute right-2 top-2 z-20 pointer-events-auto">
+          <div className="absolute right-2 top-2 z-20 flex flex-col gap-1.5 pointer-events-auto">
             <WishlistButton
               productId={product.id}
               initialSaved={wishlistSaved}
               className="bg-[color-mix(in_oklab,var(--frost)_92%,white)] text-foreground"
             />
-          </div>
-
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col gap-2 p-3 opacity-100 transition duration-300 sm:p-3.5 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">
-            <div className="pointer-events-auto grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={onQuickAdd}
-                disabled={!canQuickAdd || isPending}
-                className="bg-[color-mix(in_oklab,var(--frost)_92%,white)] px-2 py-2.5 text-[0.62rem] font-semibold tracking-[0.12em] uppercase text-foreground transition hover:bg-foreground hover:text-on-accent disabled:cursor-not-allowed disabled:opacity-45"
-              >
-                {canQuickAdd ? addLabel : dict.products.soldOut}
-              </button>
-              <button
-                type="button"
-                onClick={onQuickView}
-                className="bg-[color-mix(in_oklab,var(--frost)_92%,white)] px-2 py-2.5 text-[0.62rem] font-semibold tracking-[0.12em] uppercase text-foreground transition hover:bg-foreground hover:text-on-accent"
-              >
+            <button
+              type="button"
+              onClick={onQuickView}
+              aria-label={dict.products.quickView}
+              className="group/qv relative inline-flex h-9 w-9 items-center justify-center bg-[color-mix(in_oklab,var(--frost)_92%,white)] text-foreground shadow-sm transition hover:text-accent"
+            >
+              <EyeIcon />
+              <span className="pointer-events-none absolute right-full top-1/2 mr-2 hidden -translate-y-1/2 whitespace-nowrap bg-foreground px-2 py-1 text-[0.62rem] font-medium tracking-[0.12em] uppercase text-on-accent opacity-0 transition group-hover/qv:opacity-100 md:block">
                 {dict.products.quickView}
-              </button>
-            </div>
+              </span>
+            </button>
           </div>
         </div>
 
@@ -178,5 +114,25 @@ export function ProductCard({
         onClose={() => setQuickOpen(false)}
       />
     </>
+  );
+}
+
+function EyeIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      aria-hidden
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M2.6 12s3.4-6.4 9.4-6.4 9.4 6.4 9.4 6.4-3.4 6.4-9.4 6.4S2.6 12 2.6 12Z"
+      />
+      <circle cx="12" cy="12" r="2.6" />
+    </svg>
   );
 }
