@@ -12,6 +12,7 @@ import { ProductPrice } from "@/components/product-price";
 import { ProductRating } from "@/components/product-rating";
 import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
 import type { Product } from "@/lib/shopify/types";
+import { noteWelcomeDealProduct } from "@/lib/welcome-deal-intent";
 import {
   findVariant,
   hasSelectableOptions,
@@ -55,7 +56,8 @@ export function ProductQuickView({
     setSelectedOptions(initialOptions);
     setQuantity(1);
     setError(null);
-  }, [open, initialOptions]);
+    noteWelcomeDealProduct(product.handle);
+  }, [open, initialOptions, product.handle]);
 
   useEffect(() => {
     if (!open) return;

@@ -8,30 +8,104 @@ import {
 } from "@/app/actions/welcome-deal";
 import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
+import {
+  classifyBrowsePath,
+  hasLookedAtProducts,
+  isHesitatingToCheckout,
+  syncWelcomeDealBrowse,
+} from "@/lib/welcome-deal-intent";
 
-const SHOW_DELAY_MS = 8000;
+const IDLE_MS = 8000;
+const POLL_MS = 1000;
+const CART_CLOSE_MS = 1600;
+const CART_PAGE_MS = 10000;
 const SUCCESS_MS = 2200;
 const PERCENT = 10;
 
 export function WelcomeDealPopup() {
   const { dict, t } = useDictionary();
-  const { isOpen: cartOpen, setCart } = useCart();
+  const { cart, isOpen: cartOpen, setCart } = useCart();
   const pathname = usePathname();
   const titleId = useId();
   const yesRef = useRef<HTMLButtonElement>(null);
+  const wasCartOpen = useRef(false);
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const onConfirmedPage = pathname.includes("/order/confirmed");
+  const browseKind = classifyBrowsePath(pathname);
+  const onConfirmedPage = browseKind === "confirmed";
+  const onCartPage = browseKind === "cart";
 
   useEffect(() => {
-    if (onConfirmedPage || cartOpen || open || done) return;
+    syncWelcomeDealBrowse(pathname);
+  }, [pathname]);
 
-    const timer = window.setTimeout(() => setOpen(true), SHOW_DELAY_MS);
-    return () => window.clearTimeout(timer);
-  }, [cartOpen, done, onConfirmedPage, open]);
+  useEffect(() => {
+    if (onConfirmedPage || cartOpen || open || done) {
+      wasCartOpen.current = cartOpen;
+      return;
+    }
+
+    const idleEvents: (keyof WindowEventMap)[] = [
+      "pointerdown",
+      "keydown",
+      "scroll",
+      "touchstart",
+    ];
+    let idleTimer: number | undefined;
+    let cartCloseTimer: number | undefined;
+    let cartPageTimer: number | undefined;
+
+    const clearIdle = () => {
+      if (idleTimer) window.clearTimeout(idleTimer);
+      idleTimer = undefined;
+    };
+
+    const offer = (force = false) => {
+      if (document.visibilityState === "hidden") return;
+      if (!hasLookedAtProducts()) return;
+      if (!force && !isHesitatingToCheckout()) return;
+      setOpen(true);
+    };
+
+    const armIdle = () => {
+      if (idleTimer || !isHesitatingToCheckout()) return;
+      idleTimer = window.setTimeout(() => offer(), IDLE_MS);
+    };
+
+    const bumpIdle = () => {
+      clearIdle();
+      armIdle();
+    };
+
+    const poll = window.setInterval(armIdle, POLL_MS);
+
+    armIdle();
+    for (const event of idleEvents) {
+      window.addEventListener(event, bumpIdle, { passive: true });
+    }
+
+    if (wasCartOpen.current && !cartOpen && (cart?.totalQuantity ?? 0) > 0 && !onCartPage) {
+      cartCloseTimer = window.setTimeout(() => offer(true), CART_CLOSE_MS);
+    }
+    wasCartOpen.current = cartOpen;
+
+    if (onCartPage && (cart?.totalQuantity ?? 0) > 0) {
+      cartPageTimer = window.setTimeout(() => offer(true), CART_PAGE_MS);
+    }
+
+    return () => {
+      window.clearInterval(poll);
+      clearIdle();
+      if (cartCloseTimer) window.clearTimeout(cartCloseTimer);
+      if (cartPageTimer) window.clearTimeout(cartPageTimer);
+      for (const event of idleEvents) {
+        window.removeEventListener(event, bumpIdle);
+      }
+    };
+  }, [cart?.totalQuantity, cartOpen, done, onCartPage, onConfirmedPage, open, pathname]);
 
   useEffect(() => {
     if (!open || !done) return;

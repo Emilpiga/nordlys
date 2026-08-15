@@ -147,7 +147,9 @@ Routes: `/[locale]/account`, `/account/orders`, `/account/orders/[id]`, `/accoun
 
 ## 6. Welcome 10% discount popup
 
-A delayed popup asks visitors who have not taken the deal yet: **Vill du ha 10% rabatt?** (`Ja, tack!` / `Nej, tack!`).
+A delayed popup asks visitors who have looked at products but not checked out: **Vill du ha 10% rabatt?** (`Ja, tack!` / `Nej, tack!`).
+
+It does **not** show on first landing. It waits until they have opened a product (or spent time in the catalog), then offers after they pause, close the cart without paying, or linger on the cart page.
 
 - **Yes** applies Shopify discount code `VARDAG10` (or `SHOPIFY_WELCOME_DISCOUNT_CODE`) to the current cart, or to the next cart they create.
 - **No** hides the popup for 14 days.
