@@ -10,6 +10,7 @@ type ProductPurchaseProps = {
   gallery: ProductImage[];
   header: ReactNode;
   footer?: ReactNode;
+  initialVariantId?: string;
   wishlistSaved?: boolean;
 };
 
@@ -18,6 +19,7 @@ export function ProductPurchase({
   gallery,
   header,
   footer,
+  initialVariantId,
   wishlistSaved = false,
 }: ProductPurchaseProps) {
   const [activeImageUrl, setActiveImageUrl] = useState<string | null>(null);
@@ -41,6 +43,7 @@ export function ProductPurchase({
         <div className="mt-10 border-t border-border/70 pt-8">
           <ProductForm
             product={product}
+            initialVariantId={initialVariantId}
             onVariantChange={onVariantChange}
             wishlistSaved={wishlistSaved}
           />

@@ -23,7 +23,15 @@ import {
 } from "@/lib/seo";
 import { categoryParamFromId } from "@/lib/shopify/taxonomy";
 
-type Props = { params: Promise<{ locale: string; handle: string }> };
+type Props = {
+  params: Promise<{ locale: string; handle: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+
+function firstQuery(value: string | string[] | undefined) {
+  if (Array.isArray(value)) return value[0]?.trim() ?? "";
+  return value?.trim() ?? "";
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, handle } = await params;
@@ -63,18 +71,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function ProductPage({ params }: Props) {
+export default async function ProductPage({ params, searchParams }: Props) {
   const { locale, handle } = await params;
   if (!isLocale(locale)) notFound();
 
   const dict = await getDictionary(locale);
-  const [product, catalog, customer] = await Promise.all([
+  const [product, catalog, customer, query] = await Promise.all([
     getProductByHandle(handle, locale),
     getProducts(8, locale),
     getCustomerProfile(),
+    searchParams,
   ]);
 
   if (!product) notFound();
+  const variantParam = firstQuery(query.variant);
 
   const wishlistSaved = Boolean(
     customer?.wishlistProductIds.includes(product.id),
@@ -102,7 +112,7 @@ export default async function ProductPage({ params }: Props) {
   return (
     <div>
       <JsonLd data={buildProductJsonLd(product, locale)} />
-      <ProductViewTracker product={product} />
+      <ProductViewTracker product={product} variantId={variantParam} />
       <div className="mx-auto w-full max-w-6xl px-5 pt-12 sm:px-8 sm:pt-16">
         <Link
           href={localePath(locale, "/products")}
@@ -115,6 +125,7 @@ export default async function ProductPage({ params }: Props) {
       <ProductPurchase
         product={product}
         gallery={gallery}
+        initialVariantId={variantParam}
         wishlistSaved={wishlistSaved}
         header={
           <>

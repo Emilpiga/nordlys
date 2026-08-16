@@ -6,15 +6,21 @@ import {
   trackViewContent,
 } from "@/lib/ads-events";
 import type { Product } from "@/lib/shopify/types";
+import { findVariantByParam } from "@/lib/shopify/variants";
 
 type ProductViewTrackerProps = {
   product: Product;
+  variantId?: string;
 };
 
 /** Fires ViewContent / view_item once when a product page is shown. */
-export function ProductViewTracker({ product }: ProductViewTrackerProps) {
+export function ProductViewTracker({
+  product,
+  variantId,
+}: ProductViewTrackerProps) {
   useEffect(() => {
     const variant =
+      findVariantByParam(product.variants, variantId) ??
       product.variants.find((item) => item.availableForSale) ??
       product.variants[0];
     const price = variant?.price ?? product.priceRange.minVariantPrice;
@@ -27,7 +33,7 @@ export function ProductViewTracker({ product }: ProductViewTrackerProps) {
       value: Number(price.amount),
       currency: price.currencyCode,
     });
-  }, [product]);
+  }, [product, variantId]);
 
   return null;
 }

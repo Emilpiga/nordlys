@@ -17,6 +17,7 @@ import {
 import type { Product, ProductVariant } from "@/lib/shopify/types";
 import {
   findVariant,
+  findVariantByParam,
   hasSelectableOptions,
   isOptionValueInStock,
   optionsFromVariant,
@@ -25,6 +26,7 @@ import {
 
 type ProductFormProps = {
   product: Product;
+  initialVariantId?: string;
   onVariantChange?: (variant: ProductVariant | null) => void;
   wishlistSaved?: boolean;
 };
@@ -33,6 +35,7 @@ type PendingMode = "add" | "buy" | null;
 
 export function ProductForm({
   product,
+  initialVariantId,
   onVariantChange,
   wishlistSaved = false,
 }: ProductFormProps) {
@@ -45,11 +48,13 @@ export function ProductForm({
   const [error, setError] = useState<string | null>(null);
 
   const initialOptions = useMemo(() => {
+    const fromUrl = findVariantByParam(product.variants, initialVariantId);
     const firstAvailable =
+      fromUrl ??
       product.variants.find((variant) => variant.availableForSale) ??
       product.variants[0];
     return optionsFromVariant(firstAvailable);
-  }, [product.variants]);
+  }, [initialVariantId, product.variants]);
 
   const [selectedOptions, setSelectedOptions] = useState(initialOptions);
 

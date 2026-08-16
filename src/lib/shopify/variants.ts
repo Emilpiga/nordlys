@@ -1,5 +1,24 @@
 import type { ProductVariant } from "./types";
 
+/** Last numeric segment of a GID, or the raw Shopify admin/storefront id. */
+export function shopifyNumericId(gidOrId: string) {
+  const match = gidOrId.trim().match(/(\d+)\s*$/);
+  return match?.[1] ?? "";
+}
+
+/**
+ * Shopify Online Store / Google Shopping links use `?variant=123456789`.
+ * Storefront variants are GIDs (`gid://shopify/ProductVariant/123456789`).
+ */
+export function findVariantByParam(
+  variants: ProductVariant[],
+  variantParam: string | null | undefined,
+): ProductVariant | undefined {
+  const wanted = variantParam ? shopifyNumericId(variantParam) : "";
+  if (!wanted) return undefined;
+  return variants.find((variant) => shopifyNumericId(variant.id) === wanted);
+}
+
 export function findVariant(
   variants: ProductVariant[],
   selected: Record<string, string>,
