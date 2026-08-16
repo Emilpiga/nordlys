@@ -26,4 +26,4 @@ npx shopify app dev
 npx shopify app deploy
 ```
 
-The confirmed page clears the cart cookie and can fire the Meta Purchase pixel when `value` + `currency` query params are present.
+The confirmed page clears the cart cookie and can fire Purchase pixels when `value` + `currency` query params are present (`txid` is the Shopify order GID for Google Ads dedup).

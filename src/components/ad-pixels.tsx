@@ -69,7 +69,7 @@ function GoogleAdsTag({ id }: { id: string }) {
           function gtag(){dataLayer.push(arguments);}
           window.gtag = window.gtag || gtag;
           gtag('js', new Date());
-          gtag('config', ${JSON.stringify(id)});
+          gtag('config', ${JSON.stringify(id)}, { allow_enhanced_conversions: true });
         `}
       </Script>
     </>

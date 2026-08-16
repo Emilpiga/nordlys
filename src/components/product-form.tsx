@@ -13,7 +13,7 @@ import {
   metaContentIdFromGid,
   trackAddToCart,
   trackInitiateCheckout,
-} from "@/lib/meta-pixel";
+} from "@/lib/ads-events";
 import type { Product, ProductVariant } from "@/lib/shopify/types";
 import {
   findVariant,

@@ -103,6 +103,9 @@ Fill `.env.local`:
 | `NEXT_PUBLIC_META_PIXEL_ID` | Meta Pixel ID (loads only after cookie consent) |
 | `NEXT_PUBLIC_FACEBOOK_APP_ID` | Facebook App ID for `fb:app_id` (Sharing Debugger / Meta) |
 | `NEXT_PUBLIC_GOOGLE_ADS_ID` | Google Ads tag ID `AW-…` (same consent gate) |
+| `NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL` | Purchase conversion label (the part after `/` in `AW-…/LABEL`) |
+| `NEXT_PUBLIC_GOOGLE_ADS_ADD_TO_CART_LABEL` | Optional. Add-to-cart conversion label (keep this action **secondary**) |
+| `NEXT_PUBLIC_GOOGLE_ADS_BEGIN_CHECKOUT_LABEL` | Optional. Begin-checkout conversion label (keep this action **secondary**) |
 | `SHOPIFY_STORE_DOMAIN` | `your-store.myshopify.com` |
 | `SHOPIFY_CHECKOUT_DOMAIN` | Branded checkout host, e.g. `checkout.vardagsstil.se` (see below) |
 | `SHOPIFY_STOREFRONT_ACCESS_TOKEN` | Public token from Headless channel |
@@ -170,6 +173,18 @@ Shopify Checkout always lands on Shopify’s thank-you page (auto-redirect to yo
 1. Storefront page: `/[locale]/order/confirmed` (clears cart, optional Purchase pixel).
 2. Deploy the app in [`shopify-app/`](shopify-app/) — see [`shopify-app/README.md`](shopify-app/README.md).
 3. In Checkout editor, enable the **thank-you-continue** block and set **Storefront URL** + locale.
+
+## 8. Google Ads conversions
+
+The Google tag on the storefront sends `view_item`, `add_to_cart`, and `begin_checkout`. **Purchase must also fire from Shopify**, because checkout does not run on this origin.
+
+1. In Google Ads → **Goals → Summary**, open the **Purchase** conversion action → tag setup, and copy the `send_to` value `AW-…/LABEL`.
+2. Set `NEXT_PUBLIC_GOOGLE_ADS_ID` and `NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL` on Vercel (and locally), then redeploy.
+3. Shopify Admin → **Settings → Customer events → Add custom pixel**. Paste [`scripts/shopify-customer-events-google-ads.js`](scripts/shopify-customer-events-google-ads.js), replace `AW-XXXXXXXXX` and `PURCHASE_LABEL`, connect it to checkout / thank-you, save.
+4. Redeploy the Checkout UI extension so the thank-you CTA passes `txid` (order GID). Google Ads uses that as `transaction_id` so a click-through to `/order/confirmed` is not counted twice.
+5. In campaign **conversion goals**, keep **Purchase** as the only primary goal. Remove or demote **Add to cart**, **Begin checkout**, and **Page view** — those are observation events, not bidding targets.
+
+Optional: if you create secondary conversion actions for add to cart / begin checkout, paste those labels into the matching `NEXT_PUBLIC_GOOGLE_ADS_*_LABEL` env vars and redeploy.
 
 ## What’s included
 

@@ -10,7 +10,7 @@ import { LocaleLink } from "@/components/locale-link";
 import { OptionSelect } from "@/components/option-select";
 import { ProductPrice } from "@/components/product-price";
 import { ProductRating } from "@/components/product-rating";
-import { metaContentIdFromGid, trackAddToCart } from "@/lib/meta-pixel";
+import { metaContentIdFromGid, trackAddToCart } from "@/lib/ads-events";
 import type { Product } from "@/lib/shopify/types";
 import { noteWelcomeDealProduct } from "@/lib/welcome-deal-intent";
 import {

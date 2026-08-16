@@ -14,7 +14,7 @@ import { formatMoney } from "@/lib/format";
 import {
   metaContentIdFromGid,
   trackInitiateCheckout,
-} from "@/lib/meta-pixel";
+} from "@/lib/ads-events";
 import type { Cart } from "@/lib/shopify/types";
 
 type CartViewProps = {

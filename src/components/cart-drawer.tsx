@@ -15,7 +15,7 @@ import { formatMoney } from "@/lib/format";
 import {
   metaContentIdFromGid,
   trackInitiateCheckout,
-} from "@/lib/meta-pixel";
+} from "@/lib/ads-events";
 
 export function CartDrawer() {
   const { locale, dict, t } = useDictionary();

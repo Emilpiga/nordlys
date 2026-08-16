@@ -21,6 +21,7 @@ function Extension() {
     api.orderConfirmation?.number ||
     api.cost?.totalAmount?.amount ||
     "";
+  const orderId = api.orderConfirmation?.id;
   const total = api.cost?.totalAmount;
   const brand = "Vardagsstil";
 
@@ -34,6 +35,7 @@ function Extension() {
 
   const params = new URLSearchParams();
   if (confirmation) params.set("order", String(confirmation));
+  if (orderId) params.set("txid", String(orderId));
   if (total?.amount) params.set("value", String(total.amount));
   if (total?.currencyCode) params.set("currency", String(total.currencyCode));
 

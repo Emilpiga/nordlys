@@ -53,6 +53,7 @@ export default async function OrderConfirmedPage({
   const dict = await getDictionary(locale);
   const query = await searchParams;
   const order = first(query.order) || first(query.confirmation);
+  const transactionId = first(query.txid);
   const currency = first(query.currency) || undefined;
   const valueRaw = first(query.value);
   const value = valueRaw ? Number(valueRaw) : undefined;
@@ -64,6 +65,7 @@ export default async function OrderConfirmedPage({
     <div className="mx-auto w-full max-w-3xl px-5 pb-20 pt-12 sm:px-8 sm:pb-28 sm:pt-16">
       <OrderConfirmedEffects
         order={order || undefined}
+        transactionId={transactionId || undefined}
         value={Number.isFinite(value) ? value : undefined}
         currency={currency}
       />

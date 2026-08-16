@@ -4,16 +4,19 @@ import { useEffect, useRef } from "react";
 import { clearCartAction } from "@/app/actions/cart";
 import { markWelcomeDealUsedAction } from "@/app/actions/welcome-deal";
 import { useCart } from "@/components/cart-provider";
-import { trackPurchase } from "@/lib/meta-pixel";
+import { trackPurchase } from "@/lib/ads-events";
 
 type OrderConfirmedEffectsProps = {
   order?: string;
+  /** Shopify order GID — used as Google Ads transaction_id for dedup. */
+  transactionId?: string;
   value?: number;
   currency?: string;
 };
 
 export function OrderConfirmedEffects({
   order,
+  transactionId,
   value,
   currency,
 }: OrderConfirmedEffectsProps) {
@@ -33,10 +36,10 @@ export function OrderConfirmedEffects({
         contentType: "product",
         value,
         currency,
-        orderId: order,
+        orderId: transactionId || order,
       });
     }
-  }, [currency, order, setCart, value]);
+  }, [currency, order, setCart, transactionId, value]);
 
   return null;
 }

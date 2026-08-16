@@ -4,14 +4,14 @@ import { useEffect } from "react";
 import {
   metaContentIdFromGid,
   trackViewContent,
-} from "@/lib/meta-pixel";
+} from "@/lib/ads-events";
 import type { Product } from "@/lib/shopify/types";
 
 type ProductViewTrackerProps = {
   product: Product;
 };
 
-/** Fires Meta ViewContent once when a product page is shown (if Pixel is loaded). */
+/** Fires ViewContent / view_item once when a product page is shown. */
 export function ProductViewTracker({ product }: ProductViewTrackerProps) {
   useEffect(() => {
     const variant =
