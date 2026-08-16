@@ -180,7 +180,7 @@ The Google tag on the storefront sends `view_item`, `add_to_cart`, and `begin_ch
 
 1. In Google Ads → **Goals → Summary**, open the **Purchase** conversion action → tag setup, and copy the `send_to` value `AW-…/LABEL`.
 2. Set `NEXT_PUBLIC_GOOGLE_ADS_ID` and `NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL` on Vercel (and locally), then redeploy.
-3. Shopify Admin → **Settings → Customer events → Add custom pixel**. Paste [`scripts/shopify-customer-events-google-ads.js`](scripts/shopify-customer-events-google-ads.js), replace `AW-XXXXXXXXX` and `PURCHASE_LABEL`, connect it to checkout / thank-you, save.
+3. Shopify Admin → **Settings → Customer events → Add custom pixel**. Paste [`scripts/shopify-customer-events-google-ads.js`](scripts/shopify-customer-events-google-ads.js), connect it to checkout / thank-you, save.
 4. Redeploy the Checkout UI extension so the thank-you CTA passes `txid` (order GID). Google Ads uses that as `transaction_id` so a click-through to `/order/confirmed` is not counted twice.
 5. In campaign **conversion goals**, keep **Purchase** as the only primary goal. Remove or demote **Add to cart**, **Begin checkout**, and **Page view** — those are observation events, not bidding targets.
 

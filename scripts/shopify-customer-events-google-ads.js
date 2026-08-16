@@ -5,17 +5,14 @@
  * The storefront still sends view_item / add_to_cart / begin_checkout via gtag.
  *
  * 1. Paste this entire file into a new custom pixel
- * 2. Replace AW-XXXXXXXXX with NEXT_PUBLIC_GOOGLE_ADS_ID
- * 3. Replace PURCHASE_LABEL with the conversion label from Google Ads
- *    (Goals → conversion action → tag setup → send_to `AW-…/LABEL`)
- * 4. Connect the pixel to checkout / thank-you and save
+ * 2. Connect the pixel to checkout / thank-you and save
  *
  * Keep Purchase as the only primary optimization goal in Google Ads.
  * Add to cart / begin checkout / page view should stay secondary or unused.
  */
 
-const GOOGLE_ADS_ID = "AW-XXXXXXXXX";
-const PURCHASE_LABEL = "PURCHASE_LABEL";
+const GOOGLE_ADS_ID = "AW-18391431736";
+const PURCHASE_LABEL = "Tq8vCLPKteIcELj028FE";
 
 window.dataLayer = window.dataLayer || [];
 function gtag() {
@@ -102,7 +99,7 @@ function transactionId(checkout) {
 }
 
 analytics.subscribe("checkout_completed", (event) => {
-  if (!GOOGLE_ADS_ID || GOOGLE_ADS_ID === "AW-XXXXXXXXX") return;
+  if (!GOOGLE_ADS_ID) return;
 
   const checkout = event.data.checkout;
   if (!checkout) return;
@@ -124,7 +121,7 @@ analytics.subscribe("checkout_completed", (event) => {
   }
 
   gtag("event", "purchase", params);
-  if (PURCHASE_LABEL && PURCHASE_LABEL !== "PURCHASE_LABEL") {
+  if (PURCHASE_LABEL) {
     gtag("event", "conversion", {
       send_to: `${GOOGLE_ADS_ID}/${PURCHASE_LABEL}`,
       value,
