@@ -9,10 +9,12 @@ import {
   type PointerEvent as ReactPointerEvent,
   type ReactNode,
 } from "react";
+import Link from "next/link";
 import { useDictionary } from "@/components/dictionary-provider";
 import {
   activeFilterCount,
   catalogPriceStep,
+  paginationItems,
   resolvedPriceRange,
   sanitizeFilters,
   SORT_KEYS,
@@ -784,38 +786,97 @@ export function SortControl({
 
 export function CatalogPagination({
   pageInfo,
-  onPrevious,
-  onNext,
+  hrefForPage,
+  onNavigate,
 }: {
   pageInfo: CatalogPageInfo;
-  onPrevious: () => void;
-  onNext: () => void;
+  hrefForPage: (page: number) => string;
+  onNavigate?: () => void;
 }) {
-  const { dict } = useDictionary();
+  const { dict, t } = useDictionary();
   const copy = dict.products.filters;
-  if (!pageInfo.hasNextPage && !pageInfo.hasPreviousPage) return null;
+  if (pageInfo.pages <= 1) return null;
+
+  const items = paginationItems(pageInfo.page, pageInfo.pages);
+  const linkClass =
+    "px-3 py-2 text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground";
 
   return (
     <nav
-      aria-label={copy.next}
-      className="mt-16 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 border-t border-border/60 pt-12"
+      aria-label={t(copy.page, {
+        page: pageInfo.page,
+        pages: pageInfo.pages,
+      })}
+      className="mt-16 flex flex-col items-center gap-5 border-t border-border/60 pt-12"
     >
-      <button
-        type="button"
-        disabled={!pageInfo.hasPreviousPage}
-        onClick={onPrevious}
-        className="px-3 py-2 text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:text-muted"
-      >
-        {copy.previous}
-      </button>
-      <button
-        type="button"
-        disabled={!pageInfo.hasNextPage}
-        onClick={onNext}
-        className="px-3 py-2 text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:text-muted"
-      >
-        {copy.next}
-      </button>
+      <p className="text-sm font-light tabular-nums text-muted">
+        {t(copy.page, {
+          page: pageInfo.page,
+          pages: pageInfo.pages,
+        })}
+      </p>
+      <div className="flex flex-wrap items-center justify-center gap-1">
+        {pageInfo.hasPreviousPage ? (
+          <Link
+            href={hrefForPage(pageInfo.page - 1)}
+            scroll={false}
+            onClick={onNavigate}
+            className={linkClass}
+          >
+            {copy.previous}
+          </Link>
+        ) : (
+          <span className={`${linkClass} cursor-not-allowed opacity-30`}>
+            {copy.previous}
+          </span>
+        )}
+
+        {items.map((item, index) =>
+          item === "gap" ? (
+            <span
+              key={`gap-${index}`}
+              aria-hidden
+              className="px-1.5 text-sm font-light text-muted/70"
+            >
+              …
+            </span>
+          ) : item === pageInfo.page ? (
+            <span
+              key={item}
+              aria-current="page"
+              className="min-w-9 bg-foreground px-2.5 py-2 text-center text-[0.68rem] font-medium tabular-nums text-[var(--on-accent)]"
+            >
+              {item}
+            </span>
+          ) : (
+            <Link
+              key={item}
+              href={hrefForPage(item)}
+              scroll={false}
+              onClick={onNavigate}
+              aria-label={t(copy.goToPage, { page: item })}
+              className="min-w-9 px-2.5 py-2 text-center text-[0.68rem] font-medium tabular-nums text-muted transition hover:text-foreground"
+            >
+              {item}
+            </Link>
+          ),
+        )}
+
+        {pageInfo.hasNextPage ? (
+          <Link
+            href={hrefForPage(pageInfo.page + 1)}
+            scroll={false}
+            onClick={onNavigate}
+            className={linkClass}
+          >
+            {copy.next}
+          </Link>
+        ) : (
+          <span className={`${linkClass} cursor-not-allowed opacity-30`}>
+            {copy.next}
+          </span>
+        )}
+      </div>
     </nav>
   );
 }

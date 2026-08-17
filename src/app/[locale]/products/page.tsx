@@ -1,23 +1,22 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { EmptyCatalog } from "@/components/setup-banner";
 import { ProductCatalog } from "@/components/product-catalog";
 import {
   buildCollectionProductFilters,
   buildShopifyProductQuery,
+  catalogPageInfo,
   catalogPriceBounds,
   PAGE_SIZE,
-  parseCursors,
   parseFilters,
+  parsePage,
+  sanitizeFilters,
+  serializeFilters,
   shopifySortFromFilters,
 } from "@/lib/catalog-filters";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
-import { isLocale } from "@/lib/i18n/locales";
-import {
-  getCollectionProductsPage,
-  getCollections,
-  getProductsPage,
-} from "@/lib/shopify";
+import { isLocale, localePath } from "@/lib/i18n/locales";
+import { getCatalogSlice, getCollections, getProductsPage } from "@/lib/shopify";
 import { isShopifyConfigured, shopifyConfig } from "@/lib/shopify/config";
 import {
   localeAlternates,
@@ -59,7 +58,7 @@ export default async function ProductsPage({ params, searchParams }: Props) {
   const dict = await getDictionary(locale);
   const query = await searchParams;
   const filters = parseFilters(query);
-  const cursors = parseCursors(query);
+  const requestedPage = parsePage(query);
   const collections = await getCollections(24, locale);
 
   // Bootstrap price bounds from an unfiltered sample when possible.
@@ -71,38 +70,38 @@ export default async function ProductsPage({ params, searchParams }: Props) {
   const bounds = catalogPriceBounds(sample.products);
   const sort = shopifySortFromFilters(filters);
 
-  const page = filters.collection
-    ? await getCollectionProductsPage({
-        handle: filters.collection,
-        first: cursors.before ? undefined : PAGE_SIZE,
-        last: cursors.before ? PAGE_SIZE : undefined,
-        after: cursors.after,
-        before: cursors.before,
-        sortKey: sort.collectionSortKey,
-        reverse: sort.reverse,
-        filters: buildCollectionProductFilters(filters, bounds),
-        locale,
-      })
-    : await getProductsPage({
-        first: cursors.before ? undefined : PAGE_SIZE,
-        last: cursors.before ? PAGE_SIZE : undefined,
-        after: cursors.after,
-        before: cursors.before,
-        sortKey: sort.sortKey,
-        reverse: sort.reverse,
-        query: buildShopifyProductQuery(filters, bounds),
-        locale,
-      });
+  const slice = await getCatalogSlice({
+    page: requestedPage,
+    pageSize: PAGE_SIZE,
+    collectionHandle: filters.collection,
+    sortKey: sort.sortKey,
+    collectionSortKey: sort.collectionSortKey,
+    reverse: sort.reverse,
+    query: buildShopifyProductQuery(filters, bounds),
+    filters: buildCollectionProductFilters(filters, bounds),
+    locale,
+  });
+  const pageInfo = catalogPageInfo(
+    slice.total,
+    slice.page,
+    slice.products.length,
+  );
+
+  if (requestedPage !== pageInfo.page) {
+    const qs = serializeFilters(sanitizeFilters(filters, bounds), bounds, {
+      page: pageInfo.page,
+    });
+    redirect(localePath(locale, qs ? `/products?${qs}` : "/products"));
+  }
 
   if (
-    page.products.length === 0 &&
+    slice.products.length === 0 &&
     !filters.collection &&
     !filters.sale &&
     !filters.stock &&
     filters.min == null &&
     filters.max == null &&
-    !cursors.after &&
-    !cursors.before &&
+    requestedPage <= 1 &&
     (!isShopifyConfigured() || sample.products.length === 0)
   ) {
     return (
@@ -124,10 +123,10 @@ export default async function ProductsPage({ params, searchParams }: Props) {
     <ProductCatalog
       title={dict.products.shopTitle}
       description={dict.products.shopDescription}
-      products={page.products}
+      products={slice.products}
       collections={collections}
       initialQuery={query}
-      pageInfo={page.pageInfo}
+      pageInfo={pageInfo}
       bounds={bounds}
     />
   );

@@ -4,19 +4,6 @@ import type { Locale } from "@/lib/i18n/locales";
 
 const COPIES = 4;
 
-function StarIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 16 16"
-      fill="currentColor"
-      aria-hidden="true"
-    >
-      <path d="M8 1.2 9.7 5.4l4.5.4-3.4 2.9 1 4.4L8 11.2 4.2 13.1l1-4.4L1.8 5.8l4.5-.4L8 1.2Z" />
-    </svg>
-  );
-}
-
 function KlarnaBadge() {
   return (
     <span
@@ -51,13 +38,6 @@ function AnnouncementGroup({
       className="flex shrink-0 items-center gap-7 px-3.5 sm:gap-10 sm:px-5"
       aria-hidden={hidden || undefined}
     >
-      <li className="flex items-center gap-7 sm:gap-10">
-        <span className="inline-flex items-center gap-2 whitespace-nowrap">
-          <StarIcon className="h-3 w-3 text-glow" />
-          {dict.announcement.customers}
-        </span>
-        <Separator />
-      </li>
       <li className="flex items-center gap-7 sm:gap-10">
         <span className="inline-flex items-center gap-2.5 whitespace-nowrap">
           <KlarnaBadge />

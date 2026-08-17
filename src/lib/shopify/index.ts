@@ -24,10 +24,12 @@ import {
 import {
   GET_CART_QUERY,
   GET_COLLECTION_BY_HANDLE_QUERY,
+  GET_COLLECTION_PRODUCTS_CONNECTION_META_QUERY,
   GET_COLLECTION_PRODUCTS_PAGE_QUERY,
   GET_COLLECTIONS_QUERY,
   GET_PRODUCT_BY_HANDLE_QUERY,
   GET_PRODUCTS_BY_IDS_QUERY,
+  GET_PRODUCTS_CONNECTION_META_QUERY,
   GET_PRODUCTS_PAGE_QUERY,
   GET_PRODUCTS_QUERY,
   PREDICTIVE_SEARCH_QUERY,
@@ -782,4 +784,202 @@ export async function getCollectionProductsPage(input: {
       },
     };
   }
+}
+
+const CONNECTION_PAGE_SIZE = 250;
+const CONNECTION_CAP = 2000;
+
+type ConnectionMetaPage = {
+  cursors: string[];
+  hasNextPage: boolean;
+  endCursor: string | null;
+};
+
+async function collectCursors(
+  fetchPage: (after: string | null) => Promise<ConnectionMetaPage>,
+) {
+  const cursors: string[] = [];
+  let after: string | null = null;
+  let hasNext = true;
+
+  while (hasNext && cursors.length < CONNECTION_CAP) {
+    const page = await fetchPage(after);
+    cursors.push(...page.cursors);
+    after = page.endCursor;
+    hasNext = page.hasNextPage && page.cursors.length > 0;
+    if (!page.cursors.length) break;
+  }
+
+  return cursors;
+}
+
+async function getProductCursors(input: {
+  sortKey?: ProductSortKey;
+  reverse?: boolean;
+  query?: string | null;
+  locale?: string;
+}) {
+  if (!isShopifyConfigured()) return [];
+
+  const context = contextFromLocale(input.locale);
+
+  try {
+    return await collectCursors(async (after) => {
+      const data = await shopifyFetch<{
+        products: {
+          edges: { cursor: string }[];
+          pageInfo: { hasNextPage: boolean; endCursor?: string | null };
+        };
+      }>({
+        query: GET_PRODUCTS_CONNECTION_META_QUERY,
+        variables: {
+          first: CONNECTION_PAGE_SIZE,
+          after,
+          sortKey: input.sortKey ?? "BEST_SELLING",
+          reverse: input.reverse ?? false,
+          query: input.query || null,
+        },
+        context,
+        tags: [localeTag(input.locale, "products"), "products"],
+      });
+
+      return {
+        cursors: data.products.edges.map((edge) => edge.cursor),
+        hasNextPage: data.products.pageInfo.hasNextPage,
+        endCursor: data.products.pageInfo.endCursor ?? null,
+      };
+    });
+  } catch (error) {
+    console.error("Failed to load product cursors:", error);
+    return [];
+  }
+}
+
+async function getCollectionProductCursors(input: {
+  handle: string;
+  sortKey?: "BEST_SELLING" | "PRICE" | "TITLE" | "CREATED" | "MANUAL";
+  reverse?: boolean;
+  filters?: Record<string, unknown>[];
+  locale?: string;
+}) {
+  if (!isShopifyConfigured()) return [];
+
+  const context = contextFromLocale(input.locale);
+
+  try {
+    return await collectCursors(async (after) => {
+      const data = await shopifyFetch<{
+        collection: {
+          products: {
+            edges: { cursor: string }[];
+            pageInfo: { hasNextPage: boolean; endCursor?: string | null };
+          };
+        } | null;
+      }>({
+        query: GET_COLLECTION_PRODUCTS_CONNECTION_META_QUERY,
+        variables: {
+          handle: input.handle,
+          first: CONNECTION_PAGE_SIZE,
+          after,
+          sortKey: input.sortKey ?? "BEST_SELLING",
+          reverse: input.reverse ?? false,
+          filters: input.filters?.length ? input.filters : null,
+        },
+        context,
+        tags: [
+          localeTag(input.locale, `collection:${input.handle}`),
+          `collection:${input.handle}`,
+          "collections",
+        ],
+      });
+
+      const products = data.collection?.products;
+      if (!products) {
+        return { cursors: [], hasNextPage: false, endCursor: null };
+      }
+
+      return {
+        cursors: products.edges.map((edge) => edge.cursor),
+        hasNextPage: products.pageInfo.hasNextPage,
+        endCursor: products.pageInfo.endCursor ?? null,
+      };
+    });
+  } catch (error) {
+    console.error("Failed to load collection product cursors:", error);
+    return [];
+  }
+}
+
+export async function getCatalogSlice(input: {
+  page: number;
+  pageSize?: number;
+  collectionHandle?: string | null;
+  sortKey: ProductSortKey;
+  collectionSortKey: "BEST_SELLING" | "PRICE" | "TITLE" | "CREATED" | "MANUAL";
+  reverse?: boolean;
+  query?: string | null;
+  filters?: Record<string, unknown>[];
+  locale?: string;
+}): Promise<{ products: Product[]; total: number; page: number }> {
+  const pageSize = input.pageSize ?? 12;
+  const requested = Math.max(1, Math.floor(input.page) || 1);
+  const reverse = input.reverse ?? false;
+  const handle = input.collectionHandle || null;
+
+  const fetchCursors = () =>
+    handle
+      ? getCollectionProductCursors({
+          handle,
+          sortKey: input.collectionSortKey,
+          reverse,
+          filters: input.filters,
+          locale: input.locale,
+        })
+      : getProductCursors({
+          sortKey: input.sortKey,
+          reverse,
+          query: input.query,
+          locale: input.locale,
+        });
+
+  const fetchPage = (after: string | null) =>
+    handle
+      ? getCollectionProductsPage({
+          handle,
+          first: pageSize,
+          after,
+          sortKey: input.collectionSortKey,
+          reverse,
+          filters: input.filters,
+          locale: input.locale,
+        })
+      : getProductsPage({
+          first: pageSize,
+          after,
+          sortKey: input.sortKey,
+          reverse,
+          query: input.query,
+          locale: input.locale,
+        });
+
+  if (requested <= 1) {
+    const [cursors, result] = await Promise.all([fetchCursors(), fetchPage(null)]);
+    return {
+      products: result.products,
+      total: cursors.length,
+      page: 1,
+    };
+  }
+
+  const cursors = await fetchCursors();
+  const total = cursors.length;
+  if (total === 0) return { products: [], total: 0, page: 1 };
+
+  const pages = Math.max(1, Math.ceil(total / pageSize));
+  const page = Math.min(requested, pages);
+  const skip = (page - 1) * pageSize;
+  const after = skip > 0 ? (cursors[skip - 1] ?? null) : null;
+  const result = await fetchPage(after);
+
+  return { products: result.products, total, page };
 }

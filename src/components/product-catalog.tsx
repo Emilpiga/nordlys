@@ -63,12 +63,21 @@ export function ProductCatalog({
   const activeCount = activeFilterCount(current, bounds);
   const currencyCode =
     products[0]?.priceRange.minVariantPrice.currencyCode ?? "SEK";
+  const filterQuery = serializeFilters(current, bounds);
   const countLabel =
-    products.length === 0
+    pageInfo.total === 0
       ? t(copy.countMany, { count: 0 })
-      : products.length === 1
+      : pageInfo.total === 1
         ? copy.countOne
-        : t(copy.countMany, { count: products.length });
+        : t(copy.countMany, { count: pageInfo.total });
+  const headerLabel =
+    pageInfo.pages > 1
+      ? t(copy.range, {
+          from: pageInfo.from,
+          to: pageInfo.to,
+          total: pageInfo.total,
+        })
+      : countLabel;
 
   useEffect(() => {
     setFilters(sanitizeFilters(parseFilters(initialQuery), bounds));
@@ -80,17 +89,20 @@ export function ProductCatalog({
       return;
     }
 
-    const query = serializeFilters(current, bounds);
-    const next = query ? `${pathname}?${query}` : pathname;
-    const href = `${pathname}${window.location.search}`;
-    if (href === next) return;
+    const params = new URLSearchParams(window.location.search);
+    const currentFilter = serializeFilters(
+      sanitizeFilters(parseFilters(Object.fromEntries(params)), bounds),
+      bounds,
+    );
+    if (currentFilter === filterQuery) return;
 
+    const next = filterQuery ? `${pathname}?${filterQuery}` : pathname;
     const timer = window.setTimeout(() => {
       router.replace(next, { scroll: false });
     }, 180);
 
     return () => window.clearTimeout(timer);
-  }, [current, bounds, pathname, router]);
+  }, [filterQuery, bounds, pathname, router]);
 
   function changeFilters(next: CatalogFilters) {
     setFilters(next);
@@ -100,22 +112,9 @@ export function ProductCatalog({
     setFilters(emptyFilters());
   }
 
-  function goNext() {
-    if (!pageInfo.endCursor) return;
-    const query = serializeFilters(current, bounds, {
-      after: pageInfo.endCursor,
-    });
-    router.push(query ? `${pathname}?${query}` : pathname);
-    catalogRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-  function goPrevious() {
-    if (!pageInfo.startCursor) return;
-    const query = serializeFilters(current, bounds, {
-      before: pageInfo.startCursor,
-    });
-    router.push(query ? `${pathname}?${query}` : pathname);
-    catalogRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  function hrefForPage(page: number) {
+    const query = serializeFilters(current, bounds, { page });
+    return query ? `${pathname}?${query}` : pathname;
   }
 
   const panel = (
@@ -144,13 +143,22 @@ export function ProductCatalog({
         <p className="mt-5 text-base font-light leading-relaxed text-muted">
           {description}
         </p>
+        <p className="mt-3 text-sm font-light tabular-nums text-muted">
+          {countLabel}
+        </p>
 
         <div className="mt-8 hidden w-full md:block">{panel}</div>
       </aside>
 
       <div className="min-w-0 flex-1 px-5 py-8 sm:px-8 md:py-12 lg:px-10">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-          <p className="text-sm font-light text-muted">{countLabel}</p>
+          <p
+            className={`text-sm font-light tabular-nums text-muted ${
+              pageInfo.pages <= 1 ? "md:sr-only" : ""
+            }`}
+          >
+            {headerLabel}
+          </p>
           <div className="flex items-center gap-2">
             <FilterButton
               count={activeCount}
@@ -197,8 +205,13 @@ export function ProductCatalog({
             </div>
             <CatalogPagination
               pageInfo={pageInfo}
-              onPrevious={goPrevious}
-              onNext={goNext}
+              hrefForPage={hrefForPage}
+              onNavigate={() =>
+                catalogRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                })
+              }
             />
           </>
         )}

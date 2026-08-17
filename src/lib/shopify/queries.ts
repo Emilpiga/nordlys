@@ -231,3 +231,62 @@ export const GET_COLLECTION_PRODUCTS_PAGE_QUERY = /* GraphQL */ `
   }
   ${PRODUCT_CARD_FRAGMENT}
 `;
+
+export const GET_PRODUCTS_CONNECTION_META_QUERY = /* GraphQL */ `
+  query GetProductsConnectionMeta(
+    $first: Int!
+    $after: String
+    $sortKey: ProductSortKeys
+    $reverse: Boolean
+    $query: String
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    products(
+      first: $first
+      after: $after
+      sortKey: $sortKey
+      reverse: $reverse
+      query: $query
+    ) {
+      edges {
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+`;
+
+export const GET_COLLECTION_PRODUCTS_CONNECTION_META_QUERY = /* GraphQL */ `
+  query GetCollectionProductsConnectionMeta(
+    $handle: String!
+    $first: Int!
+    $after: String
+    $sortKey: ProductCollectionSortKeys
+    $reverse: Boolean
+    $filters: [ProductFilter!]
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    collection(handle: $handle) {
+      products(
+        first: $first
+        after: $after
+        sortKey: $sortKey
+        reverse: $reverse
+        filters: $filters
+      ) {
+        edges {
+          cursor
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+`;

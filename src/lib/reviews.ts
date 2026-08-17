@@ -26,6 +26,9 @@ type ReviewsFile = {
   products: Record<string, ReviewRecord[]>;
 };
 
+/** Seeded review copy stays in `reviews.json` but is hidden on the storefront. */
+export const PUBLIC_REVIEWS_ENABLED = false;
+
 const data = reviewsData as ReviewsFile;
 
 const reviewIndex = new Map<string, { handle: string; review: ReviewRecord }>();
@@ -70,6 +73,7 @@ export function getProductReviews(
   handle: string,
   locale: string,
 ): LocalizedReview[] {
+  if (!PUBLIC_REVIEWS_ENABLED) return [];
   const reviews = reviewsFor(handle);
   if (!reviews.length) return [];
 
@@ -79,6 +83,7 @@ export function getProductReviews(
 }
 
 export function getReviewSummary(handle: string): ReviewSummary | null {
+  if (!PUBLIC_REVIEWS_ENABLED) return null;
   const reviews = reviewsFor(handle);
   if (!reviews.length) return null;
 
@@ -99,6 +104,7 @@ export function getAllReviewSummaries(): Record<string, ReviewSummary> {
 }
 
 export function getFeaturedTestimonials(locale: string): LocalizedReview[] {
+  if (!PUBLIC_REVIEWS_ENABLED) return [];
   return data.featured.flatMap((id) => {
     const entry = reviewIndex.get(id);
     if (!entry) return [];

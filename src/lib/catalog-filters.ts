@@ -29,10 +29,13 @@ export type PriceBounds = {
 };
 
 export type CatalogPageInfo = {
+  page: number;
+  pages: number;
+  total: number;
+  from: number;
+  to: number;
   hasNextPage: boolean;
   hasPreviousPage: boolean;
-  startCursor: string | null;
-  endCursor: string | null;
 };
 
 export function emptyFilters(): CatalogFilters {
@@ -73,17 +76,16 @@ export function parseFilters(query: CatalogQuery): CatalogFilters {
   };
 }
 
-export function parseCursors(query: CatalogQuery) {
-  return {
-    after: first(query.after) || null,
-    before: first(query.before) || null,
-  };
+export function parsePage(query: CatalogQuery) {
+  const value = Number.parseInt(first(query.page), 10);
+  if (!Number.isInteger(value) || value < 1) return 1;
+  return value;
 }
 
 export function serializeFilters(
   filters: CatalogFilters,
   bounds: PriceBounds,
-  cursors?: { after?: string | null; before?: string | null },
+  extras?: { page?: number },
 ): string {
   const params = new URLSearchParams();
   const next = sanitizeFilters(filters, bounds);
@@ -94,10 +96,37 @@ export function serializeFilters(
   if (next.sale) params.set("sale", "1");
   if (next.stock) params.set("stock", "1");
   if (next.sort !== "featured") params.set("sort", next.sort);
-  if (cursors?.after) params.set("after", cursors.after);
-  if (cursors?.before) params.set("before", cursors.before);
+  if (extras?.page && extras.page > 1) params.set("page", String(extras.page));
 
   return params.toString();
+}
+
+export function catalogPageInfo(
+  total: number,
+  page: number,
+  visible: number,
+  pageSize = PAGE_SIZE,
+): CatalogPageInfo {
+  const safeTotal = Math.max(0, total);
+  const pages =
+    safeTotal === 0 ? 0 : Math.max(1, Math.ceil(safeTotal / pageSize));
+  const current = pages === 0 ? 1 : Math.min(Math.max(1, page), pages);
+  const from =
+    safeTotal === 0 || visible === 0 ? 0 : (current - 1) * pageSize + 1;
+  const to =
+    safeTotal === 0 || visible === 0
+      ? 0
+      : Math.min(safeTotal, from + visible - 1);
+
+  return {
+    page: current,
+    pages,
+    total: safeTotal,
+    from,
+    to,
+    hasNextPage: pages > 0 && current < pages,
+    hasPreviousPage: current > 1,
+  };
 }
 
 export function sanitizeFilters(
@@ -249,7 +278,8 @@ export function buildCollectionProductFilters(
 }
 
 export function paginationItems(current: number, pages: number) {
-  if (pages <= 7) {
+  if (pages <= 1) return pages === 1 ? [1] : [];
+  if (pages <= 9) {
     return Array.from({ length: pages }, (_, index) => index + 1);
   }
 
