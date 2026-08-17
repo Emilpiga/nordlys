@@ -202,7 +202,7 @@
     "summary": "Ordersammanfattning",
     "subtotal": "Delsumma",
     "shipping": "Frakt",
-    "shippingCheckout": "Beräknas i kassan",
+    "shippingCheckout": "Fri",
     "total": "Totalt",
     "checkout": "Till kassan",
     "trustLine": "Säker betalning · Leverans {eta} · Spårning",
@@ -259,7 +259,7 @@
       },
       {
         "question": "Vad kostar frakten?",
-        "answer": "Fraktkostnad och alternativ beräknas i kassan utifrån din adress och varorna i kassen."
+        "answer": "Fri frakt i Sverige. För andra länder visas eventuell fraktkostnad i kassan innan du betalar."
       },
       {
         "question": "Kan jag ångra mitt köp?",
@@ -328,7 +328,7 @@
     "shipping": {
       "title": "Frakt",
       "paragraphs": [
-        "Vi skickar till adresser där våra transportörer och betalningsleverantörer tillåter. Fraktkostnad visas i kassan utifrån din adress och varorna i kassen, innan du betalar.",
+        "Vi skickar till adresser där våra transportörer och betalningsleverantörer tillåter. Fri frakt i Sverige. För andra destinationer visas eventuell fraktkostnad i kassan innan du betalar.",
         "De flesta ordrar lämnar lagret inom 1–3 arbetsdagar efter betalning. Därefter tar leveransen vanligtvis 7–18 arbetsdagar till adresser i Sverige och EU. Internationellt utanför EU kan det ta längre tid. Utgå från den tiden — varan skickas från våra logistikpartners lager, inte från en butikshylla.",
         "Du får spårning så snart transportören har skannat paketet. Om spårning saknas flera arbetsdagar efter din orderbekräftelse, kontakta oss med ditt ordernummer."
       ]
@@ -521,7 +521,7 @@
     "orders": {
       "title": "Ordrar & betalning",
       "paragraphs": [
-        "Att lägga en order är ett erbjudande att köpa. Vi (eller Shopify å våra vägnar) bekräftar acceptans via e-post när betalningen lyckas. Priser visas inklusive mervärdesskatt där det är tillämpligt, om inte annat framgår. Frakt beräknas i kassan innan du betalar.",
+        "Att lägga en order är ett erbjudande att köpa. Vi (eller Shopify å våra vägnar) bekräftar acceptans via e-post när betalningen lyckas. Priser visas inklusive mervärdesskatt där det är tillämpligt, om inte annat framgår. Fri frakt i Sverige; annan destination visas i kassan innan du betalar.",
         "Betalning behandlas säkert av Shopify och deras betalningsleverantörer. Vi förbehåller oss rätten att neka eller avbryta en order vid misstänkt bedrägeri, prisfel, lagerproblem eller fraktbegränsningar. Om vi avbryter efter betalning återbetalar vi det du betalat."
       ]
     },

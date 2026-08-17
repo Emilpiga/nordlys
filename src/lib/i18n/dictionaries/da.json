@@ -202,7 +202,7 @@
     "summary": "Ordreoversigt",
     "subtotal": "Subtotal",
     "shipping": "Fragt",
-    "shippingCheckout": "Beregnes i kassen",
+    "shippingCheckout": "Gratis",
     "total": "I alt",
     "checkout": "Til kassen",
     "trustLine": "Sikker betaling · Levering {eta} · Sporing",
@@ -259,7 +259,7 @@
       },
       {
         "question": "Hvad koster fragten?",
-        "answer": "Fragtomkostning og alternativer beregnes i kassen ud fra din adresse og varerne i kurven."
+        "answer": "Gratis fragt i Danmark. For andre lande vises eventuel fragtomkostning i kassen, før du betaler."
       },
       {
         "question": "Kan jeg fortryde mit køb?",
@@ -328,7 +328,7 @@
     "shipping": {
       "title": "Fragt",
       "paragraphs": [
-        "Vi sender til adresser, hvor vores transportører og betalingsleverandører tillader det. Fragtomkostning vises i kassen ud fra din adresse og varerne i kurven, før du betaler.",
+        "Vi sender til adresser, hvor vores transportører og betalingsleverandører tillader det. Gratis fragt i Danmark. For andre destinationer vises eventuel fragtomkostning i kassen, før du betaler.",
         "De fleste ordrer forlader lageret inden for 1–3 hverdage efter betaling. Derefter tager leveringen typisk 7–18 hverdage til adresser i Danmark og EU. Internationalt uden for EU kan det tage længere tid. Tag udgangspunkt i den tid — varen sendes fra vores logistikpartneres lager, ikke fra en butikshylde.",
         "Du får sporing, så snart transportøren har scannet pakken. Hvis sporing mangler flere hverdage efter din ordrebekræftelse, kontakt os med dit ordrenummer."
       ]
@@ -514,7 +514,7 @@
     "orders": {
       "title": "Ordrer & betaling",
       "paragraphs": [
-        "At afgive en ordre er et tilbud om at købe. Vi (eller Shopify på vores vegne) bekræfter accept via e-mail, når betalingen lykkes. Priser vises inklusive moms, hvor det er relevant, medmindre andet fremgår. Fragt beregnes i kassen, før du betaler.",
+        "At afgive en ordre er et tilbud om at købe. Vi (eller Shopify på vores vegne) bekræfter accept via e-mail, når betalingen lykkes. Priser vises inklusive moms, hvor det er relevant, medmindre andet fremgår. Gratis fragt i Danmark; anden destination vises i kassen, før du betaler.",
         "Betaling behandles sikkert af Shopify og deres betalingsleverandører. Vi forbeholder os retten til at afvise eller annullere en ordre ved mistanke om svindel, prisfejl, lagerproblemer eller fragtbegrænsninger. Hvis vi annullerer efter betaling, refunderer vi det, du har betalt."
       ]
     },

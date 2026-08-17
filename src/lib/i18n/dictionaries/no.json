@@ -202,7 +202,7 @@
     "summary": "Ordresammendrag",
     "subtotal": "Delsum",
     "shipping": "Frakt",
-    "shippingCheckout": "Beregnes i kassen",
+    "shippingCheckout": "Gratis",
     "total": "Totalt",
     "checkout": "Til kassen",
     "trustLine": "Sikker betaling · Levering {eta} · Sporing",
@@ -259,7 +259,7 @@
       },
       {
         "question": "Hva koster frakten?",
-        "answer": "Fraktkostnad og alternativer beregnes i kassen ut fra adressen din og varene i handlekurven."
+        "answer": "Gratis frakt i Norge. For andre land vises eventuell fraktkostnad i kassen før du betaler."
       },
       {
         "question": "Kan jeg angre kjøpet?",
@@ -328,7 +328,7 @@
     "shipping": {
       "title": "Frakt",
       "paragraphs": [
-        "Vi sender til adresser der transportørene og betalingsleverandørene våre tillater det. Fraktkostnad vises i kassen ut fra adressen din og varene i handlekurven, før du betaler.",
+        "Vi sender til adresser der transportørene og betalingsleverandørene våre tillater det. Gratis frakt i Norge. For andre destinasjoner vises eventuell fraktkostnad i kassen før du betaler.",
         "De fleste ordrer forlater lageret innen 1–3 virkedager etter betaling. Deretter tar leveransen vanligvis 7–18 virkedager til adresser i Norge og EU. Internasjonalt utenfor EU kan det ta lengre tid. Ta utgangspunkt i den tiden — varen sendes fra logistikkpartnernes lager, ikke fra en butikkhylle.",
         "Du får sporing så snart transportøren har skannet pakken. Hvis sporing mangler flere virkedager etter ordrebekreftelsen, kontakt oss med ordrenummeret ditt."
       ]
@@ -521,7 +521,7 @@
     "orders": {
       "title": "Ordrer & betaling",
       "paragraphs": [
-        "Å legge inn en ordre er et tilbud om å kjøpe. Vi (eller Shopify på våre vegne) bekrefter aksept via e-post når betalingen lykkes. Priser vises inkludert merverdiavgift der det er aktuelt, med mindre noe annet fremgår. Frakt beregnes i kassen før du betaler.",
+        "Å legge inn en ordre er et tilbud om å kjøpe. Vi (eller Shopify på våre vegne) bekrefter aksept via e-post når betalingen lykkes. Priser vises inkludert merverdiavgift der det er aktuelt, med mindre noe annet fremgår. Gratis frakt i Norge; annen destinasjon vises i kassen før du betaler.",
         "Betaling behandles sikkert av Shopify og deres betalingsleverandører. Vi forbeholder oss retten til å avslå eller avbryte en ordre ved mistanke om svindel, prisfeil, lagerproblemer eller fraktbegrensninger. Hvis vi avbryter etter betaling, refunderer vi det du har betalt."
       ]
     },

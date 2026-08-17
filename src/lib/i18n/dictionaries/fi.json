@@ -202,7 +202,7 @@
     "summary": "Tilausyhteenveto",
     "subtotal": "Välisumma",
     "shipping": "Toimitus",
-    "shippingCheckout": "Lasketaan kassalla",
+    "shippingCheckout": "Ilmainen",
     "total": "Yhteensä",
     "checkout": "Kassalle",
     "trustLine": "Turvallinen maksu · Toimitus {eta} · Seuranta",
@@ -259,7 +259,7 @@
       },
       {
         "question": "Mitä toimitus maksaa?",
-        "answer": "Toimituskulut ja vaihtoehdot lasketaan kassalla osoitteesi ja ostoskorin tuotteiden perusteella."
+        "answer": "Ilmainen toimitus Suomessa. Muiden maiden mahdollinen toimituskulu näkyy kassalla ennen maksua."
       },
       {
         "question": "Voinko peruuttaa ostokseni?",
@@ -328,7 +328,7 @@
     "shipping": {
       "title": "Toimitus",
       "paragraphs": [
-        "Lähetämme osoitteisiin, joissa kuljetusliikkeemme ja maksupalveluntarjoajamme sen sallivat. Toimituskulu näkyy kassalla osoitteesi ja ostoskorin perusteella ennen maksua.",
+        "Lähetämme osoitteisiin, joissa kuljetusliikkeemme ja maksupalveluntarjoajamme sen sallivat. Ilmainen toimitus Suomessa. Muiden kohteiden mahdollinen toimituskulu näkyy kassalla ennen maksua.",
         "Useimmat tilaukset lähtevät varastolta 1–3 arkipäivän kuluessa maksusta. Sen jälkeen toimitus kestää yleensä 7–18 arkipäivää osoitteisiin Suomessa ja EU:ssa. Kansainvälisesti EU:n ulkopuolella se voi kestää kauemmin. Lähde tästä ajasta — tuote lähetetään logistiikkakumppaneidemme varastolta, ei myymälähyllyltä.",
         "Saat seurantatiedot heti, kun kuljetusliike on skannannut paketin. Jos seurantaa ei ole useaan arkipäivään tilausvahvistuksen jälkeen, ota yhteyttä tilausnumerollasi."
       ]
@@ -514,7 +514,7 @@
     "orders": {
       "title": "Tilaukset & maksu",
       "paragraphs": [
-        "Tilauksen tekeminen on tarjous ostaa. Me (tai Shopify puolestamme) vahvistamme hyväksynnän sähköpostitse, kun maksu onnistuu. Hinnat näytetään arvonlisäveroineen siltä osin kuin se on sovellettavissa, ellei toisin mainita. Toimitus lasketaan kassalla ennen maksua.",
+        "Tilauksen tekeminen on tarjous ostaa. Me (tai Shopify puolestamme) vahvistamme hyväksynnän sähköpostitse, kun maksu onnistuu. Hinnat näytetään arvonlisäveroineen siltä osin kuin se on sovellettavissa, ellei toisin mainita. Ilmainen toimitus Suomessa; muu kohde näkyy kassalla ennen maksua.",
         "Maksun käsittelee turvallisesti Shopify ja sen maksupalveluntarjoajat. Pidätämme oikeuden hylätä tai peruuttaa tilauksen epäillyn petoksen, hintavirheen, varasto-ongelman tai toimitusrajoitusten vuoksi. Jos peruutamme maksun jälkeen, palautamme maksamasi summan."
       ]
     },
