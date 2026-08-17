@@ -96,7 +96,7 @@ Fill `.env.local`:
 | `NEXT_PUBLIC_STORE_NAME` | Your brand name |
 | `NEXT_PUBLIC_SUPPORT_EMAIL` | Public support inbox (Contact / legal pages) |
 | `NEXT_PUBLIC_LEGAL_NAME` | Registered company name (shown on legal pages and footer) |
-| `NEXT_PUBLIC_LEGAL_ADDRESS` | Geographic business address |
+| `NEXT_PUBLIC_LEGAL_ADDRESS` | Geographic business address (`Skepparegatan 3a, 302 94 Halmstad, Sverige`) |
 | `NEXT_PUBLIC_ORG_NUMBER` | Organisationsnummer / CVR / Y-tunnus |
 | `NEXT_PUBLIC_VAT_NUMBER` | VAT / momsregistreringsnummer |
 | `NEXT_PUBLIC_RETURNS_ADDRESS` | Optional fixed returns address (otherwise emailed on request) |

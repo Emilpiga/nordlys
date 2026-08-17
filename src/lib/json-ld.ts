@@ -26,7 +26,11 @@ export function buildOrganizationJsonLd(
       ? {
           address: {
             "@type": "PostalAddress",
-            streetAddress: identity.address,
+            streetAddress: identity.postal.street,
+            postalCode: identity.postal.postalCode,
+            addressLocality: identity.postal.city,
+            addressRegion: identity.postal.region,
+            addressCountry: identity.postal.countryCode,
           },
         }
       : {}),

@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { LegalFacts } from "@/components/legal-page";
 import { AmbientSection, SectionRule } from "@/components/section";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
+import { getLegalIdentity, identityFactItems } from "@/lib/legal";
 import { shopifyConfig } from "@/lib/shopify/config";
 import {
   localeAlternates,
@@ -43,6 +45,7 @@ export default async function AboutPage({ params }: Props) {
 
   const dict = await getDictionary(locale);
   const brand = shopifyConfig.storeName;
+  const identity = getLegalIdentity();
   const a = dict.about;
 
   return (
@@ -99,6 +102,18 @@ export default async function AboutPage({ params }: Props) {
           <p className="mt-5 text-base font-light leading-relaxed text-muted">
             {a.howBody}
           </p>
+        </div>
+
+        <div className="mt-14 max-w-md">
+          <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
+            {a.companyEyebrow}
+          </p>
+          <h2 className="mt-4 font-display text-3xl font-medium tracking-tight sm:text-4xl">
+            {a.companyTitle}
+          </h2>
+          <div className="legal-prose mt-5 text-base font-light leading-relaxed text-muted">
+            <LegalFacts items={identityFactItems(dict.common, identity)} />
+          </div>
         </div>
 
         <div className="mt-12 flex flex-wrap gap-x-8 gap-y-4 text-[0.68rem] font-medium tracking-[0.14em] uppercase">
