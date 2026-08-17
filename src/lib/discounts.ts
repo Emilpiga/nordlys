@@ -10,6 +10,9 @@ type DiscountsFile = {
 
 const data = discountsData as DiscountsFile;
 
+/** Inflated compare-at overlay stays in `discounts.json` but is hidden on the storefront. */
+export const LISTED_DISCOUNTS_ENABLED = false;
+
 function seedFromHandle(handle: string) {
   let hash = 2166136261;
   for (let i = 0; i < handle.length; i++) {
@@ -20,6 +23,7 @@ function seedFromHandle(handle: string) {
 }
 
 function listedPercent(handle: string): number | null {
+  if (!LISTED_DISCOUNTS_ENABLED) return null;
   if (data.exclude.includes(handle)) return null;
 
   const override = data.overrides[handle];
