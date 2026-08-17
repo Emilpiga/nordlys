@@ -29,7 +29,7 @@ export function HomeHero({
 
   return (
     <section
-      className="relative flex min-h-[calc(100svh-var(--header-height))] flex-col justify-end overflow-hidden md:justify-center"
+      className="relative flex min-h-[max(22rem,calc(80svh-var(--header-height)-var(--announcement-height)))] flex-col justify-end overflow-hidden md:justify-center"
       aria-label={alt}
     >
       {hasStills ? (
@@ -50,7 +50,7 @@ export function HomeHero({
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_22%,color-mix(in_oklab,var(--frost)_38%,transparent)_60%,var(--frost)_100%)] md:bg-[linear-gradient(100deg,var(--frost)_0%,color-mix(in_oklab,var(--frost)_78%,transparent)_24%,color-mix(in_oklab,var(--frost)_18%,transparent)_50%,transparent_74%)]"
       />
 
-      <div className="relative z-10 w-full px-5 pb-14 pt-24 sm:px-8 sm:pb-16 md:px-12 md:py-24 lg:px-16">
+      <div className="relative z-10 w-full px-5 pb-10 pt-16 sm:px-8 sm:pb-12 md:px-12 md:py-20 lg:px-16">
         <div className="max-w-md md:max-w-lg">
           <p className="animate-rise text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
             {eyebrow}

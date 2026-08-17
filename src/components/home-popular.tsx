@@ -13,7 +13,7 @@ export function HomePopular({ dict, products }: HomePopularProps) {
 
   return (
     <section aria-labelledby="popular-heading" className="border-b border-border/60">
-      <div className="mx-auto w-full max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
+      <div className="mx-auto w-full max-w-6xl px-5 pb-12 pt-8 sm:px-8 sm:pb-16 sm:pt-10">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-x-6 gap-y-3 sm:mb-10">
           <div className="max-w-md">
             <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
