@@ -3,8 +3,10 @@ import type {
   Collection,
   CollectionSummary,
   Product,
+  ProductCollectionRef,
   ProductImage,
   ProductVariant,
+  SeoContent,
 } from "./types";
 import { normalizeCheckoutUrl } from "./config";
 
@@ -25,10 +27,18 @@ type ShopifyCategory = {
   name: string;
 } | null;
 
+type ShopifySeo = {
+  title?: string | null;
+  description?: string | null;
+} | null;
+
 type ShopifyProductCard = {
   id: string;
   handle: string;
   title: string;
+  updatedAt?: string | null;
+  seo?: ShopifySeo;
+  collections?: { nodes: ProductCollectionRef[] };
   category?: ShopifyCategory;
   featuredImage: ShopifyImage;
   images?: { nodes: NonNullable<ShopifyImage>[] };
@@ -41,6 +51,7 @@ type ShopifyProductCard = {
     nodes: {
       id: string;
       title: string;
+      sku?: string | null;
       availableForSale: boolean;
       selectedOptions: { name: string; value: string }[];
       price: ShopifyMoney;
@@ -59,6 +70,7 @@ type ShopifyProduct = ShopifyProductCard & {
     nodes: {
       id: string;
       title: string;
+      sku?: string | null;
       availableForSale: boolean;
       selectedOptions: { name: string; value: string }[];
       price: ShopifyMoney;
@@ -108,17 +120,31 @@ function mapImage(image: ShopifyImage): ProductImage | null {
   };
 }
 
+function mapSeo(seo: ShopifySeo | undefined): SeoContent {
+  return {
+    title: seo?.title?.trim() || null,
+    description: seo?.description?.trim() || null,
+  };
+}
+
+function mapVariant(
+  variant: NonNullable<ShopifyProductCard["variants"]>["nodes"][number],
+): ProductVariant {
+  return {
+    id: variant.id,
+    title: variant.title,
+    sku: variant.sku?.trim() || null,
+    availableForSale: variant.availableForSale,
+    price: variant.price,
+    compareAtPrice: variant.compareAtPrice,
+    selectedOptions: variant.selectedOptions,
+    image: mapImage(variant.image),
+  };
+}
+
 export function mapProductCard(product: ShopifyProductCard): Product {
   const variants: ProductVariant[] = (product.variants?.nodes ?? []).map(
-    (variant) => ({
-      id: variant.id,
-      title: variant.title,
-      availableForSale: variant.availableForSale,
-      price: variant.price,
-      compareAtPrice: variant.compareAtPrice,
-      selectedOptions: variant.selectedOptions,
-      image: mapImage(variant.image),
-    }),
+    mapVariant,
   );
 
   const gallery = (product.images?.nodes ?? [])
@@ -134,6 +160,9 @@ export function mapProductCard(product: ShopifyProductCard): Product {
     title: product.title,
     description: "",
     descriptionHtml: "",
+    updatedAt: product.updatedAt ?? null,
+    seo: mapSeo(product.seo),
+    collections: product.collections?.nodes ?? [],
     category: product.category
       ? { id: product.category.id, name: product.category.name }
       : null,
@@ -146,15 +175,7 @@ export function mapProductCard(product: ShopifyProductCard): Product {
 }
 
 export function mapProduct(product: ShopifyProduct): Product {
-  const variants: ProductVariant[] = product.variants.nodes.map((variant) => ({
-    id: variant.id,
-    title: variant.title,
-    availableForSale: variant.availableForSale,
-    price: variant.price,
-    compareAtPrice: variant.compareAtPrice,
-    selectedOptions: variant.selectedOptions,
-    image: mapImage(variant.image),
-  }));
+  const variants: ProductVariant[] = product.variants.nodes.map(mapVariant);
 
   return {
     id: product.id,
@@ -162,6 +183,9 @@ export function mapProduct(product: ShopifyProduct): Product {
     title: product.title,
     description: product.description,
     descriptionHtml: product.descriptionHtml,
+    updatedAt: product.updatedAt ?? null,
+    seo: mapSeo(product.seo),
+    collections: product.collections?.nodes ?? [],
     category: product.category
       ? { id: product.category.id, name: product.category.name }
       : null,
@@ -178,6 +202,8 @@ type ShopifyCollectionCard = {
   handle: string;
   title: string;
   description: string;
+  updatedAt?: string | null;
+  seo?: ShopifySeo;
   image: ShopifyImage;
   products?: { nodes: { id?: string; featuredImage: ShopifyImage }[] };
 };
@@ -211,6 +237,8 @@ export function mapCollectionCard(
     handle: collection.handle,
     title: collection.title,
     description: collection.description,
+    updatedAt: collection.updatedAt ?? null,
+    seo: mapSeo(collection.seo),
     image: mapImage(collection.image) ?? sampleImages[0] ?? null,
     productCount: productIds.length || (collection.products?.nodes?.length ?? 0),
     productIds,

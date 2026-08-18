@@ -16,6 +16,7 @@ import {
   activeFilterCount,
   catalogPriceBounds,
   emptyFilters,
+  isCollectionLanding,
   parseFilters,
   sanitizeFilters,
   serializeFilters,
@@ -24,6 +25,7 @@ import {
   type CatalogQuery,
   type PriceBounds,
 } from "@/lib/catalog-filters";
+import { localePath } from "@/lib/i18n/locales";
 import type { CollectionSummary, Product } from "@/lib/shopify/types";
 
 type ProductCatalogProps = {
@@ -45,7 +47,7 @@ export function ProductCatalog({
   pageInfo,
   bounds: boundsProp,
 }: ProductCatalogProps) {
-  const { dict, t } = useDictionary();
+  const { dict, t, locale } = useDictionary();
   const copy = dict.products.filters;
   const router = useRouter();
   const pathname = usePathname();
@@ -105,6 +107,16 @@ export function ProductCatalog({
   }, [filterQuery, bounds, pathname, router]);
 
   function changeFilters(next: CatalogFilters) {
+    const sanitized = sanitizeFilters(next, bounds);
+    if (sanitized.collection && isCollectionLanding(sanitized, bounds)) {
+      router.push(
+        localePath(
+          locale,
+          `/collections/${encodeURIComponent(sanitized.collection)}`,
+        ),
+      );
+      return;
+    }
     setFilters(next);
   }
 

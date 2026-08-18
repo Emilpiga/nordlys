@@ -37,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const productRoutes: MetadataRoute.Sitemap = locales.flatMap((locale) =>
     products.map((product) => ({
       url: `${baseUrl}${localePath(locale, `/products/${product.handle}`)}`,
-      lastModified: now,
+      lastModified: product.updatedAt ? new Date(product.updatedAt) : now,
       changeFrequency: "weekly" as const,
       priority: 0.8,
     })),
@@ -49,7 +49,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         locale,
         `/collections/${encodeURIComponent(collection.handle)}`,
       )}`,
-      lastModified: now,
+      lastModified: collection.updatedAt ? new Date(collection.updatedAt) : now,
       changeFrequency: "weekly" as const,
       priority: 0.7,
     })),

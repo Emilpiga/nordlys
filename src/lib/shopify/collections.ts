@@ -72,6 +72,26 @@ export function isRoomCollection(
   return roomKeyFromCollection(collection) !== null;
 }
 
+/** Prefer a room collection (Kök, Sovrum…) when a product sits in several. */
+export function primaryCollection(
+  collections: { handle: string; title: string }[],
+): { handle: string; title: string } | null {
+  const browsable = collections.filter(isBrowsableCollection);
+  if (browsable.length === 0) return null;
+
+  const rooms = browsable.filter(isRoomCollection);
+  const pool = rooms.length > 0 ? rooms : browsable;
+
+  return [...pool].sort((a, b) => {
+    const aKey = roomKeyFromCollection(a);
+    const bKey = roomKeyFromCollection(b);
+    const aIndex = aKey ? ROOM_ORDER.indexOf(aKey) : ROOM_ORDER.length;
+    const bIndex = bKey ? ROOM_ORDER.indexOf(bKey) : ROOM_ORDER.length;
+    if (aIndex !== bIndex) return aIndex - bIndex;
+    return a.title.localeCompare(b.title, "sv");
+  })[0] ?? null;
+}
+
 /** Known rooms first, then every other published collection. */
 export function roomsFromCollections(
   collections: CollectionSummary[],

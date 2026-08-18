@@ -10,9 +10,20 @@ export type ProductImage = {
   height: number;
 };
 
+export type SeoContent = {
+  title: string | null;
+  description: string | null;
+};
+
+export type ProductCollectionRef = {
+  handle: string;
+  title: string;
+};
+
 export type ProductVariant = {
   id: string;
   title: string;
+  sku: string | null;
   availableForSale: boolean;
   price: Money;
   compareAtPrice: Money | null;
@@ -35,6 +46,9 @@ export type Product = {
   title: string;
   description: string;
   descriptionHtml: string;
+  updatedAt: string | null;
+  seo: SeoContent;
+  collections: ProductCollectionRef[];
   category: ProductCategoryRef | null;
   featuredImage: ProductImage | null;
   images: ProductImage[];
@@ -88,6 +102,8 @@ export type CollectionSummary = {
   handle: string;
   title: string;
   description: string;
+  updatedAt: string | null;
+  seo: SeoContent;
   image: ProductImage | null;
   productCount: number;
   productIds: string[];

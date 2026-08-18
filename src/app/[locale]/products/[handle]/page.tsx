@@ -12,16 +12,23 @@ import { getCustomerProfile } from "@/lib/customer-account";
 import { sanitizeDescriptionHtml } from "@/lib/description";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
-import { buildProductJsonLd } from "@/lib/json-ld";
+import { buildBreadcrumbJsonLd, buildProductJsonLd } from "@/lib/json-ld";
 import { getReviewSummary } from "@/lib/reviews";
-import { getProductByHandle, getProducts } from "@/lib/shopify";
+import { getProductByHandle, getCollectionByHandle, getProducts } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
+import { getSiteUrl } from "@/lib/site-url";
+import { primaryCollection } from "@/lib/shopify/collections";
 import {
   localeAlternates,
   ogLocaleFor,
   socialMetadata,
 } from "@/lib/seo";
-import { categoryParamFromId } from "@/lib/shopify/taxonomy";
+import {
+  imageAlt,
+  meaningfulOptions,
+  productMetaDescription,
+  productMetaTitle,
+} from "@/lib/catalog-seo";
 
 type Props = {
   params: Promise<{ locale: string; handle: string }>;
@@ -40,11 +47,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = await getProductByHandle(handle, locale);
   if (!product) return { title: "Produkt" };
 
-  const description =
-    product.description.replace(/\s+/g, " ").trim().slice(0, 160) ||
-    `${product.title} från ${shopifyConfig.storeName}.`;
+  const title = productMetaTitle(product);
+  const description = productMetaDescription(
+    product,
+    `${product.title} från ${shopifyConfig.storeName}.`,
+  );
   const image = product.featuredImage ?? product.images[0] ?? null;
-  const title = product.title;
   const alternates = localeAlternates(locale, `/products/${product.handle}`);
 
   return {
@@ -63,7 +71,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
               url: image.url,
               width: image.width,
               height: image.height,
-              alt: image.altText || title,
+              alt: imageAlt(title, image.altText),
             },
           ]
         : undefined,
@@ -85,6 +93,10 @@ export default async function ProductPage({ params, searchParams }: Props) {
 
   if (!product) notFound();
   const variantParam = firstQuery(query.variant);
+  const room = primaryCollection(product.collections);
+  const collection = room
+    ? await getCollectionByHandle(room.handle, locale)
+    : null;
 
   const wishlistSaved = Boolean(
     customer?.wishlistProductIds.includes(product.id),
@@ -96,29 +108,50 @@ export default async function ProductPage({ params, searchParams }: Props) {
         ? [product.featuredImage]
         : [];
 
-  const related = catalog
+  const related = (collection?.products ?? catalog)
     .filter((item) => item.id !== product.id)
     .slice(0, 4);
 
   const detailsHtml = sanitizeDescriptionHtml(product.descriptionHtml);
   const plainDescription = product.description.replace(/\s+/g, " ").trim();
-  const categoryHref = product.category
-    ? localePath(
-        locale,
-        `/categories/${encodeURIComponent(categoryParamFromId(product.category.id))}`,
-      )
-    : null;
+  const specs = meaningfulOptions(product.options);
+  const parentHref = room
+    ? localePath(locale, `/collections/${encodeURIComponent(room.handle)}`)
+    : localePath(locale, "/products");
+  const parentLabel = room ? `← ${room.title}` : dict.products.backToShop;
+  const relatedHref = room ? parentHref : localePath(locale, "/products");
+  const relatedTitle = room
+    ? t(dict.products.relatedInCollection, { title: room.title })
+    : dict.products.relatedTitle;
+  const relatedAll = room ? room.title : dict.products.relatedAll;
+  const site = getSiteUrl();
+  const productUrl = `${site}${localePath(locale, `/products/${product.handle}`)}`;
+  const breadcrumb = [
+    {
+      name: dict.products.shopTitle,
+      url: `${site}${localePath(locale, "/products")}`,
+    },
+    ...(room
+      ? [{ name: room.title, url: `${site}${parentHref}` }]
+      : []),
+    { name: product.title, url: productUrl },
+  ];
 
   return (
     <div>
-      <JsonLd data={buildProductJsonLd(product, locale)} />
+      <JsonLd
+        data={[
+          buildProductJsonLd(product, locale),
+          buildBreadcrumbJsonLd(breadcrumb),
+        ]}
+      />
       <ProductViewTracker product={product} variantId={variantParam} />
       <div className="mx-auto w-full max-w-6xl px-5 pt-12 sm:px-8 sm:pt-16">
         <Link
-          href={localePath(locale, "/products")}
+          href={parentHref}
           className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted transition hover:text-foreground"
         >
-          {dict.products.backToShop}
+          {parentLabel}
         </Link>
       </div>
 
@@ -130,25 +163,26 @@ export default async function ProductPage({ params, searchParams }: Props) {
         header={
           <>
             <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
-              {product.category ? (
+              {room ? (
                 <>
                   {shopifyConfig.storeName}
                   {" · "}
-                  {categoryHref ? (
-                    <Link
-                      href={categoryHref}
-                      className="underline-offset-4 transition hover:text-foreground hover:underline"
-                    >
-                      {product.category.name}
-                    </Link>
-                  ) : (
-                    product.category.name
-                  )}
+                  <Link
+                    href={parentHref}
+                    className="underline-offset-4 transition hover:text-foreground hover:underline"
+                  >
+                    {room.title}
+                  </Link>
+                </>
+              ) : product.category ? (
+                <>
+                  {shopifyConfig.storeName}
+                  {" · "}
+                  {product.category.name}
                 </>
               ) : (
                 <>
-                  {shopifyConfig.storeName} ·{" "}
-                  {dict.products.fallbackCategory}
+                  {shopifyConfig.storeName} · {dict.products.fallbackCategory}
                 </>
               )}
             </p>
@@ -180,6 +214,16 @@ export default async function ProductPage({ params, searchParams }: Props) {
         }
         footer={
           <dl className="mt-10 grid gap-5 border-t border-border/70 pt-8 text-sm">
+            {specs.map((spec) => (
+              <div key={spec.name}>
+                <dt className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
+                  {spec.name}
+                </dt>
+                <dd className="mt-1.5 font-light text-foreground">
+                  {spec.values.join(" · ")}
+                </dd>
+              </div>
+            ))}
             <div>
               <dt className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
                 {dict.products.shippingLabel}
@@ -246,13 +290,13 @@ export default async function ProductPage({ params, searchParams }: Props) {
           <AmbientSection className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
             <div className="mb-10 flex items-end justify-between gap-4">
               <h2 className="font-display text-3xl font-medium tracking-tight sm:text-4xl">
-                {dict.products.relatedTitle}
+                {relatedTitle}
               </h2>
               <Link
-                href={localePath(locale, "/products")}
+                href={relatedHref}
                 className="hidden text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted transition hover:text-foreground sm:inline"
               >
-                {dict.products.relatedAll}
+                {relatedAll}
               </Link>
             </div>
             <div className="grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-4 lg:gap-x-7">

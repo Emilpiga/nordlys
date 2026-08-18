@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CategoryChips } from "@/components/category-chips";
+import { JsonLd } from "@/components/json-ld";
 import { EmptyCatalog } from "@/components/setup-banner";
 import { ProductCard } from "@/components/product-card";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
 import {
   getCollectionByHandle,
@@ -17,6 +18,14 @@ import {
   ogLocaleFor,
   socialMetadata,
 } from "@/lib/seo";
+import {
+  collectionIntro,
+  collectionMetaDescription,
+  collectionMetaTitle,
+  imageAlt,
+} from "@/lib/catalog-seo";
+import { buildBreadcrumbJsonLd, buildCollectionJsonLd } from "@/lib/json-ld";
+import { getSiteUrl } from "@/lib/site-url";
 
 type Props = { params: Promise<{ locale: string; handle: string }> };
 
@@ -27,19 +36,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const collection = await getCollectionByHandle(handle, locale);
   if (!collection) return { title: "Rum" };
 
-  const description =
-    collection.description ||
-    `${collection.title} · ${shopifyConfig.storeName}`;
+  const dict = await getDictionary(locale);
+  const title = collectionMetaTitle(
+    collection,
+    t(dict.collections.metaTitle, { title: collection.title }),
+  );
+  const description = collectionMetaDescription(
+    collection,
+    t(dict.collections.metaDescription, {
+      title: collection.title,
+      brand: shopifyConfig.storeName,
+      count: collection.productCount,
+    }),
+  );
   const image = collection.image;
   const path = `/collections/${encodeURIComponent(collection.handle)}`;
   const alternates = localeAlternates(locale, path);
 
   return {
-    title: collection.title,
+    title,
     description,
     alternates,
     ...socialMetadata({
-      title: `${collection.title} · ${shopifyConfig.storeName}`,
+      title: `${title} · ${shopifyConfig.storeName}`,
       description,
       url: alternates.canonical,
       locale: ogLocaleFor(locale),
@@ -49,7 +68,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
               url: image.url,
               width: image.width,
               height: image.height,
-              alt: collection.title,
+              alt: imageAlt(collection.title, image.altText),
             },
           ]
         : undefined,
@@ -70,8 +89,30 @@ export default async function CollectionPage({ params }: Props) {
 
   if (!collection) notFound();
 
+  const intro = collectionIntro(
+    collection,
+    t(dict.collections.intro, {
+      title: collection.title,
+      brand: shopifyConfig.storeName,
+    }),
+  );
+  const site = getSiteUrl();
+  const collectionUrl = `${site}${localePath(locale, `/collections/${encodeURIComponent(collection.handle)}`)}`;
+
   return (
     <div className="mx-auto w-full max-w-6xl px-5 pb-14 pt-12 sm:px-8 sm:pb-20 sm:pt-16">
+      <JsonLd
+        data={[
+          buildCollectionJsonLd(collection, locale),
+          buildBreadcrumbJsonLd([
+            {
+              name: dict.products.shopTitle,
+              url: `${site}${localePath(locale, "/products")}`,
+            },
+            { name: collection.title, url: collectionUrl },
+          ]),
+        ]}
+      />
       <Link
         href={localePath(locale, "/products")}
         className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted transition hover:text-foreground"
@@ -86,9 +127,9 @@ export default async function CollectionPage({ params }: Props) {
         <h1 className="mt-3 font-display text-5xl font-medium tracking-tight sm:text-6xl">
           {collection.title}
         </h1>
-        {collection.description ? (
+        {intro ? (
           <p className="mt-4 text-base font-light leading-relaxed text-muted">
-            {collection.description}
+            {intro}
           </p>
         ) : null}
       </div>

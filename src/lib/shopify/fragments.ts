@@ -14,11 +14,19 @@ export const MONEY_FRAGMENT = /* GraphQL */ `
   }
 `;
 
+export const SEO_FRAGMENT = /* GraphQL */ `
+  fragment SeoFields on SEO {
+    title
+    description
+  }
+`;
+
 export const PRODUCT_CARD_FRAGMENT = /* GraphQL */ `
   fragment ProductCardFields on Product {
     id
     handle
     title
+    updatedAt
     category {
       id
       name
@@ -48,6 +56,7 @@ export const PRODUCT_CARD_FRAGMENT = /* GraphQL */ `
       nodes {
         id
         title
+        sku
         availableForSale
         selectedOptions {
           name
@@ -76,6 +85,16 @@ export const PRODUCT_FRAGMENT = /* GraphQL */ `
     title
     description
     descriptionHtml
+    updatedAt
+    seo {
+      ...SeoFields
+    }
+    collections(first: 20) {
+      nodes {
+        handle
+        title
+      }
+    }
     category {
       id
       name
@@ -105,6 +124,7 @@ export const PRODUCT_FRAGMENT = /* GraphQL */ `
       nodes {
         id
         title
+        sku
         availableForSale
         selectedOptions {
           name
@@ -124,6 +144,7 @@ export const PRODUCT_FRAGMENT = /* GraphQL */ `
   }
   ${IMAGE_FRAGMENT}
   ${MONEY_FRAGMENT}
+  ${SEO_FRAGMENT}
 `;
 
 export const COLLECTION_CARD_FRAGMENT = /* GraphQL */ `
@@ -132,6 +153,10 @@ export const COLLECTION_CARD_FRAGMENT = /* GraphQL */ `
     handle
     title
     description
+    updatedAt
+    seo {
+      ...SeoFields
+    }
     image {
       ...ImageFields
     }
@@ -145,6 +170,7 @@ export const COLLECTION_CARD_FRAGMENT = /* GraphQL */ `
     }
   }
   ${IMAGE_FRAGMENT}
+  ${SEO_FRAGMENT}
 `;
 
 export const COLLECTION_FRAGMENT = /* GraphQL */ `
@@ -154,6 +180,10 @@ export const COLLECTION_FRAGMENT = /* GraphQL */ `
     title
     description
     descriptionHtml
+    updatedAt
+    seo {
+      ...SeoFields
+    }
     image {
       ...ImageFields
     }
@@ -164,6 +194,7 @@ export const COLLECTION_FRAGMENT = /* GraphQL */ `
     }
   }
   ${PRODUCT_CARD_FRAGMENT}
+  ${SEO_FRAGMENT}
 `;
 
 export const CART_FRAGMENT = /* GraphQL */ `

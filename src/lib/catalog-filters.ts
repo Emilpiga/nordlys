@@ -146,6 +146,22 @@ export function sanitizeFilters(
   return { ...filters, min, max };
 }
 
+/** Collection query with no other facets — should live at `/collections/{handle}`. */
+export function isCollectionLanding(
+  filters: CatalogFilters,
+  bounds: PriceBounds,
+) {
+  const next = sanitizeFilters(filters, bounds);
+  return (
+    Boolean(next.collection) &&
+    next.min == null &&
+    next.max == null &&
+    !next.sale &&
+    !next.stock &&
+    next.sort === "featured"
+  );
+}
+
 export function catalogPriceStep(bounds: PriceBounds) {
   const span = Math.max(0, bounds.max - bounds.min);
   if (span > 2000) return 50;

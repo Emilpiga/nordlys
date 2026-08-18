@@ -107,6 +107,7 @@
     "faqLink": "Vanlige spørsmål",
     "contactLink": "Kontakt",
     "relatedTitle": "Mer fra sortimentet",
+    "relatedInCollection": "Mer til {title}",
     "relatedAll": "Vis alle",
     "soldOut": "Utsolgt",
     "buyNow": "Kjøp nå",
@@ -218,6 +219,11 @@
     "drawerTrust": "Levering {eta} · Sporing",
     "discount": "{percent}% rabatt",
     "discountApplied": "10% rabatt er lagt til ordren"
+  },
+  "collections": {
+    "metaTitle": "{title} – ting til hjemmet og hverdagen",
+    "metaDescription": "{count} produkter i {title} fra {brand}. Enkel stil, tydelige priser og ting du faktisk bruker.",
+    "intro": "{title} hos {brand} — praktiske ting med enkel form, valgt ut for hverdagen."
   },
   "about": {
     "metaTitle": "Om oss",

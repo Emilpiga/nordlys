@@ -7,6 +7,7 @@ import {
   buildShopifyProductQuery,
   catalogPageInfo,
   catalogPriceBounds,
+  isCollectionLanding,
   PAGE_SIZE,
   parseFilters,
   parsePage,
@@ -29,11 +30,32 @@ type Props = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
 
   const dict = await getDictionary(locale);
+  const query = await searchParams;
+  const filters = parseFilters(query);
+  const collections = await getCollections(24, locale);
+  const collection = filters.collection
+    ? collections.find((item) => item.handle === filters.collection)
+    : null;
+
+  if (collection) {
+    const path = `/collections/${encodeURIComponent(collection.handle)}`;
+    const alternates = localeAlternates(locale, path);
+    return {
+      title: collection.title,
+      description:
+        collection.seo.description ||
+        collection.description ||
+        dict.products.shopDescription,
+      robots: { index: false, follow: true },
+      alternates,
+    };
+  }
+
   const title = dict.products.shopTitle;
   const description = dict.products.shopDescription;
   const alternates = localeAlternates(locale, "/products");
@@ -59,15 +81,29 @@ export default async function ProductsPage({ params, searchParams }: Props) {
   const query = await searchParams;
   const filters = parseFilters(query);
   const requestedPage = parsePage(query);
-  const collections = await getCollections(24, locale);
-
-  // Bootstrap price bounds from an unfiltered sample when possible.
-  const sample = await getProductsPage({
-    first: 50,
-    sortKey: "BEST_SELLING",
-    locale,
-  });
+  const [collections, sample] = await Promise.all([
+    getCollections(24, locale),
+    getProductsPage({
+      first: 50,
+      sortKey: "BEST_SELLING",
+      locale,
+    }),
+  ]);
   const bounds = catalogPriceBounds(sample.products);
+
+  if (
+    filters.collection &&
+    collections.some((item) => item.handle === filters.collection) &&
+    isCollectionLanding(filters, bounds)
+  ) {
+    redirect(
+      localePath(
+        locale,
+        `/collections/${encodeURIComponent(filters.collection)}`,
+      ),
+    );
+  }
+
   const sort = shopifySortFromFilters(filters);
 
   const slice = await getCatalogSlice({

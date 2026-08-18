@@ -107,6 +107,7 @@
     "faqLink": "Usein kysytyt",
     "contactLink": "Yhteystiedot",
     "relatedTitle": "Lisää valikoimasta",
+    "relatedInCollection": "Lisää: {title}",
     "relatedAll": "Näytä kaikki",
     "soldOut": "Loppuunmyyty",
     "buyNow": "Osta nyt",
@@ -218,6 +219,11 @@
     "drawerTrust": "Toimitus {eta} · Seuranta",
     "discount": "{percent} % alennus",
     "discountApplied": "10 % alennus on lisätty tilaukseen"
+  },
+  "collections": {
+    "metaTitle": "{title} – tavaroita kotiin ja arkeen",
+    "metaDescription": "{count} tuotetta kategoriassa {title} — {brand}. Yksinkertainen tyyli, selkeät hinnat.",
+    "intro": "{title} — {brand}. Käytännöllisiä tuotteita arkeen, selkeään hintaan."
   },
   "about": {
     "metaTitle": "Tietoa meistä",

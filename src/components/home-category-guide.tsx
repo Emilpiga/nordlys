@@ -46,7 +46,7 @@ export function HomeCategoryGuide({ collections }: HomeCategoryGuideProps) {
               className={`relative min-h-[50svh] ${wideTail ? "sm:col-span-2" : ""}`}
             >
               <LocaleLink
-                href={`/products?collection=${encodeURIComponent(collection.handle)}`}
+                href={`/collections/${encodeURIComponent(collection.handle)}`}
                 className="group absolute inset-0 block overflow-hidden"
               >
                 {collection.image ? (

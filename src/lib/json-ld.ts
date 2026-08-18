@@ -1,10 +1,15 @@
 import { shopifyConfig } from "@/lib/shopify/config";
 import { getLegalIdentity } from "@/lib/legal";
-import type { Product } from "@/lib/shopify/types";
+import type { Collection, Product } from "@/lib/shopify/types";
 import { getProductReviews, getReviewSummary } from "@/lib/reviews";
 import { getSiteUrl } from "@/lib/site-url";
 import { localePath } from "@/lib/i18n/locales";
 import { siteDescriptionFor } from "@/lib/seo";
+import {
+  meaningfulOptions,
+  productMetaDescription,
+  productSku,
+} from "@/lib/catalog-seo";
 
 type JsonLd = Record<string, unknown>;
 
@@ -68,11 +73,15 @@ export function buildProductJsonLd(
   locale = "sv",
 ): JsonLd {
   const url = `${getSiteUrl()}${localePath(locale, `/products/${product.handle}`)}`;
-  const image =
-    product.featuredImage?.url ?? product.images[0]?.url ?? undefined;
+  const images = [product.featuredImage, ...product.images]
+    .map((image) => image?.url)
+    .filter((url): url is string => Boolean(url));
+  const uniqueImages = [...new Set(images)];
   const description =
-    product.description.replace(/\s+/g, " ").trim() ||
-    `${product.title} — ${shopifyConfig.storeName}`;
+    productMetaDescription(
+      product,
+      `${product.title} — ${shopifyConfig.storeName}`,
+    ) || `${product.title} — ${shopifyConfig.storeName}`;
 
   const availableVariant =
     product.variants.find((variant) => variant.availableForSale) ??
@@ -82,6 +91,7 @@ export function buildProductJsonLd(
   const inStock = product.variants.some((variant) => variant.availableForSale);
   const summary = getReviewSummary(product.handle);
   const reviews = getProductReviews(product.handle, locale);
+  const specs = meaningfulOptions(product.options);
 
   return {
     "@context": "https://schema.org",
@@ -89,19 +99,29 @@ export function buildProductJsonLd(
     name: product.title,
     description,
     url,
-    sku: product.handle,
+    sku: productSku(product),
     productID: product.id,
     brand: {
       "@type": "Brand",
       name: shopifyConfig.storeName,
     },
     ...(product.category ? { category: product.category.name } : {}),
-    ...(image ? { image: [image] } : {}),
+    ...(uniqueImages.length ? { image: uniqueImages } : {}),
+    ...(specs.length
+      ? {
+          additionalProperty: specs.map((spec) => ({
+            "@type": "PropertyValue",
+            name: spec.name,
+            value: spec.values.join(", "),
+          })),
+        }
+      : {}),
     offers: {
       "@type": "Offer",
       url,
       priceCurrency: price.currencyCode,
       price: price.amount,
+      sku: availableVariant?.sku || productSku(product),
       availability: inStock
         ? "https://schema.org/InStock"
         : "https://schema.org/OutOfStock",
@@ -134,5 +154,49 @@ export function buildProductJsonLd(
           })),
         }
       : {}),
+  };
+}
+
+export function buildBreadcrumbJsonLd(
+  items: { name: string; url: string }[],
+): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
+
+export function buildCollectionJsonLd(
+  collection: Collection,
+  locale = "sv",
+): JsonLd {
+  const url = `${getSiteUrl()}${localePath(locale, `/collections/${collection.handle}`)}`;
+  const description =
+    collection.seo.description ||
+    collection.description ||
+    `${collection.title} — ${shopifyConfig.storeName}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: collection.title,
+    description,
+    url,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: collection.products.length,
+      itemListElement: collection.products.map((product, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${getSiteUrl()}${localePath(locale, `/products/${product.handle}`)}`,
+        name: product.title,
+      })),
+    },
   };
 }
