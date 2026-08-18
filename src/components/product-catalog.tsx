@@ -36,6 +36,8 @@ type ProductCatalogProps = {
   initialQuery: CatalogQuery;
   pageInfo: CatalogPageInfo;
   bounds?: PriceBounds;
+  /** When set, this catalog is a collection landing — facets stay on this path. */
+  collectionHandle?: string;
 };
 
 export function ProductCatalog({
@@ -46,6 +48,7 @@ export function ProductCatalog({
   initialQuery,
   pageInfo,
   bounds: boundsProp,
+  collectionHandle,
 }: ProductCatalogProps) {
   const { dict, t, locale } = useDictionary();
   const copy = dict.products.filters;
@@ -55,17 +58,29 @@ export function ProductCatalog({
     () => boundsProp ?? catalogPriceBounds(products),
     [boundsProp, products],
   );
-  const [filters, setFilters] = useState<CatalogFilters>(() =>
-    sanitizeFilters(parseFilters(initialQuery), bounds),
-  );
+  const [filters, setFilters] = useState<CatalogFilters>(() => {
+    const parsed = parseFilters(initialQuery);
+    return sanitizeFilters(
+      {
+        ...parsed,
+        collection: collectionHandle ?? parsed.collection,
+      },
+      bounds,
+    );
+  });
   const [drawerOpen, setDrawerOpen] = useState(false);
   const skipUrl = useRef(true);
   const catalogRef = useRef<HTMLDivElement>(null);
   const current = sanitizeFilters(filters, bounds);
-  const activeCount = activeFilterCount(current, bounds);
+  const activeCount = activeFilterCount(current, bounds, {
+    ignoreCollection: Boolean(collectionHandle),
+  });
   const currencyCode =
     products[0]?.priceRange.minVariantPrice.currencyCode ?? "SEK";
-  const filterQuery = serializeFilters(current, bounds);
+  const facetQuery = serializeFilters(
+    collectionHandle ? { ...current, collection: null } : current,
+    bounds,
+  );
   const countLabel =
     pageInfo.total === 0
       ? t(copy.countMany, { count: 0 })
@@ -82,8 +97,17 @@ export function ProductCatalog({
       : countLabel;
 
   useEffect(() => {
-    setFilters(sanitizeFilters(parseFilters(initialQuery), bounds));
-  }, [initialQuery, bounds]);
+    const parsed = parseFilters(initialQuery);
+    setFilters(
+      sanitizeFilters(
+        {
+          ...parsed,
+          collection: collectionHandle ?? parsed.collection,
+        },
+        bounds,
+      ),
+    );
+  }, [initialQuery, bounds, collectionHandle]);
 
   useEffect(() => {
     if (skipUrl.current) {
@@ -92,40 +116,76 @@ export function ProductCatalog({
     }
 
     const params = new URLSearchParams(window.location.search);
+    const parsed = parseFilters(Object.fromEntries(params));
     const currentFilter = serializeFilters(
-      sanitizeFilters(parseFilters(Object.fromEntries(params)), bounds),
+      sanitizeFilters(
+        collectionHandle ? { ...parsed, collection: null } : parsed,
+        bounds,
+      ),
       bounds,
     );
-    if (currentFilter === filterQuery) return;
+    if (currentFilter === facetQuery) return;
 
-    const next = filterQuery ? `${pathname}?${filterQuery}` : pathname;
+    const next = facetQuery ? `${pathname}?${facetQuery}` : pathname;
     const timer = window.setTimeout(() => {
       router.replace(next, { scroll: false });
     }, 180);
 
     return () => window.clearTimeout(timer);
-  }, [filterQuery, bounds, pathname, router]);
+  }, [facetQuery, bounds, pathname, router, collectionHandle]);
+
+  function catalogPath(handle: string | null, nextFilters: CatalogFilters) {
+    const qs = serializeFilters(
+      handle ? { ...nextFilters, collection: null } : nextFilters,
+      bounds,
+    );
+    if (handle) {
+      const path = localePath(
+        locale,
+        `/collections/${encodeURIComponent(handle)}`,
+      );
+      return qs ? `${path}?${qs}` : path;
+    }
+    const path = localePath(locale, "/products");
+    return qs ? `${path}?${qs}` : path;
+  }
 
   function changeFilters(next: CatalogFilters) {
     const sanitized = sanitizeFilters(next, bounds);
-    if (sanitized.collection && isCollectionLanding(sanitized, bounds)) {
-      router.push(
-        localePath(
-          locale,
-          `/collections/${encodeURIComponent(sanitized.collection)}`,
-        ),
-      );
+    const selected = sanitized.collection;
+    const currentHandle = collectionHandle ?? current.collection;
+
+    if (selected !== currentHandle) {
+      router.push(catalogPath(selected, sanitized));
       return;
     }
+
+    if (
+      !collectionHandle &&
+      selected &&
+      isCollectionLanding(sanitized, bounds)
+    ) {
+      router.push(catalogPath(selected, sanitized));
+      return;
+    }
+
     setFilters(next);
   }
 
   function resetFilters() {
+    if (collectionHandle) {
+      setFilters({ ...emptyFilters(), collection: collectionHandle });
+      return;
+    }
     setFilters(emptyFilters());
   }
 
   function hrefForPage(page: number) {
-    const query = serializeFilters(current, bounds, { page });
+    const query = serializeFilters(
+      collectionHandle ? { ...current, collection: null } : current,
+      bounds,
+      { page },
+    );
     return query ? `${pathname}?${query}` : pathname;
   }
 

@@ -11,6 +11,8 @@ export const shopifyConfig = {
    * Shopify-hosted checkout host (e.g. `checkout.vardagsstil.se`).
    * Must be a domain connected in Shopify Admin → Domains with target
    * Online Store (usually set as Primary). Falls back to `storeDomain`.
+   * That host still serves the Liquid store — publish `shopify-redirect-theme`
+   * so only Checkout remains usable there. Do not password-protect Online Store.
    */
   checkoutDomain:
     cleanHost(process.env.SHOPIFY_CHECKOUT_DOMAIN) ||

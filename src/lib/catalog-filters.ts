@@ -206,15 +206,29 @@ export function resolvedPriceRange(
 export function activeFilterCount(
   filters: CatalogFilters,
   bounds: PriceBounds,
+  options?: { ignoreCollection?: boolean },
 ) {
   const next = sanitizeFilters(filters, bounds);
   const price = resolvedPriceRange(next, bounds);
   let count = 0;
-  if (next.collection) count += 1;
+  if (next.collection && !options?.ignoreCollection) count += 1;
   if (price.min > bounds.min || price.max < bounds.max) count += 1;
   if (next.sale) count += 1;
   if (next.stock) count += 1;
   return count;
+}
+
+/** Price / sale / stock / sort / page — not the collection itself. */
+export function hasFacetQuery(query: CatalogQuery) {
+  const filters = parseFilters(query);
+  return (
+    filters.min != null ||
+    filters.max != null ||
+    filters.sale ||
+    filters.stock ||
+    filters.sort !== "featured" ||
+    parsePage(query) > 1
+  );
 }
 
 export function shopifySortFromFilters(filters: CatalogFilters): {

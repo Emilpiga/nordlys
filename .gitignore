@@ -48,3 +48,4 @@ scripts/catalog-snapshot.json
 scripts/catalog-brief.json
 scripts/catalog-new.json
 .shopify-admin-token.tmp
+shopify-redirect-theme.zip

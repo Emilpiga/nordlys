@@ -1,35 +1,46 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { CategoryChips } from "@/components/category-chips";
+import { notFound, redirect } from "next/navigation";
 import { JsonLd } from "@/components/json-ld";
-import { EmptyCatalog } from "@/components/setup-banner";
-import { ProductCard } from "@/components/product-card";
-import { getDictionary, t } from "@/lib/i18n/get-dictionary";
-import { isLocale, localePath } from "@/lib/i18n/locales";
+import { ProductCatalog } from "@/components/product-catalog";
 import {
-  getCollectionByHandle,
-  getCollections,
-  getProducts,
-} from "@/lib/shopify";
-import { shopifyConfig } from "@/lib/shopify/config";
-import {
-  localeAlternates,
-  ogLocaleFor,
-  socialMetadata,
-} from "@/lib/seo";
+  buildCollectionProductFilters,
+  catalogPageInfo,
+  catalogPriceBounds,
+  hasFacetQuery,
+  PAGE_SIZE,
+  parseFilters,
+  parsePage,
+  sanitizeFilters,
+  serializeFilters,
+  shopifySortFromFilters,
+} from "@/lib/catalog-filters";
 import {
   collectionIntro,
   collectionMetaDescription,
   collectionMetaTitle,
   imageAlt,
 } from "@/lib/catalog-seo";
+import { getDictionary, t } from "@/lib/i18n/get-dictionary";
+import { isLocale, localePath } from "@/lib/i18n/locales";
 import { buildBreadcrumbJsonLd, buildCollectionJsonLd } from "@/lib/json-ld";
+import { getCatalogSlice, getCollectionByHandle, getCollections } from "@/lib/shopify";
+import { shopifyConfig } from "@/lib/shopify/config";
+import {
+  localeAlternates,
+  ogLocaleFor,
+  socialMetadata,
+} from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
 
-type Props = { params: Promise<{ locale: string; handle: string }> };
+type Props = {
+  params: Promise<{ locale: string; handle: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: Props): Promise<Metadata> {
   const { locale, handle } = await params;
   if (!isLocale(locale)) return {};
 
@@ -52,10 +63,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const image = collection.image;
   const path = `/collections/${encodeURIComponent(collection.handle)}`;
   const alternates = localeAlternates(locale, path);
+  const query = await searchParams;
+  const faceted = hasFacetQuery(query);
 
   return {
     title,
     description,
+    ...(faceted ? { robots: { index: false, follow: true } } : {}),
     alternates,
     ...socialMetadata({
       title: `${title} · ${shopifyConfig.storeName}`,
@@ -76,15 +90,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function CollectionPage({ params }: Props) {
+export default async function CollectionPage({ params, searchParams }: Props) {
   const { locale, handle } = await params;
   if (!isLocale(locale)) notFound();
 
   const dict = await getDictionary(locale);
-  const [collection, collections, products] = await Promise.all([
+  const query = await searchParams;
+  const requestedPage = parsePage(query);
+  const [collection, collections] = await Promise.all([
     getCollectionByHandle(handle, locale),
     getCollections(24, locale),
-    getProducts(100, locale),
   ]);
 
   if (!collection) notFound();
@@ -96,61 +111,68 @@ export default async function CollectionPage({ params }: Props) {
       brand: shopifyConfig.storeName,
     }),
   );
+  const filters = {
+    ...parseFilters(query),
+    collection: collection.handle,
+  };
+  const bounds = catalogPriceBounds(collection.products);
+  const sort = shopifySortFromFilters(filters);
+  const slice = await getCatalogSlice({
+    page: requestedPage,
+    pageSize: PAGE_SIZE,
+    collectionHandle: collection.handle,
+    sortKey: sort.sortKey,
+    collectionSortKey: sort.collectionSortKey,
+    reverse: sort.reverse,
+    filters: buildCollectionProductFilters(filters, bounds),
+    locale,
+  });
+  const pageInfo = catalogPageInfo(
+    slice.total,
+    slice.page,
+    slice.products.length,
+  );
+
+  if (requestedPage !== pageInfo.page) {
+    const qs = serializeFilters(
+      { ...sanitizeFilters(filters, bounds), collection: null },
+      bounds,
+      { page: pageInfo.page },
+    );
+    const path = `/collections/${encodeURIComponent(collection.handle)}`;
+    redirect(localePath(locale, qs ? `${path}?${qs}` : path));
+  }
+
   const site = getSiteUrl();
   const collectionUrl = `${site}${localePath(locale, `/collections/${encodeURIComponent(collection.handle)}`)}`;
+  const faceted = hasFacetQuery(query);
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-5 pb-14 pt-12 sm:px-8 sm:pb-20 sm:pt-16">
-      <JsonLd
-        data={[
-          buildCollectionJsonLd(collection, locale),
-          buildBreadcrumbJsonLd([
-            {
-              name: dict.products.shopTitle,
-              url: `${site}${localePath(locale, "/products")}`,
-            },
-            { name: collection.title, url: collectionUrl },
-          ]),
-        ]}
-      />
-      <Link
-        href={localePath(locale, "/products")}
-        className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted transition hover:text-foreground"
-      >
-        {dict.products.backToShop}
-      </Link>
-
-      <div className="mt-8 mb-8 max-w-xl">
-        <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
-          {dict.nav.categories}
-        </p>
-        <h1 className="mt-3 font-display text-5xl font-medium tracking-tight sm:text-6xl">
-          {collection.title}
-        </h1>
-        {intro ? (
-          <p className="mt-4 text-base font-light leading-relaxed text-muted">
-            {intro}
-          </p>
-        ) : null}
-      </div>
-
-      <div className="mb-12">
-        <CategoryChips
-          collections={collections}
-          activeHandle={collection.handle}
-          allCount={products.length}
+    <>
+      {!faceted ? (
+        <JsonLd
+          data={[
+            buildCollectionJsonLd(collection, locale),
+            buildBreadcrumbJsonLd([
+              {
+                name: dict.products.shopTitle,
+                url: `${site}${localePath(locale, "/products")}`,
+              },
+              { name: collection.title, url: collectionUrl },
+            ]),
+          ]}
         />
-      </div>
-
-      {collection.products.length === 0 ? (
-        <EmptyCatalog />
-      ) : (
-        <div className="grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-7">
-          {collection.products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      )}
-    </div>
+      ) : null}
+      <ProductCatalog
+        title={collection.title}
+        description={intro}
+        products={slice.products}
+        collections={collections}
+        initialQuery={{ ...query, collection: collection.handle }}
+        pageInfo={pageInfo}
+        bounds={bounds}
+        collectionHandle={collection.handle}
+      />
+    </>
   );
 }

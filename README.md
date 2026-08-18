@@ -228,6 +228,24 @@ Apex/`www` stay on Vercel. Checkout needs a **separate subdomain that Shopify ho
 
 Until that subdomain is live on Shopify, leave `SHOPIFY_CHECKOUT_DOMAIN` empty so checkout uses `*.myshopify.com`.
 
+### Lock the Shopify Online Store (required)
+
+`checkout.vardagsstil.se` is Shopify’s Online Store domain. Checkout lives there, but so does Dawn (or any published Liquid theme). Visitors who open the hostname with no `/checkouts/…` path get a second, unbranded shop — duplicate catalog, wrong tracking, and a way around the headless storefront.
+
+Shopify Checkout does **not** use the Liquid theme. Hide the storefront by **publishing** [`shopify-redirect-theme/`](shopify-redirect-theme/) (Shopify’s Hydrogen redirect theme, hostname preset to `vardagsstil.se`). It `noindex`s, `Disallow`s crawlers, and sends every theme page to the Next.js origin. `/checkouts/…`, Shop Pay, and thank-you stay on Shopify.
+
+```bash
+npm run theme:zip
+```
+
+Then in Shopify Admin: **Online Store → Themes → Add theme → Upload zip** → publish `shopify-redirect-theme.zip`. Leave Dawn in the library unpublished.
+
+Do **not**:
+
+- Password-protect **Online Store → Preferences**. That now intercepts Storefront API `checkoutUrl`.
+- Remove the **Online Store** sales channel. Hosted checkout is served from that channel’s domain.
+- Point `checkout.vardagsstil.se` at Vercel.
+
 ## Sibling split
 
 - **Storefront / brand / ads** — this Next.js app + creatives
