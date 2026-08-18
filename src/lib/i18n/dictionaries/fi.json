@@ -611,7 +611,7 @@
     "overviewEmail": "Kirjautuneena",
     "ordersTitle": "Tilaukset",
     "ordersIntro": "Tilauksesi ja seuranta.",
-    "ordersEmpty": "Sinulla ei ole vielä tilauksia.",
+    "ordersEmpty": "Tällä tilillä ei näy tilauksia. Maksoitko vieraana? Tarkista vahvistus sähköpostista — voimme liittää tilauksen tiliisi.",
     "ordersCta": "Valikoimaan",
     "ordersView": "Näytä tilaus",
     "ordersLoadMore": "Näytä vanhemmat tilaukset",
@@ -654,7 +654,7 @@
   "orderConfirmed": {
     "metaTitle": "Kiitos tilauksestasi",
     "title": "Kiitos — tilaus vastaanotettu",
-    "body": "Saat vahvistuksen sähköpostiin. Kun paketti lähtee varastosta, seuranta näkyy tililläsi.",
+    "body": "Saat vahvistuksen sähköpostiin. Jos olit kirjautuneena, tilaus ja seuranta näkyvät kohdassa Tili.",
     "orderLabel": "Tilaus {order}",
     "viewOrders": "Näytä tilaukset",
     "continueShopping": "Jatka ostoksia",

@@ -174,6 +174,41 @@ export async function clearCartAction() {
   return { ok: true as const };
 }
 
+/**
+ * Re-attach the Customer Account token to the cart. Call from login/refresh
+ * and immediately before redirecting to Shopify checkout.
+ */
+export async function syncCartBuyerIdentity() {
+  const cartId = await readCartId();
+  if (!cartId) return { ok: false as const, cart: null };
+
+  const locale = await readLocale();
+  try {
+    const cart = await updateCartBuyerIdentity(cartId, locale);
+    await writeCartId(cart.id);
+    return { ok: true as const, cart };
+  } catch (error) {
+    console.error("syncCartBuyerIdentity failed:", error);
+    return { ok: false as const, cart: null };
+  }
+}
+
+/** Refresh buyer identity, then return the Shopify checkout URL. */
+export async function beginCheckoutAction() {
+  const synced = await syncCartBuyerIdentity();
+  if (synced.ok && synced.cart?.checkoutUrl) {
+    return { ok: true as const, checkoutUrl: synced.cart.checkoutUrl };
+  }
+
+  const cartId = await readCartId();
+  if (!cartId) return { ok: false as const, checkoutUrl: null };
+
+  const locale = await readLocale();
+  const cart = await getCart(cartId, locale);
+  if (!cart?.checkoutUrl) return { ok: false as const, checkoutUrl: null };
+  return { ok: true as const, checkoutUrl: cart.checkoutUrl };
+}
+
 /** Sync Markets country + Storefront language when the shopper changes locale. */
 export async function updateCartLocaleAction(locale: string) {
   if (!isLocale(locale)) return { ok: false as const };

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { syncCartBuyerIdentity } from "@/app/actions/cart";
 import {
   clearCustomerTokens,
   readCustomerTokens,
@@ -28,6 +29,11 @@ export async function POST() {
   try {
     const next = await refreshCustomerTokens(tokens.refreshToken);
     await writeCustomerTokens(next);
+    try {
+      await syncCartBuyerIdentity();
+    } catch (error) {
+      console.error("Could not refresh cart buyer identity:", error);
+    }
     return NextResponse.json({ ok: true as const, refreshed: true });
   } catch (error) {
     console.error("auth refresh route failed:", error);

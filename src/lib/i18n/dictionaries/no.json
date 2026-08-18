@@ -611,7 +611,7 @@
     "overviewEmail": "Innlogget som",
     "ordersTitle": "Ordrer",
     "ordersIntro": "Dine ordrer og sporing.",
-    "ordersEmpty": "Du har ingen ordrer ennå.",
+    "ordersEmpty": "Ingen ordrer vises på denne kontoen. Betalte du som gjest? Sjekk bekreftelsen på e-post — da kan vi knytte ordren til kontoen.",
     "ordersCta": "Til sortimentet",
     "ordersView": "Vis ordre",
     "ordersLoadMore": "Vis eldre ordrer",
@@ -654,7 +654,7 @@
   "orderConfirmed": {
     "metaTitle": "Takk for bestillingen",
     "title": "Takk — ordren er mottatt",
-    "body": "Du får en bekreftelse på e-post. Når pakken forlater lageret, vises sporing i kontoen din.",
+    "body": "Du får en bekreftelse på e-post. Hvis du var logget inn, vises ordren og sporingen under Konto.",
     "orderLabel": "Ordre {order}",
     "viewOrders": "Se mine ordrer",
     "continueShopping": "Fortsett å handle",

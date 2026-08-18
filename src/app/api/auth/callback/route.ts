@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { syncCartBuyerIdentity } from "@/app/actions/cart";
 import { completeLogin } from "@/lib/customer-account";
 import { getSiteUrl } from "@/lib/site-url";
 
@@ -18,6 +19,11 @@ export async function GET(request: NextRequest) {
 
   try {
     const returnTo = await completeLogin({ code, state });
+    try {
+      await syncCartBuyerIdentity();
+    } catch (error) {
+      console.error("Could not attach customer to cart after login:", error);
+    }
     const target = returnTo.startsWith("http")
       ? returnTo
       : new URL(returnTo, getSiteUrl()).toString();

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { addToCartAction } from "@/app/actions/cart";
+import { addToCartAction, beginCheckoutAction } from "@/app/actions/cart";
 import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { ProductOptionPicker } from "@/components/product-option-picker";
@@ -117,6 +117,8 @@ export function ProductForm({
           setPendingMode(null);
           return;
         }
+        const checkout = await beginCheckoutAction();
+        const checkoutUrl = checkout.checkoutUrl || result.cart.checkoutUrl;
         trackCartPixel(selectedVariant, quantity);
         trackInitiateCheckout({
           contentIds: [metaContentIdFromGid(selectedVariant.id)],
@@ -126,7 +128,7 @@ export function ProductForm({
           currency: selectedVariant.price.currencyCode,
           numItems: quantity,
         });
-        window.location.assign(result.cart.checkoutUrl);
+        window.location.assign(checkoutUrl);
       } catch (err) {
         setError(
           err instanceof Error ? err.message : dict.products.checkoutError,

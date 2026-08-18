@@ -8,14 +8,11 @@ import {
   updateCartLineAction,
 } from "@/app/actions/cart";
 import { CartDiscountLine } from "@/components/cart-discount-line";
+import { CheckoutButton } from "@/components/checkout-button";
 import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
 import { formatMoney } from "@/lib/format";
-import {
-  metaContentIdFromGid,
-  trackInitiateCheckout,
-} from "@/lib/ads-events";
 
 export function CartDrawer() {
   const { locale, dict, t } = useDictionary();
@@ -234,23 +231,12 @@ export function CartDrawer() {
                 {dict.cart.shipping} · {dict.cart.shippingCheckout}
               </p>
 
-              <a
-                href={cart.checkoutUrl}
+              <CheckoutButton
+                cart={cart}
                 className="btn-primary btn-primary-block mt-5"
-                onClick={() => {
-                  trackInitiateCheckout({
-                    contentIds: cart.lines.map((line) =>
-                      metaContentIdFromGid(line.merchandise.id),
-                    ),
-                    contentType: "product",
-                    value: Number(cart.cost.totalAmount.amount),
-                    currency: cart.cost.totalAmount.currencyCode,
-                    numItems: cart.totalQuantity,
-                  });
-                }}
               >
                 {dict.cart.checkout}
-              </a>
+              </CheckoutButton>
 
               <p className="mt-3 text-center text-[0.68rem] font-light leading-relaxed text-muted">
                 {t(dict.cart.drawerTrust, { eta: dict.fulfillment.etaShort })}

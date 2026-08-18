@@ -52,6 +52,7 @@ import {
   categoryParamFromId,
   productsInCategory,
 } from "./taxonomy";
+import { getValidAccessToken } from "@/lib/customer-account/session";
 import { getShopifyContext, type Locale } from "@/lib/i18n/locales";
 
 type UserErrors = { field?: string[] | null; message: string }[];
@@ -73,6 +74,26 @@ function contextFromLocale(locale?: string): ShopifyContext {
 function localeTag(locale: string | undefined, base: string) {
   const key = locale || "default";
   return `${base}:${key}`;
+}
+
+/**
+ * Attach the logged-in Customer Account to the Storefront cart so Shopify
+ * checkout is not a guest order (guest orders never appear on /account/orders).
+ */
+async function buyerIdentityFor(locale?: string) {
+  const context = contextFromLocale(locale);
+  const identity: { countryCode: string; customerAccessToken?: string } = {
+    countryCode: context.country,
+  };
+
+  try {
+    const customerAccessToken = await getValidAccessToken();
+    if (customerAccessToken) identity.customerAccessToken = customerAccessToken;
+  } catch {
+    // Guest checkout still works if the session cannot be read.
+  }
+
+  return identity;
 }
 
 export const getProducts = cache(
@@ -411,7 +432,7 @@ export async function createCart(
     query: CART_CREATE_MUTATION,
     variables: {
       lines,
-      buyerIdentity: { countryCode: context.country },
+      buyerIdentity: await buyerIdentityFor(locale),
       discountCodes: discountCodes?.length ? discountCodes : undefined,
     },
     context,
@@ -527,7 +548,7 @@ export async function updateCartBuyerIdentity(
     query: CART_BUYER_IDENTITY_UPDATE_MUTATION,
     variables: {
       cartId,
-      buyerIdentity: { countryCode: context.country },
+      buyerIdentity: await buyerIdentityFor(locale),
     },
     context,
     cache: "no-store",

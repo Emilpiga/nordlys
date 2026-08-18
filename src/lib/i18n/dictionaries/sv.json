@@ -611,7 +611,7 @@
     "overviewEmail": "Inloggad som",
     "ordersTitle": "Ordrar",
     "ordersIntro": "Dina ordrar och spårning.",
-    "ordersEmpty": "Du har inga ordrar än.",
+    "ordersEmpty": "Inga ordrar syns på det här kontot. Betalade du som gäst? Kolla bekräftelsen i mejlen — då kan vi koppla ordern åt dig.",
     "ordersCta": "Till sortimentet",
     "ordersView": "Visa order",
     "ordersLoadMore": "Visa äldre ordrar",
@@ -654,7 +654,7 @@
   "orderConfirmed": {
     "metaTitle": "Tack för din order",
     "title": "Tack — ordern är mottagen",
-    "body": "Du får en bekräftelse på mejl. När paketet lämnar lagret syns spårning i ditt konto.",
+    "body": "Du får en bekräftelse på mejl. Om du var inloggad syns ordern och spårningen under Konto.",
     "orderLabel": "Order {order}",
     "viewOrders": "Se mina ordrar",
     "continueShopping": "Fortsätt handla",

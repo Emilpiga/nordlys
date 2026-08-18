@@ -8,13 +8,10 @@ import {
   updateCartLineAction,
 } from "@/app/actions/cart";
 import { CartDiscountLine } from "@/components/cart-discount-line";
+import { CheckoutButton } from "@/components/checkout-button";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
 import { formatMoney } from "@/lib/format";
-import {
-  metaContentIdFromGid,
-  trackInitiateCheckout,
-} from "@/lib/ads-events";
 import type { Cart } from "@/lib/shopify/types";
 
 type CartViewProps = {
@@ -166,23 +163,12 @@ export function CartView({ cart }: CartViewProps) {
             </div>
           </dl>
 
-          <a
-            href={cart.checkoutUrl}
+          <CheckoutButton
+            cart={cart}
             className="btn-primary btn-primary-block mt-8"
-            onClick={() => {
-              trackInitiateCheckout({
-                contentIds: cart.lines.map((line) =>
-                  metaContentIdFromGid(line.merchandise.id),
-                ),
-                contentType: "product",
-                value: Number(cart.cost.totalAmount.amount),
-                currency: cart.cost.totalAmount.currencyCode,
-                numItems: cart.totalQuantity,
-              });
-            }}
           >
             {dict.cart.checkout}
-          </a>
+          </CheckoutButton>
 
           <p className="mt-4 text-center text-xs font-light leading-relaxed text-muted">
             {t(dict.cart.trustLine, { eta: dict.fulfillment.etaShort })}
