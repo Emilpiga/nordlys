@@ -7,7 +7,7 @@ import { addToCartAction } from "@/app/actions/cart";
 import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
-import { OptionSelect } from "@/components/option-select";
+import { ProductOptionPicker } from "@/components/product-option-picker";
 import { ProductPrice } from "@/components/product-price";
 import { ProductRating } from "@/components/product-rating";
 import { metaContentIdFromGid, trackAddToCart } from "@/lib/ads-events";
@@ -16,9 +16,7 @@ import { noteWelcomeDealProduct } from "@/lib/welcome-deal-intent";
 import {
   findVariant,
   hasSelectableOptions,
-  isOptionValueInStock,
   optionsFromVariant,
-  selectOptionValue,
 } from "@/lib/shopify/variants";
 
 type ProductQuickViewProps = {
@@ -26,8 +24,6 @@ type ProductQuickViewProps = {
   open: boolean;
   onClose: () => void;
 };
-
-const CHIP_OPTION_LIMIT = 8;
 
 export function ProductQuickView({
   product,
@@ -200,81 +196,16 @@ export function ProductQuickView({
                       return null;
                     }
 
-                    const useSelect = values.length > CHIP_OPTION_LIMIT;
-
                     return (
-                      <fieldset key={option.id} className="mt-6 space-y-3">
-                        <legend className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-muted">
-                          {option.name}
-                          {!useSelect && selectedOptions[option.name] ? (
-                            <span className="ml-2 font-normal normal-case tracking-normal text-foreground/70">
-                              {selectedOptions[option.name]}
-                            </span>
-                          ) : null}
-                        </legend>
-                        {useSelect ? (
-                          <OptionSelect
-                            label={option.name}
-                            value={selectedOptions[option.name] ?? values[0]}
-                            options={values.map((value) => ({
-                              value,
-                              unavailable: !isOptionValueInStock(
-                                product.variants,
-                                option.name,
-                                value,
-                              ),
-                            }))}
-                            onChange={(value) =>
-                              setSelectedOptions((current) =>
-                                selectOptionValue(
-                                  product.variants,
-                                  current,
-                                  option.name,
-                                  value,
-                                ),
-                              )
-                            }
-                          />
-                        ) : (
-                          <div className="flex flex-wrap gap-2">
-                            {values.map((value) => {
-                              const active =
-                                selectedOptions[option.name] === value;
-                              const inStock = isOptionValueInStock(
-                                product.variants,
-                                option.name,
-                                value,
-                              );
-                              return (
-                                <button
-                                  key={value}
-                                  type="button"
-                                  aria-pressed={active}
-                                  onClick={() =>
-                                    setSelectedOptions((current) =>
-                                      selectOptionValue(
-                                        product.variants,
-                                        current,
-                                        option.name,
-                                        value,
-                                      ),
-                                    )
-                                  }
-                                  className={`min-w-12 border px-3.5 py-2 text-sm transition ${
-                                    active
-                                      ? "border-foreground bg-foreground text-on-accent"
-                                      : inStock
-                                        ? "border-border/80 hover:border-foreground/50"
-                                        : "border-border/50 text-muted/55 line-through opacity-55 hover:border-foreground/40 hover:opacity-80"
-                                  }`}
-                                >
-                                  {value}
-                                </button>
-                              );
-                            })}
-                          </div>
-                        )}
-                      </fieldset>
+                      <ProductOptionPicker
+                        key={option.id}
+                        option={option}
+                        values={values}
+                        selected={selectedOptions}
+                        variants={product.variants}
+                        onChange={setSelectedOptions}
+                        size="sm"
+                      />
                     );
                   })
                 : null}

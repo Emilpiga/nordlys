@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { addToCartAction } from "@/app/actions/cart";
 import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
+import { ProductOptionPicker } from "@/components/product-option-picker";
 import { ProductTrust } from "@/components/product-trust";
 import { ProductViewingActivity } from "@/components/product-viewing-activity";
 import { ProductPrice } from "@/components/product-price";
@@ -19,9 +20,7 @@ import {
   findVariant,
   findVariantByParam,
   hasSelectableOptions,
-  isOptionValueInStock,
   optionsFromVariant,
-  selectOptionValue,
 } from "@/lib/shopify/variants";
 
 type ProductFormProps = {
@@ -155,62 +154,25 @@ export function ProductForm({
 
       {showOptions
         ? product.options.map((option) => {
+            const values = option.values.filter(
+              (value) => value !== "Default Title",
+            );
             if (
-              option.name === "Title" &&
-              option.values.length === 1 &&
-              option.values[0] === "Default Title"
+              values.length === 0 ||
+              (option.name === "Title" && values.length === 1)
             ) {
               return null;
             }
 
             return (
-              <fieldset key={option.id} className="space-y-3">
-                <legend className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-muted">
-                  {option.name}
-                  {selectedOptions[option.name] ? (
-                    <span className="ml-2 font-normal normal-case tracking-normal text-foreground/70">
-                      {selectedOptions[option.name]}
-                    </span>
-                  ) : null}
-                </legend>
-                <div className="flex flex-wrap gap-2">
-                  {option.values.map((value) => {
-                    if (value === "Default Title") return null;
-                    const active = selectedOptions[option.name] === value;
-                    const inStock = isOptionValueInStock(
-                      product.variants,
-                      option.name,
-                      value,
-                    );
-                    return (
-                      <button
-                        key={value}
-                        type="button"
-                        aria-pressed={active}
-                        onClick={() =>
-                          setSelectedOptions((current) =>
-                            selectOptionValue(
-                              product.variants,
-                              current,
-                              option.name,
-                              value,
-                            ),
-                          )
-                        }
-                        className={`min-w-12 border px-4 py-2.5 text-sm transition ${
-                          active
-                            ? "border-foreground bg-foreground text-on-accent"
-                            : inStock
-                              ? "border-border/80 bg-transparent text-foreground hover:border-foreground/50"
-                              : "border-border/50 text-muted/55 line-through opacity-55 hover:border-foreground/40 hover:opacity-80"
-                        }`}
-                      >
-                        {value}
-                      </button>
-                    );
-                  })}
-                </div>
-              </fieldset>
+              <ProductOptionPicker
+                key={option.id}
+                option={option}
+                values={values}
+                selected={selectedOptions}
+                variants={product.variants}
+                onChange={setSelectedOptions}
+              />
             );
           })
         : null}

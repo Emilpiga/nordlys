@@ -9,6 +9,7 @@ type ProductPurchaseProps = {
   product: Product;
   gallery: ProductImage[];
   header: ReactNode;
+  details?: ReactNode;
   footer?: ReactNode;
   initialVariantId?: string;
   wishlistSaved?: boolean;
@@ -18,6 +19,7 @@ export function ProductPurchase({
   product,
   gallery,
   header,
+  details,
   footer,
   initialVariantId,
   wishlistSaved = false,
@@ -48,6 +50,7 @@ export function ProductPurchase({
             wishlistSaved={wishlistSaved}
           />
         </div>
+        {details ? <div className="mt-10">{details}</div> : null}
         {footer ? <div>{footer}</div> : null}
       </div>
     </section>

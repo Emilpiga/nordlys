@@ -123,3 +123,37 @@ export function hasSelectableOptions(product: {
       option.values.some((value) => value !== "Default Title"),
   );
 }
+
+/** Price of the first in-stock variant that uses this option value. */
+export function priceForOptionValue(
+  variants: ProductVariant[],
+  optionName: string,
+  value: string,
+) {
+  const match =
+    variants.find(
+      (variant) =>
+        variant.availableForSale &&
+        variant.selectedOptions.some(
+          (option) => option.name === optionName && option.value === value,
+        ),
+    ) ??
+    variants.find((variant) =>
+      variant.selectedOptions.some(
+        (option) => option.name === optionName && option.value === value,
+      ),
+    );
+
+  return match?.price ?? null;
+}
+
+export function optionPricesVary(
+  variants: ProductVariant[],
+  optionName: string,
+  values: string[],
+) {
+  const prices = values
+    .map((value) => priceForOptionValue(variants, optionName, value)?.amount)
+    .filter((amount): amount is string => Boolean(amount));
+  return new Set(prices).size > 1;
+}

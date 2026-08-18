@@ -196,21 +196,19 @@ export default async function ProductPage({ params, searchParams }: Props) {
                 size="md"
               />
             </div>
-            {detailsHtml ? (
-              <div
-                className="product-description mt-5 max-w-md text-base font-light leading-relaxed text-muted"
-                dangerouslySetInnerHTML={{ __html: detailsHtml }}
-              />
-            ) : plainDescription ? (
-              <p className="mt-5 max-w-md text-base font-light leading-relaxed text-muted">
-                {plainDescription}
-              </p>
-            ) : (
-              <p className="mt-5 max-w-md text-base font-light leading-relaxed text-muted">
-                {dict.products.fallbackDescription}
-              </p>
-            )}
           </>
+        }
+        details={
+          detailsHtml ? (
+            <div
+              className="product-description max-w-md text-base font-light leading-relaxed text-muted"
+              dangerouslySetInnerHTML={{ __html: detailsHtml }}
+            />
+          ) : (
+            <p className="max-w-md text-base font-light leading-relaxed text-muted">
+              {plainDescription || dict.products.fallbackDescription}
+            </p>
+          )
         }
         footer={
           <dl className="mt-10 grid gap-5 border-t border-border/70 pt-8 text-sm">

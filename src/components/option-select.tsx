@@ -11,6 +11,7 @@ import { createPortal } from "react-dom";
 
 export type OptionSelectItem = {
   value: string;
+  hint?: string;
   unavailable?: boolean;
 };
 
@@ -156,6 +157,8 @@ export function OptionSelect({
     triggerRef.current?.focus();
   }
 
+  const selectedItem = options.find((option) => option.value === value);
+
   return (
     <div ref={rootRef} className="relative">
       <button
@@ -172,7 +175,14 @@ export function OptionSelect({
             : "border-border/80 hover:border-foreground/40"
         }`}
       >
-        <span className="min-w-0 truncate text-foreground">{value}</span>
+        <span className="min-w-0 truncate text-foreground">
+          {selectedItem?.value ?? value}
+        </span>
+        {selectedItem?.hint ? (
+          <span className="shrink-0 text-[0.68rem] font-light tabular-nums text-muted">
+            {selectedItem.hint}
+          </span>
+        ) : null}
         <svg
           viewBox="0 0 12 12"
           fill="none"
@@ -227,9 +237,16 @@ export function OptionSelect({
                       }`}
                     >
                       <span className="min-w-0 truncate">{option.value}</span>
-                      {selected ? (
-                        <span className="h-1.5 w-1.5 shrink-0 bg-foreground" />
-                      ) : null}
+                      <span className="flex shrink-0 items-center gap-2">
+                        {option.hint ? (
+                          <span className="text-[0.68rem] font-light tabular-nums text-muted">
+                            {option.hint}
+                          </span>
+                        ) : null}
+                        {selected ? (
+                          <span className="h-1.5 w-1.5 shrink-0 bg-foreground" />
+                        ) : null}
+                      </span>
                     </button>
                   </li>
                 );
