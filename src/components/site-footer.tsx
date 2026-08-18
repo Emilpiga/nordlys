@@ -12,6 +12,59 @@ const linkClass =
 const headingClass =
   "text-[0.68rem] font-medium tracking-[0.18em] uppercase text-glow";
 
+function MailIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <rect
+        x="3.5"
+        y="6"
+        width="17"
+        height="12.2"
+        rx="1.6"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
+      <path
+        d="M4.2 7.4 12 13.1l7.8-5.7"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function AddressIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M12 20.5s6.2-5.2 6.2-10A6.2 6.2 0 0 0 5.8 10.5c0 4.8 6.2 10 6.2 10Z"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinejoin="round"
+      />
+      <circle
+        cx="12"
+        cy="10.4"
+        r="2.15"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
+    </svg>
+  );
+}
+
 export function SiteFooter() {
   const { dict, t } = useDictionary();
   const year = new Date().getFullYear();
@@ -26,7 +79,6 @@ export function SiteFooter() {
     identity.vatNumber
       ? t(dict.footer.vatNumber, { vatNumber: identity.vatNumber })
       : "",
-    identity.address,
   ].filter(Boolean);
 
   return (
@@ -123,10 +175,31 @@ export function SiteFooter() {
       </div>
 
       <div className="relative flex flex-col gap-3 border-t border-border/60 px-5 py-8 text-[0.72rem] font-light tracking-[0.08em] text-muted sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:tracking-[0.12em]">
-        <div className="space-y-1">
+        <div className="space-y-2">
           <p>
             © {year} {identity.legalName || shopifyConfig.storeName}
           </p>
+          {identity.email || identity.address ? (
+            <ul className="space-y-1.5 tracking-normal normal-case">
+              {identity.email ? (
+                <li>
+                  <a
+                    href={`mailto:${identity.email}`}
+                    className="inline-flex items-center gap-2 transition hover:text-foreground"
+                  >
+                    <MailIcon className="h-3.5 w-3.5 shrink-0" />
+                    {identity.email}
+                  </a>
+                </li>
+              ) : null}
+              {identity.address ? (
+                <li className="inline-flex items-center gap-2">
+                  <AddressIcon className="h-3.5 w-3.5 shrink-0" />
+                  {identity.address}
+                </li>
+              ) : null}
+            </ul>
+          ) : null}
           {hasRegisteredEntity(identity) && companyBits.length ? (
             <p>{companyBits.join(" · ")}</p>
           ) : null}
