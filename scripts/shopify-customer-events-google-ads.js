@@ -12,7 +12,7 @@
  */
 
 const GOOGLE_ADS_ID = "AW-18391431736";
-const PURCHASE_LABEL = "Tq8vCLPKteIcELj028FE";
+const PURCHASE_LABEL = "KkNNCKHKj-IcELj028FE";
 
 window.dataLayer = window.dataLayer || [];
 function gtag() {
