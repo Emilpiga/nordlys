@@ -1919,6 +1919,52 @@ export const catalogCopy = [
       },
     ],
   }),
+
+  pack({
+    handle: "nordic-minimalist-kitchen-shelf",
+    title: t(
+      "Köksställning i aluminium",
+      "Kjøkkenhylle i aluminium",
+      "Køkkenhylde i aluminium",
+      "Keittiöhylly alumiinia",
+    ),
+    metaTitle: t(
+      "Köksställning i aluminium",
+      "Kjøkkenhylle i aluminium",
+      "Køkkenhylde i aluminium",
+      "Keittiöhylly alumiinia",
+    ),
+    metaDescription: t(
+      "Svart ställning i aluminium till väggen vid spisen. Välj hylla, ätpinnar, lock, redskap eller limfäste.",
+      "Svart hylle i aluminium til veggen ved komfyren. Velg hylle, spisepinner, lokk, redskap eller limfeste.",
+      "Sort hylde i aluminium til væggen ved komfuret. Vælg hylde, spisepinde, låg, redskab eller limfæste.",
+      "Musta alumiiniteline seinään lieden viereen. Valitse hylly, syömäpuikot, kansi, välineet tai liimakiinnitys.",
+    ),
+    body: t(
+      "<p>En svart ställning i aluminium till väggen vid spisen — redskapen syns, utan att ta bänkyta.</p><ul><li><strong>Aluminium.</strong> Lätt att torka av efter matlagning.</li><li><strong>Flera modeller.</strong> Hylla, ätpinnar, lock, redskap eller limfäste — välj ovan.</li><li><strong>Svart.</strong> Samma färg oavsett utförande.</li></ul><p>Material: aluminium. Färg: svart. Välj modell ovan.</p>",
+      "<p>En svart hylle i aluminium til veggen ved komfyren — redskapene synes, uten å ta benkeplass.</p><ul><li><strong>Aluminium.</strong> Lett å tørke av etter matlaging.</li><li><strong>Flere modeller.</strong> Hylle, spisepinner, lokk, redskap eller limfeste — velg over.</li><li><strong>Svart.</strong> Samme farge uansett utførelse.</li></ul><p>Materiale: aluminium. Farge: svart. Velg modell over.</p>",
+      "<p>En sort hylde i aluminium til væggen ved komfuret — redskaberne ses, uden at fylde på bordet.</p><ul><li><strong>Aluminium.</strong> Nem at tørre af efter madlavning.</li><li><strong>Flere modeller.</strong> Hylde, spisepinde, låg, redskab eller limfæste — vælg ovenfor.</li><li><strong>Sort.</strong> Samme farve uanset udførelse.</li></ul><p>Materiale: aluminium. Farve: sort. Vælg model ovenfor.</p>",
+      "<p>Musta alumiiniteline seinään lieden viereen — välineet näkyvät ilman että taso täyttyy.</p><ul><li><strong>Alumiini.</strong> Helppo pyyhkiä ruoanlaiton jälkeen.</li><li><strong>Useita malleja.</strong> Hylly, syömäpuikot, kansi, välineet tai liimakiinnitys — valitse yllä.</li><li><strong>Musta.</strong> Sama väri kaikissa toteutuksissa.</li></ul><p>Materiaali: alumiini. Väri: musta. Valitse malli yllä.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: COLOR,
+        values: { Black: t("Svart", "Svart", "Sort", "Musta") },
+      },
+      {
+        sourceName: "style",
+        name: STYLE,
+        values: {
+          A: t("Hylla", "Hylle", "Hylde", "Hylly"),
+          "Chopstick holder": t("Ätpinnshållare", "Spisepinneholder", "Spisepindeholder", "Syömäpuikkoteline"),
+          "Glue frame": t("Limfäste", "Limfeste", "Limfæste", "Liimakiinnitys"),
+          "Lid rack": t("Lockställ", "Lokkholder", "Lågholder", "Kansiteline"),
+          "Tool holder": t("Redskapshållare", "Redskapsholder", "Redskabsholder", "Välineteline"),
+        },
+      },
+    ],
+  }),
 ];
 
 export const catalogCopyByHandle = new Map(

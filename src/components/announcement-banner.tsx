@@ -4,17 +4,6 @@ import type { Locale } from "@/lib/i18n/locales";
 
 const COPIES = 4;
 
-function KlarnaBadge() {
-  return (
-    <span
-      aria-hidden
-      className="inline-flex h-[1.15rem] items-center rounded-[0.22rem] bg-[#FFB3C7] px-[0.42rem] text-[0.62rem] font-extrabold leading-none tracking-[-0.045em] text-[#0A0B09]"
-    >
-      Klarna
-    </span>
-  );
-}
-
 function Separator() {
   return (
     <span
@@ -40,8 +29,7 @@ function AnnouncementGroup({
     >
       <li className="flex items-center gap-7 sm:gap-10">
         <span className="inline-flex items-center gap-2.5 whitespace-nowrap">
-          <KlarnaBadge />
-          {dict.announcement.klarna}
+          {dict.announcement.returns}
         </span>
         <Separator />
       </li>
