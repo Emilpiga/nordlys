@@ -103,5 +103,9 @@ export function productSku(product: Product) {
 }
 
 export function imageAlt(productTitle: string, altText?: string | null) {
-  return cleanText(altText) || `${productTitle} — ${shopifyConfig.storeName}`;
+  const alt = cleanText(altText);
+  if (!alt || /^[a-f0-9]{28,40}$/i.test(alt)) {
+    return `${productTitle} — ${shopifyConfig.storeName}`;
+  }
+  return alt;
 }

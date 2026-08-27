@@ -10,6 +10,7 @@ import {
   mapCart,
   mapCollection,
   mapCollectionCard,
+  mapImage,
   mapProduct,
   mapProductCard,
 } from "./mappers";
@@ -271,14 +272,7 @@ function mapSearchHit(product: {
     id: product.id,
     handle: product.handle,
     title: product.title,
-    featuredImage: product.featuredImage
-      ? {
-          url: product.featuredImage.url,
-          altText: product.featuredImage.altText,
-          width: product.featuredImage.width,
-          height: product.featuredImage.height,
-        }
-      : null,
+    featuredImage: mapImage(product.featuredImage),
     price: product.priceRange.minVariantPrice,
   };
 }

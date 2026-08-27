@@ -110,11 +110,18 @@ type ShopifyCart = {
   };
 };
 
-function mapImage(image: ShopifyImage): ProductImage | null {
+/** Supplier imports often store an MD5 of the original filename as alt text. */
+function usableAltText(altText: string | null) {
+  const alt = altText?.trim() || null;
+  if (!alt || /^[a-f0-9]{28,40}$/i.test(alt)) return null;
+  return alt;
+}
+
+export function mapImage(image: ShopifyImage): ProductImage | null {
   if (!image) return null;
   return {
     url: image.url,
-    altText: image.altText,
+    altText: usableAltText(image.altText),
     width: image.width,
     height: image.height,
   };
