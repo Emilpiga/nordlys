@@ -36,11 +36,18 @@ const ROOM_ALIASES: Record<string, RoomKey> = {
   outdoor: "tradgard",
 };
 
-/** Clothing parent collections and their subcategory handles. */
-export const CLOTHING_PARENTS = ["dam", "herr"] as const;
-export type ClothingParent = (typeof CLOTHING_PARENTS)[number];
+/** Umbrella clothing collection. Dam/Herr nest under this. */
+export const CLOTHING_ROOT = "klader";
 
-export const CLOTHING_CHILDREN: Record<ClothingParent, readonly string[]> = {
+/** Gender collections under Kläder. */
+export const CLOTHING_GENDERS = ["dam", "herr"] as const;
+export type ClothingGender = (typeof CLOTHING_GENDERS)[number];
+
+/** @deprecated Prefer CLOTHING_GENDERS — kept for older call sites. */
+export const CLOTHING_PARENTS = CLOTHING_GENDERS;
+export type ClothingParent = ClothingGender;
+
+export const CLOTHING_CHILDREN: Record<ClothingGender, readonly string[]> = {
   dam: [
     "dam-ytterklader",
     "dam-toppar",
@@ -57,15 +64,19 @@ export const CLOTHING_CHILDREN: Record<ClothingParent, readonly string[]> = {
   ],
 };
 
-const CLOTHING_CHILD_HANDLES = new Set(
+const CLOTHING_TYPE_HANDLES = new Set(
   Object.values(CLOTHING_CHILDREN).flatMap((handles) => [...handles]),
 );
+
+const CLOTHING_GENDER_HANDLES = new Set<string>(CLOTHING_GENDERS);
 
 export type NavCollectionGroup = {
   parent: CollectionSummary | null;
   /** Parent handle when grouping children without a published parent row. */
   key: string;
   children: CollectionSummary[];
+  /** Optional nested groups (e.g. Dam/Herr under Kläder). */
+  nested?: NavCollectionGroup[];
 };
 
 function normalizeKey(value: string) {
@@ -75,6 +86,15 @@ function normalizeKey(value: string) {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "");
+}
+
+function byHandleMap(collections: CollectionSummary[]) {
+  return new Map(
+    collections.map((collection) => [
+      collection.handle.trim().toLowerCase(),
+      collection,
+    ]),
+  );
 }
 
 /** Drop Shopify system collections that should not appear as shop categories. */
@@ -104,21 +124,48 @@ export function isRoomCollection(
   return roomKeyFromCollection(collection) !== null;
 }
 
-export function isClothingChildHandle(handle: string) {
-  return CLOTHING_CHILD_HANDLES.has(handle.trim().toLowerCase());
+export function isClothingTypeHandle(handle: string) {
+  return CLOTHING_TYPE_HANDLES.has(handle.trim().toLowerCase());
 }
 
-export function clothingParentFromHandle(
-  handle: string,
-): ClothingParent | null {
+/** @deprecated Use isClothingTypeHandle */
+export function isClothingChildHandle(handle: string) {
+  return isClothingTypeHandle(handle);
+}
+
+export function isClothingGenderHandle(handle: string) {
+  return CLOTHING_GENDER_HANDLES.has(handle.trim().toLowerCase());
+}
+
+/** Dam, Herr, or any type subcategory — not the Kläder root. */
+export function isClothingNestedHandle(handle: string) {
   const normalized = handle.trim().toLowerCase();
-  if ((CLOTHING_PARENTS as readonly string[]).includes(normalized)) {
-    return normalized as ClothingParent;
+  return (
+    isClothingGenderHandle(normalized) || isClothingTypeHandle(normalized)
+  );
+}
+
+export function isClothingBranchHandle(handle: string) {
+  const normalized = handle.trim().toLowerCase();
+  return normalized === CLOTHING_ROOT || isClothingNestedHandle(normalized);
+}
+
+export function clothingGenderFromHandle(
+  handle: string,
+): ClothingGender | null {
+  const normalized = handle.trim().toLowerCase();
+  if (isClothingGenderHandle(normalized)) {
+    return normalized as ClothingGender;
   }
-  for (const parent of CLOTHING_PARENTS) {
-    if (CLOTHING_CHILDREN[parent].includes(normalized)) return parent;
+  for (const gender of CLOTHING_GENDERS) {
+    if (CLOTHING_CHILDREN[gender].includes(normalized)) return gender;
   }
   return null;
+}
+
+/** @deprecated Prefer clothingGenderFromHandle */
+export function clothingParentFromHandle(handle: string) {
+  return clothingGenderFromHandle(handle);
 }
 
 /** Prefer a room collection (Kök, Sovrum…) when a product sits in several. */
@@ -131,14 +178,16 @@ export function primaryCollection(
   const rooms = browsable.filter(isRoomCollection);
   const pool = rooms.length > 0 ? rooms : browsable;
 
-  return [...pool].sort((a, b) => {
-    const aKey = roomKeyFromCollection(a);
-    const bKey = roomKeyFromCollection(b);
-    const aIndex = aKey ? ROOM_ORDER.indexOf(aKey) : ROOM_ORDER.length;
-    const bIndex = bKey ? ROOM_ORDER.indexOf(bKey) : ROOM_ORDER.length;
-    if (aIndex !== bIndex) return aIndex - bIndex;
-    return a.title.localeCompare(b.title, "sv");
-  })[0] ?? null;
+  return (
+    [...pool].sort((a, b) => {
+      const aKey = roomKeyFromCollection(a);
+      const bKey = roomKeyFromCollection(b);
+      const aIndex = aKey ? ROOM_ORDER.indexOf(aKey) : ROOM_ORDER.length;
+      const bIndex = bKey ? ROOM_ORDER.indexOf(bKey) : ROOM_ORDER.length;
+      if (aIndex !== bIndex) return aIndex - bIndex;
+      return a.title.localeCompare(b.title, "sv");
+    })[0] ?? null
+  );
 }
 
 /** Known rooms first, then every other published collection. */
@@ -155,47 +204,74 @@ export function roomsFromCollections(
   });
 }
 
+export function clothingTypesFor(
+  gender: ClothingGender,
+  collections: CollectionSummary[],
+): CollectionSummary[] {
+  const byHandle = byHandleMap(collections);
+  return CLOTHING_CHILDREN[gender]
+    .map((handle) => byHandle.get(handle))
+    .filter((collection): collection is CollectionSummary =>
+      Boolean(collection),
+    );
+}
+
+/** @deprecated Prefer clothingTypesFor */
+export function clothingChildrenFor(
+  parent: ClothingGender,
+  collections: CollectionSummary[],
+) {
+  return clothingTypesFor(parent, collections);
+}
+
+export function clothingGenders(
+  collections: CollectionSummary[],
+): CollectionSummary[] {
+  const byHandle = byHandleMap(collections);
+  return CLOTHING_GENDERS.map((handle) => byHandle.get(handle)).filter(
+    (collection): collection is CollectionSummary => Boolean(collection),
+  );
+}
+
 /**
- * Shop menu groups: Dam/Herr with children, then rooms and other top-level
- * collections. Child clothing collections are not listed flat.
+ * Shop menu: rooms + Kläder (with Dam/Herr → types nested), then other
+ * top-level collections. Dam/Herr are never top-level.
  */
 export function navGroupsFromCollections(
   collections: CollectionSummary[],
 ): NavCollectionGroup[] {
   const browsable = collections.filter(isBrowsableCollection);
-  const byHandle = new Map(
-    browsable.map((collection) => [
-      collection.handle.trim().toLowerCase(),
-      collection,
-    ]),
-  );
-
+  const byHandle = byHandleMap(browsable);
   const groups: NavCollectionGroup[] = [];
   const used = new Set<string>();
 
-  for (const parentHandle of CLOTHING_PARENTS) {
-    const parent = byHandle.get(parentHandle) ?? null;
-    const children = CLOTHING_CHILDREN[parentHandle]
-      .map((handle) => byHandle.get(handle))
-      .filter((collection): collection is CollectionSummary =>
-        Boolean(collection),
-      );
+  const klader = byHandle.get(CLOTHING_ROOT) ?? null;
+  const genderGroups: NavCollectionGroup[] = [];
 
+  for (const gender of CLOTHING_GENDERS) {
+    const parent = byHandle.get(gender) ?? null;
+    const children = clothingTypesFor(gender, browsable);
     if (!parent && children.length === 0) continue;
-
     if (parent) used.add(parent.handle.toLowerCase());
     for (const child of children) used.add(child.handle.toLowerCase());
+    genderGroups.push({ parent, key: gender, children });
+  }
 
+  if (klader || genderGroups.length > 0) {
+    if (klader) used.add(klader.handle.toLowerCase());
     groups.push({
-      parent,
-      key: parentHandle,
-      children,
+      parent: klader,
+      key: CLOTHING_ROOT,
+      children: [],
+      nested: genderGroups,
     });
   }
 
   const remaining = roomsFromCollections(
-    browsable.filter((collection) => !used.has(collection.handle.toLowerCase())),
-  ).filter((collection) => !isClothingChildHandle(collection.handle));
+    browsable.filter(
+      (collection) => !used.has(collection.handle.toLowerCase()),
+    ),
+  ).filter((collection) => !isClothingNestedHandle(collection.handle));
 
   for (const collection of remaining) {
     groups.push({
@@ -205,10 +281,28 @@ export function navGroupsFromCollections(
     });
   }
 
-  return groups;
+  // Rooms first, then Kläder, then the rest — keep room sort among rooms.
+  return groups.sort((a, b) => {
+    const aRoom = a.parent ? roomKeyFromCollection(a.parent) : null;
+    const bRoom = b.parent ? roomKeyFromCollection(b.parent) : null;
+    const aIndex = aRoom
+      ? ROOM_ORDER.indexOf(aRoom)
+      : a.key === CLOTHING_ROOT
+        ? ROOM_ORDER.length
+        : ROOM_ORDER.length + 1;
+    const bIndex = bRoom
+      ? ROOM_ORDER.indexOf(bRoom)
+      : b.key === CLOTHING_ROOT
+        ? ROOM_ORDER.length
+        : ROOM_ORDER.length + 1;
+    if (aIndex !== bIndex) return aIndex - bIndex;
+    const aTitle = a.parent?.title ?? a.key;
+    const bTitle = b.parent?.title ?? b.key;
+    return aTitle.localeCompare(bTitle, "sv");
+  });
 }
 
-/** Top-level browse targets: rooms, Dam, Herr, Kläder — not clothing subcats. */
+/** Homepage / top chips: rooms, Kläder, Kontor — never Dam/Herr/types. */
 export function topLevelCollections(
   collections: CollectionSummary[],
 ): CollectionSummary[] {
@@ -216,86 +310,72 @@ export function topLevelCollections(
     collections.filter(
       (collection) =>
         isBrowsableCollection(collection) &&
-        !isClothingChildHandle(collection.handle),
+        !isClothingNestedHandle(collection.handle),
     ),
   );
 }
 
-export function clothingChildrenFor(
-  parent: ClothingParent,
-  collections: CollectionSummary[],
-): CollectionSummary[] {
-  const byHandle = new Map(
-    collections.map((collection) => [
-      collection.handle.trim().toLowerCase(),
-      collection,
-    ]),
-  );
-  return CLOTHING_CHILDREN[parent]
-    .map((handle) => byHandle.get(handle))
-    .filter((collection): collection is CollectionSummary =>
-      Boolean(collection),
-    );
-}
-
 export function shortCollectionLabel(title: string, parentTitle?: string) {
   const trimmed = title.trim();
-  if (!parentTitle) {
-    return trimmed.replace(/^(Dam|Herr)\s+/i, "");
+  let short = trimmed;
+  if (parentTitle) {
+    const prefix = parentTitle.trim();
+    if (trimmed.toLowerCase().startsWith(`${prefix.toLowerCase()} `)) {
+      short = trimmed.slice(prefix.length).trim();
+    } else {
+      short = trimmed.replace(/^(Dam|Herr)\s+/i, "");
+    }
+  } else {
+    short = trimmed.replace(/^(Dam|Herr)\s+/i, "");
   }
-  const prefix = parentTitle.trim();
-  if (trimmed.toLowerCase().startsWith(`${prefix.toLowerCase()} `)) {
-    return trimmed.slice(prefix.length).trim();
-  }
-  return trimmed.replace(/^(Dam|Herr)\s+/i, "");
+  if (!short) return trimmed;
+  return short.charAt(0).toLocaleUpperCase("sv") + short.slice(1);
 }
 
 export type CatalogCollectionNav = {
-  /** Flat chip / filter list for the current context. */
+  /** Top-level chips/filters (rooms, Kläder, …). */
   primary: CollectionSummary[];
-  /** Subcategory chips when browsing Dam/Herr. */
-  secondary: CollectionSummary[];
-  /** Parent collection when active handle is a clothing child. */
-  clothingParent: CollectionSummary | null;
-  clothingParentKey: ClothingParent | null;
+  /** Dam / Herr when browsing the clothing branch. */
+  genders: CollectionSummary[];
+  /** Type subcats when browsing a gender. */
+  types: CollectionSummary[];
+  clothingRoot: CollectionSummary | null;
+  clothingGender: CollectionSummary | null;
+  clothingGenderKey: ClothingGender | null;
+  inClothingBranch: boolean;
 };
 
 /**
- * Chips/filters for catalog pages:
- * - Default: top-level collections only
- * - On Dam/Herr (or a child): parent + siblings as secondary row
+ * Catalog chips/filters:
+ * - Top level never lists Dam/Herr
+ * - On Kläder or any clothing collection → show Dam/Herr
+ * - On Dam/Herr or a type → also show that gender's type chips
  */
 export function catalogCollectionNav(
   collections: CollectionSummary[],
   activeHandle?: string | null,
 ): CatalogCollectionNav {
   const primary = topLevelCollections(collections);
-  const parentKey = activeHandle
-    ? clothingParentFromHandle(activeHandle)
+  const byHandle = byHandleMap(collections);
+  const clothingRoot = byHandle.get(CLOTHING_ROOT) ?? null;
+  const genderKey = activeHandle
+    ? clothingGenderFromHandle(activeHandle)
     : null;
+  const inClothingBranch = activeHandle
+    ? isClothingBranchHandle(activeHandle)
+    : false;
 
-  if (!parentKey) {
-    return {
-      primary,
-      secondary: [],
-      clothingParent: null,
-      clothingParentKey: null,
-    };
-  }
-
-  const byHandle = new Map(
-    collections.map((collection) => [
-      collection.handle.trim().toLowerCase(),
-      collection,
-    ]),
-  );
-  const clothingParent = byHandle.get(parentKey) ?? null;
-  const secondary = clothingChildrenFor(parentKey, collections);
+  const genders = inClothingBranch ? clothingGenders(collections) : [];
+  const clothingGender = genderKey ? (byHandle.get(genderKey) ?? null) : null;
+  const types = genderKey ? clothingTypesFor(genderKey, collections) : [];
 
   return {
     primary,
-    secondary,
-    clothingParent,
-    clothingParentKey: parentKey,
+    genders,
+    types,
+    clothingRoot,
+    clothingGender,
+    clothingGenderKey: genderKey,
+    inClothingBranch,
   };
 }

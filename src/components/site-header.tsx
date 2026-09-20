@@ -8,7 +8,7 @@ import { LanguageSelector } from "@/components/language-selector";
 import { LocaleLink } from "@/components/locale-link";
 import { SiteLogo } from "@/components/site-logo";
 import { shopifyConfig } from "@/lib/shopify/config";
-import { navGroupsFromCollections } from "@/lib/shopify/collections";
+import { navGroupsFromCollections, shortCollectionLabel } from "@/lib/shopify/collections";
 import type { CollectionSummary } from "@/lib/shopify/types";
 
 type SiteHeaderProps = {
@@ -217,9 +217,11 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
                       const parent = group.parent;
                       const parentHref = parent
                         ? `/collections/${encodeURIComponent(parent.handle)}`
-                        : group.children[0]
-                          ? `/collections/${encodeURIComponent(group.children[0].handle)}`
-                          : "/products";
+                        : group.nested?.[0]?.parent
+                          ? `/collections/${encodeURIComponent(group.nested[0].parent.handle)}`
+                          : group.children[0]
+                            ? `/collections/${encodeURIComponent(group.children[0].handle)}`
+                            : "/products";
 
                       return (
                         <li key={group.key} className="min-w-0">
@@ -236,7 +238,49 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
                             ) : null}
                           </LocaleLink>
 
-                          {group.children.length > 0 ? (
+                          {group.nested && group.nested.length > 0 ? (
+                            <ul className="mt-1 space-y-2 border-l border-border/60 pl-3">
+                              {group.nested.map((nested) => (
+                                <li key={nested.key}>
+                                  {nested.parent ? (
+                                    <LocaleLink
+                                      href={`/collections/${encodeURIComponent(nested.parent.handle)}`}
+                                      onClick={() => setShopOpen(false)}
+                                      className="flex items-baseline justify-between gap-3 px-1.5 py-1 text-[0.78rem] font-medium normal-case tracking-normal text-foreground/85 transition hover:text-foreground"
+                                    >
+                                      <span>{nested.parent.title}</span>
+                                      <span className="tabular-nums text-[0.65rem] text-muted">
+                                        {nested.parent.productCount}
+                                      </span>
+                                    </LocaleLink>
+                                  ) : null}
+                                  {nested.children.length > 0 ? (
+                                    <ul className="mt-0.5 space-y-0.5 pl-2">
+                                      {nested.children.map((child) => (
+                                        <li key={child.id}>
+                                          <LocaleLink
+                                            href={`/collections/${encodeURIComponent(child.handle)}`}
+                                            onClick={() => setShopOpen(false)}
+                                            className="flex items-baseline justify-between gap-3 px-1.5 py-1 text-[0.72rem] font-normal normal-case tracking-normal text-foreground/70 transition hover:bg-[color-mix(in_oklab,var(--mist)_55%,white)] hover:text-foreground"
+                                          >
+                                            <span>
+                                              {shortCollectionLabel(
+                                                child.title,
+                                                nested.parent?.title,
+                                              )}
+                                            </span>
+                                            <span className="tabular-nums text-[0.65rem] text-muted">
+                                              {child.productCount}
+                                            </span>
+                                          </LocaleLink>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  ) : null}
+                                </li>
+                              ))}
+                            </ul>
+                          ) : group.children.length > 0 ? (
                             <ul className="mt-1 space-y-0.5 border-l border-border/60 pl-3">
                               {group.children.map((child) => (
                                 <li key={child.id}>
@@ -245,7 +289,7 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
                                     onClick={() => setShopOpen(false)}
                                     className="flex items-baseline justify-between gap-3 px-1.5 py-1.5 text-[0.74rem] font-normal normal-case tracking-normal text-foreground/75 transition hover:bg-[color-mix(in_oklab,var(--mist)_55%,white)] hover:text-foreground"
                                   >
-                                    <span>{child.title.replace(/^(Dam|Herr)\s+/i, "")}</span>
+                                    <span>{child.title}</span>
                                     <span className="tabular-nums text-[0.65rem] text-muted">
                                       {child.productCount}
                                     </span>

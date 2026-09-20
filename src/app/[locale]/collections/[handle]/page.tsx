@@ -25,8 +25,8 @@ import { isLocale, localePath } from "@/lib/i18n/locales";
 import { buildBreadcrumbJsonLd, buildCollectionJsonLd } from "@/lib/json-ld";
 import { getCatalogSlice, getCollectionByHandle, getCollections } from "@/lib/shopify";
 import {
-  clothingParentFromHandle,
   catalogCollectionNav,
+  isClothingBranchHandle,
 } from "@/lib/shopify/collections";
 import { shopifyConfig } from "@/lib/shopify/config";
 import {
@@ -109,12 +109,7 @@ export default async function CollectionPage({ params, searchParams }: Props) {
   if (!collection) notFound();
 
   const clothingNav = catalogCollectionNav(collections, collection.handle);
-  const clothingParent = clothingNav.clothingParent;
-  const parentKey = clothingParentFromHandle(collection.handle);
-  const showParentCrumb =
-    Boolean(clothingParent) &&
-    clothingParent!.handle !== collection.handle &&
-    parentKey != null;
+  const inClothing = isClothingBranchHandle(collection.handle);
 
   const intro = collectionIntro(
     collection,
@@ -158,6 +153,36 @@ export default async function CollectionPage({ params, searchParams }: Props) {
   const site = getSiteUrl();
   const collectionUrl = `${site}${localePath(locale, `/collections/${encodeURIComponent(collection.handle)}`)}`;
   const faceted = hasFacetQuery(query);
+  const breadcrumbTrail = [
+    {
+      name: dict.products.shopTitle,
+      url: `${site}${localePath(locale, "/products")}`,
+    },
+    ...(inClothing && clothingNav.clothingRoot
+      ? [
+          {
+            name: clothingNav.clothingRoot.title,
+            url: `${site}${localePath(
+              locale,
+              `/collections/${encodeURIComponent(clothingNav.clothingRoot.handle)}`,
+            )}`,
+          },
+        ]
+      : []),
+    ...(clothingNav.clothingGender &&
+    clothingNav.clothingGender.handle !== collection.handle
+      ? [
+          {
+            name: clothingNav.clothingGender.title,
+            url: `${site}${localePath(
+              locale,
+              `/collections/${encodeURIComponent(clothingNav.clothingGender.handle)}`,
+            )}`,
+          },
+        ]
+      : []),
+    { name: collection.title, url: collectionUrl },
+  ];
 
   return (
     <>
@@ -165,24 +190,7 @@ export default async function CollectionPage({ params, searchParams }: Props) {
         <JsonLd
           data={[
             buildCollectionJsonLd(collection, locale),
-            buildBreadcrumbJsonLd([
-              {
-                name: dict.products.shopTitle,
-                url: `${site}${localePath(locale, "/products")}`,
-              },
-              ...(showParentCrumb && clothingParent
-                ? [
-                    {
-                      name: clothingParent.title,
-                      url: `${site}${localePath(
-                        locale,
-                        `/collections/${encodeURIComponent(clothingParent.handle)}`,
-                      )}`,
-                    },
-                  ]
-                : []),
-              { name: collection.title, url: collectionUrl },
-            ]),
+            buildBreadcrumbJsonLd(breadcrumbTrail),
           ]}
         />
       ) : null}

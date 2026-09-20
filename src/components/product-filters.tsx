@@ -26,7 +26,10 @@ import {
 import { formatMoney } from "@/lib/format";
 import {
   catalogCollectionNav,
+  clothingGenders,
+  clothingTypesFor,
   shortCollectionLabel,
+  type ClothingGender,
 } from "@/lib/shopify/collections";
 import type { CollectionSummary } from "@/lib/shopify/types";
 
@@ -97,18 +100,15 @@ export function FilterPanel({
               onSelect={() => onChange({ ...filters, collection: null })}
             />
             {nav.primary.map((collection) => {
-              const isClothingParent =
-                nav.clothingParentKey != null &&
-                collection.handle === nav.clothingParentKey;
-              const childOpen =
-                isClothingParent && nav.secondary.length > 0;
+              const isKlader = collection.handle === "klader";
+              const clothingOpen = isKlader && nav.inClothingBranch;
               return (
                 <div key={collection.id}>
                   <CollectionRow
                     label={collection.title}
                     count={collection.productCount}
                     active={
-                      current.collection === collection.handle || isClothingParent
+                      current.collection === collection.handle || clothingOpen
                     }
                     onSelect={() =>
                       onChange({
@@ -120,28 +120,55 @@ export function FilterPanel({
                       })
                     }
                   />
-                  {childOpen
-                    ? nav.secondary.map((child) => (
-                        <div key={child.id} className="pl-3">
-                          <CollectionRow
-                            label={shortCollectionLabel(
-                              child.title,
-                              collection.title,
-                            )}
-                            count={child.productCount}
-                            active={current.collection === child.handle}
-                            onSelect={() =>
-                              onChange({
-                                ...filters,
-                                collection:
-                                  filters.collection === child.handle
-                                    ? collection.handle
-                                    : child.handle,
-                              })
-                            }
-                          />
-                        </div>
-                      ))
+                  {isKlader
+                    ? clothingGenders(collections).map((gender) => {
+                        const genderKey = gender.handle as ClothingGender;
+                        const genderActive =
+                          current.collection === gender.handle ||
+                          nav.clothingGenderKey === gender.handle;
+                        const types = genderActive
+                          ? clothingTypesFor(genderKey, collections)
+                          : [];
+                        return (
+                          <div key={gender.id} className="pl-3">
+                            <CollectionRow
+                              label={gender.title}
+                              count={gender.productCount}
+                              active={genderActive}
+                              onSelect={() =>
+                                onChange({
+                                  ...filters,
+                                  collection:
+                                    filters.collection === gender.handle
+                                      ? collection.handle
+                                      : gender.handle,
+                                })
+                              }
+                            />
+                            {types.map((child) => (
+                              <div key={child.id} className="pl-3">
+                                <CollectionRow
+                                  label={shortCollectionLabel(
+                                    child.title,
+                                    gender.title,
+                                  )}
+                                  count={child.productCount}
+                                  active={current.collection === child.handle}
+                                  onSelect={() =>
+                                    onChange({
+                                      ...filters,
+                                      collection:
+                                        filters.collection === child.handle
+                                          ? gender.handle
+                                          : child.handle,
+                                    })
+                                  }
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        );
+                      })
                     : null}
                 </div>
               );
@@ -589,53 +616,69 @@ export function CollectionChips({
           label={dict.products.filters.allCategories}
           count={allCount ?? undefined}
         />
-        {nav.primary.map((collection) => {
-          const parentActive =
-            nav.clothingParentKey != null &&
-            collection.handle === nav.clothingParentKey;
-          return (
+        {nav.primary.map((collection) => (
+          <Chip
+            key={collection.id}
+            active={
+              value === collection.handle ||
+              (collection.handle === "klader" && nav.inClothingBranch)
+            }
+            onClick={() =>
+              onChange(value === collection.handle ? null : collection.handle)
+            }
+            label={collection.title}
+            count={collection.productCount}
+          />
+        ))}
+      </nav>
+
+      {nav.genders.length > 0 ? (
+        <nav
+          aria-label={nav.clothingRoot?.title ?? "Kläder"}
+          className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden"
+        >
+          {nav.genders.map((collection) => (
             <Chip
               key={collection.id}
-              active={value === collection.handle || parentActive}
-              onClick={() =>
-                onChange(
-                  value === collection.handle ? null : collection.handle,
-                )
+              active={
+                value === collection.handle ||
+                nav.clothingGenderKey === collection.handle
               }
+              onClick={() => onChange(collection.handle)}
               label={collection.title}
               count={collection.productCount}
             />
-          );
-        })}
-      </nav>
+          ))}
+        </nav>
+      ) : null}
 
-      {nav.secondary.length > 0 ? (
+      {nav.types.length > 0 ? (
         <nav
-          aria-label={nav.clothingParent?.title ?? nav.clothingParentKey ?? ""}
+          aria-label={nav.clothingGender?.title ?? nav.clothingGenderKey ?? ""}
           className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden"
         >
-          {nav.clothingParent ? (
+          {nav.clothingGender ? (
             <Chip
-              active={value === nav.clothingParent.handle}
-              onClick={() => onChange(nav.clothingParent!.handle)}
+              active={value === nav.clothingGender.handle}
+              onClick={() => onChange(nav.clothingGender!.handle)}
               label={dict.products.filters.allCategories}
-              count={nav.clothingParent.productCount}
+              count={nav.clothingGender.productCount}
             />
           ) : null}
-          {nav.secondary.map((collection) => (
+          {nav.types.map((collection) => (
             <Chip
               key={collection.id}
               active={value === collection.handle}
               onClick={() =>
                 onChange(
                   value === collection.handle
-                    ? nav.clothingParent?.handle ?? null
+                    ? (nav.clothingGender?.handle ?? null)
                     : collection.handle,
                 )
               }
               label={shortCollectionLabel(
                 collection.title,
-                nav.clothingParent?.title,
+                nav.clothingGender?.title,
               )}
               count={collection.productCount}
             />
