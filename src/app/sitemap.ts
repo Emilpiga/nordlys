@@ -31,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const [products, collections] = await Promise.all([
     getProducts(250),
-    getCollections(24),
+    getCollections(50),
   ]);
 
   const productRoutes: MetadataRoute.Sitemap = locales.flatMap((locale) =>

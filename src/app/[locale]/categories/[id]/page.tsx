@@ -74,7 +74,7 @@ export default async function CategoryPage({ params }: Props) {
   const dict = await getDictionary(locale);
   const [{ category, products }, collections, catalog] = await Promise.all([
     getProductsByCategory(id, 100, locale),
-    getCollections(24, locale),
+    getCollections(50, locale),
     getProducts(100, locale),
   ]);
 
@@ -99,7 +99,10 @@ export default async function CategoryPage({ params }: Props) {
       </div>
 
       <div className="mb-12">
-        <CategoryChips collections={collections} allCount={catalog.length} />
+        <CategoryChips
+          collections={collections}
+          allCount={catalog.length}
+        />
       </div>
 
       {products.length === 0 ? (

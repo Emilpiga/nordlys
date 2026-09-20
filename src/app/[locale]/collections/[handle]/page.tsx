@@ -24,6 +24,10 @@ import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
 import { buildBreadcrumbJsonLd, buildCollectionJsonLd } from "@/lib/json-ld";
 import { getCatalogSlice, getCollectionByHandle, getCollections } from "@/lib/shopify";
+import {
+  clothingParentFromHandle,
+  catalogCollectionNav,
+} from "@/lib/shopify/collections";
 import { shopifyConfig } from "@/lib/shopify/config";
 import {
   localeAlternates,
@@ -99,10 +103,18 @@ export default async function CollectionPage({ params, searchParams }: Props) {
   const requestedPage = parsePage(query);
   const [collection, collections] = await Promise.all([
     getCollectionByHandle(handle, locale),
-    getCollections(24, locale),
+    getCollections(50, locale),
   ]);
 
   if (!collection) notFound();
+
+  const clothingNav = catalogCollectionNav(collections, collection.handle);
+  const clothingParent = clothingNav.clothingParent;
+  const parentKey = clothingParentFromHandle(collection.handle);
+  const showParentCrumb =
+    Boolean(clothingParent) &&
+    clothingParent!.handle !== collection.handle &&
+    parentKey != null;
 
   const intro = collectionIntro(
     collection,
@@ -158,6 +170,17 @@ export default async function CollectionPage({ params, searchParams }: Props) {
                 name: dict.products.shopTitle,
                 url: `${site}${localePath(locale, "/products")}`,
               },
+              ...(showParentCrumb && clothingParent
+                ? [
+                    {
+                      name: clothingParent.title,
+                      url: `${site}${localePath(
+                        locale,
+                        `/collections/${encodeURIComponent(clothingParent.handle)}`,
+                      )}`,
+                    },
+                  ]
+                : []),
               { name: collection.title, url: collectionUrl },
             ]),
           ]}

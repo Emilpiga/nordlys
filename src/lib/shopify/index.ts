@@ -191,14 +191,14 @@ export async function getProductsByCategory(
 }
 
 export async function getCollections(
-  first = 24,
+  first = 50,
   locale?: string,
 ): Promise<CollectionSummary[]> {
   if (!isShopifyConfigured()) return [];
   const context = contextFromLocale(locale);
 
   try {
-    const fetchCount = Math.min(Math.max(first * 2, first + 8), 50);
+    const fetchCount = Math.min(Math.max(first, 50), 100);
     const data = await shopifyFetch<{
       collections: { nodes: Parameters<typeof mapCollectionCard>[0][] };
     }>({

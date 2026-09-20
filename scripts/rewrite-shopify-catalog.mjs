@@ -169,6 +169,8 @@ function getLocalCopy(product) {
     );
   }
   const copy = { handle: source.handle };
+  if (source.slug) copy.slug = source.slug;
+  if (source.productType) copy.productType = source.productType;
   for (const locale of ["sv", "nb", "da", "fi"]) {
     if (!source[locale]?.title || !source[locale]?.body_html) {
       throw new Error(`Incomplete copy for ${locale} (${product.handle}).`);
@@ -242,6 +244,7 @@ const PRODUCTS_QUERY = /* GraphQL */ `
         handle
         title
         descriptionHtml
+        productType
         status
         seo {
           title
@@ -280,6 +283,8 @@ const PRODUCT_UPDATE = /* GraphQL */ `
       product {
         id
         title
+        handle
+        productType
       }
       userErrors {
         field
@@ -474,8 +479,13 @@ async function applyProduct(admin, product, copy, shopLocales, args) {
     .map((locale) => locale.locale)
     .filter((locale) => copy[locale] || (locale === "no" && copy.nb));
 
+  const renameHandle = copy.slug && copy.slug !== product.handle;
+  const retypeProduct = copy.productType && copy.productType !== product.productType;
+
   console.log(`\n${product.handle}`);
   console.log(`  ${product.title} → ${primaryCopy.title}`);
+  if (renameHandle) console.log(`  handle → ${copy.slug}`);
+  if (retypeProduct) console.log(`  type ${product.productType || "(none)"} → ${copy.productType}`);
 
   if (args.dryRun) {
     console.log(`  ${stripHtml(primaryCopy.body_html).slice(0, 180)}…`);
@@ -487,6 +497,9 @@ async function applyProduct(admin, product, copy, shopLocales, args) {
       id: product.id,
       title: primaryCopy.title,
       descriptionHtml: primaryCopy.body_html,
+      // Shopify keeps a redirect from the supplier handle to the clean one.
+      ...(renameHandle ? { handle: copy.slug, redirectNewHandle: true } : {}),
+      ...(retypeProduct ? { productType: copy.productType } : {}),
       seo: {
         title: primaryCopy.meta_title,
         description: primaryCopy.meta_description,

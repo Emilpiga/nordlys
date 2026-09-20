@@ -8,6 +8,7 @@ import { LanguageSelector } from "@/components/language-selector";
 import { LocaleLink } from "@/components/locale-link";
 import { SiteLogo } from "@/components/site-logo";
 import { shopifyConfig } from "@/lib/shopify/config";
+import { navGroupsFromCollections } from "@/lib/shopify/collections";
 import type { CollectionSummary } from "@/lib/shopify/types";
 
 type SiteHeaderProps = {
@@ -211,21 +212,51 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
                     </LocaleLink>
                   </div>
 
-                  <ul className="mt-4 grid grid-cols-1 gap-1 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-1">
-                    {collections.map((collection) => (
-                      <li key={collection.id}>
-                        <LocaleLink
-                          href={`/collections/${encodeURIComponent(collection.handle)}`}
-                          onClick={() => setShopOpen(false)}
-                          className="flex items-baseline justify-between gap-3 px-2 py-2.5 text-[0.78rem] font-normal normal-case tracking-normal text-foreground/85 transition hover:bg-[color-mix(in_oklab,var(--mist)_55%,white)] hover:text-foreground"
-                        >
-                          <span>{collection.title}</span>
-                          <span className="tabular-nums text-[0.68rem] text-muted">
-                            {collection.productCount}
-                          </span>
-                        </LocaleLink>
-                      </li>
-                    ))}
+                  <ul className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-5">
+                    {navGroupsFromCollections(collections).map((group) => {
+                      const parent = group.parent;
+                      const parentHref = parent
+                        ? `/collections/${encodeURIComponent(parent.handle)}`
+                        : group.children[0]
+                          ? `/collections/${encodeURIComponent(group.children[0].handle)}`
+                          : "/products";
+
+                      return (
+                        <li key={group.key} className="min-w-0">
+                          <LocaleLink
+                            href={parentHref}
+                            onClick={() => setShopOpen(false)}
+                            className="flex items-baseline justify-between gap-3 px-2 py-1.5 text-[0.82rem] font-medium normal-case tracking-normal text-foreground transition hover:text-accent"
+                          >
+                            <span>{parent?.title ?? group.key}</span>
+                            {parent ? (
+                              <span className="tabular-nums text-[0.68rem] font-normal text-muted">
+                                {parent.productCount}
+                              </span>
+                            ) : null}
+                          </LocaleLink>
+
+                          {group.children.length > 0 ? (
+                            <ul className="mt-1 space-y-0.5 border-l border-border/60 pl-3">
+                              {group.children.map((child) => (
+                                <li key={child.id}>
+                                  <LocaleLink
+                                    href={`/collections/${encodeURIComponent(child.handle)}`}
+                                    onClick={() => setShopOpen(false)}
+                                    className="flex items-baseline justify-between gap-3 px-1.5 py-1.5 text-[0.74rem] font-normal normal-case tracking-normal text-foreground/75 transition hover:bg-[color-mix(in_oklab,var(--mist)_55%,white)] hover:text-foreground"
+                                  >
+                                    <span>{child.title.replace(/^(Dam|Herr)\s+/i, "")}</span>
+                                    <span className="tabular-nums text-[0.65rem] text-muted">
+                                      {child.productCount}
+                                    </span>
+                                  </LocaleLink>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : null}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               </div>

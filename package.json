@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "translate:products": "node scripts/rewrite-shopify-catalog.mjs",
+    "collections:clothing": "node scripts/setup-clothing-collections.mjs",
+    "prices:include-vat": "node scripts/update-shopify-vat-prices.mjs",
     "metafield:wishlist": "node scripts/ensure-wishlist-metafield.mjs",
     "theme:zip": "node scripts/zip-redirect-theme.mjs"
   },

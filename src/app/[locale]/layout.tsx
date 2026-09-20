@@ -114,7 +114,7 @@ export default async function LocaleLayout({
   const [cart, collections, dict, customer, welcomeDealEligible] =
     await Promise.all([
       getCartAction(),
-      getCollections(24, locale),
+      getCollections(50, locale),
       getDictionary(locale),
       getCustomerProfile(),
       isWelcomeDealEligible(),

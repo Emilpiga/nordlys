@@ -37,7 +37,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const dict = await getDictionary(locale);
   const query = await searchParams;
   const filters = parseFilters(query);
-  const collections = await getCollections(24, locale);
+  const collections = await getCollections(50, locale);
   const collection = filters.collection
     ? collections.find((item) => item.handle === filters.collection)
     : null;
@@ -82,7 +82,7 @@ export default async function ProductsPage({ params, searchParams }: Props) {
   const filters = parseFilters(query);
   const requestedPage = parsePage(query);
   const [collections, sample] = await Promise.all([
-    getCollections(24, locale),
+    getCollections(50, locale),
     getProductsPage({
       first: 50,
       sortKey: "BEST_SELLING",

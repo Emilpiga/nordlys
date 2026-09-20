@@ -24,6 +24,10 @@ import {
   type SortKey,
 } from "@/lib/catalog-filters";
 import { formatMoney } from "@/lib/format";
+import {
+  catalogCollectionNav,
+  shortCollectionLabel,
+} from "@/lib/shopify/collections";
 import type { CollectionSummary } from "@/lib/shopify/types";
 
 const chipActive =
@@ -61,6 +65,7 @@ export function FilterPanel({
   const current = sanitizeFilters(filters, bounds);
   const price = resolvedPriceRange(current, bounds);
   const canClear = activeFilterCount(current, bounds) > 0;
+  const nav = catalogCollectionNav(collections, current.collection);
 
   return (
     <div className="space-y-8">
@@ -79,7 +84,7 @@ export function FilterPanel({
         ) : null}
       </div>
 
-      {collections.length > 0 ? (
+      {nav.primary.length > 0 ? (
         <fieldset className="min-w-0">
           <legend className="mb-3">
             <FilterHeading>{copy.category}</FilterHeading>
@@ -91,23 +96,56 @@ export function FilterPanel({
               active={!current.collection}
               onSelect={() => onChange({ ...filters, collection: null })}
             />
-            {collections.map((collection) => (
-              <CollectionRow
-                key={collection.id}
-                label={collection.title}
-                count={collection.productCount}
-                active={current.collection === collection.handle}
-                onSelect={() =>
-                  onChange({
-                    ...filters,
-                    collection:
-                      filters.collection === collection.handle
-                        ? null
-                        : collection.handle,
-                  })
-                }
-              />
-            ))}
+            {nav.primary.map((collection) => {
+              const isClothingParent =
+                nav.clothingParentKey != null &&
+                collection.handle === nav.clothingParentKey;
+              const childOpen =
+                isClothingParent && nav.secondary.length > 0;
+              return (
+                <div key={collection.id}>
+                  <CollectionRow
+                    label={collection.title}
+                    count={collection.productCount}
+                    active={
+                      current.collection === collection.handle || isClothingParent
+                    }
+                    onSelect={() =>
+                      onChange({
+                        ...filters,
+                        collection:
+                          filters.collection === collection.handle
+                            ? null
+                            : collection.handle,
+                      })
+                    }
+                  />
+                  {childOpen
+                    ? nav.secondary.map((child) => (
+                        <div key={child.id} className="pl-3">
+                          <CollectionRow
+                            label={shortCollectionLabel(
+                              child.title,
+                              collection.title,
+                            )}
+                            count={child.productCount}
+                            active={current.collection === child.handle}
+                            onSelect={() =>
+                              onChange({
+                                ...filters,
+                                collection:
+                                  filters.collection === child.handle
+                                    ? collection.handle
+                                    : child.handle,
+                              })
+                            }
+                          />
+                        </div>
+                      ))
+                    : null}
+                </div>
+              );
+            })}
           </div>
         </fieldset>
       ) : null}
@@ -536,31 +574,75 @@ export function CollectionChips({
   onChange: (handle: string | null) => void;
 }) {
   const { dict } = useDictionary();
-  if (collections.length === 0) return null;
+  const nav = catalogCollectionNav(collections, value);
+  if (nav.primary.length === 0) return null;
 
   return (
-    <nav
-      aria-label={dict.products.filters.category}
-      className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden"
-    >
-      <Chip
-        active={!value}
-        onClick={() => onChange(null)}
-        label={dict.products.filters.allCategories}
-        count={allCount ?? undefined}
-      />
-      {collections.map((collection) => (
+    <div className="space-y-2">
+      <nav
+        aria-label={dict.products.filters.category}
+        className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden"
+      >
         <Chip
-          key={collection.id}
-          active={value === collection.handle}
-          onClick={() =>
-            onChange(value === collection.handle ? null : collection.handle)
-          }
-          label={collection.title}
-          count={collection.productCount}
+          active={!value}
+          onClick={() => onChange(null)}
+          label={dict.products.filters.allCategories}
+          count={allCount ?? undefined}
         />
-      ))}
-    </nav>
+        {nav.primary.map((collection) => {
+          const parentActive =
+            nav.clothingParentKey != null &&
+            collection.handle === nav.clothingParentKey;
+          return (
+            <Chip
+              key={collection.id}
+              active={value === collection.handle || parentActive}
+              onClick={() =>
+                onChange(
+                  value === collection.handle ? null : collection.handle,
+                )
+              }
+              label={collection.title}
+              count={collection.productCount}
+            />
+          );
+        })}
+      </nav>
+
+      {nav.secondary.length > 0 ? (
+        <nav
+          aria-label={nav.clothingParent?.title ?? nav.clothingParentKey ?? ""}
+          className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden"
+        >
+          {nav.clothingParent ? (
+            <Chip
+              active={value === nav.clothingParent.handle}
+              onClick={() => onChange(nav.clothingParent!.handle)}
+              label={dict.products.filters.allCategories}
+              count={nav.clothingParent.productCount}
+            />
+          ) : null}
+          {nav.secondary.map((collection) => (
+            <Chip
+              key={collection.id}
+              active={value === collection.handle}
+              onClick={() =>
+                onChange(
+                  value === collection.handle
+                    ? nav.clothingParent?.handle ?? null
+                    : collection.handle,
+                )
+              }
+              label={shortCollectionLabel(
+                collection.title,
+                nav.clothingParent?.title,
+              )}
+              count={collection.productCount}
+            />
+          ))}
+        </nav>
+      ) : null}
+    </div>
   );
 }
 

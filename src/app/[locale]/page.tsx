@@ -10,6 +10,7 @@ import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale } from "@/lib/i18n/locales";
 import { pickPopularProducts } from "@/lib/popular-products";
 import { getCollections, getProducts } from "@/lib/shopify";
+import { topLevelCollections } from "@/lib/shopify/collections";
 import { isShopifyConfigured, shopifyConfig } from "@/lib/shopify/config";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -21,11 +22,14 @@ export default async function HomePage({ params }: Props) {
   const brand = shopifyConfig.storeName;
   const [catalog, collections, dict] = await Promise.all([
     getProducts(100, locale),
-    getCollections(24, locale),
+    getCollections(50, locale),
     getDictionary(locale),
   ]);
   const heroImages = heroImagesFromCatalog(catalog);
   const popularProducts = pickPopularProducts(catalog);
+  const homepageCollections = topLevelCollections(collections).filter(
+    (collection) => collection.productCount > 0,
+  );
 
   return (
     <div>
@@ -43,12 +47,12 @@ export default async function HomePage({ params }: Props) {
 
       <HomeTrustStrip />
 
-      {!isShopifyConfigured() || collections.length === 0 ? (
+      {!isShopifyConfigured() || homepageCollections.length === 0 ? (
         <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
           <EmptyCatalog />
         </div>
       ) : (
-        <HomeCategoryGuide collections={collections} />
+        <HomeCategoryGuide collections={homepageCollections} />
       )}
 
       <HomeTestimonials locale={locale} dict={dict} products={catalog} />

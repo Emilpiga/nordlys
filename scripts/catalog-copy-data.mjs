@@ -13,6 +13,8 @@ function t(sv, nb, da, fi) {
 
 function pack(base) {
   const out = { handle: base.handle };
+  if (base.slug) out.slug = base.slug;
+  if (base.productType) out.productType = base.productType;
   for (const locale of L) {
     out[locale] = {
       title: base.title[locale],
@@ -128,6 +130,57 @@ const BOARD_SIZE = {
   Set: t("Set", "Sett", "Sæt", "Setti"),
   Set1: t("Set 2", "Sett 2", "Sæt 2", "Setti 2"),
   "150X250X1.5 Small": t("15 × 25 cm, 1,5 mm", "15 × 25 cm, 1,5 mm", "15 × 25 cm, 1,5 mm", "15 × 25 cm, 1,5 mm"),
+};
+
+const APPAREL_COLOR = {
+  Apricot: t("Aprikos", "Aprikos", "Abrikos", "Aprikoosi"),
+  Beige: t("Beige", "Beige", "Beige", "Beige"),
+  Black: t("Svart", "Svart", "Sort", "Musta"),
+  Blue: t("Blå", "Blå", "Blå", "Sininen"),
+  Brown: t("Brun", "Brun", "Brun", "Ruskea"),
+  "Caramel Color": t("Karamell", "Karamell", "Karamel", "Karamelli"),
+  "Chinese Red": t("Klarröd", "Klarrød", "Klarrød", "Kirkkaanpunainen"),
+  Coffee: t("Kaffe", "Kaffe", "Kaffe", "Kahvi"),
+  "Dark blue": t("Mörkblå", "Mørkeblå", "Mørkeblå", "Tummansininen"),
+  "Dark Blue": t("Mörkblå", "Mørkeblå", "Mørkeblå", "Tummansininen"),
+  "Dark Gray": t("Mörkgrå", "Mørkegrå", "Mørkegrå", "Tummanharmaa"),
+  "Dark Green": t("Mörkgrön", "Mørkegrønn", "Mørkegrøn", "Tummanvihreä"),
+  Gray: t("Grå", "Grå", "Grå", "Harmaa"),
+  Green: t("Grön", "Grønn", "Grøn", "Vihreä"),
+  Grey: t("Grå", "Grå", "Grå", "Harmaa"),
+  grey: t("Grå", "Grå", "Grå", "Harmaa"),
+  Khaki: t("Khaki", "Khaki", "Khaki", "Khaki"),
+  khaki: t("Khaki", "Khaki", "Khaki", "Khaki"),
+  "Light Camel": t("Ljus kamel", "Lys kamel", "Lys kamel", "Vaalea kameli"),
+  "Light Gray": t("Ljusgrå", "Lysegrå", "Lysegrå", "Vaaleanharmaa"),
+  "Light Green": t("Ljusgrön", "Lysegrønn", "Lysegrøn", "Vaaleanvihreä"),
+  "Light pink": t("Ljusrosa", "Lyserosa", "Lyserød", "Vaaleanpunainen"),
+  "Medium Gray": t("Mellangrå", "Mellomgrå", "Mellemgrå", "Keskiharmaa"),
+  "Milky White": t("Benvit", "Benhvit", "Benhvid", "Luonnonvalkoinen"),
+  "Mocha Color": t("Mocka", "Mokka", "Mokka", "Mokka"),
+  "Navy Blue": t("Marinblå", "Marineblå", "Marineblå", "Laivastonsininen"),
+  "navy blue": t("Marinblå", "Marineblå", "Marineblå", "Laivastonsininen"),
+  Pink: t("Rosa", "Rosa", "Rosa", "Vaaleanpunainen"),
+  Red: t("Röd", "Rød", "Rød", "Punainen"),
+  "Sky Blue": t("Ljusblå", "Lyseblå", "Lyseblå", "Vaaleansininen"),
+  White: t("Vit", "Hvit", "Hvid", "Valkoinen"),
+  white: t("Vit", "Hvit", "Hvid", "Valkoinen"),
+  "Wine Red": t("Vinröd", "Vinrød", "Vinrød", "Viininpunainen"),
+  "Wine red": t("Vinröd", "Vinrød", "Vinrød", "Viininpunainen"),
+  Burgundy: t("Vinröd", "Vinrød", "Vinrød", "Viininpunainen"),
+  Offwhite: t("Benvit", "Benhvit", "Benhvid", "Luonnonvalkoinen"),
+};
+
+const APPAREL_SIZE = {
+  XS: t("XS", "XS", "XS", "XS"),
+  S: t("S", "S", "S", "S"),
+  M: t("M", "M", "M", "M"),
+  L: t("L", "L", "L", "L"),
+  XL: t("XL", "XL", "XL", "XL"),
+  "2XL": t("XXL", "XXL", "XXL", "XXL"),
+  XXL: t("XXL", "XXL", "XXL", "XXL"),
+  "3XL": t("XXXL", "XXXL", "XXXL", "XXXL"),
+  XXXL: t("XXXL", "XXXL", "XXXL", "XXXL"),
 };
 
 export const catalogCopy = [
@@ -1965,8 +2018,626 @@ export const catalogCopy = [
       },
     ],
   }),
+
+  pack({
+    handle: "thickened-hooded-thermal-slim-fit-cotton-jacket",
+    slug: "padded-hooded-jacket-slim-fit",
+    productType: "Ytterkläder",
+    title: t(
+      "Vadderad jacka med huva",
+      "Vattert jakke med hette",
+      "Vatteret jakke med hætte",
+      "Toppatakki hupulla",
+    ),
+    metaTitle: t(
+      "Vadderad jacka med huva",
+      "Vattert jakke med hette",
+      "Vatteret jakke med hætte",
+      "Toppatakki hupulla",
+    ),
+    metaDescription: t(
+      "Vadderad jacka i polyester med huva. Svart, storlek S–XXL. Asiatisk storlek — välj en upp.",
+      "Vattert jakke i polyester med hette. Svart, størrelse S–XXL. Asiatisk størrelse — velg én opp.",
+      "Vatteret jakke i polyester med hætte. Sort, størrelse S–XXL. Asiatisk størrelse — vælg én op.",
+      "Polyesterinen toppatakki hupulla. Musta, koko S–XXL. Aasialainen koko — valitse yksi isompi.",
+    ),
+    body: t(
+      "<p>En vadderad jacka i polyester med fast huva — fodrad hela vägen, utan att bygga för mycket.</p><ul><li><strong>Polyester.</strong> Både yttertyg och vaddering — inget dun i plagget.</li><li><strong>Huva.</strong> Fast huva, långa ärmar och figurnära snitt.</li><li><strong>Asiatisk storlek.</strong> Faller litet — välj en storlek upp om du är mellan två.</li></ul><p>Material: polyester. Färg: svart. Storlek S–XXL. Välj storlek ovan.</p>",
+      "<p>En vattert jakke i polyester med fast hette — fôret hele veien, uten å bygge for mye.</p><ul><li><strong>Polyester.</strong> Både ytterstoff og vattering — ingen dun i plagget.</li><li><strong>Hette.</strong> Fast hette, lange ermer og figurnært snitt.</li><li><strong>Asiatisk størrelse.</strong> Faller lite — velg én størrelse opp om du er mellom to.</li></ul><p>Materiale: polyester. Farge: svart. Størrelse S–XXL. Velg størrelse over.</p>",
+      "<p>En vatteret jakke i polyester med fast hætte — foret hele vejen, uden at bygge for meget.</p><ul><li><strong>Polyester.</strong> Både yderstof og vattering — ingen dun i tøjet.</li><li><strong>Hætte.</strong> Fast hætte, lange ærmer og figurnært snit.</li><li><strong>Asiatisk størrelse.</strong> Falder lille — vælg én størrelse op, hvis du er mellem to.</li></ul><p>Materiale: polyester. Farve: sort. Størrelse S–XXL. Vælg størrelse ovenfor.</p>",
+      "<p>Polyesterinen toppatakki kiinteällä hupulla — vuorattu kauttaaltaan ilman että se paisuttaa.</p><ul><li><strong>Polyesteri.</strong> Sekä päällinen että täyte — ei untuvaa.</li><li><strong>Huppu.</strong> Kiinteä huppu, pitkät hihat ja vartalonmyötäinen leikkaus.</li><li><strong>Aasialainen koko.</strong> Pieni koko — valitse yksi isompi, jos olet kahden välissä.</li></ul><p>Materiaali: polyesteri. Väri: musta. Koko S–XXL. Valitse koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "down-cotton-padded-jacket-womens-mid-length-hooded",
+    slug: "mid-length-padded-hooded-jacket",
+    productType: "Ytterkläder",
+    title: t(
+      "Halvlång vadderad jacka med huva",
+      "Halvlang vattert jakke med hette",
+      "Halvlang vatteret jakke med hætte",
+      "Puolipitkä toppatakki hupulla",
+    ),
+    metaTitle: t(
+      "Halvlång vadderad jacka",
+      "Halvlang vattert jakke",
+      "Halvlang vatteret jakke",
+      "Puolipitkä toppatakki",
+    ),
+    metaDescription: t(
+      "Halvlång vadderad jacka, 65–80 cm, med huva och dragkedja. Fem färger, storlek S–XL.",
+      "Halvlang vattert jakke, 65–80 cm, med hette og glidelås. Fem farger, størrelse S–XL.",
+      "Halvlang vatteret jakke, 65–80 cm, med hætte og lynlås. Fem farver, størrelse S–XL.",
+      "Puolipitkä toppatakki, 65–80 cm, hupulla ja vetoketjulla. Viisi väriä, koko S–XL.",
+    ),
+    body: t(
+      "<p>En halvlång vadderad jacka med huva — 65–80 cm lång, med dragkedja hela vägen upp.</p><ul><li><strong>Polyester och bomull.</strong> Yttertyg i polyester, vaddering i bomull — inte dun.</li><li><strong>65–80 cm.</strong> Går ner över höften, med luftigt snitt.</li><li><strong>Fem färger.</strong> Svart, brun, grå, khaki eller vit.</li></ul><p>Yttertyg: polyester. Vaddering: bomull. Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>",
+      "<p>En halvlang vattert jakke med hette — 65–80 cm lang, med glidelås hele veien opp.</p><ul><li><strong>Polyester og bomull.</strong> Ytterstoff i polyester, vattering i bomull — ikke dun.</li><li><strong>65–80 cm.</strong> Går ned over hoften, med luftig snitt.</li><li><strong>Fem farger.</strong> Svart, brun, grå, khaki eller hvit.</li></ul><p>Ytterstoff: polyester. Vattering: bomull. Asiatisk størrelse, faller lite. Velg farge og størrelse over.</p>",
+      "<p>En halvlang vatteret jakke med hætte — 65–80 cm lang, med lynlås hele vejen op.</p><ul><li><strong>Polyester og bomuld.</strong> Yderstof i polyester, vattering i bomuld — ikke dun.</li><li><strong>65–80 cm.</strong> Går ned over hoften, med luftigt snit.</li><li><strong>Fem farver.</strong> Sort, brun, grå, khaki eller hvid.</li></ul><p>Yderstof: polyester. Vattering: bomuld. Asiatisk størrelse, falder lille. Vælg farve og størrelse ovenfor.</p>",
+      "<p>Puolipitkä toppatakki hupulla — 65–80 cm pitkä, vetoketju ylös asti.</p><ul><li><strong>Polyesteri ja puuvilla.</strong> Päällinen polyesteria, täyte puuvillaa — ei untuvaa.</li><li><strong>65–80 cm.</strong> Ulottuu lantion yli, väljä leikkaus.</li><li><strong>Viisi väriä.</strong> Musta, ruskea, harmaa, khaki tai valkoinen.</li></ul><p>Päällinen: polyesteri. Täyte: puuvilla. Aasialainen koko, pieni. Valitse väri ja koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "womens-fleece-lined-mid-length-hooded-cotton-padded-jacket",
+    slug: "fleece-lined-mid-length-hooded-jacket",
+    productType: "Ytterkläder",
+    title: t(
+      "Halvlång fodrad jacka med huva",
+      "Halvlang fôret jakke med hette",
+      "Halvlang foret jakke med hætte",
+      "Puolipitkä vuorattu takki hupulla",
+    ),
+    metaTitle: t(
+      "Halvlång fodrad jacka",
+      "Halvlang fôret jakke",
+      "Halvlang foret jakke",
+      "Puolipitkä vuorattu takki",
+    ),
+    metaDescription: t(
+      "Halvlång jacka i polyester med huva och fodrad insida. Svart, grå eller marinblå, S–XXXL.",
+      "Halvlang jakke i polyester med hette og fôret innside. Svart, grå eller marineblå, S–XXXL.",
+      "Halvlang jakke i polyester med hætte og foret inderside. Sort, grå eller marineblå, S–XXXL.",
+      "Puolipitkä polyesteritakki hupulla ja vuoratulla sisäpuolella. Musta, harmaa tai laivastonsininen, S–XXXL.",
+    ),
+    body: t(
+      "<p>En halvlång jacka i polyester med huva och fodrad insida — tjock, till kalla dagar.</p><ul><li><strong>Polyester.</strong> Både yttertyg och foder — inget dun i plagget.</li><li><strong>65–80 cm.</strong> Rak modell som går ner över höften.</li><li><strong>Storlek S–XXXL.</strong> Sex storlekar att välja mellan.</li></ul><p>Material: polyester. Färg: svart, grå eller marinblå. Asiatisk storlek, faller litet. Välj ovan.</p>",
+      "<p>En halvlang jakke i polyester med hette og fôret innside — tykk, til kalde dager.</p><ul><li><strong>Polyester.</strong> Både ytterstoff og fôr — ingen dun i plagget.</li><li><strong>65–80 cm.</strong> Rett modell som går ned over hoften.</li><li><strong>Størrelse S–XXXL.</strong> Seks størrelser å velge mellom.</li></ul><p>Materiale: polyester. Farge: svart, grå eller marineblå. Asiatisk størrelse, faller lite. Velg over.</p>",
+      "<p>En halvlang jakke i polyester med hætte og foret inderside — tyk, til kolde dage.</p><ul><li><strong>Polyester.</strong> Både yderstof og for — ingen dun i tøjet.</li><li><strong>65–80 cm.</strong> Lige model, der går ned over hoften.</li><li><strong>Størrelse S–XXXL.</strong> Seks størrelser at vælge mellem.</li></ul><p>Materiale: polyester. Farve: sort, grå eller marineblå. Asiatisk størrelse, falder lille. Vælg ovenfor.</p>",
+      "<p>Puolipitkä polyesteritakki hupulla ja vuoratulla sisäpuolella — paksu, kylmiin päiviin.</p><ul><li><strong>Polyesteri.</strong> Sekä päällinen että vuori — ei untuvaa.</li><li><strong>65–80 cm.</strong> Suora malli, joka ulottuu lantion yli.</li><li><strong>Koko S–XXXL.</strong> Kuusi kokoa valittavana.</li></ul><p>Materiaali: polyesteri. Väri: musta, harmaa tai laivastonsininen. Aasialainen koko, pieni. Valitse yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "womens-imitation-otter-rabbit-fur-grass-medium-long-suit-collar-coat",
+    slug: "faux-fur-coat-suit-collar",
+    productType: "Ytterkläder",
+    title: t(
+      "Kappa i fuskpäls med kavajkrage",
+      "Kåpe i fuskepels med jakkekrage",
+      "Frakke i fauxpels med jakkekrave",
+      "Tekoturkistakki bleiserikauluksella",
+    ),
+    metaTitle: t(
+      "Kappa i fuskpäls",
+      "Kåpe i fuskepels",
+      "Frakke i fauxpels",
+      "Tekoturkistakki",
+    ),
+    metaDescription: t(
+      "Halvlång kappa i fuskpäls med kavajkrage. Åtta färger, storlek XS–XL. Ingen äkta päls.",
+      "Halvlang kåpe i fuskepels med jakkekrage. Åtte farger, størrelse XS–XL. Ingen ekte pels.",
+      "Halvlang frakke i fauxpels med jakkekrave. Otte farver, størrelse XS–XL. Ingen ægte pels.",
+      "Puolipitkä tekoturkistakki bleiserikauluksella. Kahdeksan väriä, koko XS–XL. Ei aitoa turkista.",
+    ),
+    body: t(
+      "<p>En halvlång kappa i fuskpäls med kavajkrage — mjuk yta, helt utan äkta päls.</p><ul><li><strong>Fuskpäls.</strong> Syntetiskt material, ingen djurpäls i plagget.</li><li><strong>Kavajkrage.</strong> Nedvikt krage och halvlång modell.</li><li><strong>Åtta färger.</strong> Beige, svart, blå, grön, grå, rosa, röd eller vit.</li></ul><p>Material: fuskpäls i syntet. Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>",
+      "<p>En halvlang kåpe i fuskepels med jakkekrage — myk overflate, helt uten ekte pels.</p><ul><li><strong>Fuskepels.</strong> Syntetisk materiale, ingen dyrepels i plagget.</li><li><strong>Jakkekrage.</strong> Nedbrettet krage og halvlang modell.</li><li><strong>Åtte farger.</strong> Beige, svart, blå, grønn, grå, rosa, rød eller hvit.</li></ul><p>Materiale: fuskepels i syntet. Asiatisk størrelse, faller lite. Velg farge og størrelse over.</p>",
+      "<p>En halvlang frakke i fauxpels med jakkekrave — blød overflade, helt uden ægte pels.</p><ul><li><strong>Fauxpels.</strong> Syntetisk materiale, ingen dyrepels i tøjet.</li><li><strong>Jakkekrave.</strong> Nedfældet krave og halvlang model.</li><li><strong>Otte farver.</strong> Beige, sort, blå, grøn, grå, rosa, rød eller hvid.</li></ul><p>Materiale: syntetisk fauxpels. Asiatisk størrelse, falder lille. Vælg farve og størrelse ovenfor.</p>",
+      "<p>Puolipitkä tekoturkistakki bleiserikauluksella — pehmeä pinta, ei lainkaan aitoa turkista.</p><ul><li><strong>Tekoturkis.</strong> Synteettinen materiaali, ei eläimen turkista.</li><li><strong>Bleiserikaulus.</strong> Käännetty kaulus ja puolipitkä malli.</li><li><strong>Kahdeksan väriä.</strong> Beige, musta, sininen, vihreä, harmaa, vaaleanpunainen, punainen tai valkoinen.</li></ul><p>Materiaali: synteettinen tekoturkis. Aasialainen koko, pieni. Valitse väri ja koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "womens-short-waist-cinching-slim-fit-hooded-tie-front-warm-coat",
+    slug: "short-padded-jacket-tie-waist",
+    productType: "Ytterkläder",
+    title: t(
+      "Kort vadderad jacka med knytband",
+      "Kort vattert jakke med knytebånd",
+      "Kort vatteret jakke med bindebånd",
+      "Lyhyt toppatakki nyörillä",
+    ),
+    metaTitle: t(
+      "Kort vadderad jacka",
+      "Kort vattert jakke",
+      "Kort vatteret jakke",
+      "Lyhyt toppatakki",
+    ),
+    metaDescription: t(
+      "Kort vadderad jacka med huva, fickor och knytband i midjan. Fyra färger, storlek M–XXL.",
+      "Kort vattert jakke med hette, lommer og knytebånd i midjen. Fire farger, størrelse M–XXL.",
+      "Kort vatteret jakke med hætte, lommer og bindebånd i taljen. Fire farver, størrelse M–XXL.",
+      "Lyhyt toppatakki hupulla, taskuilla ja vyötärönyörillä. Neljä väriä, koko M–XXL.",
+    ),
+    body: t(
+      "<p>En kort vadderad jacka med huva och knytband i midjan — drar ihop snittet där du vill.</p><ul><li><strong>Polyester.</strong> Yttertyg och vaddering — inget dun och ingen pälskrage.</li><li><strong>Knytband.</strong> Justerbar midja, fickor fram och huva.</li><li><strong>Kort modell.</strong> Slutar runt höften, omkring 40 cm.</li></ul><p>Material: polyester. Färg: beige, svart, kaffe eller khaki. Asiatisk storlek, faller litet. Välj ovan.</p>",
+      "<p>En kort vattert jakke med hette og knytebånd i midjen — trekker inn snittet der du vil.</p><ul><li><strong>Polyester.</strong> Ytterstoff og vattering — ingen dun og ingen pelskrage.</li><li><strong>Knytebånd.</strong> Justerbar midje, lommer foran og hette.</li><li><strong>Kort modell.</strong> Slutter rundt hoften, omkring 40 cm.</li></ul><p>Materiale: polyester. Farge: beige, svart, kaffe eller khaki. Asiatisk størrelse, faller lite. Velg over.</p>",
+      "<p>En kort vatteret jakke med hætte og bindebånd i taljen — trækker snittet ind, hvor du vil.</p><ul><li><strong>Polyester.</strong> Yderstof og vattering — ingen dun og ingen pelskrave.</li><li><strong>Bindebånd.</strong> Justerbar talje, lommer foran og hætte.</li><li><strong>Kort model.</strong> Slutter omkring hoften, cirka 40 cm.</li></ul><p>Materiale: polyester. Farve: beige, sort, kaffe eller khaki. Asiatisk størrelse, falder lille. Vælg ovenfor.</p>",
+      "<p>Lyhyt toppatakki hupulla ja vyötärönyörillä — kaventaa siluettia haluamastasi kohdasta.</p><ul><li><strong>Polyesteri.</strong> Päällinen ja täyte — ei untuvaa eikä turkiskaulusta.</li><li><strong>Nyöri.</strong> Säädettävä vyötärö, taskut edessä ja huppu.</li><li><strong>Lyhyt malli.</strong> Päättyy lantiolle, noin 40 cm.</li></ul><p>Materiaali: polyesteri. Väri: beige, musta, kahvi tai khaki. Aasialainen koko, pieni. Valitse yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "snow-and-snow-cotton-jacket-with-lightweight-quilted-hooded",
+    slug: "lightweight-quilted-hooded-jacket",
+    productType: "Ytterkläder",
+    title: t(
+      "Lätt quiltad jacka med huva",
+      "Lett quiltet jakke med hette",
+      "Let quiltet jakke med hætte",
+      "Kevyt tikattu takki hupulla",
+    ),
+    metaTitle: t(
+      "Lätt quiltad jacka",
+      "Lett quiltet jakke",
+      "Let quiltet jakke",
+      "Kevyt tikattu takki",
+    ),
+    metaDescription: t(
+      "Lätt quiltad jacka med huva. Yttertyg i polyester, vaddering i bomull. Aprikos, S–XL.",
+      "Lett quiltet jakke med hette. Ytterstoff i polyester, vattering i bomull. Aprikos, S–XL.",
+      "Let quiltet jakke med hætte. Yderstof i polyester, vattering i bomuld. Abrikos, S–XL.",
+      "Kevyt tikattu takki hupulla. Päällinen polyesteria, täyte puuvillaa. Aprikoosi, S–XL.",
+    ),
+    body: t(
+      "<p>En lätt quiltad jacka med huva — tunn att bära, med bomullsvaddering under sömmarna.</p><ul><li><strong>Polyester och bomull.</strong> Yttertyg i polyester, vaddering i bomull — inget dun.</li><li><strong>Quiltad.</strong> Sydda fack håller vadderingen på plats.</li><li><strong>Luftigt snitt.</strong> En färg, aprikos, i storlek S–XL.</li></ul><p>Yttertyg: polyester. Vaddering: bomull. Asiatisk storlek, faller litet. Välj storlek ovan.</p>",
+      "<p>En lett quiltet jakke med hette — tynn å bære, med bomullsvattering under sømmene.</p><ul><li><strong>Polyester og bomull.</strong> Ytterstoff i polyester, vattering i bomull — ingen dun.</li><li><strong>Quiltet.</strong> Sydde rom holder vatteringen på plass.</li><li><strong>Luftig snitt.</strong> Én farge, aprikos, i størrelse S–XL.</li></ul><p>Ytterstoff: polyester. Vattering: bomull. Asiatisk størrelse, faller lite. Velg størrelse over.</p>",
+      "<p>En let quiltet jakke med hætte — tynd at have på, med bomuldsvattering under sømmene.</p><ul><li><strong>Polyester og bomuld.</strong> Yderstof i polyester, vattering i bomuld — ingen dun.</li><li><strong>Quiltet.</strong> Syede rum holder vatteringen på plads.</li><li><strong>Luftigt snit.</strong> Én farve, abrikos, i størrelse S–XL.</li></ul><p>Yderstof: polyester. Vattering: bomuld. Asiatisk størrelse, falder lille. Vælg størrelse ovenfor.</p>",
+      "<p>Kevyt tikattu takki hupulla — ohut päällä, puuvillatäyte saumojen alla.</p><ul><li><strong>Polyesteri ja puuvilla.</strong> Päällinen polyesteria, täyte puuvillaa — ei untuvaa.</li><li><strong>Tikattu.</strong> Ommellut lokerot pitävät täytteen paikallaan.</li><li><strong>Väljä leikkaus.</strong> Yksi väri, aprikoosi, koossa S–XL.</li></ul><p>Päällinen: polyesteri. Täyte: puuvilla. Aasialainen koko, pieni. Valitse koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "winter-fashion-women-jacket-ladies-cloth-coat",
+    slug: "straight-coat-suit-collar",
+    productType: "Ytterkläder",
+    title: t(
+      "Rak kappa med kavajkrage",
+      "Rett kåpe med jakkekrage",
+      "Lige frakke med jakkekrave",
+      "Suora takki bleiserikauluksella",
+    ),
+    metaTitle: t(
+      "Rak kappa med kavajkrage",
+      "Rett kåpe med jakkekrage",
+      "Lige frakke med jakkekrave",
+      "Suora takki bleiserikauluksella",
+    ),
+    metaDescription: t(
+      "Rak kappa i polyester med kavajkrage, utan vaddering. Svart, khaki eller vinröd, S–XXL.",
+      "Rett kåpe i polyester med jakkekrage, uten vattering. Svart, khaki eller vinrød, S–XXL.",
+      "Lige frakke i polyester med jakkekrave, uden vattering. Sort, khaki eller vinrød, S–XXL.",
+      "Suora polyesteritakki bleiserikauluksella, ilman topattua täytettä. Musta, khaki tai viininpunainen, S–XXL.",
+    ),
+    body: t(
+      "<p>En rak kappa i polyester med kavajkrage — enkel modell, utan vaddering som bygger.</p><ul><li><strong>Polyester.</strong> Vävt yttertyg, ingen päls och inget dun.</li><li><strong>Kavajkrage.</strong> Nedvikt krage och rakt snitt hela vägen ner.</li><li><strong>Tre färger.</strong> Svart, khaki eller vinröd.</li></ul><p>Material: polyester. Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>",
+      "<p>En rett kåpe i polyester med jakkekrage — enkel modell, uten vattering som bygger.</p><ul><li><strong>Polyester.</strong> Vevd ytterstoff, ingen pels og ingen dun.</li><li><strong>Jakkekrage.</strong> Nedbrettet krage og rett snitt hele veien ned.</li><li><strong>Tre farger.</strong> Svart, khaki eller vinrød.</li></ul><p>Materiale: polyester. Asiatisk størrelse, faller lite. Velg farge og størrelse over.</p>",
+      "<p>En lige frakke i polyester med jakkekrave — enkel model, uden vattering der bygger.</p><ul><li><strong>Polyester.</strong> Vævet yderstof, ingen pels og ingen dun.</li><li><strong>Jakkekrave.</strong> Nedfældet krave og lige snit hele vejen ned.</li><li><strong>Tre farver.</strong> Sort, khaki eller vinrød.</li></ul><p>Materiale: polyester. Asiatisk størrelse, falder lille. Vælg farve og størrelse ovenfor.</p>",
+      "<p>Suora polyesteritakki bleiserikauluksella — yksinkertainen malli ilman paksua täytettä.</p><ul><li><strong>Polyesteri.</strong> Kudottu päällinen, ei turkista eikä untuvaa.</li><li><strong>Bleiserikaulus.</strong> Käännetty kaulus ja suora leikkaus alas asti.</li><li><strong>Kolme väriä.</strong> Musta, khaki tai viininpunainen.</li></ul><p>Materiaali: polyesteri. Aasialainen koko, pieni. Valitse väri ja koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "womens-high-waisted-embroidered-cat-fleece-lined-leggings",
+    slug: "fleece-lined-high-waist-leggings",
+    productType: "Byxor",
+    title: t(
+      "Fodrade leggings med hög midja",
+      "Fôrede leggings med høyt liv",
+      "Forede leggings med høj talje",
+      "Vuoratut leggingsit korkealla vyötäröllä",
+    ),
+    metaTitle: t(
+      "Fodrade leggings",
+      "Fôrede leggings",
+      "Forede leggings",
+      "Vuoratut leggingsit",
+    ),
+    metaDescription: t(
+      "Fodrade leggings i polyester med hög midja och mycket stretch. Fyra färger, S–XXL.",
+      "Fôrede leggings i polyester med høyt liv og mye stretch. Fire farger, S–XXL.",
+      "Forede leggings i polyester med høj talje og meget stretch. Fire farver, S–XXL.",
+      "Vuoratut polyesterileggingsit korkealla vyötäröllä ja runsaalla joustolla. Neljä väriä, S–XXL.",
+    ),
+    body: t(
+      "<p>Fodrade leggings i polyester med hög midja — borstad insida, med ett broderat kattmotiv.</p><ul><li><strong>Fodrade.</strong> Mjuk insida till kalla dagar.</li><li><strong>Hög midja.</strong> Tätt snitt med mycket stretch.</li><li><strong>Ankellånga.</strong> Slutar ovanför fotknölen.</li></ul><p>Material: polyester. Färg: svart, mörkgrå, marinblå eller vinröd. Asiatisk storlek, faller litet. Välj ovan.</p>",
+      "<p>Fôrede leggings i polyester med høyt liv — børstet innside, med et brodert kattemotiv.</p><ul><li><strong>Fôrede.</strong> Myk innside til kalde dager.</li><li><strong>Høyt liv.</strong> Tett snitt med mye stretch.</li><li><strong>Ankellange.</strong> Slutter over ankelen.</li></ul><p>Materiale: polyester. Farge: svart, mørkegrå, marineblå eller vinrød. Asiatisk størrelse, faller lite. Velg over.</p>",
+      "<p>Forede leggings i polyester med høj talje — børstet inderside, med et broderet kattemotiv.</p><ul><li><strong>Forede.</strong> Blød inderside til kolde dage.</li><li><strong>Høj talje.</strong> Tæt snit med meget stretch.</li><li><strong>Ankellange.</strong> Slutter over anklen.</li></ul><p>Materiale: polyester. Farve: sort, mørkegrå, marineblå eller vinrød. Asiatisk størrelse, falder lille. Vælg ovenfor.</p>",
+      "<p>Vuoratut polyesterileggingsit korkealla vyötäröllä — harjattu sisäpuoli ja kirjailtu kissakuvio.</p><ul><li><strong>Vuoratut.</strong> Pehmeä sisäpuoli kylmiin päiviin.</li><li><strong>Korkea vyötärö.</strong> Tiivis leikkaus ja runsas jousto.</li><li><strong>Nilkkapituiset.</strong> Päättyvät nilkan yläpuolelle.</li></ul><p>Materiaali: polyesteri. Väri: musta, tummanharmaa, laivastonsininen tai viininpunainen. Aasialainen koko, pieni. Valitse yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "wool-turtleneck-pullover-thickened-and-warm-casual-knit-top-for-commuting",
+    slug: "viscose-knit-pullover",
+    productType: "Stickat",
+    title: t(
+      "Stickad tröja i viskos",
+      "Strikket genser i viskose",
+      "Strikket trøje i viskose",
+      "Neulepusero viskoosista",
+    ),
+    metaTitle: t(
+      "Stickad tröja i viskos",
+      "Strikket genser i viskose",
+      "Strikket trøje i viskose",
+      "Neulepusero viskoosista",
+    ),
+    metaDescription: t(
+      "Stickad tröja i 100 % viskos, längd 50–65 cm. Brun, storlek S–XL. Ingen ull i plagget.",
+      "Strikket genser i 100 % viskose, lengde 50–65 cm. Brun, størrelse S–XL. Ingen ull i plagget.",
+      "Strikket trøje i 100 % viskose, længde 50–65 cm. Brun, størrelse S–XL. Ingen uld i tøjet.",
+      "Neulepusero 100 % viskoosia, pituus 50–65 cm. Ruskea, koko S–XL. Ei villaa.",
+    ),
+    body: t(
+      "<p>En stickad tröja i viskos — mjukt fall i en dämpad brun ton, med långa ärmar.</p><ul><li><strong>100 % viskos.</strong> Mjukt fall, ingen ull i plagget.</li><li><strong>Vanlig längd.</strong> 50–65 cm, slutar runt höften.</li><li><strong>En färg.</strong> Brun, i storlek S–XL.</li></ul><p>Material: 100 % viskos. Asiatisk storlek, faller litet. Välj storlek ovan.</p>",
+      "<p>En strikket genser i viskose — mykt fall i en dempet brun tone, med lange ermer.</p><ul><li><strong>100 % viskose.</strong> Mykt fall, ingen ull i plagget.</li><li><strong>Vanlig lengde.</strong> 50–65 cm, slutter rundt hoften.</li><li><strong>Én farge.</strong> Brun, i størrelse S–XL.</li></ul><p>Materiale: 100 % viskose. Asiatisk størrelse, faller lite. Velg størrelse over.</p>",
+      "<p>En strikket trøje i viskose — blødt fald i en dæmpet brun tone, med lange ærmer.</p><ul><li><strong>100 % viskose.</strong> Blødt fald, ingen uld i tøjet.</li><li><strong>Almindelig længde.</strong> 50–65 cm, slutter omkring hoften.</li><li><strong>Én farve.</strong> Brun, i størrelse S–XL.</li></ul><p>Materiale: 100 % viskose. Asiatisk størrelse, falder lille. Vælg størrelse ovenfor.</p>",
+      "<p>Neulepusero viskoosista — pehmeä laskeutuvuus vaimeassa ruskeassa sävyssä, pitkät hihat.</p><ul><li><strong>100 % viskoosi.</strong> Pehmeä laskeutuvuus, ei villaa.</li><li><strong>Tavallinen pituus.</strong> 50–65 cm, päättyy lantiolle.</li><li><strong>Yksi väri.</strong> Ruskea, koossa S–XL.</li></ul><p>Materiaali: 100 % viskoosi. Aasialainen koko, pieni. Valitse koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "womens-european-and-american-style-autumnwinter-new-hooded-knit-cardigan",
+    slug: "hooded-knit-cardigan",
+    productType: "Stickat",
+    title: t(
+      "Stickad kofta med huva",
+      "Strikket cardigan med hette",
+      "Strikket cardigan med hætte",
+      "Neuletakki hupulla",
+    ),
+    metaTitle: t(
+      "Stickad kofta med huva",
+      "Strikket cardigan med hette",
+      "Strikket cardigan med hætte",
+      "Neuletakki hupulla",
+    ),
+    metaDescription: t(
+      "Stickad kofta i polyester med huva och knappar fram. Fyra färger, storlek XS–XXL.",
+      "Strikket cardigan i polyester med hette og knapper foran. Fire farger, størrelse XS–XXL.",
+      "Strikket cardigan i polyester med hætte og knapper foran. Fire farver, størrelse XS–XXL.",
+      "Polyesterinen neuletakki hupulla ja napeilla edessä. Neljä väriä, koko XS–XXL.",
+    ),
+    body: t(
+      "<p>En stickad kofta med huva och knappar fram — öppnas hela vägen, i mellantjock stickning.</p><ul><li><strong>100 % polyester.</strong> Stickat tyg av mellantjock kvalitet.</li><li><strong>Huva och knappar.</strong> Knäpps fram, vanlig längd 50–65 cm.</li><li><strong>Fyra färger.</strong> Aprikos, karamell, grå eller ljusblå.</li></ul><p>Material: 100 % polyester. Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>",
+      "<p>En strikket cardigan med hette og knapper foran — åpnes hele veien, i mellomtykk strikk.</p><ul><li><strong>100 % polyester.</strong> Strikket stoff av mellomtykk kvalitet.</li><li><strong>Hette og knapper.</strong> Knappes foran, vanlig lengde 50–65 cm.</li><li><strong>Fire farger.</strong> Aprikos, karamell, grå eller lyseblå.</li></ul><p>Materiale: 100 % polyester. Asiatisk størrelse, faller lite. Velg farge og størrelse over.</p>",
+      "<p>En strikket cardigan med hætte og knapper foran — åbnes hele vejen, i mellemtyk strik.</p><ul><li><strong>100 % polyester.</strong> Strikket stof af mellemtyk kvalitet.</li><li><strong>Hætte og knapper.</strong> Knappes foran, almindelig længde 50–65 cm.</li><li><strong>Fire farver.</strong> Abrikos, karamel, grå eller lyseblå.</li></ul><p>Materiale: 100 % polyester. Asiatisk størrelse, falder lille. Vælg farve og størrelse ovenfor.</p>",
+      "<p>Neuletakki hupulla ja napeilla edessä — aukeaa kokonaan, keskipaksua neulosta.</p><ul><li><strong>100 % polyesteri.</strong> Neulottua kangasta, keskipaksu laatu.</li><li><strong>Huppu ja napit.</strong> Napitus edessä, tavallinen pituus 50–65 cm.</li><li><strong>Neljä väriä.</strong> Aprikoosi, karamelli, harmaa tai vaaleansininen.</li></ul><p>Materiaali: 100 % polyesteri. Aasialainen koko, pieni. Valitse väri ja koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "womens-hooded-fleece-lined-sweatshirt-and-leggings-set",
+    slug: "hooded-sweatshirt-leggings-set",
+    productType: "Set",
+    title: t(
+      "Set med huvtröja och byxor",
+      "Sett med hettegenser og bukse",
+      "Sæt med hættetrøje og bukser",
+      "Setti: huppari ja housut",
+    ),
+    metaTitle: t(
+      "Set med huvtröja och byxor",
+      "Sett med hettegenser og bukse",
+      "Sæt med hættetrøje og bukser",
+      "Setti: huppari ja housut",
+    ),
+    metaDescription: t(
+      "Tvådelat set i 65 % bomull och 35 % polyester — huvtröja och byxor. Femton färger, S–XL.",
+      "Todelt sett i 65 % bomull og 35 % polyester — hettegenser og bukse. Femten farger, S–XL.",
+      "Todelt sæt i 65 % bomuld og 35 % polyester — hættetrøje og bukser. Femten farver, S–XL.",
+      "Kaksiosainen setti, 65 % puuvillaa ja 35 % polyesteria — huppari ja housut. Viisitoista väriä, S–XL.",
+    ),
+    body: t(
+      "<p>Ett tvådelat set — huvtröja och byxor i samma färg, med borstad insida.</p><ul><li><strong>Två delar.</strong> Tröja och byxor ingår, båda i samma ton.</li><li><strong>65 % bomull, 35 % polyester.</strong> Mjuk insida och fickor fram.</li><li><strong>Femton färger.</strong> Storlek S–XL.</li></ul><p>Material: 65 % bomull, 35 % polyester. Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>",
+      "<p>Et todelt sett — hettegenser og bukse i samme farge, med børstet innside.</p><ul><li><strong>To deler.</strong> Genser og bukse følger med, begge i samme tone.</li><li><strong>65 % bomull, 35 % polyester.</strong> Myk innside og lommer foran.</li><li><strong>Femten farger.</strong> Størrelse S–XL.</li></ul><p>Materiale: 65 % bomull, 35 % polyester. Asiatisk størrelse, faller lite. Velg farge og størrelse over.</p>",
+      "<p>Et todelt sæt — hættetrøje og bukser i samme farve, med børstet inderside.</p><ul><li><strong>To dele.</strong> Trøje og bukser følger med, begge i samme tone.</li><li><strong>65 % bomuld, 35 % polyester.</strong> Blød inderside og lommer foran.</li><li><strong>Femten farver.</strong> Størrelse S–XL.</li></ul><p>Materiale: 65 % bomuld, 35 % polyester. Asiatisk størrelse, falder lille. Vælg farve og størrelse ovenfor.</p>",
+      "<p>Kaksiosainen setti — huppari ja housut samassa värissä, harjatulla sisäpuolella.</p><ul><li><strong>Kaksi osaa.</strong> Paita ja housut kuuluvat settiin, molemmat samassa sävyssä.</li><li><strong>65 % puuvillaa, 35 % polyesteria.</strong> Pehmeä sisäpuoli ja taskut edessä.</li><li><strong>Viisitoista väriä.</strong> Koko S–XL.</li></ul><p>Materiaali: 65 % puuvillaa, 35 % polyesteria. Aasialainen koko, pieni. Valitse väri ja koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "french-style-sweet-and-fresh-off-shoulder-v-neck-cable-knit-knit-dress",
+    slug: "cable-knit-off-shoulder-dress",
+    productType: "Klänningar",
+    title: t(
+      "Stickad klänning med off shoulder",
+      "Strikket kjole med off shoulder",
+      "Strikket kjole med off shoulder",
+      "Neulemekko, avoimet olkapäät",
+    ),
+    metaTitle: t(
+      "Stickad klänning, off shoulder",
+      "Strikket kjole, off shoulder",
+      "Strikket kjole, off shoulder",
+      "Neulemekko, avoimet olkapäät",
+    ),
+    metaDescription: t(
+      "Kort stickad klänning med kabelmönster, v-ringning och off shoulder. Beige eller rosa, S–L.",
+      "Kort strikket kjole med kabelmønster, v-hals og off shoulder. Beige eller rosa, S–L.",
+      "Kort strikket kjole med kabelmønster, v-hals og off shoulder. Beige eller rosa, S–L.",
+      "Lyhyt palmikkoneulemekko, v-pääntie ja avoimet olkapäät. Beige tai vaaleanpunainen, S–L.",
+    ),
+    body: t(
+      "<p>En kort stickad klänning med kabelmönster — v-ringad fram, med axlarna bara.</p><ul><li><strong>Kabelstickat.</strong> Mönstrad stickning över hela plagget.</li><li><strong>Off shoulder.</strong> V-ringning fram och tätt snitt.</li><li><strong>Kort modell.</strong> Beige eller rosa, i storlek S–L.</li></ul><p>Stickat tyg. Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>",
+      "<p>En kort strikket kjole med kabelmønster — v-hals foran, med bare skuldre.</p><ul><li><strong>Kabelstrikk.</strong> Mønstret strikk over hele plagget.</li><li><strong>Off shoulder.</strong> V-hals foran og tett snitt.</li><li><strong>Kort modell.</strong> Beige eller rosa, i størrelse S–L.</li></ul><p>Strikket stoff. Asiatisk størrelse, faller lite. Velg farge og størrelse over.</p>",
+      "<p>En kort strikket kjole med kabelmønster — v-hals foran, med bare skuldre.</p><ul><li><strong>Kabelstrik.</strong> Mønstret strik over hele tøjet.</li><li><strong>Off shoulder.</strong> V-hals foran og tæt snit.</li><li><strong>Kort model.</strong> Beige eller rosa, i størrelse S–L.</li></ul><p>Strikket stof. Asiatisk størrelse, falder lille. Vælg farve og størrelse ovenfor.</p>",
+      "<p>Lyhyt palmikkoneulemekko — v-pääntie edessä ja olkapäät paljaina.</p><ul><li><strong>Palmikkoneule.</strong> Kuvioitua neulosta koko mekossa.</li><li><strong>Avoimet olkapäät.</strong> V-pääntie edessä ja tiivis leikkaus.</li><li><strong>Lyhyt malli.</strong> Beige tai vaaleanpunainen, koossa S–L.</li></ul><p>Neulottua kangasta. Aasialainen koko, pieni. Valitse väri ja koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  // The six below shipped from the supplier with image-only descriptions. Shape,
+  // colour and size are taken from the product record; fibre content is left out
+  // until the supplier confirms it rather than guessed at.
+  pack({
+    handle: "chic-street-style-autumn-and-winter-long-sleeved-lapel-double-breasted-wool-coat-jacket",
+    slug: "double-breasted-lapel-coat",
+    productType: "Ytterkläder",
+    title: t(
+      "Dubbelknäppt kappa med slag",
+      "Dobbeltspent kåpe med slag",
+      "Dobbeltradet frakke med revers",
+      "Kaksirivinen takki käänteillä",
+    ),
+    metaTitle: t(
+      "Dubbelknäppt kappa",
+      "Dobbeltspent kåpe",
+      "Dobbeltradet frakke",
+      "Kaksirivinen takki",
+    ),
+    metaDescription: t(
+      "Dubbelknäppt kappa med slag och långa ärmar. Svart, khaki eller benvit, storlek S–XXXL.",
+      "Dobbeltspent kåpe med slag og lange ermer. Svart, khaki eller benhvit, størrelse S–XXXL.",
+      "Dobbeltradet frakke med revers og lange ærmer. Sort, khaki eller benhvid, størrelse S–XXXL.",
+      "Kaksirivinen takki käänteillä ja pitkillä hihoilla. Musta, khaki tai luonnonvalkoinen, koko S–XXXL.",
+    ),
+    body: t(
+      "<p>En dubbelknäppt kappa med nedvikta slag — rak modell med långa ärmar.</p><ul><li><strong>Dubbelknäppt.</strong> Två knapprader fram och nedvikt slag.</li><li><strong>Tre färger.</strong> Svart, khaki eller benvit.</li><li><strong>Storlek S–XXXL.</strong> Asiatiska storlekar — välj gärna en upp.</li></ul><p>Fiberinnehåll inväntas från leverantören — mejla oss om du behöver det före köp. Välj färg och storlek ovan.</p>",
+      "<p>En dobbeltspent kåpe med nedbrettede slag — rett modell med lange ermer.</p><ul><li><strong>Dobbeltspent.</strong> To knapperader foran og nedbrettet slag.</li><li><strong>Tre farger.</strong> Svart, khaki eller benhvit.</li><li><strong>Størrelse S–XXXL.</strong> Asiatiske størrelser — velg gjerne én opp.</li></ul><p>Fiberinnhold avventes fra leverandøren — send oss en e-post om du trenger det før kjøp. Velg farge og størrelse over.</p>",
+      "<p>En dobbeltradet frakke med nedfældet revers — lige model med lange ærmer.</p><ul><li><strong>Dobbeltradet.</strong> To knaprækker foran og nedfældet revers.</li><li><strong>Tre farver.</strong> Sort, khaki eller benhvid.</li><li><strong>Størrelse S–XXXL.</strong> Asiatiske størrelser — vælg gerne én op.</li></ul><p>Fiberindhold afventes fra leverandøren — skriv til os, hvis du skal bruge det før køb. Vælg farve og størrelse ovenfor.</p>",
+      "<p>Kaksirivinen takki käännetyillä käänteillä — suora malli ja pitkät hihat.</p><ul><li><strong>Kaksirivinen.</strong> Kaksi nappiriviä edessä ja käännetyt käänteet.</li><li><strong>Kolme väriä.</strong> Musta, khaki tai luonnonvalkoinen.</li><li><strong>Koko S–XXXL.</strong> Aasialaiset koot — valitse mieluummin yksi isompi.</li></ul><p>Kuitusisältö odottaa vahvistusta toimittajalta — ota yhteyttä, jos tarvitset sen ennen ostoa. Valitse väri ja koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "real-shot-of-european-and-american-cross-border-amazon-new-womens-t-shirt-square-collar-pullover-slim-knitted-long-sleeved-bottoming-shirt",
+    slug: "square-neck-knit-top",
+    productType: "Toppar",
+    title: t(
+      "Stickad topp med fyrkantig ringning",
+      "Strikket topp med firkantet hals",
+      "Strikket top med firkantet hals",
+      "Neuletoppi neliöpääntiellä",
+    ),
+    metaTitle: t(
+      "Stickad topp, fyrkantig ringning",
+      "Strikket topp, firkantet hals",
+      "Strikket top, firkantet hals",
+      "Neuletoppi, neliöpääntie",
+    ),
+    metaDescription: t(
+      "Tätsittande stickad topp med fyrkantig ringning och långa ärmar. Tre färger, S–XXL.",
+      "Tettsittende strikket topp med firkantet hals og lange ermer. Tre farger, S–XXL.",
+      "Tætsiddende strikket top med firkantet hals og lange ærmer. Tre farver, S–XXL.",
+      "Vartalonmyötäinen neuletoppi neliöpääntiellä ja pitkillä hihoilla. Kolme väriä, S–XXL.",
+    ),
+    body: t(
+      "<p>En tätsittande stickad topp med fyrkantig ringning — långa ärmar, tunn nog att ha under.</p><ul><li><strong>Fyrkantig ringning.</strong> Rak urringning fram.</li><li><strong>Tre färger.</strong> Aprikos, brun eller vinröd.</li><li><strong>Storlek S–XXL.</strong> Asiatiska storlekar — välj gärna en upp.</li></ul><p>Fiberinnehåll inväntas från leverantören — mejla oss om du behöver det före köp. Välj färg och storlek ovan.</p>",
+      "<p>En tettsittende strikket topp med firkantet hals — lange ermer, tynn nok til å ha under.</p><ul><li><strong>Firkantet hals.</strong> Rett utringning foran.</li><li><strong>Tre farger.</strong> Aprikos, brun eller vinrød.</li><li><strong>Størrelse S–XXL.</strong> Asiatiske størrelser — velg gjerne én opp.</li></ul><p>Fiberinnhold avventes fra leverandøren — send oss en e-post om du trenger det før kjøp. Velg farge og størrelse over.</p>",
+      "<p>En tætsiddende strikket top med firkantet hals — lange ærmer, tynd nok til at have under.</p><ul><li><strong>Firkantet hals.</strong> Lige udskæring foran.</li><li><strong>Tre farver.</strong> Abrikos, brun eller vinrød.</li><li><strong>Størrelse S–XXL.</strong> Asiatiske størrelser — vælg gerne én op.</li></ul><p>Fiberindhold afventes fra leverandøren — skriv til os, hvis du skal bruge det før køb. Vælg farve og størrelse ovenfor.</p>",
+      "<p>Vartalonmyötäinen neuletoppi neliöpääntiellä — pitkät hihat, ohut myös alla pidettäväksi.</p><ul><li><strong>Neliöpääntie.</strong> Suora kaula-aukko edessä.</li><li><strong>Kolme väriä.</strong> Aprikoosi, ruskea tai viininpunainen.</li><li><strong>Koko S–XXL.</strong> Aasialaiset koot — valitse mieluummin yksi isompi.</li></ul><p>Kuitusisältö odottaa vahvistusta toimittajalta — ota yhteyttä, jos tarvitset sen ennen ostoa. Valitse väri ja koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "amazon-cross-border-european-and-american-new-fashion-lace-square-collar-long-sleeved-slim-versatile-womens-tops-foreign-trade-wholesale",
+    slug: "lace-square-neck-top",
+    productType: "Toppar",
+    title: t(
+      "Långärmad topp med spets",
+      "Langermet topp med blonde",
+      "Langærmet top med blonder",
+      "Pitkähihainen pitsitoppi",
+    ),
+    metaTitle: t(
+      "Långärmad topp med spets",
+      "Langermet topp med blonde",
+      "Langærmet top med blonder",
+      "Pitkähihainen pitsitoppi",
+    ),
+    metaDescription: t(
+      "Tätsittande topp med spets och fyrkantig ringning. Sex färger, storlek XS–XL.",
+      "Tettsittende topp med blonde og firkantet hals. Seks farger, størrelse XS–XL.",
+      "Tætsiddende top med blonder og firkantet hals. Seks farver, størrelse XS–XL.",
+      "Vartalonmyötäinen pitsitoppi neliöpääntiellä. Kuusi väriä, koko XS–XL.",
+    ),
+    body: t(
+      "<p>En tätsittande topp med spets och fyrkantig ringning — långa ärmar, till vardag eller fest.</p><ul><li><strong>Spets.</strong> Spetsdetalj upptill och rak urringning.</li><li><strong>Sex färger.</strong> Svart, brun, mörkblå, ljusrosa, vit eller vinröd.</li><li><strong>Storlek XS–XL.</strong> Asiatiska storlekar — välj gärna en upp.</li></ul><p>Fiberinnehåll inväntas från leverantören — mejla oss om du behöver det före köp. Välj färg och storlek ovan.</p>",
+      "<p>En tettsittende topp med blonde og firkantet hals — lange ermer, til hverdag eller fest.</p><ul><li><strong>Blonde.</strong> Blondedetalj øverst og rett utringning.</li><li><strong>Seks farger.</strong> Svart, brun, mørkeblå, lyserosa, hvit eller vinrød.</li><li><strong>Størrelse XS–XL.</strong> Asiatiske størrelser — velg gjerne én opp.</li></ul><p>Fiberinnhold avventes fra leverandøren — send oss en e-post om du trenger det før kjøp. Velg farge og størrelse over.</p>",
+      "<p>En tætsiddende top med blonder og firkantet hals — lange ærmer, til hverdag eller fest.</p><ul><li><strong>Blonder.</strong> Blondedetalje øverst og lige udskæring.</li><li><strong>Seks farver.</strong> Sort, brun, mørkeblå, lyserød, hvid eller vinrød.</li><li><strong>Størrelse XS–XL.</strong> Asiatiske størrelser — vælg gerne én op.</li></ul><p>Fiberindhold afventes fra leverandøren — skriv til os, hvis du skal bruge det før køb. Vælg farve og størrelse ovenfor.</p>",
+      "<p>Vartalonmyötäinen pitsitoppi neliöpääntiellä — pitkät hihat, arkeen tai juhlaan.</p><ul><li><strong>Pitsi.</strong> Pitsiyksityiskohta yläosassa ja suora kaula-aukko.</li><li><strong>Kuusi väriä.</strong> Musta, ruskea, tummansininen, vaaleanpunainen, valkoinen tai viininpunainen.</li><li><strong>Koko XS–XL.</strong> Aasialaiset koot — valitse mieluummin yksi isompi.</li></ul><p>Kuitusisältö odottaa vahvistusta toimittajalta — ota yhteyttä, jos tarvitset sen ennen ostoa. Valitse väri ja koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "lazy-style-loose-off-shoulder-design-knitted-top-womens-autumn-and-winter-new-high-waist-slim-one-line-collar-sweater",
+    slug: "boat-neck-knit-sweater",
+    productType: "Stickat",
+    title: t(
+      "Stickad tröja med båtringning",
+      "Strikket genser med båthals",
+      "Strikket trøje med bådudskæring",
+      "Neulepusero veneenkaula-aukolla",
+    ),
+    metaTitle: t(
+      "Stickad tröja med båtringning",
+      "Strikket genser med båthals",
+      "Strikket trøje med bådudskæring",
+      "Neulepusero veneenkaula-aukolla",
+    ),
+    metaDescription: t(
+      "Löst sittande stickad tröja med båtringning och bara axlar. Fem färger, storlek S–XL.",
+      "Løstsittende strikket genser med båthals og bare skuldre. Fem farger, størrelse S–XL.",
+      "Løstsiddende strikket trøje med bådudskæring og bare skuldre. Fem farver, størrelse S–XL.",
+      "Väljä neulepusero veneenkaula-aukolla ja paljailla olkapäillä. Viisi väriä, koko S–XL.",
+    ),
+    body: t(
+      "<p>En löst sittande stickad tröja med båtringning — ligger av på axlarna, kortare i modellen.</p><ul><li><strong>Båtringning.</strong> Bred urringning som faller ut över axeln.</li><li><strong>Fem färger.</strong> Svart, brun, grå, vit eller vinröd.</li><li><strong>Storlek S–XL.</strong> Asiatiska storlekar — välj gärna en upp.</li></ul><p>Fiberinnehåll inväntas från leverantören — mejla oss om du behöver det före köp. Välj färg och storlek ovan.</p>",
+      "<p>En løstsittende strikket genser med båthals — ligger av på skuldrene, kortere i modellen.</p><ul><li><strong>Båthals.</strong> Bred utringning som faller ut over skulderen.</li><li><strong>Fem farger.</strong> Svart, brun, grå, hvit eller vinrød.</li><li><strong>Størrelse S–XL.</strong> Asiatiske størrelser — velg gjerne én opp.</li></ul><p>Fiberinnhold avventes fra leverandøren — send oss en e-post om du trenger det før kjøp. Velg farge og størrelse over.</p>",
+      "<p>En løstsiddende strikket trøje med bådudskæring — falder af på skuldrene, kortere i modellen.</p><ul><li><strong>Bådudskæring.</strong> Bred udskæring, der falder ud over skulderen.</li><li><strong>Fem farver.</strong> Sort, brun, grå, hvid eller vinrød.</li><li><strong>Størrelse S–XL.</strong> Asiatiske størrelser — vælg gerne én op.</li></ul><p>Fiberindhold afventes fra leverandøren — skriv til os, hvis du skal bruge det før køb. Vælg farve og størrelse ovenfor.</p>",
+      "<p>Väljä neulepusero veneenkaula-aukolla — laskeutuu olkapäiltä, lyhyempi malli.</p><ul><li><strong>Veneenkaula-aukko.</strong> Leveä pääntie, joka laskeutuu olan yli.</li><li><strong>Viisi väriä.</strong> Musta, ruskea, harmaa, valkoinen tai viininpunainen.</li><li><strong>Koko S–XL.</strong> Aasialaiset koot — valitse mieluummin yksi isompi.</li></ul><p>Kuitusisältö odottaa vahvistusta toimittajalta — ota yhteyttä, jos tarvitset sen ennen ostoa. Valitse väri ja koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "womens-solid-color-tassel-thick-warm-split-large-shawl-minimalist-all-match-elegant-outerwear",
+    slug: "fringed-shawl-solid",
+    productType: "Accessoarer",
+    title: t(
+      "Stor sjal med fransar",
+      "Stort sjal med frynser",
+      "Stort sjal med frynser",
+      "Suuri hapsuhuivi",
+    ),
+    metaTitle: t(
+      "Stor sjal med fransar",
+      "Stort sjal med frynser",
+      "Stort sjal med frynser",
+      "Suuri hapsuhuivi",
+    ),
+    metaDescription: t(
+      "Stor enfärgad sjal med fransad kant. Svart, vinröd, kaffe, grå, khaki eller marinblå.",
+      "Stort ensfarget sjal med frynsekant. Svart, vinrød, kaffe, grå, khaki eller marineblå.",
+      "Stort ensfarvet sjal med frynsekant. Sort, vinrød, kaffe, grå, khaki eller marineblå.",
+      "Suuri yksivärinen hapsuhuivi. Musta, viininpunainen, kahvi, harmaa, khaki tai laivastonsininen.",
+    ),
+    body: t(
+      "<p>En stor enfärgad sjal med fransar — läggs över axlarna som ett extra lager inne eller ute.</p><ul><li><strong>Fransar.</strong> Fransad kant runt om.</li><li><strong>Enfärgad.</strong> Ingen mönstring, samma ton rakt igenom.</li><li><strong>Sex färger.</strong> Svart, vinröd, kaffe, grå, khaki eller marinblå.</li></ul><p>Fiberinnehåll inväntas från leverantören — mejla oss om du behöver det före köp. Välj färg ovan.</p>",
+      "<p>Et stort ensfarget sjal med frynser — legges over skuldrene som et ekstra lag inne eller ute.</p><ul><li><strong>Frynser.</strong> Frynsekant hele veien rundt.</li><li><strong>Ensfarget.</strong> Ingen mønstring, samme tone tvers igjennom.</li><li><strong>Seks farger.</strong> Svart, vinrød, kaffe, grå, khaki eller marineblå.</li></ul><p>Fiberinnhold avventes fra leverandøren — send oss en e-post om du trenger det før kjøp. Velg farge over.</p>",
+      "<p>Et stort ensfarvet sjal med frynser — lægges over skuldrene som et ekstra lag inde eller ude.</p><ul><li><strong>Frynser.</strong> Frynsekant hele vejen rundt.</li><li><strong>Ensfarvet.</strong> Ingen mønstring, samme tone hele vejen igennem.</li><li><strong>Seks farver.</strong> Sort, vinrød, kaffe, grå, khaki eller marineblå.</li></ul><p>Fiberindhold afventes fra leverandøren — skriv til os, hvis du skal bruge det før køb. Vælg farve ovenfor.</p>",
+      "<p>Suuri yksivärinen hapsuhuivi — asetetaan hartioille lisäkerrokseksi sisällä tai ulkona.</p><ul><li><strong>Hapsut.</strong> Hapsureuna koko matkalla.</li><li><strong>Yksivärinen.</strong> Ei kuviointia, sama sävy läpi.</li><li><strong>Kuusi väriä.</strong> Musta, viininpunainen, kahvi, harmaa, khaki tai laivastonsininen.</li></ul><p>Kuitusisältö odottaa vahvistusta toimittajalta — ota yhteyttä, jos tarvitset sen ennen ostoa. Valitse väri yllä.</p>",
+    ),
+    options: [{ sourceName: "Color", name: COLOR, values: APPAREL_COLOR }],
+  }),
+
+  pack({
+    handle: "womens-high-end-minimalist-double-sided-thick-printed-warm-shawl-scarf-indoor-outdoor-windproof-cape-for-autumn-winter",
+    slug: "double-sided-printed-shawl",
+    productType: "Accessoarer",
+    title: t(
+      "Dubbelsidig sjal med mönster",
+      "Dobbeltsidig sjal med mønster",
+      "Dobbeltsidet sjal med mønster",
+      "Kaksipuolinen kuviollinen huivi",
+    ),
+    metaTitle: t(
+      "Dubbelsidig sjal med mönster",
+      "Dobbeltsidig sjal med mønster",
+      "Dobbeltsidet sjal med mønster",
+      "Kaksipuolinen kuviollinen huivi",
+    ),
+    metaDescription: t(
+      "Tjock dubbelsidig sjal med tryckt mönster, olika på varje sida. Svart eller vit.",
+      "Tykt dobbeltsidig sjal med trykt mønster, ulikt på hver side. Svart eller hvit.",
+      "Tykt dobbeltsidet sjal med trykt mønster, forskelligt på hver side. Sort eller hvid.",
+      "Paksu kaksipuolinen huivi painetulla kuviolla, eri puolilla erilainen. Musta tai valkoinen.",
+    ),
+    body: t(
+      "<p>En tjock dubbelsidig sjal med tryckt mönster — olika sida ut beroende på hur du viker den.</p><ul><li><strong>Dubbelsidig.</strong> Två mönstersidor, vänd den som du vill.</li><li><strong>Tjock kvalitet.</strong> Stor nog att svepa om axlarna.</li><li><strong>Två färger.</strong> Svart eller vit.</li></ul><p>Fiberinnehåll inväntas från leverantören — mejla oss om du behöver det före köp. Välj färg ovan.</p>",
+      "<p>Et tykt dobbeltsidig sjal med trykt mønster — ulik side ut alt etter hvordan du bretter det.</p><ul><li><strong>Dobbeltsidig.</strong> To mønstersider, vend det som du vil.</li><li><strong>Tykk kvalitet.</strong> Stort nok til å svøpe rundt skuldrene.</li><li><strong>To farger.</strong> Svart eller hvit.</li></ul><p>Fiberinnhold avventes fra leverandøren — send oss en e-post om du trenger det før kjøp. Velg farge over.</p>",
+      "<p>Et tykt dobbeltsidet sjal med trykt mønster — forskellig side ud alt efter, hvordan du folder det.</p><ul><li><strong>Dobbeltsidet.</strong> To mønstersider, vend det som du vil.</li><li><strong>Tyk kvalitet.</strong> Stort nok til at svøbe om skuldrene.</li><li><strong>To farver.</strong> Sort eller hvid.</li></ul><p>Fiberindhold afventes fra leverandøren — skriv til os, hvis du skal bruge det før køb. Vælg farve ovenfor.</p>",
+      "<p>Paksu kaksipuolinen huivi painetulla kuviolla — eri puoli näkyviin sen mukaan, miten taittelet sen.</p><ul><li><strong>Kaksipuolinen.</strong> Kaksi kuviopuolta, käännä kumpi haluat.</li><li><strong>Paksu laatu.</strong> Riittävän suuri hartioiden ympärille.</li><li><strong>Kaksi väriä.</strong> Musta tai valkoinen.</li></ul><p>Kuitusisältö odottaa vahvistusta toimittajalta — ota yhteyttä, jos tarvitset sen ennen ostoa. Valitse väri yllä.</p>",
+    ),
+    options: [{ sourceName: "Color", name: COLOR, values: APPAREL_COLOR }],
+  }),
 ];
 
+// Products that get a new slug stay reachable under the supplier handle too, so
+// re-running the push after a rename still finds its copy.
 export const catalogCopyByHandle = new Map(
-  catalogCopy.map((product) => [product.handle, product]),
+  catalogCopy.flatMap((product) =>
+    product.slug && product.slug !== product.handle
+      ? [
+          [product.handle, product],
+          [product.slug, product],
+        ]
+      : [[product.handle, product]],
+  ),
 );
