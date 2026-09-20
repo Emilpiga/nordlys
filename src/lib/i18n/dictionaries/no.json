@@ -131,6 +131,8 @@
     "closeQuickView": "Lukk hurtigvisning",
     "close": "Lukk",
     "expandImage": "Vis større bilde",
+    "zoomIn": "Zoom inn",
+    "zoomOut": "Zoom ut",
     "previousImage": "Forrige bilde",
     "nextImage": "Neste bilde",
     "imageOf": "Bilde {current} av {total}",

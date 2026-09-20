@@ -1,9 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useId, useRef, type TouchEvent } from "react";
+import { useEffect, useId, useRef, useState, type TouchEvent } from "react";
 import { createPortal } from "react-dom";
 import { useDictionary } from "@/components/dictionary-provider";
+import {
+  LightboxZoomImage,
+  type LightboxZoomHandle,
+  type LightboxZoomState,
+} from "@/components/lightbox-zoom-image";
 import type { ProductImage } from "@/lib/shopify/types";
 
 type ProductLightboxProps = {
@@ -14,6 +19,32 @@ type ProductLightboxProps = {
   onIndexChange: (index: number) => void;
   onClose: () => void;
 };
+
+function ZoomMark({ kind }: { kind: "in" | "out" }) {
+  return (
+    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle
+        cx="10.5"
+        cy="10.5"
+        r="5.25"
+        stroke="currentColor"
+        strokeWidth="1.35"
+      />
+      <path
+        d="M14.4 14.4 19 19"
+        stroke="currentColor"
+        strokeWidth="1.35"
+        strokeLinecap="round"
+      />
+      <path
+        d={kind === "in" ? "M10.5 8.2v4.6M8.2 10.5h4.6" : "M8.2 10.5h4.6"}
+        stroke="currentColor"
+        strokeWidth="1.35"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
 function Chevron({ direction }: { direction: "prev" | "next" }) {
   return (
@@ -49,19 +80,39 @@ export function ProductLightbox({
   const { dict, t } = useDictionary();
   const titleId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
+  const zoomRef = useRef<LightboxZoomHandle>(null);
   const indexRef = useRef(index);
   const touchStartX = useRef<number | null>(null);
   const image = images[index];
   const hasMany = images.length > 1;
+  const zoomImageKey = `${index}:${image?.url ?? ""}`;
+  const [zoomState, setZoomState] = useState<LightboxZoomState>("min");
+  const [trackedZoomImage, setTrackedZoomImage] = useState(zoomImageKey);
 
-  indexRef.current = index;
+  if (trackedZoomImage !== zoomImageKey) {
+    setTrackedZoomImage(zoomImageKey);
+    setZoomState("min");
+  }
 
   useEffect(() => {
     if (!open) return;
 
+    indexRef.current = index;
+
     const onKey = (event: KeyboardEvent) => {
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
       if (event.key === "Escape") {
         onClose();
+        return;
+      }
+      if (event.key === "+" || event.key === "=") {
+        event.preventDefault();
+        zoomRef.current?.zoomIn();
+        return;
+      }
+      if (event.key === "-" || event.key === "_") {
+        event.preventDefault();
+        zoomRef.current?.zoomOut();
         return;
       }
       if (images.length < 2) return;
@@ -86,7 +137,7 @@ export function ProductLightbox({
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", onKey);
     };
-  }, [open, images.length, onClose, onIndexChange]);
+  }, [open, images.length, onClose, onIndexChange, index]);
 
   if (!open || !image) return null;
 
@@ -125,21 +176,41 @@ export function ProductLightbox({
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
-        <div className="flex shrink-0 items-center justify-between px-5 py-4 sm:px-8">
+        <div className="grid shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-3 px-5 py-4 sm:px-8">
           <p
             id={titleId}
-            className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-white/70"
+            className="min-w-0 truncate text-[0.68rem] font-medium tracking-[0.16em] uppercase text-white/70"
           >
             {t(dict.products.imageOf, {
               current: index + 1,
               total: images.length,
             })}
           </p>
+          <div className="flex items-center gap-0.5">
+            <button
+              type="button"
+              onClick={() => zoomRef.current?.zoomOut()}
+              disabled={zoomState === "min"}
+              aria-label={dict.products.zoomOut}
+              className="flex h-10 w-10 items-center justify-center text-white/75 transition hover:text-white disabled:pointer-events-none disabled:opacity-30"
+            >
+              <ZoomMark kind="out" />
+            </button>
+            <button
+              type="button"
+              onClick={() => zoomRef.current?.zoomIn()}
+              disabled={zoomState === "max"}
+              aria-label={dict.products.zoomIn}
+              className="flex h-10 w-10 items-center justify-center text-white/75 transition hover:text-white disabled:pointer-events-none disabled:opacity-30"
+            >
+              <ZoomMark kind="in" />
+            </button>
+          </div>
           <button
             ref={closeRef}
             type="button"
             onClick={onClose}
-            className="text-[0.68rem] font-medium tracking-[0.14em] uppercase text-white/75 transition hover:text-white"
+            className="justify-self-end text-[0.68rem] font-medium tracking-[0.14em] uppercase text-white/75 transition hover:text-white"
           >
             {dict.products.close}
           </button>
@@ -164,18 +235,15 @@ export function ProductLightbox({
           ) : null}
 
           <div
-            className="relative h-full w-full max-w-5xl"
+            className="relative h-full w-full"
             onClick={(event) => event.stopPropagation()}
           >
-            <Image
-              key={image.url}
-              src={image.url}
-              alt={image.altText || productTitle}
-              fill
-              priority
-              quality={90}
-              className="animate-image-in object-contain"
-              sizes="100vw"
+            <LightboxZoomImage
+              key={`${image.url}-${index}`}
+              ref={zoomRef}
+              image={image}
+              productTitle={productTitle}
+              onZoomStateChange={setZoomState}
             />
           </div>
 

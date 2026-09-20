@@ -131,6 +131,8 @@
     "closeQuickView": "Stäng snabbvy",
     "close": "Stäng",
     "expandImage": "Visa större bild",
+    "zoomIn": "Zooma in",
+    "zoomOut": "Zooma ut",
     "previousImage": "Föregående bild",
     "nextImage": "Nästa bild",
     "imageOf": "Bild {current} av {total}",

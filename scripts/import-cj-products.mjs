@@ -11,11 +11,11 @@
  * inventoryActivate(available) from CJ warehouse totals (shop syncInventoryRate),
  * disconnect merchant locations, then create the CJ product connection.
  *
- * Manual step after every import (needs shipping scopes this app lacks):
- * add the new products to the shipping profile that ships from `cjdropshipping`
- * to Sverige. Products left in the General profile have no way to reach the
- * Swedish market, so the storefront reports every variant as sold out even
- * though CJ stock is seeded. Verify with:
+ * Required after every import: move the new products into the `Scandinavia`
+ * shipping profile. Shopify files new products under the General profile,
+ * which only ships from `Pölen 1` — CJ stock is then unreachable for the
+ * Swedish market and the storefront reports every variant as sold out.
+ *   node scripts/fix-cj-shipping-profile.mjs
  *   node scripts/check-market-availability.mjs
  *
  * Usage:
@@ -882,9 +882,9 @@ async function main() {
     .filter((handle, index, all) => all.indexOf(handle) === index);
   if (handles.length && !args.dryRun && !args.publishOnly) {
     console.log(
-      "\nNext: Shopify Admin → Settings → Shipping and delivery → the profile" +
-        "\nthat ships from `cjdropshipping` to Sverige → Add products, then:" +
-        "\n  node scripts/check-market-availability.mjs" +
+      "\nNext:" +
+        "\n  npm run fix:shipping        # else every variant reads as sold out" +
+        "\n  npm run check:availability" +
         `\n  npm run translate:products -- --only=${handles.join(",")}`,
     );
   }

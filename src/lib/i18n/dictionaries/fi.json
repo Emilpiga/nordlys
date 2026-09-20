@@ -131,6 +131,8 @@
     "closeQuickView": "Sulje pikakatselu",
     "close": "Sulje",
     "expandImage": "Näytä suurempi kuva",
+    "zoomIn": "Lähennä",
+    "zoomOut": "Loitonna",
     "previousImage": "Edellinen kuva",
     "nextImage": "Seuraava kuva",
     "imageOf": "Kuva {current}/{total}",

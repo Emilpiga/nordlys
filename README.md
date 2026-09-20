@@ -28,16 +28,16 @@ CJ is configured in Shopify Admin. This repo does not call CJ directly.
 
 ### Products that look stocked but are sold out
 
-The storefront queries `@inContext(country: SE)`, so Shopify only counts inventory it can ship to the Swedish market. Stock at the `cjdropshipping` fulfillment location is unreachable from Shopify's General shipping profile, and Shopify expresses that as `availableForSale: false` on every variant: the picker strikes through every option and the cart rejects the line with `MERCHANDISE_OUT_OF_STOCK`, while Admin still shows thousands of units.
+The storefront queries `@inContext(country: SE)`, so Shopify only counts inventory it can ship to the Swedish market. CJ stock lives at the `cjdropshipping` fulfillment location, and the **General profile** only ships from `Pölen 1` — so products filed there are unreachable and Shopify answers `availableForSale: false` for every variant: the picker strikes through every option and the cart rejects the line with `MERCHANDISE_OUT_OF_STOCK`, while Admin still shows thousands of units. The **Scandinavia** profile (Postnord rates) is the one that works.
 
-Shopify drops every newly created product into the General profile, so each import re-introduces this.
+Shopify files every newly created product under the General profile, so each import re-introduces this.
 
 ```bash
+npm run fix:shipping         # move them into the Scandinavia profile
 npm run check:availability   # list stocked products the market cannot buy
-npm run fix:shipping         # move them into the CJ profile (needs write_shipping)
 ```
 
-Without the `write_shipping` scope, do it by hand: **Settings → Shipping and delivery →** the profile that ships from `cjdropshipping` to Sverige **→ Add products**.
+`fix:shipping` needs `write_shipping` on the Admin app. By hand instead: **Settings → Shipping and delivery → Scandinavia → Add products**.
 
 ### Common 401 mistake
 
