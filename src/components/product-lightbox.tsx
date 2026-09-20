@@ -88,10 +88,16 @@ export function ProductLightbox({
   const zoomImageKey = `${index}:${image?.url ?? ""}`;
   const [zoomState, setZoomState] = useState<LightboxZoomState>("min");
   const [trackedZoomImage, setTrackedZoomImage] = useState(zoomImageKey);
+  const [wasOpen, setWasOpen] = useState(open);
 
   if (trackedZoomImage !== zoomImageKey) {
     setTrackedZoomImage(zoomImageKey);
     setZoomState("min");
+  }
+
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (!open) setZoomState("min");
   }
 
   useEffect(() => {

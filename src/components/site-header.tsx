@@ -96,6 +96,7 @@ function ShopMenu({
   onClose,
   onMouseEnter,
   onMouseLeave,
+  onKeepOpen,
 }: {
   collections: CollectionSummary[];
   panelId: string;
@@ -103,6 +104,7 @@ function ShopMenu({
   onClose: () => void;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
+  onKeepOpen: (point: { x: number; y: number }) => void;
 }) {
   const { dict } = useDictionary();
   const tree = collectionFilterTree(collections);
@@ -121,19 +123,22 @@ function ShopMenu({
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== "Escape" || stack.length === 0) return;
       event.stopPropagation();
+      onKeepOpen({ x: Number.NaN, y: Number.NaN });
       setDirection(-1);
       setStack((path) => path.slice(0, -1));
     };
     window.addEventListener("keydown", onKey, true);
     return () => window.removeEventListener("keydown", onKey, true);
-  }, [stack.length]);
+  }, [onKeepOpen, stack.length]);
 
-  function openBranch(node: CollectionTreeNode) {
+  function openBranch(node: CollectionTreeNode, event: { clientX: number; clientY: number }) {
+    onKeepOpen({ x: event.clientX, y: event.clientY });
     setDirection(1);
     setStack((path) => [...path, node]);
   }
 
-  function goBack() {
+  function goBack(event: { clientX: number; clientY: number }) {
+    onKeepOpen({ x: event.clientX, y: event.clientY });
     setDirection(-1);
     setStack((path) => path.slice(0, -1));
   }
@@ -164,7 +169,7 @@ function ShopMenu({
               {current ? (
                 <button
                   type="button"
-                  onClick={goBack}
+                  onClick={(event) => goBack(event)}
                   className="mb-1 inline-flex items-center gap-1.5 text-[0.62rem] font-medium tracking-[0.18em] uppercase text-glow transition hover:text-foreground"
                 >
                   <ChevronIcon className="h-2.5 w-2.5 rotate-90" />
@@ -214,7 +219,7 @@ function ShopMenu({
                   <li key={node.collection.id}>
                     <button
                       type="button"
-                      onClick={() => openBranch(node)}
+                      onClick={(event) => openBranch(node, event)}
                       className={rowClass}
                     >
                       <span className="min-w-0">{label}</span>
@@ -260,6 +265,7 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
   const shopRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hoverHold = useRef<{ x: number; y: number } | null>(null);
   const countLabel =
     cartCount > 99 ? "99+" : cartCount > 0 ? String(cartCount) : null;
   const hasCategories = collections.length > 0;
@@ -314,11 +320,43 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
     setShopOpen(true);
   }
 
+  function holdShopOpen(point: { x: number; y: number }) {
+    hoverHold.current = point;
+    clearCloseTimer();
+  }
+
   function scheduleCloseShop() {
-    if (!hoverEnabled()) return;
+    if (!hoverEnabled() || hoverHold.current) return;
     clearCloseTimer();
     closeTimer.current = setTimeout(() => setShopOpen(false), 200);
   }
+
+  useEffect(() => {
+    if (!shopOpen) {
+      hoverHold.current = null;
+      return;
+    }
+
+    function onMove(event: MouseEvent) {
+      const point = hoverHold.current;
+      if (!point) return;
+      const dx = event.clientX - point.x;
+      const dy = event.clientY - point.y;
+      const moved =
+        Number.isNaN(point.x) || dx * dx + dy * dy >= 64;
+      if (!moved) return;
+      hoverHold.current = null;
+      const target = event.target as Node | null;
+      const inside = Boolean(
+        (target && panelRef.current?.contains(target)) ||
+          (target && shopRef.current?.contains(target)),
+      );
+      if (!inside) scheduleCloseShop();
+    }
+
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, [shopOpen]);
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-frost">
@@ -409,6 +447,7 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
           onClose={() => setShopOpen(false)}
           onMouseEnter={openShop}
           onMouseLeave={scheduleCloseShop}
+          onKeepOpen={holdShopOpen}
         />
       ) : null}
     </header>
