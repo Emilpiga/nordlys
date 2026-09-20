@@ -134,6 +134,7 @@ const BOARD_SIZE = {
 
 const APPAREL_COLOR = {
   Apricot: t("Aprikos", "Aprikos", "Abrikos", "Aprikoosi"),
+  "Army Green": t("Armégrön", "Armygrønn", "Armygrøn", "Armeijanvihreä"),
   Beige: t("Beige", "Beige", "Beige", "Beige"),
   Black: t("Svart", "Svart", "Sort", "Musta"),
   Blue: t("Blå", "Blå", "Blå", "Sininen"),
@@ -151,6 +152,7 @@ const APPAREL_COLOR = {
   grey: t("Grå", "Grå", "Grå", "Harmaa"),
   Khaki: t("Khaki", "Khaki", "Khaki", "Khaki"),
   khaki: t("Khaki", "Khaki", "Khaki", "Khaki"),
+  "Light Blue": t("Ljusblå", "Lyseblå", "Lyseblå", "Vaaleansininen"),
   "Light Camel": t("Ljus kamel", "Lys kamel", "Lys kamel", "Vaalea kameli"),
   "Light Gray": t("Ljusgrå", "Lysegrå", "Lysegrå", "Vaaleanharmaa"),
   "Light Green": t("Ljusgrön", "Lysegrønn", "Lysegrøn", "Vaaleanvihreä"),
@@ -160,6 +162,7 @@ const APPAREL_COLOR = {
   "Mocha Color": t("Mocka", "Mokka", "Mokka", "Mokka"),
   "Navy Blue": t("Marinblå", "Marineblå", "Marineblå", "Laivastonsininen"),
   "navy blue": t("Marinblå", "Marineblå", "Marineblå", "Laivastonsininen"),
+  Orange: t("Orange", "Oransje", "Orange", "Oranssi"),
   Pink: t("Rosa", "Rosa", "Rosa", "Vaaleanpunainen"),
   Red: t("Röd", "Rød", "Rød", "Punainen"),
   "Sky Blue": t("Ljusblå", "Lyseblå", "Lyseblå", "Vaaleansininen"),
@@ -2626,6 +2629,176 @@ export const catalogCopy = [
       "<p>Paksu kaksipuolinen huivi painetulla kuviolla — eri puoli näkyviin sen mukaan, miten taittelet sen.</p><ul><li><strong>Kaksipuolinen.</strong> Kaksi kuviopuolta, käännä kumpi haluat.</li><li><strong>Paksu laatu.</strong> Riittävän suuri hartioiden ympärille.</li><li><strong>Kaksi väriä.</strong> Musta tai valkoinen.</li></ul><p>Kuitusisältö odottaa vahvistusta toimittajalta — ota yhteyttä, jos tarvitset sen ennen ostoa. Valitse väri yllä.</p>",
     ),
     options: [{ sourceName: "Color", name: COLOR, values: APPAREL_COLOR }],
+  }),
+
+  pack({
+    handle:
+      "autumn-and-winter-new-style-hooded-waist-rainproof-clothing-zipper-womens-raincoat-outdoor-mountaineering-clothing-jacket",
+    slug: "hooded-rainproof-waist-jacket",
+    productType: "Ytterkläder",
+    title: t(
+      "Huva jacka med knytmidja",
+      "Hetterjakke med knyteliv",
+      "Hættejakke med snøreliv",
+      "Hupullinen takki nyörivyötäröllä",
+    ),
+    metaTitle: t(
+      "Huva jacka med knytmidja",
+      "Hetterjakke med knyteliv",
+      "Hættejakke med snøreliv",
+      "Hupullinen takki nyörivyötäröllä",
+    ),
+    metaDescription: t(
+      "Jacka med huva, dragkedja och knytmidja — vattenavvisande känsla till utomhusbruk. Grå, S–XXL.",
+      "Jakke med hette, glidelås og knyteliv — vannavvisende preg til utebruk. Grå, S–XXL.",
+      "Jakke med hætte, lynlås og snøreliv — vandafvisende præg til udendørs brug. Grå, S–XXL.",
+      "Takki hupulla, vetoketjulla ja nyörivyötäröllä — vedenhylkivä tuntu ulkokäyttöön. Harmaa, S–XXL.",
+    ),
+    body: t(
+      "<p>En jacka med huva och knytmidja — dragkedja framtill, tänkt för kallare uteväder.</p><ul><li><strong>Huva och midja.</strong> Fast huva och knytband i midjan så du kan dra ihop snittet.</li><li><strong>Dragkedja.</strong> Stängs framtill hela vägen upp.</li><li><strong>Grå.</strong> En färg, storlek S–XXL.</li></ul><p>Yttertyg med vattenavvisande känsla — inte ett certifierat skalplagg. Asiatisk storlek, faller litet. Välj storlek ovan.</p>",
+      "<p>En jakke med hette og knyteliv — glidelås foran, tenkt for kaldere vær ute.</p><ul><li><strong>Hette og liv.</strong> Fast hette og knytebånd i livet så du kan trekke inn snittet.</li><li><strong>Glidelås.</strong> Lukkes foran hele veien opp.</li><li><strong>Grå.</strong> Én farge, størrelse S–XXL.</li></ul><p>Ytterstoff med vannavvisende preg — ikke et sertifisert skallplagg. Asiatisk størrelse, faller lite. Velg størrelse over.</p>",
+      "<p>En jakke med hætte og snøreliv — lynlås foran, tænkt til køligere vejr ude.</p><ul><li><strong>Hætte og liv.</strong> Fast hætte og snøre i livet, så du kan trække snittet ind.</li><li><strong>Lynlås.</strong> Lukkes foran hele vejen op.</li><li><strong>Grå.</strong> Én farve, størrelse S–XXL.</li></ul><p>Yderstof med vandafvisende præg — ikke et certificeret skalplagg. Asiatisk størrelse, falder lille. Vælg størrelse ovenfor.</p>",
+      "<p>Takki hupulla ja nyörivyötäröllä — vetoketju edessä, tarkoitettu viileämpään ulkokeliin.</p><ul><li><strong>Huppu ja vyötärö.</strong> Kiinteä huppu ja nyöri vyötäröllä, jotta voit kiristää leikkausta.</li><li><strong>Vetoketju.</strong> Sulkeutuu edestä ylös asti.</li><li><strong>Harmaa.</strong> Yksi väri, koko S–XXL.</li></ul><p>Päällisessä vedenhylkivä tuntu — ei sertifioitu kuoritakki. Aasialainen koko, pieni. Valitse koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "womens-denim-jacket-long-sleeves",
+    slug: "denim-jacket-long-sleeves",
+    productType: "Ytterkläder",
+    title: t(
+      "Jeansjacka med lång ärm",
+      "Jeansjakke med lange ermer",
+      "Jeansjakke med lange ærmer",
+      "Farkkutakki pitkillä hihoilla",
+    ),
+    metaTitle: t(
+      "Jeansjacka med lång ärm",
+      "Jeansjakke med lange ermer",
+      "Jeansjakke med lange ærmer",
+      "Farkkutakki pitkillä hihoilla",
+    ),
+    metaDescription: t(
+      "Jeansjacka i bomull med lång ärm. Blå eller ljusblå, storlek S–2XL. Asiatisk storlek.",
+      "Jeansjakke i bomull med lange ermer. Blå eller lyseblå, størrelse S–2XL. Asiatisk størrelse.",
+      "Jeansjakke i bomuld med lange ærmer. Blå eller lyseblå, størrelse S–2XL. Asiatisk størrelse.",
+      "Puuvillainen farkkutakki pitkillä hihoilla. Sininen tai vaaleansininen, koko S–2XL. Aasialainen koko.",
+    ),
+    body: t(
+      "<p>En jeansjacka i bomull med långa ärmar — klassiskt snitt till vardagen.</p><ul><li><strong>Bomull.</strong> Denimkänsla utan stretchöverdrift.</li><li><strong>Långa ärmar.</strong> Vanlig ärm och knappar eller dragkedja beroende på variant.</li><li><strong>Två blåtoner.</strong> Blå eller ljusblå, storlek S–2XL.</li></ul><p>Material: bomull. Asiatisk storlek — välj gärna en upp. Välj färg och storlek ovan.</p>",
+      "<p>En jeansjakke i bomull med lange ermer — klassisk snitt til hverdagen.</p><ul><li><strong>Bomull.</strong> Denimpreg uten for mye stretch.</li><li><strong>Lange ermer.</strong> Vanlig erme og knapper eller glidelås avhengig av variant.</li><li><strong>To blåtoner.</strong> Blå eller lyseblå, størrelse S–2XL.</li></ul><p>Materiale: bomull. Asiatisk størrelse — velg gjerne én opp. Velg farge og størrelse over.</p>",
+      "<p>En jeansjakke i bomuld med lange ærmer — klassisk snit til hverdagen.</p><ul><li><strong>Bomuld.</strong> Denimpræg uden for meget stretch.</li><li><strong>Lange ærmer.</strong> Almindelig ærme og knapper eller lynlås afhængigt af variant.</li><li><strong>To blåtoner.</strong> Blå eller lyseblå, størrelse S–2XL.</li></ul><p>Materiale: bomuld. Asiatisk størrelse — vælg gerne én op. Vælg farve og størrelse ovenfor.</p>",
+      "<p>Puuvillainen farkkutakki pitkillä hihoilla — klassinen leikkaus arkeen.</p><ul><li><strong>Puuvilla.</strong> Denim-tuntu ilman liikaa joustoa.</li><li><strong>Pitkät hihat.</strong> Tavallinen hiha sekä napit tai vetoketju mallista riippuen.</li><li><strong>Kaksi sinistä.</strong> Sininen tai vaaleansininen, koko S–2XL.</li></ul><p>Materiaali: puuvilla. Aasialainen koko — valitse mieluummin yksi isompi. Valitse väri ja koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "womens-warm-winter-collarless-jacket",
+    slug: "collarless-corduroy-jacket",
+    productType: "Ytterkläder",
+    title: t(
+      "Kraglös jacka i manchester",
+      "Krageløs jakke i kordfløyel",
+      "Kraveløs jakke i fløjl",
+      "Kaulukseton vakosamettitakki",
+    ),
+    metaTitle: t(
+      "Kraglös jacka i manchester",
+      "Krageløs jakke i kordfløyel",
+      "Kraveløs jakke i fløjl",
+      "Kaulukseton vakosamettitakki",
+    ),
+    metaDescription: t(
+      "Kraglös jacka i manchester/polyester till kalla dagar. Sex färger, storlek S–XXL.",
+      "Krageløs jakke i kordfløyel/polyester til kalde dager. Seks farger, størrelse S–XXL.",
+      "Kraveløs jakke i fløjl/polyester til kolde dage. Seks farver, størrelse S–XXL.",
+      "Kaulukseton vakosametti-/polyesteritakki kylmiin päiviin. Kuusi väriä, koko S–XXL.",
+    ),
+    body: t(
+      "<p>En kraglös jacka i manchesterkänsla — mjuk yta, utan uppslagen krage.</p><ul><li><strong>Manchesterpreg.</strong> Yttertyg i corduroy/polyester till kyligare dagar.</li><li><strong>Utan krage.</strong> Ren halslinje och långa ärmar.</li><li><strong>Sex färger.</strong> Armégrön, beige, svart, brun, khaki eller vinröd.</li></ul><p>Material: polyester. Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>",
+      "<p>En krageløs jakke i kordfløyelpreg — myk overflate, uten oppbrettet krage.</p><ul><li><strong>Kordfløyelpreg.</strong> Ytterstoff i corduroy/polyester til kaldere dager.</li><li><strong>Uten krage.</strong> Ren halslinje og lange ermer.</li><li><strong>Seks farger.</strong> Armygrønn, beige, svart, brun, khaki eller vinrød.</li></ul><p>Materiale: polyester. Asiatisk størrelse, faller lite. Velg farge og størrelse over.</p>",
+      "<p>En kraveløs jakke i fløjlspræg — blød overflade, uden opslået krave.</p><ul><li><strong>Fløjlspræg.</strong> Yderstof i corduroy/polyester til køligere dage.</li><li><strong>Uden krave.</strong> Ren halslinje og lange ærmer.</li><li><strong>Seks farver.</strong> Armygrøn, beige, sort, brun, khaki eller vinrød.</li></ul><p>Materiale: polyester. Asiatisk størrelse, falder lille. Vælg farve og størrelse ovenfor.</p>",
+      "<p>Kaulukseton vakosamettitakki — pehmeä pinta, ilman käännettyä kaulusta.</p><ul><li><strong>Vakosamettituntu.</strong> Corduroy-/polyesteripäällinen viileisiin päiviin.</li><li><strong>Ilman kaulusta.</strong> Suora pääntie ja pitkät hihat.</li><li><strong>Kuusi väriä.</strong> Armeijanvihreä, beige, musta, ruskea, khaki tai viininpunainen.</li></ul><p>Materiaali: polyesteri. Aasialainen koko, pieni. Valitse väri ja koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "heavy-contrast-plaid-jacket-in-winter",
+    slug: "contrast-plaid-jacket",
+    productType: "Ytterkläder",
+    title: t(
+      "Rutig jacka med slag",
+      "Rutet jakke med slag",
+      "Ternet jakke med slag",
+      "Ruudullinen takki kauluksella",
+    ),
+    metaTitle: t(
+      "Rutig jacka med slag",
+      "Rutet jakke med slag",
+      "Ternet jakke med slag",
+      "Ruudullinen takki kauluksella",
+    ),
+    metaDescription: t(
+      "Tjock rutig jacka i bomull, ca 68–83 cm, med slag och lång ärm. Orange, S–XL.",
+      "Tjukk rutet jakke i bomull, ca 68–83 cm, med slag og lange ermer. Oransje, S–XL.",
+      "Tyk ternet jakke i bomuld, ca 68–83 cm, med slag og lange ærmer. Orange, S–XL.",
+      "Paksu ruudullinen puuvillatakki, n. 68–83 cm, kauluksella ja pitkillä hihoilla. Oranssi, S–XL.",
+    ),
+    body: t(
+      "<p>En tjock rutig jacka med slag — lösare snitt, halvlång modell till kalla dagar.</p><ul><li><strong>Bomull.</strong> Tjockare kvalitet med rutat mönster.</li><li><strong>Halvlång.</strong> Ca 68–83 cm beroende på storlek, långa ärmar och slag.</li><li><strong>Orange.</strong> En färgväg, storlek S–XL.</li></ul><p>Material: bomull. Asiatisk storlek, faller litet. Välj storlek ovan.</p>",
+      "<p>En tjukk rutet jakke med slag — løsere snitt, halvlang modell til kalde dager.</p><ul><li><strong>Bomull.</strong> Tykkere kvalitet med rutet mønster.</li><li><strong>Halvlang.</strong> Ca 68–83 cm avhengig av størrelse, lange ermer og slag.</li><li><strong>Oransje.</strong> Én fargevei, størrelse S–XL.</li></ul><p>Materiale: bomull. Asiatisk størrelse, faller lite. Velg størrelse over.</p>",
+      "<p>En tyk ternet jakke med slag — løsere snit, halvlang model til kolde dage.</p><ul><li><strong>Bomuld.</strong> Tykere kvalitet med ternet mønster.</li><li><strong>Halvlang.</strong> Ca 68–83 cm afhængigt af størrelse, lange ærmer og slag.</li><li><strong>Orange.</strong> Én farvevej, størrelse S–XL.</li></ul><p>Materiale: bomuld. Asiatisk størrelse, falder lille. Vælg størrelse ovenfor.</p>",
+      "<p>Paksu ruudullinen takki kauluksella — väljä leikkaus, puolipitkä malli kylmiin päiviin.</p><ul><li><strong>Puuvilla.</strong> Paksumpi laatu ja ruutukuvio.</li><li><strong>Puolipitkä.</strong> Noin 68–83 cm koosta riippuen, pitkät hihat ja kaulus.</li><li><strong>Oranssi.</strong> Yksi väri, koko S–XL.</li></ul><p>Materiaali: puuvilla. Aasialainen koko, pieni. Valitse koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
+  }),
+
+  pack({
+    handle: "striped-knit-pullover",
+    productType: "Stickat",
+    title: t(
+      "Randig stickad tröja",
+      "Strikket genser med striper",
+      "Strikket trøje med striber",
+      "Raidallinen neulepusero",
+    ),
+    metaTitle: t(
+      "Randig stickad tröja",
+      "Strikket genser med striper",
+      "Strikket trøje med striber",
+      "Raidallinen neulepusero",
+    ),
+    metaDescription: t(
+      "Lös stickad tröja i polyester med ränder. Blå, armégrön, grå eller rosa. Storlek S–L, XL i blå.",
+      "Løs strikket genser i polyester med striper. Blå, armygrønn, grå eller rosa. Størrelse S–L, XL i blå.",
+      "Løs strikket trøje i polyester med striber. Blå, armygrøn, grå eller rosa. Størrelse S–L, XL i blå.",
+      "Väljä raidallinen polyesterineule. Sininen, armeijanvihreä, harmaa tai vaaleanpunainen. Koko S–L, XL sinisenä.",
+    ),
+    body: t(
+      "<p>En lös stickad tröja med ränder och långa ärmar — dras över huvudet.</p><ul><li><strong>Ränder.</strong> Lös modell i blå, armégrön, grå eller rosa.</li><li><strong>Polyester.</strong> Stickad pullover utan knappar.</li><li><strong>Storlek S–L.</strong> Blå finns även i XL.</li></ul><p>Material: polyester. Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>",
+      "<p>En løs strikket genser med striper og lange ermer — trekkes over hodet.</p><ul><li><strong>Striper.</strong> Løs modell i blå, armygrønn, grå eller rosa.</li><li><strong>Polyester.</strong> Strikket pullover uten knapper.</li><li><strong>Størrelse S–L.</strong> Blå finnes også i XL.</li></ul><p>Materiale: polyester. Asiatisk størrelse, faller lite. Velg farge og størrelse over.</p>",
+      "<p>En løs strikket trøje med striber og lange ærmer — trækkes over hovedet.</p><ul><li><strong>Striber.</strong> Løs model i blå, armygrøn, grå eller rosa.</li><li><strong>Polyester.</strong> Strikket pullover uden knapper.</li><li><strong>Størrelse S–L.</strong> Blå findes også i XL.</li></ul><p>Materiale: polyester. Asiatisk størrelse, falder lille. Vælg farve og størrelse ovenfor.</p>",
+      "<p>Väljä raidallinen neulepusero pitkillä hihoilla — puetaan pään yli.</p><ul><li><strong>Raidat.</strong> Väljä malli sinisenä, armeijanvihreänä, harmaana tai vaaleanpunaisena.</li><li><strong>Polyesteri.</strong> Neulepusero ilman nappeja.</li><li><strong>Koko S–L.</strong> Sininen myös koossa XL.</li></ul><p>Materiaali: polyesteri. Aasialainen koko, pieni. Valitse väri ja koko yllä.</p>",
+    ),
+    options: [
+      { sourceName: "Color", name: COLOR, values: APPAREL_COLOR },
+      { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
+    ],
   }),
 ];
 

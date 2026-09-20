@@ -1,0 +1,15 @@
+{
+  "products": [
+    {
+      "pid": "2408230930241620600",
+      "handle": "striped-knit-pullover",
+      "title": "Randig stickad tröja",
+      "productType": "Stickat",
+      "tags": ["clothing", "clothing:stickat", "gender:women"],
+      "metaTitle": "Randig stickad tröja",
+      "metaDescription": "Lös stickad tröja i polyester med ränder. Blå, armégrön, grå eller rosa. Storlek S–L, XL i blå.",
+      "descriptionHtml": "<p>En lös stickad tröja med ränder och långa ärmar — dras över huvudet.</p><ul><li><strong>Ränder.</strong> Lös modell i blå, armégrön, grå eller rosa.</li><li><strong>Polyester.</strong> Stickad pullover utan knappar.</li><li><strong>Storlek S–L.</strong> Blå finns även i XL.</li></ul><p>Material: polyester. Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>",
+      "priceSek": 289
+    }
+  ]
+}

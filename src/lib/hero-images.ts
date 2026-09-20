@@ -3,6 +3,9 @@ import type { Product, ProductImage } from "@/lib/shopify/types";
 /** A short stack of catalog stills for the hero crossfade. */
 export const HERO_STILL_COUNT = 6;
 
+/** Clothing stills reserved inside the hero stack. The rest stay home goods. */
+const CLOTHING_STILL_COUNT = 2;
+
 export type HeroImage = {
   url: string;
   alt: string;
@@ -39,13 +42,7 @@ function stillFromImage(
   };
 }
 
-/**
- * One featured still per product. Any orientation — the hero crops with object-cover.
- */
-export function heroImagesFromCatalog(
-  products: Product[],
-  limit = HERO_STILL_COUNT,
-): HeroImage[] {
+function stillsFrom(products: Product[]): HeroImage[] {
   const seenProducts = new Set<string>();
   const seenImages = new Set<string>();
   const unique: HeroImage[] = [];
@@ -54,7 +51,9 @@ export function heroImagesFromCatalog(
     if (seenProducts.has(product.id)) continue;
     const still =
       stillFromImage(product, product.featuredImage) ??
-      product.images.map((image) => stillFromImage(product, image)).find(Boolean) ??
+      product.images
+        .map((image) => stillFromImage(product, image))
+        .find(Boolean) ??
       null;
     if (!still) continue;
     const key = imageKey(still.url);
@@ -62,8 +61,71 @@ export function heroImagesFromCatalog(
     seenProducts.add(product.id);
     seenImages.add(key);
     unique.push(still);
-    if (unique.length >= limit) break;
   }
 
   return unique;
+}
+
+/**
+ * One featured still per product. Any orientation — the hero crops with object-cover.
+ * When clothing products are passed, two of the six stills are clothes, interleaved
+ * so the first frame stays a home product when one exists.
+ */
+export function heroImagesFromCatalog(
+  products: Product[],
+  options?: {
+    limit?: number;
+    clothingProducts?: Product[];
+  },
+): HeroImage[] {
+  const limit = options?.limit ?? HERO_STILL_COUNT;
+  const clothingIds = new Set(
+    (options?.clothingProducts ?? []).map((product) => product.id),
+  );
+  const homeProducts =
+    clothingIds.size > 0
+      ? products.filter((product) => !clothingIds.has(product.id))
+      : products;
+
+  const clothingStills = stillsFrom(options?.clothingProducts ?? []);
+  const homeStills = stillsFrom(homeProducts);
+
+  const clothingTarget = Math.min(
+    CLOTHING_STILL_COUNT,
+    clothingStills.length,
+    limit,
+  );
+  let homeTarget = Math.min(limit - clothingTarget, homeStills.length);
+  const clothingExtra = Math.min(
+    clothingStills.length - clothingTarget,
+    limit - homeTarget - clothingTarget,
+  );
+  const clothing = clothingStills.slice(0, clothingTarget + clothingExtra);
+  if (homeTarget + clothing.length < limit) {
+    homeTarget = Math.min(homeStills.length, limit - clothing.length);
+  }
+  const home = homeStills.slice(0, homeTarget);
+
+  const picked: HeroImage[] = [];
+  let homeIndex = 0;
+  let clothingIndex = 0;
+  for (let index = 0; index < limit; index++) {
+    const preferClothing = clothing.length > 0 && index % 3 === 1;
+    if (preferClothing && clothingIndex < clothing.length) {
+      picked.push(clothing[clothingIndex]);
+      clothingIndex += 1;
+      continue;
+    }
+    if (homeIndex < home.length) {
+      picked.push(home[homeIndex]);
+      homeIndex += 1;
+      continue;
+    }
+    if (clothingIndex < clothing.length) {
+      picked.push(clothing[clothingIndex]);
+      clothingIndex += 1;
+    }
+  }
+
+  return picked;
 }

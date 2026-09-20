@@ -41,7 +41,7 @@ export function ProductOptionPicker({
   const { locale } = useDictionary();
   const current = selected[option.name] ?? values[0];
   const useSelect = shouldUseOptionSelect(values);
-  const showPrices = optionPricesVary(variants, option.name, values);
+  const showPrices = optionPricesVary(variants, option.name, values, selected);
   const compact = size === "sm";
 
   function choose(value: string) {
@@ -50,7 +50,7 @@ export function ProductOptionPicker({
 
   function hintFor(value: string) {
     if (!showPrices) return undefined;
-    const price = priceForOptionValue(variants, option.name, value);
+    const price = priceForOptionValue(variants, option.name, value, selected);
     return price ? formatMoney(price, locale) : undefined;
   }
 
@@ -71,7 +71,12 @@ export function ProductOptionPicker({
           options={values.map((value) => ({
             value,
             hint: hintFor(value),
-            unavailable: !isOptionValueInStock(variants, option.name, value),
+            unavailable: !isOptionValueInStock(
+              variants,
+              option.name,
+              value,
+              selected,
+            ),
           }))}
           onChange={choose}
         />
@@ -79,7 +84,12 @@ export function ProductOptionPicker({
         <div className="flex flex-wrap gap-2">
           {values.map((value) => {
             const active = current === value;
-            const inStock = isOptionValueInStock(variants, option.name, value);
+            const inStock = isOptionValueInStock(
+              variants,
+              option.name,
+              value,
+              selected,
+            );
             const hint = hintFor(value);
             return (
               <button

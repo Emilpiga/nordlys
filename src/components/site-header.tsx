@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, type RefObject } from "react";
 import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { HeaderSearch } from "@/components/header-search";
@@ -8,7 +8,11 @@ import { LanguageSelector } from "@/components/language-selector";
 import { LocaleLink } from "@/components/locale-link";
 import { SiteLogo } from "@/components/site-logo";
 import { shopifyConfig } from "@/lib/shopify/config";
-import { navGroupsFromCollections, shortCollectionLabel } from "@/lib/shopify/collections";
+import {
+  collectionFilterTree,
+  shortCollectionLabel,
+  type CollectionTreeNode,
+} from "@/lib/shopify/collections";
 import type { CollectionSummary } from "@/lib/shopify/types";
 
 type SiteHeaderProps = {
@@ -85,6 +89,168 @@ function ChevronIcon({ className }: { className?: string }) {
   );
 }
 
+function ShopMenu({
+  collections,
+  panelId,
+  panelRef,
+  onClose,
+  onMouseEnter,
+  onMouseLeave,
+}: {
+  collections: CollectionSummary[];
+  panelId: string;
+  panelRef: RefObject<HTMLDivElement | null>;
+  onClose: () => void;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+}) {
+  const { dict } = useDictionary();
+  const tree = collectionFilterTree(collections);
+  const [stack, setStack] = useState<CollectionTreeNode[]>([]);
+  const [direction, setDirection] = useState<1 | -1>(1);
+  const current = stack.at(-1) ?? null;
+  const parent = stack.at(-2) ?? null;
+  const items = current ? current.children : tree;
+  const title = current ? current.collection.title : dict.nav.exploreCatalog;
+  const backLabel = parent ? parent.collection.title : dict.nav.categories;
+  const viewHref = current
+    ? `/collections/${encodeURIComponent(current.collection.handle)}`
+    : "/products";
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || stack.length === 0) return;
+      event.stopPropagation();
+      setDirection(-1);
+      setStack((path) => path.slice(0, -1));
+    };
+    window.addEventListener("keydown", onKey, true);
+    return () => window.removeEventListener("keydown", onKey, true);
+  }, [stack.length]);
+
+  function openBranch(node: CollectionTreeNode) {
+    setDirection(1);
+    setStack((path) => [...path, node]);
+  }
+
+  function goBack() {
+    setDirection(-1);
+    setStack((path) => path.slice(0, -1));
+  }
+
+  const rowClass =
+    "flex min-h-12 w-full items-center justify-between gap-3 border-b border-border/50 px-1 text-left text-base font-medium normal-case tracking-normal text-foreground transition hover:text-accent";
+
+  return (
+    <>
+      <button
+        type="button"
+        aria-label={dict.search.close}
+        className="animate-shop-backdrop absolute inset-x-0 top-full z-40 h-[100svh] bg-[rgba(20,28,34,0.32)] md:hidden"
+        onClick={onClose}
+      />
+      <div
+        ref={panelRef}
+        id={panelId}
+        role="region"
+        aria-label={dict.nav.categories}
+        className="animate-shop-sheet absolute inset-x-0 top-full z-50 md:inset-x-auto md:right-8 md:w-[min(36rem,calc(100vw-4rem))] md:pt-3"
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        <div className="max-h-[calc(100svh-var(--header-height))] overflow-y-auto overscroll-contain border-b border-border/70 bg-[color-mix(in_oklab,var(--frost)_98%,white)] shadow-[0_18px_40px_rgba(20,28,34,0.1)] md:border">
+          <div className="sticky top-0 z-10 flex items-end justify-between gap-4 border-b border-border/60 bg-[color-mix(in_oklab,var(--frost)_98%,white)] px-4 py-4 md:px-6">
+            <div className="min-w-0 flex-1">
+              {current ? (
+                <button
+                  type="button"
+                  onClick={goBack}
+                  className="mb-1 inline-flex items-center gap-1.5 text-[0.62rem] font-medium tracking-[0.18em] uppercase text-glow transition hover:text-foreground"
+                >
+                  <ChevronIcon className="h-2.5 w-2.5 rotate-90" />
+                  {backLabel}
+                </button>
+              ) : (
+                <p className="text-[0.62rem] font-medium tracking-[0.18em] uppercase text-glow">
+                  {dict.nav.categories}
+                </p>
+              )}
+              <p className="font-display text-2xl font-medium tracking-tight text-foreground">
+                {title}
+              </p>
+            </div>
+            <div className="flex shrink-0 items-center gap-4">
+              <LocaleLink
+                href={viewHref}
+                onClick={onClose}
+                className="text-[0.62rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground"
+              >
+                {dict.nav.viewAll}
+              </LocaleLink>
+              <button
+                type="button"
+                className="text-[0.62rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground md:hidden"
+                onClick={onClose}
+              >
+                {dict.search.close}
+              </button>
+            </div>
+          </div>
+
+          <ul
+            key={current?.collection.id ?? "root"}
+            className={`px-3 py-1 md:px-5 ${
+              direction > 0 ? "animate-shop-drill-in" : "animate-shop-drill-back"
+            }`}
+          >
+            {items.map((node) => {
+              const label = current
+                ? shortCollectionLabel(node.collection.title, current.collection.title)
+                : node.collection.title;
+              const hasChildren = node.children.length > 0;
+
+              if (hasChildren) {
+                return (
+                  <li key={node.collection.id}>
+                    <button
+                      type="button"
+                      onClick={() => openBranch(node)}
+                      className={rowClass}
+                    >
+                      <span className="min-w-0">{label}</span>
+                      <span className="flex shrink-0 items-center gap-2.5 text-muted">
+                        <span className="tabular-nums text-sm font-normal">
+                          {node.collection.productCount}
+                        </span>
+                        <ChevronIcon className="h-3 w-3 -rotate-90" />
+                      </span>
+                    </button>
+                  </li>
+                );
+              }
+
+              return (
+                <li key={node.collection.id}>
+                  <LocaleLink
+                    href={`/collections/${encodeURIComponent(node.collection.handle)}`}
+                    onClick={onClose}
+                    className={rowClass}
+                  >
+                    <span className="min-w-0">{label}</span>
+                    <span className="tabular-nums text-sm font-normal text-muted">
+                      {node.collection.productCount}
+                    </span>
+                  </LocaleLink>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+}
+
 export function SiteHeader({ collections = [] }: SiteHeaderProps) {
   const { dict, t } = useDictionary();
   const { cart, openCart } = useCart();
@@ -92,6 +258,7 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
   const [shopOpen, setShopOpen] = useState(false);
   const panelId = useId();
   const shopRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const countLabel =
     cartCount > 99 ? "99+" : cartCount > 0 ? String(cartCount) : null;
@@ -106,14 +273,24 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
 
     const onPointer = (event: MouseEvent | TouchEvent) => {
       const target = event.target as Node | null;
-      if (target && shopRef.current?.contains(target)) return;
+      if (
+        target &&
+        (shopRef.current?.contains(target) || panelRef.current?.contains(target))
+      ) {
+        return;
+      }
       setShopOpen(false);
     };
+
+    const mobile = window.matchMedia("(max-width: 767px)");
+    const previousOverflow = document.body.style.overflow;
+    if (mobile.matches) document.body.style.overflow = "hidden";
 
     window.addEventListener("keydown", onKey);
     window.addEventListener("mousedown", onPointer);
     window.addEventListener("touchstart", onPointer);
     return () => {
+      document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("mousedown", onPointer);
       window.removeEventListener("touchstart", onPointer);
@@ -127,15 +304,20 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
     }
   }
 
+  function hoverEnabled() {
+    return window.matchMedia("(min-width: 768px)").matches;
+  }
+
   function openShop() {
-    if (!hasCategories) return;
+    if (!hasCategories || !hoverEnabled()) return;
     clearCloseTimer();
     setShopOpen(true);
   }
 
   function scheduleCloseShop() {
+    if (!hoverEnabled()) return;
     clearCloseTimer();
-    closeTimer.current = setTimeout(() => setShopOpen(false), 120);
+    closeTimer.current = setTimeout(() => setShopOpen(false), 200);
   }
 
   return (
@@ -157,15 +339,15 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
 
           <nav className="flex shrink-0 items-center gap-2.5 text-[0.72rem] font-medium tracking-[0.12em] uppercase text-foreground/70 sm:gap-5 sm:text-[0.8rem] sm:tracking-[0.14em] md:gap-7 md:px-8">
             <div
-            ref={shopRef}
-            className="relative"
-            onMouseEnter={openShop}
-            onMouseLeave={scheduleCloseShop}
-          >
+              ref={shopRef}
+              className="relative"
+              onMouseEnter={openShop}
+              onMouseLeave={scheduleCloseShop}
+            >
             {hasCategories ? (
               <button
                 type="button"
-                className="inline-flex items-center gap-1.5 uppercase transition hover:text-foreground"
+                className="inline-flex min-h-11 items-center gap-1.5 uppercase transition hover:text-foreground"
                 aria-expanded={shopOpen}
                 aria-controls={panelId}
                 onClick={() => setShopOpen((open) => !open)}
@@ -183,128 +365,6 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
                 {dict.nav.shop}
               </LocaleLink>
             )}
-
-            {hasCategories && shopOpen ? (
-              <div
-                id={panelId}
-                role="region"
-                aria-label={dict.nav.categories}
-                className="absolute right-0 top-full z-50 pt-4"
-                onMouseEnter={openShop}
-                onMouseLeave={scheduleCloseShop}
-              >
-                <div className="w-[min(92vw,34rem)] border border-border/70 bg-[color-mix(in_oklab,var(--frost)_96%,white)] p-5 shadow-[0_18px_50px_rgba(20,28,34,0.12)] sm:w-[36rem] sm:p-6">
-                  <div className="flex items-end justify-between gap-4 border-b border-border/60 pb-4">
-                    <div>
-                      <p className="text-[0.62rem] font-medium tracking-[0.18em] uppercase text-glow">
-                        {dict.nav.categories}
-                      </p>
-                      <p className="mt-1 font-display text-2xl font-medium tracking-tight text-foreground">
-                        {dict.nav.exploreCatalog}
-                      </p>
-                    </div>
-                    <LocaleLink
-                      href="/products"
-                      onClick={() => setShopOpen(false)}
-                      className="shrink-0 text-[0.62rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground"
-                    >
-                      {dict.nav.viewAll}
-                    </LocaleLink>
-                  </div>
-
-                  <ul className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-5">
-                    {navGroupsFromCollections(collections).map((group) => {
-                      const parent = group.parent;
-                      const parentHref = parent
-                        ? `/collections/${encodeURIComponent(parent.handle)}`
-                        : group.nested?.[0]?.parent
-                          ? `/collections/${encodeURIComponent(group.nested[0].parent.handle)}`
-                          : group.children[0]
-                            ? `/collections/${encodeURIComponent(group.children[0].handle)}`
-                            : "/products";
-
-                      return (
-                        <li key={group.key} className="min-w-0">
-                          <LocaleLink
-                            href={parentHref}
-                            onClick={() => setShopOpen(false)}
-                            className="flex items-baseline justify-between gap-3 px-2 py-1.5 text-[0.82rem] font-medium normal-case tracking-normal text-foreground transition hover:text-accent"
-                          >
-                            <span>{parent?.title ?? group.key}</span>
-                            {parent ? (
-                              <span className="tabular-nums text-[0.68rem] font-normal text-muted">
-                                {parent.productCount}
-                              </span>
-                            ) : null}
-                          </LocaleLink>
-
-                          {group.nested && group.nested.length > 0 ? (
-                            <ul className="mt-1 space-y-2 border-l border-border/60 pl-3">
-                              {group.nested.map((nested) => (
-                                <li key={nested.key}>
-                                  {nested.parent ? (
-                                    <LocaleLink
-                                      href={`/collections/${encodeURIComponent(nested.parent.handle)}`}
-                                      onClick={() => setShopOpen(false)}
-                                      className="flex items-baseline justify-between gap-3 px-1.5 py-1 text-[0.78rem] font-medium normal-case tracking-normal text-foreground/85 transition hover:text-foreground"
-                                    >
-                                      <span>{nested.parent.title}</span>
-                                      <span className="tabular-nums text-[0.65rem] text-muted">
-                                        {nested.parent.productCount}
-                                      </span>
-                                    </LocaleLink>
-                                  ) : null}
-                                  {nested.children.length > 0 ? (
-                                    <ul className="mt-0.5 space-y-0.5 pl-2">
-                                      {nested.children.map((child) => (
-                                        <li key={child.id}>
-                                          <LocaleLink
-                                            href={`/collections/${encodeURIComponent(child.handle)}`}
-                                            onClick={() => setShopOpen(false)}
-                                            className="flex items-baseline justify-between gap-3 px-1.5 py-1 text-[0.72rem] font-normal normal-case tracking-normal text-foreground/70 transition hover:bg-[color-mix(in_oklab,var(--mist)_55%,white)] hover:text-foreground"
-                                          >
-                                            <span>
-                                              {shortCollectionLabel(
-                                                child.title,
-                                                nested.parent?.title,
-                                              )}
-                                            </span>
-                                            <span className="tabular-nums text-[0.65rem] text-muted">
-                                              {child.productCount}
-                                            </span>
-                                          </LocaleLink>
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  ) : null}
-                                </li>
-                              ))}
-                            </ul>
-                          ) : group.children.length > 0 ? (
-                            <ul className="mt-1 space-y-0.5 border-l border-border/60 pl-3">
-                              {group.children.map((child) => (
-                                <li key={child.id}>
-                                  <LocaleLink
-                                    href={`/collections/${encodeURIComponent(child.handle)}`}
-                                    onClick={() => setShopOpen(false)}
-                                    className="flex items-baseline justify-between gap-3 px-1.5 py-1.5 text-[0.74rem] font-normal normal-case tracking-normal text-foreground/75 transition hover:bg-[color-mix(in_oklab,var(--mist)_55%,white)] hover:text-foreground"
-                                  >
-                                    <span>{child.title}</span>
-                                    <span className="tabular-nums text-[0.65rem] text-muted">
-                                      {child.productCount}
-                                    </span>
-                                  </LocaleLink>
-                                </li>
-                              ))}
-                            </ul>
-                          ) : null}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              </div>
-            ) : null}
           </div>
 
           <LanguageSelector />
@@ -341,6 +401,16 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
           </nav>
         </div>
       </div>
+      {hasCategories && shopOpen ? (
+        <ShopMenu
+          collections={collections}
+          panelId={panelId}
+          panelRef={panelRef}
+          onClose={() => setShopOpen(false)}
+          onMouseEnter={openShop}
+          onMouseLeave={scheduleCloseShop}
+        />
+      ) : null}
     </header>
   );
 }

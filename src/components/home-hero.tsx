@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { HeroStill } from "@/components/hero-still";
 import { LocaleLink } from "@/components/locale-link";
 import type { HeroImage } from "@/lib/hero-images";
@@ -12,7 +13,39 @@ type HomeHeroProps = {
   cta: string;
   alt: string;
   ctaHref?: string;
+  secondaryCta?: string;
+  secondaryCtaHref?: string;
 };
+
+function HeroCta({
+  href,
+  className,
+  children,
+}: {
+  href: string;
+  className: string;
+  children: ReactNode;
+}) {
+  if (href.startsWith("#")) {
+    return (
+      <a href={href} className={className}>
+        {children}
+      </a>
+    );
+  }
+  if (href.startsWith("/")) {
+    return (
+      <LocaleLink href={href} className={className}>
+        {children}
+      </LocaleLink>
+    );
+  }
+  return (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  );
+}
 
 export function HomeHero({
   images = [],
@@ -22,9 +55,9 @@ export function HomeHero({
   cta,
   alt,
   ctaHref = "#categories",
+  secondaryCta,
+  secondaryCtaHref,
 }: HomeHeroProps) {
-  const ctaClassName = "btn-primary";
-  const isHashCta = ctaHref.startsWith("#");
   const hasStills = images.length > 0;
 
   return (
@@ -64,20 +97,15 @@ export function HomeHero({
             {sub}
           </p>
 
-          <div className="animate-rise delay-3 mt-9">
-            {isHashCta ? (
-              <a href={ctaHref} className={ctaClassName}>
-                {cta}
-              </a>
-            ) : ctaHref.startsWith("/") ? (
-              <LocaleLink href={ctaHref} className={ctaClassName}>
-                {cta}
-              </LocaleLink>
-            ) : (
-              <Link href={ctaHref} className={ctaClassName}>
-                {cta}
-              </Link>
-            )}
+          <div className="animate-rise delay-3 mt-9 flex flex-wrap gap-3">
+            <HeroCta href={ctaHref} className="btn-primary">
+              {cta}
+            </HeroCta>
+            {secondaryCta && secondaryCtaHref ? (
+              <HeroCta href={secondaryCtaHref} className="btn-secondary">
+                {secondaryCta}
+              </HeroCta>
+            ) : null}
           </div>
         </div>
       </div>

@@ -228,9 +228,11 @@ export function ProductForm({
           onClick={onAddToCart}
           className="btn-secondary btn-primary-block disabled:cursor-not-allowed disabled:opacity-45"
         >
-          {pendingMode === "add"
-            ? dict.products.adding
-            : dict.products.addToCart}
+          {soldOut
+            ? dict.products.soldOut
+            : pendingMode === "add"
+              ? dict.products.adding
+              : dict.products.addToCart}
         </button>
         <WishlistButton
           productId={product.id}

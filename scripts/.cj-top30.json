@@ -1,0 +1,1358 @@
+{
+  "generatedAt": "2026-09-20T12:48:39.113Z",
+  "method": "CJ listedNum × assortment gap × SE freight price band × stock sample",
+  "storeContext": {
+    "focus": "Damkläder",
+    "priceBandSek": "199–399 preferred",
+    "gaps": "Byxor/Klänningar/Toppar/Set/Stickat under-indexed vs jackets"
+  },
+  "counts": {
+    "Klänningar": 2,
+    "Byxor": 6,
+    "Accessoarer": 3,
+    "Set": 3,
+    "Toppar": 4,
+    "Stickat": 6,
+    "Ytterkläder": 6
+  },
+  "products": [
+    {
+      "pid": "BB3F2D46-EB14-4D45-94B1-CF00A82858CE",
+      "sku": "CJNSSYMY00527",
+      "name": "Solid Turtleneck Long Sweater Winter Warm Women Sweater Dress",
+      "category": "Women's Clothing / Tops & Sets / Sweaters",
+      "type": "Klänningar",
+      "tag": "clothing:klanningar",
+      "tags": [
+        "clothing",
+        "clothing:klanningar",
+        "gender:women"
+      ],
+      "listed": 5392,
+      "variants": 56,
+      "colors": [
+        "Light grey",
+        "Apricot",
+        "Dark grey",
+        "Pink",
+        "Wine red",
+        "Dark Blue",
+        "Army green"
+      ],
+      "sizes": [
+        "S",
+        "L",
+        "2XL",
+        "3XL",
+        "4XL",
+        "5XL",
+        "M",
+        "XL"
+      ],
+      "maxUsd": 8.34,
+      "freightUsd": 11.96,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 213,
+      "estPriceSek": 359,
+      "stockSampleOk": 3,
+      "stockSampleSum": 40823,
+      "image": "https://cf.cjdropshipping.com/15729696/1286533932712.jpg",
+      "score": 177,
+      "why": [
+        "5,392 CJ store listings",
+        "fills Klänningar gap",
+        "est 359 SEK (landed ~213 + margin/VAT)",
+        "56 variants / 7 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1722182217775976448",
+      "sku": "CJLY1891796",
+      "name": "Winter Turtleneck Long Sweater Dress With Button Design Leisure Clinch Long Sleeve Base Sweater Women",
+      "category": "Women's Clothing / Tops & Sets / Lady Dresses",
+      "type": "Klänningar",
+      "tag": "clothing:klanningar",
+      "tags": [
+        "clothing",
+        "clothing:klanningar",
+        "gender:women"
+      ],
+      "listed": 3323,
+      "variants": 9,
+      "colors": [
+        "White",
+        "Pink",
+        "Army Green"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "maxUsd": 7.96,
+      "freightUsd": 8.08,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 168,
+      "estPriceSek": 299,
+      "stockSampleOk": 3,
+      "stockSampleSum": 42450,
+      "image": "https://oss-cf.cjdropshipping.com/product/2023/11/25/04/eb081cd2-225b-45e7-ac48-7de25c4921b0.jpg",
+      "score": 176.7,
+      "why": [
+        "3,323 CJ store listings",
+        "fills Klänningar gap",
+        "est 299 SEK (landed ~168 + margin/VAT)",
+        "9 variants / 3 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1564180828962836480",
+      "sku": "CJJS1552344",
+      "name": "Slimming Pants Waist Trainer Shapewear Tummy Hot Thermo Sweat Leggings Fitness Workout Sweat Sauna Pants Body Shaper",
+      "category": "Women's Clothing/Bottoms/Pants & Capris",
+      "type": "Byxor",
+      "tag": "clothing:byxor",
+      "tags": [
+        "clothing",
+        "clothing:byxor",
+        "gender:women"
+      ],
+      "listed": 3893,
+      "variants": 12,
+      "colors": [
+        "Silver",
+        "Blue"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL",
+        "3XL"
+      ],
+      "maxUsd": 3.08,
+      "freightUsd": 4.8,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 83,
+      "estPriceSek": 199,
+      "stockSampleOk": 3,
+      "stockSampleSum": 35679,
+      "image": "https://cf.cjdropshipping.com/c7c0ea7d-cbe7-480b-9f4f-87e5efc575e3.jpg",
+      "score": 174.7,
+      "why": [
+        "3,893 CJ store listings",
+        "fills Byxor gap",
+        "est 199 SEK (landed ~83 + margin/VAT)",
+        "12 variants / 2 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1581944399960363008",
+      "sku": "CJMZ1589440",
+      "name": "Winter Thick Plush Hat With Scarf Windproof Warm Knit Hats Hooded For Women",
+      "category": "Women's Clothing/Accessories/Woman Hats & Caps",
+      "type": "Accessoarer",
+      "tag": "clothing:accessoarer",
+      "tags": [
+        "clothing",
+        "clothing:accessoarer",
+        "gender:women"
+      ],
+      "listed": 1327,
+      "variants": 8,
+      "colors": [
+        "Black",
+        "Pink",
+        "Grey",
+        "Khaki",
+        "Turmeric",
+        "Beige",
+        "Leather red",
+        "Navy blue"
+      ],
+      "sizes": [
+        "One"
+      ],
+      "maxUsd": 4.3,
+      "freightUsd": 5.24,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 100,
+      "estPriceSek": 219,
+      "stockSampleOk": 3,
+      "stockSampleSum": 36312,
+      "image": "https://cf.cjdropshipping.com/d3d11c51-4815-49ba-b10a-5f411d92264c.jpg",
+      "score": 156.8,
+      "why": [
+        "1,327 CJ store listings",
+        "fills Accessoarer gap",
+        "est 219 SEK (landed ~100 + margin/VAT)",
+        "8 variants / 8 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1720024790637367296",
+      "sku": "CJDD1886234",
+      "name": "Fleece Thickened Leggings Winter -20 To 5 Shark Pants For Women High Waist Tight Skinny Tummy Control Buttocks Slimming Yoga Pants",
+      "category": "Women's Clothing/Bottoms/Leggings",
+      "type": "Byxor",
+      "tag": "clothing:byxor",
+      "tags": [
+        "clothing",
+        "clothing:byxor",
+        "gender:women"
+      ],
+      "listed": 878,
+      "variants": 6,
+      "colors": [
+        "Black",
+        "Grey",
+        "Brown"
+      ],
+      "sizes": [
+        "500g",
+        "650g"
+      ],
+      "maxUsd": 5.79,
+      "freightUsd": 9.78,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 163,
+      "estPriceSek": 299,
+      "stockSampleOk": 3,
+      "stockSampleSum": 31890,
+      "image": "https://oss-cf.cjdropshipping.com/product/2023/11/02/11/54fba89a-482a-416f-a32c-3e7de6e50aa0.jpg",
+      "score": 155.5,
+      "why": [
+        "878 CJ store listings",
+        "fills Byxor gap",
+        "est 299 SEK (landed ~163 + margin/VAT)",
+        "6 variants / 3 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1696472946098843648",
+      "sku": "CJLS1833644",
+      "name": "Oversized Solid Casual Pullovers Long Pant Set Warm Hoodie New Tracksuit Suit Fashion Pant Sets Sets For Women 2 Pieces",
+      "category": "Women's Clothing > Tops & Sets > Suits & Sets",
+      "type": "Set",
+      "tag": "clothing:set",
+      "tags": [
+        "clothing",
+        "clothing:set",
+        "gender:women"
+      ],
+      "listed": 901,
+      "variants": 20,
+      "colors": [
+        "White",
+        "Gray",
+        "Beige",
+        "Black",
+        "Red"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "maxUsd": 7.46,
+      "freightUsd": 12.28,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 207,
+      "estPriceSek": 349,
+      "stockSampleOk": 3,
+      "stockSampleSum": 39402,
+      "image": "https://oss-cf.cjdropshipping.com/product/2024/08/02/09/393d93e2-ac9d-4a2f-90ed-a1ad9e048692.jpg",
+      "score": 151.8,
+      "why": [
+        "901 CJ store listings",
+        "fills Set gap",
+        "est 349 SEK (landed ~207 + margin/VAT)",
+        "20 variants / 5 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "3F783D4A-B285-4F71-ADCD-28540B7144BC",
+      "sku": "CJNSFSWJ01136",
+      "name": "Shawl Accessories Cashmere Scarf Women Scarfs Winter",
+      "category": "Women's Clothing / Accessories / Scarves & Wraps",
+      "type": "Accessoarer",
+      "tag": "clothing:accessoarer",
+      "tags": [
+        "clothing",
+        "clothing:accessoarer",
+        "gender:women"
+      ],
+      "listed": 895,
+      "variants": 8,
+      "colors": [
+        "Yellow",
+        "Grey",
+        "Red",
+        "Beige",
+        "Light Green",
+        "Black",
+        "Pink",
+        "Brown"
+      ],
+      "sizes": [
+        "One"
+      ],
+      "maxUsd": 7.95,
+      "freightUsd": 5.24,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 138,
+      "estPriceSek": 269,
+      "stockSampleOk": 3,
+      "stockSampleSum": 60000,
+      "image": "https://cf.cjdropshipping.com/1ff42585-05bb-4246-b9d5-014f127b68b6.jpg",
+      "score": 151.7,
+      "why": [
+        "895 CJ store listings",
+        "fills Accessoarer gap",
+        "est 269 SEK (landed ~138 + margin/VAT)",
+        "8 variants / 8 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1425655812889645056",
+      "sku": "CJTZ1248627",
+      "name": "Cross-border Foreign Trade Source Women''s Clothing Star Printing Lapel Knitted Suit Two-piece Set",
+      "category": "Womens Clothing > Tops & Sets > Suits & Sets",
+      "type": "Set",
+      "tag": "clothing:set",
+      "tags": [
+        "clothing",
+        "clothing:set",
+        "gender:women"
+      ],
+      "listed": 866,
+      "variants": 30,
+      "colors": [
+        "Red",
+        "Green",
+        "Blue",
+        "Yellow",
+        "Light Grey",
+        "Dark Grey"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ],
+      "maxUsd": 9.93,
+      "freightUsd": 5.15,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 158,
+      "estPriceSek": 289,
+      "stockSampleOk": 3,
+      "stockSampleSum": 95399,
+      "image": "https://cf.cjdropshipping.com/89899a21-81c1-4d13-92b9-e6606210e049.jpg",
+      "score": 151.3,
+      "why": [
+        "866 CJ store listings",
+        "fills Set gap",
+        "est 289 SEK (landed ~158 + margin/VAT)",
+        "30 variants / 6 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1467051139034910720",
+      "sku": "CJCS1371394",
+      "name": "Shirts Women Long Sleeve Blouse Sexy",
+      "category": "Women's Clothing > Tops & Sets > Blouses & Shirts",
+      "type": "Toppar",
+      "tag": "clothing:toppar",
+      "tags": [
+        "clothing",
+        "clothing:toppar",
+        "gender:women"
+      ],
+      "listed": 893,
+      "variants": 40,
+      "colors": [
+        "White",
+        "Orange multicolor",
+        "Rose red stripes",
+        "Rose Red",
+        "Green plaid",
+        "Pink polka dot sleeves",
+        "Pink love",
+        "Sky Blue"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ],
+      "maxUsd": 7.04,
+      "freightUsd": 5.15,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 128,
+      "estPriceSek": 249,
+      "stockSampleOk": 3,
+      "stockSampleSum": 120343,
+      "image": "https://cf.cjdropshipping.com/a04c8d32-6ab4-48a8-8a9f-33415486a42c.jpg",
+      "score": 145.7,
+      "why": [
+        "893 CJ store listings",
+        "fills Toppar gap",
+        "est 249 SEK (landed ~128 + margin/VAT)",
+        "40 variants / 8 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "2410050232221615200",
+      "sku": "CJLY2152316",
+      "name": "Sweater Skirt Sets For Women 2 Pieces Knit Casual Versatile Long Sleeve Pullover Elegant Solid High Waist Mini Skirt Outfit",
+      "category": "Women's Clothing > Tops & Sets > Suits & Sets",
+      "type": "Set",
+      "tag": "clothing:set",
+      "tags": [
+        "clothing",
+        "clothing:set",
+        "gender:women"
+      ],
+      "listed": 828,
+      "variants": 56,
+      "colors": [
+        "Dark Red",
+        "Dark Gray",
+        "Black",
+        "Green",
+        "Deep Coffee",
+        "Light Gray",
+        "White",
+        "Camel"
+      ],
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL",
+        "3XL"
+      ],
+      "maxUsd": 12.77,
+      "freightUsd": 9.78,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 237,
+      "estPriceSek": 389,
+      "stockSampleOk": 3,
+      "stockSampleSum": 36365,
+      "image": "https://oss-cf.cjdropshipping.com/product/2024/11/28/06/4efecf19-4c9b-4a83-ba61-83f90007ed44.jpg",
+      "score": 144.7,
+      "why": [
+        "828 CJ store listings",
+        "fills Set gap",
+        "est 389 SEK (landed ~237 + margin/VAT)",
+        "56 variants / 8 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "2408021209401627000",
+      "sku": "CJMY2100177",
+      "name": "Sweet Crew Neck Pullover Sweater Winter Fashion Loose Long-sleeved Tops For Women Clothing",
+      "category": "Women's Clothing > Tops & Sets > Sweaters",
+      "type": "Stickat",
+      "tag": "clothing:stickat",
+      "tags": [
+        "clothing",
+        "clothing:stickat",
+        "gender:women"
+      ],
+      "listed": 690,
+      "variants": 18,
+      "colors": [
+        "Pink",
+        "Black gray",
+        "Khaki",
+        "Light Blue"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL",
+        "XXXL"
+      ],
+      "maxUsd": 8.51,
+      "freightUsd": 9.38,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 188,
+      "estPriceSek": 329,
+      "stockSampleOk": 3,
+      "stockSampleSum": 35024,
+      "image": "https://cf.cjdropshipping.com/quick/product/a352b401-a4a0-4857-9855-4abcfde83406.jpg",
+      "score": 144.4,
+      "why": [
+        "690 CJ store listings",
+        "fills Stickat gap",
+        "est 329 SEK (landed ~188 + margin/VAT)",
+        "18 variants / 4 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1746489372364513280",
+      "sku": "CJYD1948143",
+      "name": "Lapel Double-breasted Trench Coat With Belt Winter Fashion Solid Color Long Jacket Outwear Women Clothing",
+      "category": "Women's Clothing > Outerwear & Jackets > Woman Trench",
+      "type": "Ytterkläder",
+      "tag": "clothing:ytterklader",
+      "tags": [
+        "clothing",
+        "clothing:ytterklader",
+        "gender:women"
+      ],
+      "listed": 2746,
+      "variants": 24,
+      "colors": [
+        "Red",
+        "Black",
+        "Khaki",
+        "Black 2",
+        "Brown"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "maxUsd": 11.28,
+      "freightUsd": 14.61,
+      "logistics": "CJPacket Ordinary",
+      "landedSek": 272,
+      "estPriceSek": 429,
+      "stockSampleOk": 3,
+      "stockSampleSum": 34632,
+      "image": "https://oss-cf.cjdropshipping.com/product/2024/11/20/06/dcd705c2-fb0c-4a2a-a97e-ceeee0bb98e9.jpg",
+      "score": 143.2,
+      "why": [
+        "2,746 CJ store listings",
+        "fills Ytterkläder gap",
+        "est 429 SEK (landed ~272 + margin/VAT)",
+        "24 variants / 5 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "2406260252401604200",
+      "sku": "CJTZ2068945",
+      "name": "Striped Trousers With Pockets Ins Fashion Casual Wide Leg Straight Pants For Women Clothing",
+      "category": "Women's Clothing > Bottoms > Wide Leg Pants",
+      "type": "Byxor",
+      "tag": "clothing:byxor",
+      "tags": [
+        "clothing",
+        "clothing:byxor",
+        "gender:women"
+      ],
+      "listed": 522,
+      "variants": 42,
+      "colors": [
+        "Blue",
+        "Gray",
+        "Green",
+        "Pink",
+        "Red",
+        "Yellow"
+      ],
+      "sizes": [
+        "L",
+        "M",
+        "S",
+        "XL",
+        "XS",
+        "XXL",
+        "XXXL"
+      ],
+      "maxUsd": 3.02,
+      "freightUsd": 7.82,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 114,
+      "estPriceSek": 239,
+      "stockSampleOk": 3,
+      "stockSampleSum": 39287,
+      "image": "https://oss-cf.cjdropshipping.com/product/2025/01/23/06/95e77324-c03d-4747-89e4-5c041d64feaa.jpg",
+      "score": 142.8,
+      "why": [
+        "522 CJ store listings",
+        "fills Byxor gap",
+        "est 239 SEK (landed ~114 + margin/VAT)",
+        "42 variants / 6 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1720004933405528064",
+      "sku": "CJJS1886197",
+      "name": "Winter Wide-leg Fleece Trousers For Women Warm Straight-leg Casual Lamb Cashmere Pants Loose Sports Sweatpants",
+      "category": "Women's Clothing/Bottoms/Pants & Capris",
+      "type": "Byxor",
+      "tag": "clothing:byxor",
+      "tags": [
+        "clothing",
+        "clothing:byxor",
+        "gender:women"
+      ],
+      "listed": 319,
+      "variants": 18,
+      "colors": [
+        "Black",
+        "Apricot",
+        "Khaki"
+      ],
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "2XL",
+        "3XL",
+        "4XL"
+      ],
+      "maxUsd": 5.97,
+      "freightUsd": 8.97,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 157,
+      "estPriceSek": 289,
+      "stockSampleOk": 3,
+      "stockSampleSum": 39212,
+      "image": "https://oss-cf.cjdropshipping.com/product/2023/11/03/01/6519d9dd-cd20-4a7d-8833-f82a1c9738c4.jpg",
+      "score": 142.5,
+      "why": [
+        "319 CJ store listings",
+        "fills Byxor gap",
+        "est 289 SEK (landed ~157 + margin/VAT)",
+        "18 variants / 3 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1630409249086394368",
+      "sku": "CJLS1694519",
+      "name": "Long Puff Sleeve Tops Women Flowers Print Casual V-Neck Blouse T-Shirts Babydoll Tops",
+      "category": "Women's Clothing > Tops & Sets > Women's Short-Sleeved Shirts",
+      "type": "Toppar",
+      "tag": "clothing:toppar",
+      "tags": [
+        "clothing",
+        "clothing:toppar",
+        "gender:women"
+      ],
+      "listed": 410,
+      "variants": 30,
+      "colors": [
+        "No.3 flower",
+        "No.4 flower",
+        "No.5 flower",
+        "No.6 flower",
+        "No.1 flower",
+        "No.2 flower"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "maxUsd": 5.97,
+      "freightUsd": 5.4,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 119,
+      "estPriceSek": 239,
+      "stockSampleOk": 3,
+      "stockSampleSum": 39518,
+      "image": "https://cf.cjdropshipping.com/14e558d6-76d8-44a7-9c0d-30cd148c99ac.jpg",
+      "score": 141.7,
+      "why": [
+        "410 CJ store listings",
+        "fills Toppar gap",
+        "est 239 SEK (landed ~119 + margin/VAT)",
+        "30 variants / 6 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1E881A11-C605-4F01-8242-8C337CCF14AB",
+      "sku": "CJNSSYCS00790",
+      "name": "asual Plaid Women Blouses Kimono Vintage Linen Cotton Long Sleeve Blouse Female Shirts Tops",
+      "category": "Women's Clothing / Tops & Sets / Blouses & Shirts",
+      "type": "Toppar",
+      "tag": "clothing:toppar",
+      "tags": [
+        "clothing",
+        "clothing:toppar",
+        "gender:women"
+      ],
+      "listed": 380,
+      "variants": 10,
+      "colors": [
+        "1",
+        "2"
+      ],
+      "sizes": [
+        "M",
+        "L",
+        "S",
+        "XL",
+        "XXL"
+      ],
+      "maxUsd": 3.56,
+      "freightUsd": 4.84,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 88,
+      "estPriceSek": 199,
+      "stockSampleOk": 3,
+      "stockSampleSum": 34604,
+      "image": "https://cf.cjdropshipping.com/15376320/1036545013871.jpg",
+      "score": 140.7,
+      "why": [
+        "380 CJ store listings",
+        "fills Toppar gap",
+        "est 199 SEK (landed ~88 + margin/VAT)",
+        "10 variants / 2 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1676783297839910912",
+      "sku": "CJMY1794081",
+      "name": "Plaid Sweater Women Casual Lantern Sleeves Cardigan Jacket Outerwear Clothes",
+      "category": "Women's Clothing/Tops & Sets/Sweaters",
+      "type": "Ytterkläder",
+      "tag": "clothing:ytterklader",
+      "tags": [
+        "clothing",
+        "clothing:ytterklader",
+        "gender:women"
+      ],
+      "listed": 1253,
+      "variants": 9,
+      "colors": [
+        "Wine Red",
+        "Black",
+        "Blue"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "maxUsd": 8.14,
+      "freightUsd": 8.7,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 177,
+      "estPriceSek": 309,
+      "stockSampleOk": 3,
+      "stockSampleSum": 35323,
+      "image": "https://cf.cjdropshipping.com/23ef5644-3efb-496f-96f4-a81a237ab2dd.jpg",
+      "score": 140,
+      "why": [
+        "1,253 CJ store listings",
+        "fills Ytterkläder gap",
+        "est 309 SEK (landed ~177 + margin/VAT)",
+        "9 variants / 3 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "7943B522-3353-423F-A273-1762886E06F7",
+      "sku": "CJNSSYMY01057",
+      "name": "sweater cardigan women Slim sweaters",
+      "category": "Women's Clothing / Tops & Sets / Sweaters",
+      "type": "Stickat",
+      "tag": "clothing:stickat",
+      "tags": [
+        "clothing",
+        "clothing:stickat",
+        "gender:women"
+      ],
+      "listed": 772,
+      "variants": 36,
+      "colors": [
+        "Pink",
+        "Green",
+        "Grey",
+        "Yellow",
+        "Black",
+        "Blue",
+        "Beige",
+        "Red",
+        "Khaki"
+      ],
+      "sizes": [
+        "L",
+        "XL",
+        "S",
+        "M"
+      ],
+      "maxUsd": 6.47,
+      "freightUsd": 5.46,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 125,
+      "estPriceSek": 249,
+      "stockSampleOk": 3,
+      "stockSampleSum": 40410,
+      "image": "https://cf.cjdropshipping.com/20200715/899431783013.jpg",
+      "score": 139.8,
+      "why": [
+        "772 CJ store listings",
+        "fills Stickat gap",
+        "est 249 SEK (landed ~125 + margin/VAT)",
+        "36 variants / 9 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "2508210834381609100",
+      "sku": "CJYD2464025",
+      "name": "Winter High Neck Batwing Sleeve Coat With Belt Fashion Loose Elegant Button Top Trench Coat For Women Clothing",
+      "category": "Women's Clothing > Outerwear & Jackets > Blazers",
+      "type": "Ytterkläder",
+      "tag": "clothing:ytterklader",
+      "tags": [
+        "clothing",
+        "clothing:ytterklader",
+        "gender:women"
+      ],
+      "listed": 1226,
+      "variants": 30,
+      "colors": [
+        "Khaki",
+        "White",
+        "Black",
+        "Navy Blue",
+        "Brown"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL",
+        "Xs"
+      ],
+      "maxUsd": 9.95,
+      "freightUsd": 10.29,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 213,
+      "estPriceSek": 359,
+      "stockSampleOk": 3,
+      "stockSampleSum": 25763,
+      "image": "https://cf.cjdropshipping.com/quick/product/b1b675b6-6878-4c7e-93f6-424f09a26953.jpg",
+      "score": 139.8,
+      "why": [
+        "1,226 CJ store listings",
+        "fills Ytterkläder gap",
+        "est 359 SEK (landed ~213 + margin/VAT)",
+        "30 variants / 5 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1603402871423782912",
+      "sku": "CJWJ1639291",
+      "name": "Winter Windproof Scarves Fleece Tube Scarf Mask Soft Half Face Cover SKi Snowboard Neck Warmer Gaiter Fashion Women Men Winter Fleece Face Mask Scarf Balaclava Neck Warmer",
+      "category": "Men's Clothing/Accessories/Scarves",
+      "type": "Accessoarer",
+      "tag": "clothing:accessoarer",
+      "tags": [
+        "clothing",
+        "clothing:accessoarer",
+        "gender:women"
+      ],
+      "listed": 653,
+      "variants": 2,
+      "colors": [
+        "Black",
+        "Gray"
+      ],
+      "sizes": [
+        "One"
+      ],
+      "maxUsd": 11.021,
+      "freightUsd": 5,
+      "logistics": "Yunexpress CN to Multi-Region",
+      "landedSek": 168,
+      "estPriceSek": 299,
+      "stockSampleOk": 2,
+      "stockSampleSum": 2434,
+      "image": "https://cf.cjdropshipping.com/4954fdb9-72db-4192-8d8c-82073f09369f.jpg",
+      "score": 139.6,
+      "why": [
+        "653 CJ store listings",
+        "fills Accessoarer gap",
+        "est 299 SEK (landed ~168 + margin/VAT)",
+        "2 variants / 2 colors",
+        "2/2 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1466611259964264448",
+      "sku": "CJMY1370041",
+      "name": "Women Solid Color Turtleneck Sweater Fashion Winter Tops",
+      "category": "Women's Clothing > Tops & Sets > Sweaters",
+      "type": "Stickat",
+      "tag": "clothing:stickat",
+      "tags": [
+        "clothing",
+        "clothing:stickat",
+        "gender:women"
+      ],
+      "listed": 343,
+      "variants": 24,
+      "colors": [
+        "Khaki",
+        "Green",
+        "White",
+        "Orange",
+        "Light Grey",
+        "Black"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "maxUsd": 10.51,
+      "freightUsd": 9.46,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 210,
+      "estPriceSek": 359,
+      "stockSampleOk": 3,
+      "stockSampleSum": 111897,
+      "image": "https://cf.cjdropshipping.com/12e3f313-b182-4df7-b1e0-9b6109d2524e.jpg",
+      "score": 139.4,
+      "why": [
+        "343 CJ store listings",
+        "fills Stickat gap",
+        "est 359 SEK (landed ~210 + margin/VAT)",
+        "24 variants / 6 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1446309083354370048",
+      "sku": "CJMY1311924",
+      "name": "Sweater Sweater Knit Sweater Leopard Print Sweater Women",
+      "category": "Women's Clothing > Tops & Sets > Sweaters",
+      "type": "Stickat",
+      "tag": "clothing:stickat",
+      "tags": [
+        "clothing",
+        "clothing:stickat",
+        "gender:women"
+      ],
+      "listed": 341,
+      "variants": 12,
+      "colors": [
+        "White",
+        "Pink",
+        "Grey"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "maxUsd": 7.92,
+      "freightUsd": 8.46,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 172,
+      "estPriceSek": 309,
+      "stockSampleOk": 3,
+      "stockSampleSum": 111103,
+      "image": "https://cf.cjdropshipping.com/b56a6a86-3843-45ab-9ebd-1d7d48b9bebb.jpg",
+      "score": 139.4,
+      "why": [
+        "341 CJ store listings",
+        "fills Stickat gap",
+        "est 309 SEK (landed ~172 + margin/VAT)",
+        "12 variants / 3 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1875736335549513730",
+      "sku": "CJQB2261478",
+      "name": "Slim V-neck Lace T-Shirt Ins Fashion Trumpet Sleeve Long-sleeved Top Women Clothing",
+      "category": "Women's Clothing/Outerwear & Jackets/Blazers",
+      "type": "Toppar",
+      "tag": "clothing:toppar",
+      "tags": [
+        "clothing",
+        "clothing:toppar",
+        "gender:women"
+      ],
+      "listed": 443,
+      "variants": 20,
+      "colors": [
+        "White",
+        "Black",
+        "Red",
+        "Green",
+        "Navy Blue"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "maxUsd": 4.5,
+      "freightUsd": 4.64,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 96,
+      "estPriceSek": 209,
+      "stockSampleOk": 3,
+      "stockSampleSum": 36788,
+      "image": "https://cf.cjdropshipping.com/17362080/1876575486159884288.jpg",
+      "score": 138.7,
+      "why": [
+        "443 CJ store listings",
+        "fills Toppar gap",
+        "est 209 SEK (landed ~96 + margin/VAT)",
+        "20 variants / 5 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1436903177072021504",
+      "sku": "CJMS1283870",
+      "name": "Turtleneck Sweater Men Women Ins Fashion Solid Striped Bottoming Sweater Autumn And Winter Tops Clothing",
+      "category": "Men's Clothing > Outerwear & Jackets > Men's Sweaters",
+      "type": "Stickat",
+      "tag": "clothing:stickat",
+      "tags": [
+        "clothing",
+        "clothing:stickat",
+        "gender:women"
+      ],
+      "listed": 445,
+      "variants": 37,
+      "colors": [
+        "Black",
+        "White",
+        "Blue",
+        "Green",
+        "Yellow maroon",
+        "Brown"
+      ],
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "2XL",
+        "3XL",
+        "S",
+        "XS"
+      ],
+      "maxUsd": 7.3,
+      "freightUsd": 9.18,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 173,
+      "estPriceSek": 309,
+      "stockSampleOk": 3,
+      "stockSampleSum": 110293,
+      "image": "https://cf.cjdropshipping.com/36e72c6e-76fb-408c-960f-61e1ec12f3cd.jpg",
+      "score": 136.7,
+      "why": [
+        "445 CJ store listings",
+        "fills Stickat gap",
+        "est 309 SEK (landed ~173 + margin/VAT)",
+        "37 variants / 6 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1723881728198463488",
+      "sku": "CJQB1895285",
+      "name": "New Loose Knitted Sweater Solid Color Bat Sleeve Large Lapel Cardigan Autumn And Winter Fashion Jacket For Women Clothing",
+      "category": "Women's Clothing/Outerwear & Jackets/Blazers",
+      "type": "Ytterkläder",
+      "tag": "clothing:ytterklader",
+      "tags": [
+        "clothing",
+        "clothing:ytterklader",
+        "gender:women"
+      ],
+      "listed": 1334,
+      "variants": 40,
+      "colors": [
+        "Grey",
+        "Red",
+        "Black",
+        "Apricot",
+        "Army Green",
+        "Navy Blue",
+        "Pink",
+        "Khaki"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "maxUsd": 7.96,
+      "freightUsd": 9.58,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 184,
+      "estPriceSek": 319,
+      "stockSampleOk": 3,
+      "stockSampleSum": 37667,
+      "image": "https://oss-cf.cjdropshipping.com/product/2024/09/02/09/9623ba5c-ca35-43a7-9935-26fbd5fd2b80.jpg",
+      "score": 134.9,
+      "why": [
+        "1,334 CJ store listings",
+        "fills Ytterkläder gap",
+        "est 319 SEK (landed ~184 + margin/VAT)",
+        "40 variants / 8 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "42740842-F5F6-4B24-9F2B-C8820124B774",
+      "sku": "CJNSWTFY01084",
+      "name": "Woolen Lapel Jacket With Double-breasted Design Fashion Casual Trench Fall Winter Mid-length Coat For Women Clothing",
+      "category": "Women's Clothing / Outerwear & Jackets / Woman Trench",
+      "type": "Ytterkläder",
+      "tag": "clothing:ytterklader",
+      "tags": [
+        "clothing",
+        "clothing:ytterklader",
+        "gender:women"
+      ],
+      "listed": 829,
+      "variants": 13,
+      "colors": [
+        "Yellow",
+        "Black"
+      ],
+      "sizes": [
+        "XXL",
+        "XS",
+        "S",
+        "XL",
+        "L",
+        "M",
+        "3XL"
+      ],
+      "maxUsd": 9.95,
+      "freightUsd": 11.34,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 224,
+      "estPriceSek": 369,
+      "stockSampleOk": 3,
+      "stockSampleSum": 48975,
+      "image": "https://cf.cjdropshipping.com/2057/1676031089190.jpg",
+      "score": 134.7,
+      "why": [
+        "829 CJ store listings",
+        "fills Ytterkläder gap",
+        "est 369 SEK (landed ~224 + margin/VAT)",
+        "13 variants / 2 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1676784141759041536",
+      "sku": "CJMY1794086",
+      "name": "Puff Sleeve Cardigan Sweater Women Clothes Front Chunky Knitwear Coat",
+      "category": "Women's Clothing/Tops & Sets/Sweaters",
+      "type": "Ytterkläder",
+      "tag": "clothing:ytterklader",
+      "tags": [
+        "clothing",
+        "clothing:ytterklader",
+        "gender:women"
+      ],
+      "listed": 733,
+      "variants": 6,
+      "colors": [
+        "Army Green",
+        "Yellow"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "maxUsd": 7.78,
+      "freightUsd": 8.25,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 168,
+      "estPriceSek": 299,
+      "stockSampleOk": 3,
+      "stockSampleSum": 38286,
+      "image": "https://cf.cjdropshipping.com/989fff6e-ecb6-46c1-9262-d94bfa52fa7a.jpg",
+      "score": 133.1,
+      "why": [
+        "733 CJ store listings",
+        "fills Ytterkläder gap",
+        "est 299 SEK (landed ~168 + margin/VAT)",
+        "6 variants / 2 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1384764696040706048",
+      "sku": "CJCS1091209",
+      "name": "5XL Plus Size Summer Tops Women Blouses Long Sleeve Print Stand Collar Button Blouse Pullover Womens Clothing Shirt Blusa",
+      "category": "Womens Clothing > Tops & Sets > Blouses & Shirts",
+      "type": "Stickat",
+      "tag": "clothing:stickat",
+      "tags": [
+        "clothing",
+        "clothing:stickat",
+        "gender:women"
+      ],
+      "listed": 548,
+      "variants": 40,
+      "colors": [
+        "White",
+        "Green",
+        "Red",
+        "Pink",
+        "Blue"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL",
+        "3XL",
+        "4XL",
+        "5XL"
+      ],
+      "maxUsd": 1.74,
+      "freightUsd": 5.15,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 72,
+      "estPriceSek": 179,
+      "stockSampleOk": 3,
+      "stockSampleSum": 120000,
+      "image": "https://cf.cjdropshipping.com/1618988214763.jpg",
+      "score": 132.4,
+      "why": [
+        "548 CJ store listings",
+        "fills Stickat gap",
+        "est 179 SEK (landed ~72 + margin/VAT)",
+        "40 variants / 5 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1856885558719959040",
+      "sku": "CJJS2194401",
+      "name": "Winter Warm Leggings Cashmere Plus Velvet Tight Pants Fashion High Waist Slim Fit Trousers For Women Clothing",
+      "category": "Women's Clothing/Bottoms/Pants & Capris",
+      "type": "Byxor",
+      "tag": "clothing:byxor",
+      "tags": [
+        "clothing",
+        "clothing:byxor",
+        "gender:women"
+      ],
+      "listed": 290,
+      "variants": 23,
+      "colors": [
+        "Black",
+        "Skin colour",
+        "Pink",
+        "Dark Grey",
+        "Light Gray",
+        "Coffee"
+      ],
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ],
+      "maxUsd": 2.9,
+      "freightUsd": 5.4,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 87,
+      "estPriceSek": 199,
+      "stockSampleOk": 3,
+      "stockSampleSum": 36358,
+      "image": "https://oss-cf.cjdropshipping.com/product/2024/11/15/07/25d48cab-9fa7-41df-b959-79ad307a19b7.jpg",
+      "score": 141.3,
+      "why": [
+        "290 CJ store listings",
+        "fills Byxor gap",
+        "est 199 SEK (landed ~87 + margin/VAT)",
+        "23 variants / 6 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    },
+    {
+      "pid": "1457536173303009280",
+      "sku": "CJNZ1345715",
+      "name": "Wide Leg Jeans For Women Bottom Baggy Denim Pants Trousers",
+      "category": "Women's Clothing > Bottoms > Woman Jeans",
+      "type": "Byxor",
+      "tag": "clothing:byxor",
+      "tags": [
+        "clothing",
+        "clothing:byxor",
+        "gender:women"
+      ],
+      "listed": 420,
+      "variants": 8,
+      "colors": [
+        "Blue",
+        "Sky Blue"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "maxUsd": 16.16,
+      "freightUsd": 9.03,
+      "logistics": "CJPacket Euro Ordinary F",
+      "landedSek": 264,
+      "estPriceSek": 419,
+      "stockSampleOk": 3,
+      "stockSampleSum": 104080,
+      "image": "https://cf.cjdropshipping.com/da9550fa-7016-46a8-b630-c41c91f1ea98.jpg",
+      "score": 139,
+      "why": [
+        "420 CJ store listings",
+        "fills Byxor gap",
+        "est 419 SEK (landed ~264 + margin/VAT)",
+        "8 variants / 2 colors",
+        "3/3 sampled sizes in stock"
+      ]
+    }
+  ]
+}

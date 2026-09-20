@@ -32,18 +32,63 @@ export function findVariant(
   );
 }
 
-/** True when any in-stock variant uses this option value, regardless of siblings. */
+function hasOptionValue(
+  variant: ProductVariant,
+  optionName: string,
+  value: string,
+) {
+  return variant.selectedOptions.some(
+    (option) => option.name === optionName && option.value === value,
+  );
+}
+
+/** Variants matching every other option the shopper already picked. */
+function matchesSiblings(
+  variant: ProductVariant,
+  selected: Record<string, string>,
+  optionName: string,
+) {
+  return variant.selectedOptions.every(
+    (option) =>
+      option.name === optionName ||
+      selected[option.name] === undefined ||
+      selected[option.name] === option.value,
+  );
+}
+
+/**
+ * Variants for one option value, narrowed to the rest of the current
+ * selection. Combinations Shopify never created (e.g. Red exists, Red/XL does
+ * not) fall back to the unnarrowed list so the value stays clickable —
+ * `selectOptionValue` then moves the siblings to a combination that exists.
+ */
+function variantsForOptionValue(
+  variants: ProductVariant[],
+  optionName: string,
+  value: string,
+  selected: Record<string, string>,
+) {
+  const withValue = variants.filter((variant) =>
+    hasOptionValue(variant, optionName, value),
+  );
+  const withSelection = withValue.filter((variant) =>
+    matchesSiblings(variant, selected, optionName),
+  );
+  return withSelection.length > 0 ? withSelection : withValue;
+}
+
+/**
+ * True when this option value can be bought alongside the rest of the current
+ * selection. Without `selected` it falls back to "in stock in any combination".
+ */
 export function isOptionValueInStock(
   variants: ProductVariant[],
   optionName: string,
   value: string,
+  selected: Record<string, string> = {},
 ): boolean {
-  return variants.some(
-    (variant) =>
-      variant.availableForSale &&
-      variant.selectedOptions.some(
-        (option) => option.name === optionName && option.value === value,
-      ),
+  return variantsForOptionValue(variants, optionName, value, selected).some(
+    (variant) => variant.availableForSale,
   );
 }
 
@@ -129,21 +174,10 @@ export function priceForOptionValue(
   variants: ProductVariant[],
   optionName: string,
   value: string,
+  selected: Record<string, string> = {},
 ) {
-  const match =
-    variants.find(
-      (variant) =>
-        variant.availableForSale &&
-        variant.selectedOptions.some(
-          (option) => option.name === optionName && option.value === value,
-        ),
-    ) ??
-    variants.find((variant) =>
-      variant.selectedOptions.some(
-        (option) => option.name === optionName && option.value === value,
-      ),
-    );
-
+  const pool = variantsForOptionValue(variants, optionName, value, selected);
+  const match = pool.find((variant) => variant.availableForSale) ?? pool[0];
   return match?.price ?? null;
 }
 
@@ -151,9 +185,13 @@ export function optionPricesVary(
   variants: ProductVariant[],
   optionName: string,
   values: string[],
+  selected: Record<string, string> = {},
 ) {
   const prices = values
-    .map((value) => priceForOptionValue(variants, optionName, value)?.amount)
+    .map(
+      (value) =>
+        priceForOptionValue(variants, optionName, value, selected)?.amount,
+    )
     .filter((amount): amount is string => Boolean(amount));
   return new Set(prices).size > 1;
 }

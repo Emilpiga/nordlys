@@ -610,9 +610,11 @@ export type ProductSortKey =
 export async function getProductsByIds(
   ids: string[],
   locale?: string,
+  options?: { cache?: RequestCache },
 ): Promise<Product[]> {
   if (!isShopifyConfigured() || ids.length === 0) return [];
   const context = contextFromLocale(locale);
+  const cacheMode = options?.cache ?? "no-store";
 
   try {
     const data = await shopifyFetch<{
@@ -622,7 +624,7 @@ export async function getProductsByIds(
       variables: { ids },
       context,
       tags: [localeTag(locale, "products"), "products"],
-      cache: "no-store",
+      cache: cacheMode,
     });
 
     return data.nodes

@@ -21,6 +21,7 @@ const TYPE_TAG_BY_PRODUCT_TYPE = {
   stickat: "clothing:stickat",
   klänningar: "clothing:klanningar",
   klanningar: "clothing:klanningar",
+  byxor: "clothing:byxor",
   set: "clothing:set",
   accessoarer: "clothing:accessoarer",
 };
@@ -32,6 +33,7 @@ const APPAREL_PRODUCT_TYPES = new Set([
   "stickat",
   "klänningar",
   "klanningar",
+  "byxor",
   "set",
   "accessoarer",
   "kläder",
@@ -97,6 +99,15 @@ const COLLECTION_DEFS = [
     ],
   },
   {
+    handle: "dam-byxor",
+    title: "Dam byxor",
+    description: "Byxor och leggings för dam.",
+    rules: [
+      { column: "TAG", relation: "EQUALS", condition: "gender:women" },
+      { column: "TAG", relation: "EQUALS", condition: "clothing:byxor" },
+    ],
+  },
+  {
     handle: "dam-set",
     title: "Dam set",
     description: "Matchande set för dam.",
@@ -147,6 +158,15 @@ const COLLECTION_DEFS = [
     rules: [
       { column: "TAG", relation: "EQUALS", condition: "gender:men" },
       { column: "TAG", relation: "EQUALS", condition: "clothing:stickat" },
+    ],
+  },
+  {
+    handle: "herr-byxor",
+    title: "Herr byxor",
+    description: "Byxor för herr.",
+    rules: [
+      { column: "TAG", relation: "EQUALS", condition: "gender:men" },
+      { column: "TAG", relation: "EQUALS", condition: "clothing:byxor" },
     ],
   },
   {

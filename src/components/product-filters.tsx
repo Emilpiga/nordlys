@@ -3,6 +3,7 @@
 import {
   useEffect,
   useId,
+  useMemo,
   useRef,
   useState,
   type KeyboardEvent as ReactKeyboardEvent,
@@ -25,11 +26,10 @@ import {
 } from "@/lib/catalog-filters";
 import { formatMoney } from "@/lib/format";
 import {
-  catalogCollectionNav,
-  clothingGenders,
-  clothingTypesFor,
+  collectionAncestorHandles,
+  collectionFilterTree,
   shortCollectionLabel,
-  type ClothingGender,
+  type CollectionTreeNode,
 } from "@/lib/shopify/collections";
 import type { CollectionSummary } from "@/lib/shopify/types";
 
@@ -68,7 +68,33 @@ export function FilterPanel({
   const current = sanitizeFilters(filters, bounds);
   const price = resolvedPriceRange(current, bounds);
   const canClear = activeFilterCount(current, bounds) > 0;
-  const nav = catalogCollectionNav(collections, current.collection);
+  const tree = useMemo(
+    () => collectionFilterTree(collections),
+    [collections],
+  );
+  const [openBranches, setOpenBranches] = useState<ReadonlySet<string>>(
+    () => new Set(branchesToReveal(tree, current.collection)),
+  );
+
+  useEffect(() => {
+    const revealed = branchesToReveal(tree, current.collection);
+    setOpenBranches((currentOpen) => {
+      if (revealed.length === 0) return currentOpen;
+      const next = new Set(currentOpen);
+      for (const handle of revealed) next.add(handle);
+      if (sameSet(currentOpen, next)) return currentOpen;
+      return next;
+    });
+  }, [current.collection, tree]);
+
+  function toggleBranch(handle: string) {
+    setOpenBranches((currentOpen) => {
+      const next = new Set(currentOpen);
+      if (next.has(handle)) next.delete(handle);
+      else next.add(handle);
+      return next;
+    });
+  }
 
   return (
     <div className="space-y-8">
@@ -87,7 +113,7 @@ export function FilterPanel({
         ) : null}
       </div>
 
-      {nav.primary.length > 0 ? (
+      {tree.length > 0 ? (
         <fieldset className="min-w-0">
           <legend className="mb-3">
             <FilterHeading>{copy.category}</FilterHeading>
@@ -99,80 +125,16 @@ export function FilterPanel({
               active={!current.collection}
               onSelect={() => onChange({ ...filters, collection: null })}
             />
-            {nav.primary.map((collection) => {
-              const isKlader = collection.handle === "klader";
-              const clothingOpen = isKlader && nav.inClothingBranch;
-              return (
-                <div key={collection.id}>
-                  <CollectionRow
-                    label={collection.title}
-                    count={collection.productCount}
-                    active={
-                      current.collection === collection.handle || clothingOpen
-                    }
-                    onSelect={() =>
-                      onChange({
-                        ...filters,
-                        collection:
-                          filters.collection === collection.handle
-                            ? null
-                            : collection.handle,
-                      })
-                    }
-                  />
-                  {isKlader
-                    ? clothingGenders(collections).map((gender) => {
-                        const genderKey = gender.handle as ClothingGender;
-                        const genderActive =
-                          current.collection === gender.handle ||
-                          nav.clothingGenderKey === gender.handle;
-                        const types = genderActive
-                          ? clothingTypesFor(genderKey, collections)
-                          : [];
-                        return (
-                          <div key={gender.id} className="pl-3">
-                            <CollectionRow
-                              label={gender.title}
-                              count={gender.productCount}
-                              active={genderActive}
-                              onSelect={() =>
-                                onChange({
-                                  ...filters,
-                                  collection:
-                                    filters.collection === gender.handle
-                                      ? collection.handle
-                                      : gender.handle,
-                                })
-                              }
-                            />
-                            {types.map((child) => (
-                              <div key={child.id} className="pl-3">
-                                <CollectionRow
-                                  label={shortCollectionLabel(
-                                    child.title,
-                                    gender.title,
-                                  )}
-                                  count={child.productCount}
-                                  active={current.collection === child.handle}
-                                  onSelect={() =>
-                                    onChange({
-                                      ...filters,
-                                      collection:
-                                        filters.collection === child.handle
-                                          ? gender.handle
-                                          : child.handle,
-                                    })
-                                  }
-                                />
-                              </div>
-                            ))}
-                          </div>
-                        );
-                      })
-                    : null}
-                </div>
-              );
-            })}
+            <CollectionTree
+              nodes={tree}
+              depth={0}
+              parentHandle={null}
+              selected={current.collection}
+              filters={filters}
+              openBranches={openBranches}
+              onToggle={toggleBranch}
+              onChange={onChange}
+            />
           </div>
         </fieldset>
       ) : null}
@@ -230,41 +192,227 @@ function emptyKeepSort(filters: CatalogFilters): CatalogFilters {
   };
 }
 
+function CollectionTree({
+  nodes,
+  depth,
+  parentHandle,
+  parentTitle,
+  selected,
+  filters,
+  openBranches,
+  onToggle,
+  onChange,
+}: {
+  nodes: CollectionTreeNode[];
+  depth: number;
+  parentHandle: string | null;
+  parentTitle?: string;
+  selected: string | null;
+  filters: CatalogFilters;
+  openBranches: ReadonlySet<string>;
+  onToggle: (handle: string) => void;
+  onChange: (next: CatalogFilters) => void;
+}) {
+  const { dict, t } = useDictionary();
+  const copy = dict.products.filters;
+  if (nodes.length === 0) return null;
+
+  const items = nodes.map((node, index) => {
+    const handle = node.collection.handle;
+    const hasChildren = node.children.length > 0;
+    const open = openBranches.has(handle);
+    const isLast = index === nodes.length - 1;
+    const label = parentTitle
+      ? shortCollectionLabel(node.collection.title, parentTitle)
+      : node.collection.title;
+    const active =
+      selected === handle ||
+      collectionAncestorHandles(node.children, selected) !== null;
+
+    return (
+      <div key={node.collection.id} className={depth > 0 ? "flex" : undefined}>
+        {depth > 0 ? (
+          <BranchGuide
+            isLast={isLast}
+            active={active}
+            connectParent={depth === 1 && index === 0}
+          />
+        ) : null}
+        <div className="min-w-0 flex-1">
+          <CollectionRow
+            label={label}
+            count={node.collection.productCount}
+            active={active}
+            showMarker={depth === 0}
+            onSelect={() =>
+              onChange({
+                ...filters,
+                collection:
+                  filters.collection === handle ? parentHandle : handle,
+              })
+            }
+            expanded={hasChildren ? open : undefined}
+            onToggle={hasChildren ? () => onToggle(handle) : undefined}
+            toggleLabel={
+              hasChildren
+                ? t(open ? copy.collapseCategory : copy.expandCategory, {
+                    label: node.collection.title,
+                  })
+                : undefined
+            }
+          />
+          {hasChildren && open ? (
+            <CollectionTree
+              nodes={node.children}
+              depth={depth + 1}
+              parentHandle={handle}
+              parentTitle={node.collection.title}
+              selected={selected}
+              filters={filters}
+              openBranches={openBranches}
+              onToggle={onToggle}
+              onChange={onChange}
+            />
+          ) : null}
+        </div>
+      </div>
+    );
+  });
+
+  return <div>{items}</div>;
+}
+
+function BranchGuide({
+  isLast,
+  active,
+  connectParent,
+}: {
+  isLast: boolean;
+  active: boolean;
+  connectParent: boolean;
+}) {
+  const neutral = "color-mix(in oklab, var(--foreground) 28%, transparent)";
+  const tone = active ? "var(--glow)" : neutral;
+
+  return (
+    <span className="relative w-9 shrink-0 self-stretch" aria-hidden>
+      {isLast ? (
+        <span
+          className={`absolute left-[3px] w-5 rounded-bl-[6px] border-b border-l ${
+            connectParent ? "-top-5 h-10" : "top-0 h-5"
+          }`}
+          style={{ borderColor: tone }}
+        />
+      ) : (
+        <>
+          <span
+            className={`absolute bottom-0 left-[3px] w-px ${
+              connectParent ? "-top-5" : "top-0"
+            }`}
+            style={{ backgroundColor: neutral }}
+          />
+          <span
+            className="absolute top-5 left-[3px] h-px w-5"
+            style={{ backgroundColor: tone }}
+          />
+        </>
+      )}
+    </span>
+  );
+}
+
+function branchesToReveal(
+  nodes: CollectionTreeNode[],
+  handle: string | null,
+) {
+  const ancestors = collectionAncestorHandles(nodes, handle) ?? [];
+  if (!handle) return ancestors;
+  return [...ancestors, handle];
+}
+
+function sameSet(left: ReadonlySet<string>, right: ReadonlySet<string>) {
+  if (left.size !== right.size) return false;
+  for (const value of left) {
+    if (!right.has(value)) return false;
+  }
+  return true;
+}
+
 function CollectionRow({
   label,
   count,
   active,
+  showMarker = true,
   onSelect,
+  expanded,
+  onToggle,
+  toggleLabel,
 }: {
   label: string;
   count: number | null;
   active: boolean;
+  showMarker?: boolean;
   onSelect: () => void;
+  expanded?: boolean;
+  onToggle?: () => void;
+  toggleLabel?: string;
 }) {
   return (
-    <button
-      type="button"
-      aria-pressed={active}
-      onClick={onSelect}
-      className="group flex w-full items-baseline gap-3 py-2 text-left transition"
-    >
-      <span
-        aria-hidden
-        className={`mt-[0.55em] h-1.5 w-1.5 shrink-0 transition ${
-          active ? "bg-glow" : "bg-transparent group-hover:bg-border"
-        }`}
-      />
-      <span
-        className={`min-w-0 flex-1 text-[0.95rem] ${
-          active ? "font-medium text-foreground" : "font-light text-muted group-hover:text-foreground"
+    <div className="flex h-10 items-center gap-1">
+      <button
+        type="button"
+        aria-pressed={active}
+        onClick={onSelect}
+        className={`group flex min-w-0 flex-1 items-center text-left transition ${
+          showMarker ? "gap-3" : ""
         }`}
       >
-        {label}
-      </span>
-      {count != null ? (
-        <span className="tabular-nums text-[0.68rem] text-muted/70">{count}</span>
-      ) : null}
-    </button>
+        {showMarker ? (
+          <span
+            aria-hidden
+            className={`h-1.5 w-1.5 shrink-0 rounded-full transition ${
+              active ? "bg-glow" : "bg-transparent group-hover:bg-border"
+            }`}
+          />
+        ) : null}
+        <span
+          className={`min-w-0 flex-1 text-[0.95rem] ${
+            active ? "font-medium text-foreground" : "font-light text-muted group-hover:text-foreground"
+          }`}
+        >
+          {label}
+        </span>
+        {count != null ? (
+          <span className="tabular-nums text-[0.68rem] text-muted/70">{count}</span>
+        ) : null}
+      </button>
+      {onToggle ? (
+        <button
+          type="button"
+          aria-expanded={expanded}
+          aria-label={toggleLabel}
+          onClick={onToggle}
+          className="inline-flex h-7 w-7 shrink-0 items-center justify-center text-muted transition hover:text-foreground"
+        >
+          <svg
+            viewBox="0 0 12 12"
+            fill="none"
+            aria-hidden="true"
+            className={`h-3 w-3 transition ${expanded ? "rotate-180" : ""}`}
+          >
+            <path
+              d="M2.5 4.5 6 8l3.5-3.5"
+              stroke="currentColor"
+              strokeWidth="1.3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+      ) : (
+        <span className="w-7 shrink-0" aria-hidden />
+      )}
+    </div>
   );
 }
 
@@ -601,93 +749,82 @@ export function CollectionChips({
   onChange: (handle: string | null) => void;
 }) {
   const { dict } = useDictionary();
-  const nav = catalogCollectionNav(collections, value);
-  if (nav.primary.length === 0) return null;
+  const tree = useMemo(() => collectionFilterTree(collections), [collections]);
+  if (tree.length === 0) return null;
+
+  const path = value ? findCollectionPath(tree, value) : null;
+  const selectedNode = path?.at(-1) ?? null;
+  const menuParent =
+    selectedNode && selectedNode.children.length > 0
+      ? selectedNode
+      : path && path.length >= 2
+        ? path[path.length - 2]
+        : null;
+  const level = menuParent ? menuParent.children : tree;
+  const menuIndex = menuParent && path ? path.indexOf(menuParent) : -1;
+  const backNode = menuIndex > 0 ? path?.[menuIndex - 1] : null;
+  const backHandle = menuParent ? (backNode?.collection.handle ?? null) : null;
+  const backLabel = menuParent
+    ? (backNode?.collection.title ?? dict.products.filters.allCategories)
+    : null;
 
   return (
-    <div className="space-y-2">
-      <nav
-        aria-label={dict.products.filters.category}
-        className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden"
-      >
+    <nav
+      aria-label={dict.products.filters.category}
+      className="flex flex-wrap gap-2"
+    >
+      {menuParent ? (
+        <Chip
+          active={false}
+          onClick={() => onChange(backHandle)}
+          label={`← ${backLabel}`}
+        />
+      ) : (
         <Chip
           active={!value}
           onClick={() => onChange(null)}
           label={dict.products.filters.allCategories}
           count={allCount ?? undefined}
         />
-        {nav.primary.map((collection) => (
-          <Chip
-            key={collection.id}
-            active={
-              value === collection.handle ||
-              (collection.handle === "klader" && nav.inClothingBranch)
-            }
-            onClick={() =>
-              onChange(value === collection.handle ? null : collection.handle)
-            }
-            label={collection.title}
-            count={collection.productCount}
-          />
-        ))}
-      </nav>
-
-      {nav.genders.length > 0 ? (
-        <nav
-          aria-label={nav.clothingRoot?.title ?? "Kläder"}
-          className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden"
-        >
-          {nav.genders.map((collection) => (
-            <Chip
-              key={collection.id}
-              active={
-                value === collection.handle ||
-                nav.clothingGenderKey === collection.handle
-              }
-              onClick={() => onChange(collection.handle)}
-              label={collection.title}
-              count={collection.productCount}
-            />
-          ))}
-        </nav>
-      ) : null}
-
-      {nav.types.length > 0 ? (
-        <nav
-          aria-label={nav.clothingGender?.title ?? nav.clothingGenderKey ?? ""}
-          className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden"
-        >
-          {nav.clothingGender ? (
-            <Chip
-              active={value === nav.clothingGender.handle}
-              onClick={() => onChange(nav.clothingGender!.handle)}
-              label={dict.products.filters.allCategories}
-              count={nav.clothingGender.productCount}
-            />
-          ) : null}
-          {nav.types.map((collection) => (
-            <Chip
-              key={collection.id}
-              active={value === collection.handle}
-              onClick={() =>
-                onChange(
-                  value === collection.handle
-                    ? (nav.clothingGender?.handle ?? null)
-                    : collection.handle,
+      )}
+      {level.map((node) => (
+        <Chip
+          key={node.collection.id}
+          active={value === node.collection.handle}
+          onClick={() =>
+            onChange(
+              value === node.collection.handle
+                ? (menuParent?.collection.handle ?? null)
+                : node.collection.handle,
+            )
+          }
+          label={
+            menuParent
+              ? shortCollectionLabel(
+                  node.collection.title,
+                  menuParent.collection.title,
                 )
-              }
-              label={shortCollectionLabel(
-                collection.title,
-                nav.clothingGender?.title,
-              )}
-              count={collection.productCount}
-            />
-          ))}
-        </nav>
-      ) : null}
-    </div>
+              : node.collection.title
+          }
+          count={node.collection.productCount}
+        />
+      ))}
+    </nav>
   );
 }
+
+function findCollectionPath(
+  nodes: CollectionTreeNode[],
+  handle: string,
+): CollectionTreeNode[] | null {
+  for (const node of nodes) {
+    if (node.collection.handle === handle) return [node];
+    const nested = findCollectionPath(node.children, handle);
+    if (nested) return [node, ...nested];
+  }
+  return null;
+}
+
 
 function Chip({
   active,

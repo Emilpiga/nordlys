@@ -53,6 +53,7 @@ export const CLOTHING_CHILDREN: Record<ClothingGender, readonly string[]> = {
     "dam-toppar",
     "dam-stickat",
     "dam-klanningar",
+    "dam-byxor",
     "dam-set",
     "dam-accessoarer",
   ],
@@ -60,6 +61,7 @@ export const CLOTHING_CHILDREN: Record<ClothingGender, readonly string[]> = {
     "herr-ytterklader",
     "herr-toppar",
     "herr-stickat",
+    "herr-byxor",
     "herr-accessoarer",
   ],
 };
@@ -233,6 +235,39 @@ export function clothingGenders(
   );
 }
 
+/** Product ids from Dam and Herr, alternating so a short sample includes both. */
+export function clothingSampleIds(
+  collections: CollectionSummary[],
+  limit = 12,
+): string[] {
+  const lists = clothingGenders(collections).map(
+    (collection) => collection.productIds,
+  );
+  const ids: string[] = [];
+  const seen = new Set<string>();
+
+  const push = (id: string | undefined) => {
+    if (!id || seen.has(id) || ids.length >= limit) return;
+    seen.add(id);
+    ids.push(id);
+  };
+
+  if (lists.length === 0) {
+    for (const collection of collections) {
+      if (!isClothingBranchHandle(collection.handle)) continue;
+      for (const id of collection.productIds) push(id);
+    }
+    return ids;
+  }
+
+  const maxLen = Math.max(...lists.map((list) => list.length));
+  for (let index = 0; index < maxLen; index++) {
+    for (const list of lists) push(list[index]);
+  }
+
+  return ids;
+}
+
 /**
  * Shop menu: rooms + Kläder (with Dam/Herr → types nested), then other
  * top-level collections. Dam/Herr are never top-level.
@@ -300,6 +335,53 @@ export function navGroupsFromCollections(
     const bTitle = b.parent?.title ?? b.key;
     return aTitle.localeCompare(bTitle, "sv");
   });
+}
+
+export type CollectionTreeNode = {
+  collection: CollectionSummary;
+  children: CollectionTreeNode[];
+};
+
+/** Category filter tree: any collection with children can expand. */
+export function collectionFilterTree(
+  collections: CollectionSummary[],
+): CollectionTreeNode[] {
+  return navGroupsToTree(navGroupsFromCollections(collections));
+}
+
+/**
+ * Handles to open so `handle` is visible. Empty when it is top-level.
+ * Null when it is not in the tree.
+ */
+export function collectionAncestorHandles(
+  nodes: CollectionTreeNode[],
+  handle: string | null,
+): string[] | null {
+  if (!handle) return null;
+  for (const node of nodes) {
+    if (node.collection.handle === handle) return [];
+    const nested = collectionAncestorHandles(node.children, handle);
+    if (nested) return [node.collection.handle, ...nested];
+  }
+  return null;
+}
+
+function navGroupsToTree(groups: NavCollectionGroup[]): CollectionTreeNode[] {
+  const nodes: CollectionTreeNode[] = [];
+  for (const group of groups) {
+    const children = [
+      ...navGroupsToTree(group.nested ?? []),
+      ...group.children.map(
+        (collection): CollectionTreeNode => ({ collection, children: [] }),
+      ),
+    ];
+    if (group.parent) {
+      nodes.push({ collection: group.parent, children });
+    } else {
+      nodes.push(...children);
+    }
+  }
+  return nodes;
 }
 
 /** Homepage / top chips: rooms, Kläder, Kontor — never Dam/Herr/types. */

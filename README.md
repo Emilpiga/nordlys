@@ -24,6 +24,20 @@ CJ is configured in Shopify Admin. This repo does not call CJ directly.
    - **Private** Storefront API access token → `SHOPIFY_STOREFRONT_PRIVATE_ACCESS_TOKEN` (preferred for this Next.js server)
 5. Note your shop domain: `your-store.myshopify.com` (no `https://`).
 6. Publish products to the **Headless** sales channel (or “All channels”) or the storefront catalog will be empty.
+7. Put every product in a shipping profile that ships **from its inventory location to the market you sell in**. See below — this one silently sells nothing.
+
+### Products that look stocked but are sold out
+
+The storefront queries `@inContext(country: SE)`, so Shopify only counts inventory it can ship to the Swedish market. Stock at the `cjdropshipping` fulfillment location is unreachable from Shopify's General shipping profile, and Shopify expresses that as `availableForSale: false` on every variant: the picker strikes through every option and the cart rejects the line with `MERCHANDISE_OUT_OF_STOCK`, while Admin still shows thousands of units.
+
+Shopify drops every newly created product into the General profile, so each import re-introduces this.
+
+```bash
+npm run check:availability   # list stocked products the market cannot buy
+npm run fix:shipping         # move them into the CJ profile (needs write_shipping)
+```
+
+Without the `write_shipping` scope, do it by hand: **Settings → Shipping and delivery →** the profile that ships from `cjdropshipping` to Sverige **→ Add products**.
 
 ### Common 401 mistake
 
