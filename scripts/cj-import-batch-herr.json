@@ -1,0 +1,154 @@
+{
+  "products": [
+    {
+      "pid": "68F27E04-71F1-46B1-BE15-6BB7ABEE8605",
+      "handle": "herr-plaid-fleece-jacket",
+      "title": "Rutig fleecejacka",
+      "productType": "Ytterkläder",
+      "tags": ["clothing", "clothing:ytterklader", "gender:men"],
+      "metaTitle": "Rutig fleecejacka herr",
+      "metaDescription": "Tjock rutig jacka med fleecefoder till höst och vinter. Flera färger.",
+      "descriptionHtml": "<p>En tjock rutig jacka med fleecefoder — till kalla dagar över hoodie eller skjorta.</p><ul><li><strong>Fleecefoder.</strong> Varmare än en tunn övergångsjacka.</li><li><strong>Rutor.</strong> Klassiskt mönster som syns på håll.</li><li><strong>Flera färger.</strong> Välj ovan.</li></ul><p>Asiatisk storlek, faller litet. Storleken visas med både siffra och bokstav.</p>"
+    },
+    {
+      "pid": "62B247F0-028A-4FC4-A702-7CAE4246601D",
+      "handle": "herr-hooded-winter-parka",
+      "title": "Vadderad parkas med huva",
+      "productType": "Ytterkläder",
+      "tags": ["clothing", "clothing:ytterklader", "gender:men"],
+      "metaTitle": "Vadderad parkas med huva herr",
+      "metaDescription": "Vinterparkas med huva och vaddering. Storlek S–6XL.",
+      "descriptionHtml": "<p>En vadderad parkas med huva — ytterplagg till vinterkyla.</p><ul><li><strong>Huva.</strong> Extra skydd runt hals och huvud.</li><li><strong>Vaddering.</strong> Tjockare än en tunn jacka.</li><li><strong>Lång modell.</strong> Täcker höften.</li></ul><p>Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>"
+    },
+    {
+      "pid": "1553319053320794112",
+      "handle": "herr-warm-winter-overcoat",
+      "title": "Varm vinterkappa",
+      "productType": "Ytterkläder",
+      "tags": ["clothing", "clothing:ytterklader", "gender:men"],
+      "metaTitle": "Varm vinterkappa herr",
+      "metaDescription": "Vadderad kappa till vintern. Flera färger, storlek M–5XL.",
+      "descriptionHtml": "<p>En vadderad vinterkappa — längre modell över tröja eller skjorta.</p><ul><li><strong>Vaddering.</strong> Håller värmen bättre än en tunn rock.</li><li><strong>Kappa.</strong> Täcker höften, rak modell.</li><li><strong>Flera färger.</strong> Välj ovan.</li></ul><p>Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>"
+    },
+    {
+      "pid": "1463017328391360512",
+      "handle": "herr-corduroy-padded-jacket",
+      "title": "Vadderad manchesterjacka",
+      "productType": "Ytterkläder",
+      "tags": ["clothing", "clothing:ytterklader", "gender:men"],
+      "metaTitle": "Vadderad manchesterjacka herr",
+      "metaDescription": "Tjock manchesterjacka med vaddering till höst och vinter.",
+      "descriptionHtml": "<p>En tjock jacka i manchester med vaddering — höst- och vintermodell.</p><ul><li><strong>Manchester.</strong> Räfflat tyg som syns på nära håll.</li><li><strong>Vaddering.</strong> Varmare än en ofodrad jacka.</li><li><strong>Flera färger.</strong> Välj ovan.</li></ul><p>Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>"
+    },
+    {
+      "pid": "2411010656401618000",
+      "handle": "herr-sherpa-zip-hoodie",
+      "title": "Huvtröja med sherpafoder",
+      "productType": "Ytterkläder",
+      "tags": ["clothing", "clothing:ytterklader", "gender:men"],
+      "metaTitle": "Huvtröja med sherpafoder herr",
+      "metaDescription": "Tjock huvtröja med dragkedja och sherpafoder till vintern.",
+      "descriptionHtml": "<p>En tjock huvtröja med dragkedja och sherpafoder — varm mellan lager och ytterplagg.</p><ul><li><strong>Sherpafoder.</strong> Mjuk, luddig insida.</li><li><strong>Dragkedja.</strong> Öppnas fram, huva kvar.</li><li><strong>Vinter.</strong> Tjockare än en tunn hoodie.</li></ul><p>Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>"
+    },
+    {
+      "pid": "1702580822592724992",
+      "handle": "herr-pocket-knit-cardigan",
+      "title": "Stickad kofta med fickor",
+      "productType": "Stickat",
+      "tags": ["clothing", "clothing:stickat", "gender:men"],
+      "metaTitle": "Stickad kofta med fickor herr",
+      "metaDescription": "Lös stickad kofta med knappar och fickor. Flera färger.",
+      "descriptionHtml": "<p>En lös stickad kofta med fickor — enkel modell över skjorta eller t-shirt.</p><ul><li><strong>Knappar.</strong> Enkelknäppt fram.</li><li><strong>Fickor.</strong> Två fickor på framsidan.</li><li><strong>Löst snitt.</strong> Mer kofta än åtsittande tröja.</li></ul><p>Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>"
+    },
+    {
+      "pid": "1741450144492564480",
+      "handle": "herr-turtleneck-sweater",
+      "title": "Stickad tröja med polokrage",
+      "productType": "Stickat",
+      "tags": ["clothing", "clothing:stickat", "gender:men"],
+      "metaTitle": "Stickad tröja med polokrage herr",
+      "metaDescription": "Varm stickad tröja med polokrage till höst och vinter. Storlek M–2XL.",
+      "descriptionHtml": "<p>En varm stickad tröja med polokrage — bas under jacka eller kappa.</p><ul><li><strong>Polokrage.</strong> Täcker halsen.</li><li><strong>Stickad.</strong> Tjockare än en tunn långärmad.</li><li><strong>Flera färger.</strong> Välj ovan.</li></ul><p>Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>"
+    },
+    {
+      "pid": "1427561333796245504",
+      "handle": "herr-half-turtleneck-sweater",
+      "title": "Stickad tröja med halvpolo",
+      "productType": "Stickat",
+      "tags": ["clothing", "clothing:stickat", "gender:men"],
+      "metaTitle": "Stickad tröja med halvpolo herr",
+      "metaDescription": "Lös stickad tröja med halvpolokrage. Storlek efter längd 165–185 cm.",
+      "descriptionHtml": "<p>En lös stickad tröja med halvpolo — lägre krage än en vanlig polo.</p><ul><li><strong>Halvpolo.</strong> Täcker lite av halsen, utan hög krage.</li><li><strong>Löst stickat.</strong> Bekväm fall över skjorta eller ensam.</li><li><strong>Storlek i centimeter.</strong> Välj efter längd, 165–185.</li></ul><p>Asiatisk storlek, faller litet. Välj färg och längd ovan.</p>"
+    },
+    {
+      "pid": "C440C968-1E5E-43D6-92FE-D9B7A4FE779D",
+      "handle": "herr-corduroy-joggers",
+      "title": "Joggers i manchester",
+      "productType": "Byxor",
+      "tags": ["clothing", "clothing:byxor", "gender:men"],
+      "metaTitle": "Joggers i manchester herr",
+      "metaDescription": "Manchesterjoggers till höst och vinter. Flera färger, storlek S–5XL.",
+      "descriptionHtml": "<p>Joggers i manchester — mjukare vardagsbyxa till kyligare dagar.</p><ul><li><strong>Manchester.</strong> Räfflat tyg, mer struktur än mjukis.</li><li><strong>Joggers.</strong> Resår och snöre i midjan.</li><li><strong>Flera färger.</strong> Välj ovan.</li></ul><p>Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>"
+    },
+    {
+      "pid": "1749674221577445376",
+      "handle": "herr-fleece-plaid-trousers",
+      "title": "Borstade rutiga byxor",
+      "productType": "Byxor",
+      "tags": ["clothing", "clothing:byxor", "gender:men"],
+      "metaTitle": "Borstade rutiga byxor herr",
+      "metaDescription": "Rutiga byxor med borstad, fleecefodrad insida. Midjemått 28–36.",
+      "descriptionHtml": "<p>Rutiga byxor med borstad insida — varmare än vanliga chinos.</p><ul><li><strong>Borstad yta.</strong> Mjukare mot huden.</li><li><strong>Fleecefoder.</strong> Till höst och vinter.</li><li><strong>Midjemått.</strong> Storlek anges som 28–36.</li></ul><p>Asiatisk storlek, faller litet. Välj färg och midjemått ovan.</p>"
+    },
+    {
+      "pid": "1736621499328503808",
+      "handle": "herr-fleece-lined-pants",
+      "title": "Fleecefodrade vinterbyxor",
+      "productType": "Byxor",
+      "tags": ["clothing", "clothing:byxor", "gender:men"],
+      "metaTitle": "Fleecefodrade vinterbyxor herr",
+      "metaDescription": "Vadderade byxor med fleecefoder. Storlek M–5XL.",
+      "descriptionHtml": "<p>Vinterbyxor med fleecefoder — till kalla dagar inomhus eller under en jacka.</p><ul><li><strong>Fleecefoder.</strong> Varmare än ofodrade byxor.</li><li><strong>Vaddering.</strong> Tjockare ben.</li><li><strong>Avslappnat snitt.</strong> Vardagsmodell, inte kostym.</li></ul><p>Asiatisk storlek, faller litet. Välj storlek ovan.</p>"
+    },
+    {
+      "pid": "2407200647491601700",
+      "handle": "herr-zip-henley-shirt",
+      "title": "Långärmad piké med dragkedja",
+      "productType": "Toppar",
+      "tags": ["clothing", "clothing:toppar", "gender:men"],
+      "metaTitle": "Långärmad piké med dragkedja herr",
+      "metaDescription": "Höstpiké i lång ärm med kort dragkedja i halsen. Flera färger.",
+      "descriptionHtml": "<p>En långärmad piké med kort dragkedja i halsen — hösttröja mellan t-shirt och skjorta.</p><ul><li><strong>Dragkedja.</strong> Öppnas lite i kragen.</li><li><strong>Lång ärm.</strong> Till kyligare dagar.</li><li><strong>Flera färger.</strong> Välj ovan.</li></ul><p>Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>"
+    },
+    {
+      "pid": "2411040306251613200",
+      "handle": "herr-brushed-flannel-shirt",
+      "title": "Borstad flanellskjorta",
+      "productType": "Toppar",
+      "tags": ["clothing", "clothing:toppar", "gender:men"],
+      "metaTitle": "Borstad flanellskjorta herr",
+      "metaDescription": "Rutig flanellskjorta med borstad yta. Lång ärm, storlek S–XXL.",
+      "descriptionHtml": "<p>En rutig flanellskjorta med borstad yta — lång ärm till höst och vinter.</p><ul><li><strong>Flanell.</strong> Mjukare än en vanlig bomullsskjorta.</li><li><strong>Rutor.</strong> Klassiskt höstmönster.</li><li><strong>Lång ärm.</strong> Bärs öppen över t-shirt eller stängd.</li></ul><p>Asiatisk storlek, faller litet. Välj färg och storlek ovan.</p>"
+    },
+    {
+      "pid": "1696781721989025792",
+      "handle": "herr-winter-scarf",
+      "title": "Vinterhalsduk",
+      "productType": "Accessoarer",
+      "tags": ["clothing", "clothing:accessoarer", "gender:men"],
+      "metaTitle": "Vinterhalsduk herr",
+      "metaDescription": "Halsduk till kalla dagar. Svart, grå eller mönstrad.",
+      "descriptionHtml": "<p>En halsduk till kalla dagar — runt halsen under jacka eller kappa.</p><ul><li><strong>Vinter.</strong> Tjockare än en tunn sommarsjal.</li><li><strong>Enkel modell.</strong> Lindas eller hängs rakt.</li><li><strong>Flera färger.</strong> Välj ovan.</li></ul><p>En storlek per färg.</p>"
+    },
+    {
+      "pid": "2501040229491625200",
+      "handle": "herr-knit-hat-scarf-set",
+      "title": "Set med mössa, halsduk och vantar",
+      "productType": "Accessoarer",
+      "tags": ["clothing", "clothing:accessoarer", "gender:men"],
+      "metaTitle": "Set med mössa, halsduk och vantar herr",
+      "metaDescription": "Stickat vinterset med mössa, halsduk och vantar. Flera färger.",
+      "descriptionHtml": "<p>Ett stickat set till vintern — mössa, halsduk och vantar i samma färg.</p><ul><li><strong>Tre delar.</strong> Mössa, halsduk och vantar.</li><li><strong>Stickat med foder.</strong> Mjukare än tunn trikå.</li><li><strong>Flera färger.</strong> Välj ovan.</li></ul><p>En storlek per färg.</p>"
+    }
+  ]
+}

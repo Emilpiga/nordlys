@@ -159,6 +159,41 @@ export function optionsFromVariant(
   );
 }
 
+/**
+ * Options to apply when a shopper picks a gallery photo.
+ * Photos shared by one color keep the current size. Photos that are not
+ * tied to a variant return null so the picture can change on its own.
+ */
+export function optionsForImage(
+  variants: ProductVariant[],
+  imageUrl: string,
+  selected: Record<string, string>,
+): Record<string, string> | null {
+  const matches = variants.filter((variant) => variant.image?.url === imageUrl);
+  if (!matches.length) return null;
+
+  const optionNames = matches[0].selectedOptions.map((option) => option.name);
+  let next = { ...selected };
+
+  for (const name of optionNames) {
+    const values = new Set(
+      matches
+        .map(
+          (variant) =>
+            variant.selectedOptions.find((option) => option.name === name)
+              ?.value,
+        )
+        .filter((value): value is string => Boolean(value)),
+    );
+    if (values.size !== 1) continue;
+    const value = [...values][0];
+    if (!value || next[name] === value) continue;
+    next = selectOptionValue(variants, next, name, value);
+  }
+
+  return next;
+}
+
 export function hasSelectableOptions(product: {
   options: { name: string; values: string[] }[];
 }) {

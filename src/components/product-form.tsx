@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { addToCartAction, beginCheckoutAction } from "@/app/actions/cart";
 import { useCart } from "@/components/cart-provider";
@@ -20,6 +20,7 @@ import {
   findVariant,
   findVariantByParam,
   hasSelectableOptions,
+  optionsForImage,
   optionsFromVariant,
 } from "@/lib/shopify/variants";
 
@@ -27,6 +28,8 @@ type ProductFormProps = {
   product: Product;
   initialVariantId?: string;
   onVariantChange?: (variant: ProductVariant | null) => void;
+  /** Bumped when the shopper picks a gallery photo that may belong to a variant. */
+  imageRequest?: { id: number; url: string } | null;
   wishlistSaved?: boolean;
 };
 
@@ -36,6 +39,7 @@ export function ProductForm({
   product,
   initialVariantId,
   onVariantChange,
+  imageRequest = null,
   wishlistSaved = false,
 }: ProductFormProps) {
   const { dict, t } = useDictionary();
@@ -56,6 +60,19 @@ export function ProductForm({
   }, [initialVariantId, product.variants]);
 
   const [selectedOptions, setSelectedOptions] = useState(initialOptions);
+  const selectedOptionsRef = useRef(selectedOptions);
+  selectedOptionsRef.current = selectedOptions;
+
+  useEffect(() => {
+    if (!imageRequest) return;
+    const next = optionsForImage(
+      product.variants,
+      imageRequest.url,
+      selectedOptionsRef.current,
+    );
+    if (!next) return;
+    setSelectedOptions(next);
+  }, [imageRequest, product.variants]);
 
   const selectedVariant = useMemo(
     () => findVariant(product.variants, selectedOptions),

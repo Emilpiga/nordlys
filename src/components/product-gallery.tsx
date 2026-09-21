@@ -11,6 +11,8 @@ type ProductGalleryProps = {
   productTitle: string;
   /** Prefer this image when a variant with its own media is selected. */
   activeImageUrl?: string | null;
+  /** Called when the shopper picks a photo, including in the lightbox. */
+  onImageSelect?: (url: string) => void;
 };
 
 function ExpandIcon({ className }: { className?: string }) {
@@ -36,6 +38,7 @@ export function ProductGallery({
   images,
   productTitle,
   activeImageUrl = null,
+  onImageSelect,
 }: ProductGalleryProps) {
   const { dict, t } = useDictionary();
   const expandRef = useRef<HTMLButtonElement>(null);
@@ -66,6 +69,12 @@ export function ProductGallery({
   useEffect(() => {
     setActiveIndex(preferredIndex);
   }, [preferredIndex]);
+
+  function selectIndex(index: number) {
+    setActiveIndex(index);
+    const image = galleryImages[index];
+    if (image) onImageSelect?.(image.url);
+  }
 
   const active = galleryImages[activeIndex] ?? galleryImages[0];
 
@@ -112,7 +121,7 @@ export function ProductGallery({
               <button
                 key={`${image.url}-${index}`}
                 type="button"
-                onClick={() => setActiveIndex(index)}
+                onClick={() => selectIndex(index)}
                 aria-label={t(dict.products.thumbnailLabel, { index: index + 1 })}
                 aria-current={selected ? "true" : undefined}
                 className={`relative aspect-square overflow-hidden bg-mist transition ${
@@ -139,7 +148,7 @@ export function ProductGallery({
         images={galleryImages}
         productTitle={productTitle}
         index={activeIndex}
-        onIndexChange={setActiveIndex}
+        onIndexChange={selectIndex}
         onClose={() => {
           setLightboxOpen(false);
           expandRef.current?.focus();
