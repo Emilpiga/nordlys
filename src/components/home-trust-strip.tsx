@@ -74,21 +74,15 @@ function SecureIcon({ className }: { className?: string }) {
       aria-hidden="true"
     >
       <path
-        d="M7 11h10v8.2H7V11Z"
+        d="M10.2 4.6h7.1l1.7 1.7v7.1l-7.6 7.6-7.1-7.1 5.9-9.3Z"
         stroke="currentColor"
         strokeWidth="1.35"
         strokeLinejoin="round"
       />
       <path
-        d="M9 11V8.2a3 3 0 0 1 6 0V11"
+        d="M15.6 8.4h.1"
         stroke="currentColor"
-        strokeWidth="1.35"
-        strokeLinecap="round"
-      />
-      <path
-        d="M12 14.4v2"
-        stroke="currentColor"
-        strokeWidth="1.35"
+        strokeWidth="2.2"
         strokeLinecap="round"
       />
     </svg>

@@ -15,5 +15,5 @@ export const fulfillment = {
   returns:
     "14 dagars ångerrätt från att du tog emot varan. Fel på varan åtgärdas enligt konsumentköplagen.",
   guaranteeShort: "14 dagars ångerrätt · fel åtgärdas enligt lag",
-  secureCheckout: "Säker kassa via Shopify",
+  secureCheckout: "Priser inkl. moms och frakt",
 } as const;

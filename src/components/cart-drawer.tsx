@@ -239,7 +239,7 @@ export function CartDrawer() {
               </CheckoutButton>
 
               <p className="mt-3 text-center text-[0.68rem] font-light leading-relaxed text-muted">
-                {t(dict.cart.drawerTrust, { eta: dict.fulfillment.etaShort })}
+                {dict.cart.drawerTrust}
               </p>
 
               <LocaleLink

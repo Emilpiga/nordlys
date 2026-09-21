@@ -171,7 +171,7 @@ export function CartView({ cart }: CartViewProps) {
           </CheckoutButton>
 
           <p className="mt-4 text-center text-xs font-light leading-relaxed text-muted">
-            {t(dict.cart.trustLine, { eta: dict.fulfillment.etaShort })}
+            {dict.cart.trustLine}
           </p>
         </div>
 
