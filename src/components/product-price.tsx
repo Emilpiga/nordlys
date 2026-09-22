@@ -68,11 +68,14 @@ export function SaleBadge({
   price,
   shopifyCompareAt = null,
   size = "md",
+  offsetForTraction = false,
 }: {
   handle: string;
   price: Money;
   shopifyCompareAt?: Money | null;
   size?: "sm" | "md";
+  /** Shift down when a traction badge already occupies the top-left corner. */
+  offsetForTraction?: boolean;
 }) {
   const { dict, t } = useDictionary();
   const compareAt = displayCompareAt(handle, price, shopifyCompareAt);
@@ -80,13 +83,20 @@ export function SaleBadge({
   if (!percent) return null;
 
   const compact = size === "sm";
+  const topClass = offsetForTraction
+    ? compact
+      ? "top-9 sm:top-10"
+      : "top-10"
+    : compact
+      ? "top-2 sm:top-2.5"
+      : "top-3";
 
   return (
     <span
       className={
         compact
-          ? "pointer-events-none absolute left-2 top-2 z-10 bg-foreground px-2 py-1 text-[0.58rem] font-semibold tracking-[0.12em] uppercase text-on-accent sm:left-2.5 sm:top-2.5 sm:px-2.5 sm:py-1 sm:text-[0.62rem] sm:tracking-[0.14em]"
-          : "pointer-events-none absolute left-3 top-3 z-10 bg-foreground px-2 py-1 text-[0.58rem] font-semibold tracking-[0.14em] uppercase text-on-accent"
+          ? `pointer-events-none absolute left-2 ${topClass} z-10 bg-foreground px-2 py-1 text-[0.58rem] font-semibold tracking-[0.12em] uppercase text-on-accent sm:left-2.5 sm:px-2.5 sm:py-1 sm:text-[0.62rem] sm:tracking-[0.14em]`
+          : `pointer-events-none absolute left-3 ${topClass} z-10 bg-foreground px-2 py-1 text-[0.58rem] font-semibold tracking-[0.14em] uppercase text-on-accent`
       }
     >
       {t(dict.products.saleBadge, { percent })}

@@ -8,16 +8,19 @@ import { ProductQuickView } from "@/components/product-quick-view";
 import { ProductRating } from "@/components/product-rating";
 import { ProductPrice, SaleBadge } from "@/components/product-price";
 import { WishlistButton } from "@/components/wishlist-button";
+import type { TractionBadge } from "@/lib/product-traction-types";
 import type { Product } from "@/lib/shopify/types";
 
 type ProductCardProps = {
   product: Product;
   wishlistSaved?: boolean;
+  tractionBadge?: TractionBadge;
 };
 
 export function ProductCard({
   product,
   wishlistSaved = false,
+  tractionBadge,
 }: ProductCardProps) {
   const { dict } = useDictionary();
   const [quickOpen, setQuickOpen] = useState(false);
@@ -26,6 +29,17 @@ export function ProductCard({
   const defaultVariant =
     product.variants.find((variant) => variant.availableForSale) ??
     product.variants[0];
+
+  const tractionLabel =
+    tractionBadge === "bestseller"
+      ? dict.products.badgeBestseller
+      : tractionBadge === "trending"
+        ? dict.products.badgeTrending
+        : tractionBadge === "in_demand"
+          ? dict.products.badgeInDemand
+          : tractionBadge === "popular"
+            ? dict.products.badgePopular
+            : null;
 
   function onQuickView(event: MouseEvent) {
     event.preventDefault();
@@ -66,10 +80,18 @@ export function ProductCard({
             className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(238,242,244,0.18)_0%,transparent_24%,transparent_55%,rgba(20,32,28,0.28)_100%)]"
           />
 
+          {tractionLabel ? (
+            <span className="pointer-events-none absolute left-2 top-2 z-10 bg-[color-mix(in_oklab,var(--frost)_94%,white)] px-2 py-1 text-[0.58rem] font-semibold tracking-[0.12em] uppercase text-foreground shadow-sm sm:left-2.5 sm:top-2.5 sm:px-2.5 sm:text-[0.62rem] sm:tracking-[0.14em]">
+              {tractionLabel}
+            </span>
+          ) : null}
+
           <SaleBadge
             handle={product.handle}
             price={product.priceRange.minVariantPrice}
             shopifyCompareAt={defaultVariant?.compareAtPrice}
+            size="sm"
+            offsetForTraction={Boolean(tractionLabel)}
           />
 
           <div className="absolute right-2 top-2 z-20 flex flex-col gap-1.5 pointer-events-auto">

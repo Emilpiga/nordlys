@@ -14,7 +14,8 @@
     "collections:clothing": "node scripts/setup-clothing-collections.mjs",
     "prices:include-vat": "node scripts/update-shopify-vat-prices.mjs",
     "metafield:wishlist": "node scripts/ensure-wishlist-metafield.mjs",
-    "theme:zip": "node scripts/zip-redirect-theme.mjs"
+    "theme:zip": "node scripts/zip-redirect-theme.mjs",
+    "traction:sync-sales": "node scripts/sync-product-traction-sales.mjs"
   },
   "dependencies": {
     "@shopify/hydrogen-react": "^2026.4.3",

@@ -1,11 +1,11 @@
-import { ProductCard } from "@/components/product-card";
+import { ProductCarousel } from "@/components/product-carousel";
 import { LocaleLink } from "@/components/locale-link";
 import type { Dictionary } from "@/lib/i18n/get-dictionary";
-import type { Product } from "@/lib/shopify/types";
+import type { PopularProduct } from "@/lib/popular-products";
 
 type HomePopularProps = {
   dict: Dictionary;
-  products: Product[];
+  products: PopularProduct[];
 };
 
 export function HomePopular({ dict, products }: HomePopularProps) {
@@ -34,13 +34,11 @@ export function HomePopular({ dict, products }: HomePopularProps) {
           </LocaleLink>
         </div>
 
-        <ul className="grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-4 lg:gap-x-7">
-          {products.map((product) => (
-            <li key={product.id}>
-              <ProductCard product={product} />
-            </li>
-          ))}
-        </ul>
+        <ProductCarousel
+          products={products}
+          prevLabel={dict.home.featuredPrev}
+          nextLabel={dict.home.featuredNext}
+        />
       </div>
     </section>
   );

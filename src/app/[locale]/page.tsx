@@ -9,6 +9,8 @@ import { heroImagesFromCatalog } from "@/lib/hero-images";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale } from "@/lib/i18n/locales";
 import { pickPopularProducts } from "@/lib/popular-products";
+import { getTopTraction } from "@/lib/product-traction";
+import { ensureHistoricalSalesSynced } from "@/lib/product-traction-sales-sync";
 import { getCollections, getProducts, getProductsByIds } from "@/lib/shopify";
 import {
   clothingGenders,
@@ -25,31 +27,47 @@ export default async function HomePage({ params }: Props) {
   if (!isLocale(locale)) notFound();
 
   const brand = shopifyConfig.storeName;
-  const [catalog, collections, dict] = await Promise.all([
+  // Absolute Shopify sales must land in Redis before we read traction ranks.
+  await ensureHistoricalSalesSynced();
+  const [catalog, collections, dict, traction] = await Promise.all([
     getProducts(100, locale),
     getCollections(50, locale),
     getDictionary(locale),
+    getTopTraction(24),
   ]);
 
   const clothingIds = new Set(clothingSampleIds(collections, 40));
   const catalogById = new Map(catalog.map((product) => [product.id, product]));
+
+  const missingTractionIds = traction
+    .map((entry) => entry.productId)
+    .filter((id) => !catalogById.has(id));
   const missingClothingIds = [...clothingIds].filter(
     (id) => !catalogById.has(id),
   );
-  const fetchedClothing = await getProductsByIds(missingClothingIds, locale, {
+  const idsToFetch = [...new Set([...missingTractionIds, ...missingClothingIds])];
+
+  const fetchedExtras = await getProductsByIds(idsToFetch, locale, {
     cache: "force-cache",
   });
   const fetchedById = new Map(
-    fetchedClothing.map((product) => [product.id, product]),
+    fetchedExtras.map((product) => [product.id, product]),
   );
+
   const clothingProducts = [...clothingIds]
     .map((id) => catalogById.get(id) ?? fetchedById.get(id))
+    .filter((product): product is Product => Boolean(product));
+
+  const tractionProducts = traction
+    .map((entry) => catalogById.get(entry.productId) ?? fetchedById.get(entry.productId))
     .filter((product): product is Product => Boolean(product));
 
   const heroImages = heroImagesFromCatalog(catalog, { clothingProducts });
   const popularProducts = pickPopularProducts(catalog, {
     clothingProducts,
     clothingIds,
+    traction,
+    tractionProducts,
   });
   const clothingCollections = clothingGenders(collections).filter(
     (collection) => collection.productCount > 0,

@@ -101,6 +101,7 @@ type ShopifyCart = {
         selectedOptions: { name: string; value: string }[];
         price: ShopifyMoney;
         product: {
+          id: string;
           handle: string;
           title: string;
           featuredImage: ShopifyImage;
@@ -298,6 +299,7 @@ export function mapCart(cart: ShopifyCart): Cart {
         price: line.merchandise.price,
         selectedOptions: line.merchandise.selectedOptions,
         product: {
+          id: line.merchandise.product.id,
           handle: line.merchandise.product.handle,
           title: line.merchandise.product.title,
           featuredImage: mapImage(line.merchandise.product.featuredImage),

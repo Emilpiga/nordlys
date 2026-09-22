@@ -67,6 +67,7 @@ export type CartLine = {
     id: string;
     title: string;
     product: {
+      id: string;
       handle: string;
       title: string;
       featuredImage: ProductImage | null;

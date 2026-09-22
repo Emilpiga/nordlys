@@ -240,6 +240,7 @@ export const CART_FRAGMENT = /* GraphQL */ `
               ...MoneyFields
             }
             product {
+              id
               handle
               title
               featuredImage {

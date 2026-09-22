@@ -18,6 +18,7 @@ import {
   LOCALE_COOKIE,
   type Locale,
 } from "@/lib/i18n/locales";
+import { recordCart } from "@/lib/product-traction";
 
 const CART_COOKIE = "shopify_cart_id";
 
@@ -135,6 +136,16 @@ export async function addToCartAction(merchandiseId: string, quantity = 1) {
     cart = await applyWelcomeDeal(cart, locale);
     await writeCartId(cart.id);
     revalidateCartPaths(locale);
+
+    const addedLine = cart.lines.find(
+      (line) => line.merchandise.id === merchandiseId,
+    );
+    const productId = addedLine?.merchandise.product.id;
+    if (productId) {
+      void recordCart(productId, quantity).catch((error) => {
+        console.error("recordCart failed:", error);
+      });
+    }
 
     return {
       ok: true as const,
