@@ -4,8 +4,19 @@ import { useEffect, useRef } from "react";
 import { clearCartAction } from "@/app/actions/cart";
 import { markWelcomeDealUsedAction } from "@/app/actions/welcome-deal";
 import { useCart } from "@/components/cart-provider";
+import { trackPurchase } from "@/lib/ads-events";
 
-export function OrderConfirmedEffects() {
+type OrderConfirmedEffectsProps = {
+  transactionId?: string;
+  value?: number;
+  currency?: string;
+};
+
+export function OrderConfirmedEffects({
+  transactionId,
+  value,
+  currency,
+}: OrderConfirmedEffectsProps) {
   const { setCart } = useCart();
   const ran = useRef(false);
 
@@ -15,7 +26,25 @@ export function OrderConfirmedEffects() {
 
     void clearCartAction().then(() => setCart(null));
     void markWelcomeDealUsedAction();
-  }, [setCart]);
+
+    if (!transactionId && value === undefined) return;
+
+    const dedupeKey = `ads_purchase_${transactionId || `${value}_${currency}`}`;
+    try {
+      if (sessionStorage.getItem(dedupeKey)) return;
+      sessionStorage.setItem(dedupeKey, "1");
+    } catch {
+      // Private mode — still fire once per mount via `ran`.
+    }
+
+    trackPurchase({
+      contentIds: [],
+      contentType: "product",
+      ...(typeof value === "number" && Number.isFinite(value) ? { value } : {}),
+      ...(currency ? { currency } : {}),
+      ...(transactionId ? { orderId: transactionId } : {}),
+    });
+  }, [setCart, transactionId, value, currency]);
 
   return null;
 }

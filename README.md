@@ -118,8 +118,6 @@ Fill `.env.local`:
 | `NEXT_PUBLIC_FACEBOOK_APP_ID` | Facebook App ID for `fb:app_id` (Sharing Debugger / Meta) |
 | `NEXT_PUBLIC_GOOGLE_ADS_ID` | Google Ads tag ID `AW-…` (same consent gate) |
 | `NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL` | Purchase conversion label (the part after `/` in `AW-…/LABEL`) |
-| `NEXT_PUBLIC_GOOGLE_ADS_ADD_TO_CART_LABEL` | Optional. Add-to-cart conversion label (keep this action **secondary**) |
-| `NEXT_PUBLIC_GOOGLE_ADS_BEGIN_CHECKOUT_LABEL` | Optional. Begin-checkout conversion label (keep this action **secondary**) |
 | `SHOPIFY_STORE_DOMAIN` | `your-store.myshopify.com` |
 | `SHOPIFY_CHECKOUT_DOMAIN` | Branded checkout host, e.g. `checkout.vardagsstil.se` (see below) |
 | `SHOPIFY_STOREFRONT_ACCESS_TOKEN` | Public token from Headless channel |
@@ -190,15 +188,16 @@ Shopify Checkout always lands on Shopify’s thank-you page (auto-redirect to yo
 
 ## 8. Google Ads conversions
 
-The Google tag on the storefront sends `view_item`, `add_to_cart`, and `begin_checkout`. **Purchase must also fire from Shopify**, because checkout does not run on this origin.
+Headless setup: ads land on Next.js (`NEXT_PUBLIC_SITE_URL`), checkout/thank-you run on `SHOPIFY_CHECKOUT_DOMAIN`. The storefront tag stores the click ID and links across that hop; **Purchase must fire on Shopify** (custom pixel) with a backup on `/order/confirmed`.
 
-1. In Google Ads → **Goals → Summary**, open the **Purchase** conversion action → tag setup, and copy the `send_to` value `AW-…/LABEL`.
-2. Set `NEXT_PUBLIC_GOOGLE_ADS_ID` and `NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL` on Vercel (and locally), then redeploy.
-3. Shopify Admin → **Settings → Customer events → Add custom pixel**. Paste [`scripts/shopify-customer-events-google-ads.js`](scripts/shopify-customer-events-google-ads.js), connect it to checkout / thank-you, save.
-4. Redeploy the Checkout UI extension so the thank-you CTA passes `txid` (order GID). Google Ads uses that as `transaction_id` so a click-through to `/order/confirmed` is not counted twice.
-5. In campaign **conversion goals**, keep **Purchase** as the only primary goal. Remove or demote **Add to cart**, **Begin checkout**, and **Page view** — those are observation events, not bidding targets.
+1. In Google Ads → **Goals**, open **Google Shopping App Purchase** (or your primary Website Purchase) → tag setup, copy `AW-…/LABEL`.
+2. Set on Vercel: `NEXT_PUBLIC_GOOGLE_ADS_ID`, `NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL` (label only or full `AW-…/LABEL`), and ensure `SHOPIFY_CHECKOUT_DOMAIN` is set so the tag linker includes checkout. Redeploy.
+3. Shopify → **Customer events** → custom pixel. Paste [`scripts/shopify-customer-events-google-ads.js`](scripts/shopify-customer-events-google-ads.js) (same `AW` + purchase label), **Connect** it. Keep **Google & YouTube** connected for feed/app measurement.
+4. Google & YouTube app → Conversion event settings → **Checkout completed**: set destination to that Purchase action, or check **Add custom conversion ID/label** with the same `AW-…/LABEL`.
+5. Campaign goals: **Purchase** primary only. Set **Page view**, **Add to basket**, **Begin checkout**, and duplicate `*(1)` actions to **Secondary** / remove from campaign goals. Do not bid on page views.
+6. Thank-you extension must pass `txid`, `value`, `currency` so `/order/confirmed` can fire a deduped purchase backup.
 
-Optional: if you create secondary conversion actions for add to cart / begin checkout, paste those labels into the matching `NEXT_PUBLIC_GOOGLE_ADS_*_LABEL` env vars and redeploy.
+Storefront `gtag` sends `view_item` / `add_to_cart` / `begin_checkout` for remarketing only — it does **not** fire labeled funnel conversions (avoids double hits into Shopping App actions).
 
 ## What’s included
 

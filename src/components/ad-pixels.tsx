@@ -6,7 +6,7 @@ import { getMarketingPixelConfig } from "@/lib/consent";
  * Meta follows via __storeSetMarketingConsent (see ConsentModeBootstrap).
  */
 export function AdPixels() {
-  const { metaPixelId, googleAdsId, adsenseClientId } =
+  const { metaPixelId, googleAdsId, adsenseClientId, googleAdsLinkerDomains } =
     getMarketingPixelConfig();
 
   if (!metaPixelId && !googleAdsId && !adsenseClientId) return null;
@@ -14,7 +14,9 @@ export function AdPixels() {
   return (
     <>
       {adsenseClientId ? <AdSenseScript clientId={adsenseClientId} /> : null}
-      {googleAdsId ? <GoogleAdsTag id={googleAdsId} /> : null}
+      {googleAdsId ? (
+        <GoogleAdsTag id={googleAdsId} linkerDomains={googleAdsLinkerDomains} />
+      ) : null}
       {metaPixelId ? <MetaPixel id={metaPixelId} /> : null}
     </>
   );
@@ -56,7 +58,23 @@ function MetaPixel({ id }: { id: string }) {
   );
 }
 
-function GoogleAdsTag({ id }: { id: string }) {
+function GoogleAdsTag({
+  id,
+  linkerDomains,
+}: {
+  id: string;
+  linkerDomains: string[];
+}) {
+  const config: Record<string, unknown> = {
+    allow_enhanced_conversions: true,
+  };
+  if (linkerDomains.length) {
+    config.linker = {
+      domains: linkerDomains,
+      accept_incoming: true,
+    };
+  }
+
   return (
     <>
       <Script
@@ -69,7 +87,7 @@ function GoogleAdsTag({ id }: { id: string }) {
           function gtag(){dataLayer.push(arguments);}
           window.gtag = window.gtag || gtag;
           gtag('js', new Date());
-          gtag('config', ${JSON.stringify(id)}, { allow_enhanced_conversions: true });
+          gtag('config', ${JSON.stringify(id)}, ${JSON.stringify(config)});
         `}
       </Script>
     </>

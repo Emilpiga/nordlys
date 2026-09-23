@@ -15,6 +15,7 @@ import {
   trackAddToCart,
   trackInitiateCheckout,
 } from "@/lib/ads-events";
+import { decorateCheckoutUrl } from "@/lib/ads-linker";
 import type { Product, ProductVariant } from "@/lib/shopify/types";
 import {
   findVariant,
@@ -145,7 +146,7 @@ export function ProductForm({
           currency: selectedVariant.price.currencyCode,
           numItems: quantity,
         });
-        window.location.assign(checkoutUrl);
+        window.location.assign(decorateCheckoutUrl(checkoutUrl));
       } catch (err) {
         setError(
           err instanceof Error ? err.message : dict.products.checkoutError,

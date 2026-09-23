@@ -2,13 +2,20 @@
  * Shopify Admin → Settings → Customer events → Add custom pixel
  *
  * Purchase must fire here: checkout runs on Shopify, not the Next.js storefront.
- * The storefront still sends view_item / add_to_cart / begin_checkout via gtag.
+ * The storefront only sends view_item / add_to_cart / begin_checkout (no labeled
+ * funnel conversions) plus a purchase backup on /order/confirmed.
  *
- * 1. Paste this entire file into a new custom pixel
- * 2. Connect the pixel to checkout / thank-you and save
+ * 1. Paste this entire file into a custom pixel named "Google Ads Purchase"
+ * 2. Permission: not required beyond Customer events defaults
+ * 3. Connect the pixel (Customer events → Connect) so it runs on checkout / thank-you
+ * 4. PURCHASE_LABEL must be the label from Google Ads → Google Shopping App Purchase
+ *    (or your primary Website Purchase action) tag setup: AW-…/LABEL
  *
- * Keep Purchase as the only primary optimization goal in Google Ads.
- * Add to cart / begin checkout / page view should stay secondary or unused.
+ * In Google & YouTube app → Conversion event settings → Checkout completed:
+ * either keep Shopping App Purchase OR check "Add custom conversion ID/label"
+ * with the same AW-…/LABEL. Only Purchase should be Primary in Ads.
+ *
+ * Keep Page view / Add to cart / Begin checkout secondary or unused for bidding.
  */
 
 const GOOGLE_ADS_ID = "AW-18391431736";
@@ -19,19 +26,38 @@ function gtag() {
   window.dataLayer.push(arguments);
 }
 
-const marketing = Boolean(
-  typeof init !== "undefined" && init.customerPrivacy?.marketingAllowed,
-);
-const analyticsAllowed = Boolean(
-  typeof init !== "undefined" &&
-    init.customerPrivacy?.analyticsProcessingAllowed,
-);
+function applyConsent(privacy) {
+  const marketing = Boolean(privacy?.marketingAllowed);
+  const analyticsAllowed = Boolean(privacy?.analyticsProcessingAllowed);
+  gtag("consent", "update", {
+    ad_storage: marketing ? "granted" : "denied",
+    ad_user_data: marketing ? "granted" : "denied",
+    ad_personalization: marketing ? "granted" : "denied",
+    analytics_storage: analyticsAllowed ? "granted" : "denied",
+  });
+}
+
+const initialPrivacy =
+  typeof init !== "undefined" ? init.customerPrivacy : undefined;
 gtag("consent", "default", {
-  ad_storage: marketing ? "granted" : "denied",
-  ad_user_data: marketing ? "granted" : "denied",
-  ad_personalization: marketing ? "granted" : "denied",
-  analytics_storage: analyticsAllowed ? "granted" : "denied",
+  ad_storage: initialPrivacy?.marketingAllowed ? "granted" : "denied",
+  ad_user_data: initialPrivacy?.marketingAllowed ? "granted" : "denied",
+  ad_personalization: initialPrivacy?.marketingAllowed ? "granted" : "denied",
+  analytics_storage: initialPrivacy?.analyticsProcessingAllowed
+    ? "granted"
+    : "denied",
+  wait_for_update: 500,
 });
+
+if (
+  typeof api !== "undefined" &&
+  api.customerPrivacy &&
+  typeof api.customerPrivacy.subscribe === "function"
+) {
+  api.customerPrivacy.subscribe("visitorConsentCollected", (event) => {
+    applyConsent(event.customerPrivacy);
+  });
+}
 
 gtag("js", new Date());
 gtag("config", GOOGLE_ADS_ID, { allow_enhanced_conversions: true });
@@ -99,11 +125,13 @@ function transactionId(checkout) {
 }
 
 analytics.subscribe("checkout_completed", (event) => {
-  if (!GOOGLE_ADS_ID) return;
+  if (!GOOGLE_ADS_ID || !PURCHASE_LABEL) return;
 
   const checkout = event.data.checkout;
   if (!checkout) return;
 
+  const privacy =
+    typeof init !== "undefined" ? init.customerPrivacy : undefined;
   const currency = checkout.currencyCode || checkout.totalPrice?.currencyCode;
   const value = Number(checkout.totalPrice?.amount || 0);
   const txid = transactionId(checkout);
@@ -116,17 +144,15 @@ analytics.subscribe("checkout_completed", (event) => {
   };
 
   const enhanced = userData(checkout);
-  if (Object.keys(enhanced).length) {
+  if (Object.keys(enhanced).length && privacy?.marketingAllowed !== false) {
     gtag("set", "user_data", enhanced);
   }
 
   gtag("event", "purchase", params);
-  if (PURCHASE_LABEL) {
-    gtag("event", "conversion", {
-      send_to: `${GOOGLE_ADS_ID}/${PURCHASE_LABEL}`,
-      value,
-      currency,
-      ...(txid ? { transaction_id: txid } : {}),
-    });
-  }
+  gtag("event", "conversion", {
+    send_to: `${GOOGLE_ADS_ID}/${PURCHASE_LABEL}`,
+    value,
+    currency,
+    ...(txid ? { transaction_id: txid } : {}),
+  });
 });

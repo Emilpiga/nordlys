@@ -6,14 +6,6 @@ function adsId() {
   return process.env.NEXT_PUBLIC_GOOGLE_ADS_ID?.trim() || "";
 }
 
-function addToCartLabel() {
-  return process.env.NEXT_PUBLIC_GOOGLE_ADS_ADD_TO_CART_LABEL?.trim() || "";
-}
-
-function beginCheckoutLabel() {
-  return process.env.NEXT_PUBLIC_GOOGLE_ADS_BEGIN_CHECKOUT_LABEL?.trim() || "";
-}
-
 function purchaseLabel() {
   return process.env.NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL?.trim() || "";
 }
@@ -76,41 +68,27 @@ function emit(event: string, params: Record<string, unknown>) {
   window.gtag!("event", event, params);
 }
 
-function emitLabeledConversion(
-  label: string,
-  payload: Pick<MetaContentPayload, "value" | "currency"> & {
-    transactionId?: string;
-  },
-) {
-  const sendTo = labeledSendTo(label);
-  if (!sendTo || !canTrack()) return;
-  emit("conversion", {
-    send_to: sendTo,
-    ...(typeof payload.value === "number" && !Number.isNaN(payload.value)
-      ? { value: payload.value }
-      : {}),
-    ...(payload.currency ? { currency: payload.currency } : {}),
-    ...(payload.transactionId ? { transaction_id: payload.transactionId } : {}),
-  });
-}
-
+/**
+ * Funnel events for remarketing / cart data only.
+ * Do not fire labeled Google Ads conversions here — those belong to the
+ * Shopify Google & YouTube app / checkout pixel (avoids double hits).
+ */
 export function trackViewItem(payload: MetaContentPayload) {
   emit("view_item", eventParams(payload));
 }
 
 export function trackAddToCart(payload: MetaContentPayload) {
   emit("add_to_cart", eventParams(payload));
-  emitLabeledConversion(addToCartLabel(), payload);
 }
 
 export function trackBeginCheckout(payload: MetaContentPayload) {
   emit("begin_checkout", eventParams(payload));
-  emitLabeledConversion(beginCheckoutLabel(), payload);
 }
 
 /**
- * Named `purchase` + labeled conversion. Also fired from the Shopify
- * customer-events pixel; Google Ads dedupes on `transaction_id`.
+ * Labeled Purchase conversion. Primary source is the Shopify customer-events
+ * pixel; this is the backup when the shopper opens `/order/confirmed`.
+ * Google Ads dedupes on `transaction_id`.
  */
 export function trackPurchase(
   payload: MetaContentPayload & { orderId?: string },
@@ -119,9 +97,15 @@ export function trackPurchase(
     ...eventParams(payload),
     ...(payload.orderId ? { transaction_id: payload.orderId } : {}),
   });
-  emitLabeledConversion(purchaseLabel(), {
-    value: payload.value,
-    currency: payload.currency,
-    transactionId: payload.orderId,
+
+  const sendTo = labeledSendTo(purchaseLabel());
+  if (!sendTo || !canTrack()) return;
+  emit("conversion", {
+    send_to: sendTo,
+    ...(typeof payload.value === "number" && !Number.isNaN(payload.value)
+      ? { value: payload.value }
+      : {}),
+    ...(payload.currency ? { currency: payload.currency } : {}),
+    ...(payload.orderId ? { transaction_id: payload.orderId } : {}),
   });
 }

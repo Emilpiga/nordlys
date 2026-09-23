@@ -6,6 +6,7 @@ import {
   metaContentIdFromGid,
   trackInitiateCheckout,
 } from "@/lib/ads-events";
+import { decorateCheckoutUrl } from "@/lib/ads-linker";
 import type { Cart } from "@/lib/shopify/types";
 
 type CheckoutButtonProps = {
@@ -35,7 +36,7 @@ export function CheckoutButton({
     startTransition(async () => {
       const result = await beginCheckoutAction();
       const url = result.checkoutUrl || cart.checkoutUrl;
-      if (url) window.location.assign(url);
+      if (url) window.location.assign(decorateCheckoutUrl(url));
     });
   }
 
