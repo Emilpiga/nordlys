@@ -269,15 +269,15 @@
   },
   "about": {
     "metaTitle": "Tietoa meistä",
-    "metaDescription": "Tarina {brand}-brändin takana — tuotteita kotiin ja arkeen.",
+    "metaDescription": "{brand} on ruotsalainen verkkokauppa, joka myy naisten ja miesten vaatteita sekä tavaraa kotiin — takkeja, neuleita, vilttejä, lamppuja ja muuta.",
     "eyebrow": "Tietoa: {brand}",
     "title": "Tyyliä arkeen",
-    "intro": "{brand} on verkkokauppa kotiin ja arkeen — tuotteita, joissa on yksinkertainen muoto, selkeät hinnat ja tavaraa, jonka kanssa voi elää.",
-    "imageAlt": "Koti- ja arkituotteita",
+    "intro": "{brand} on ruotsalainen vaatteiden ja kodin verkkokauppa. Myymme naisten ja miesten vaatteita — kappatakkeja, takkeja, neuleita ja asusteita — sekä valikoituja tavaroita olohuoneeseen, makuuhuoneeseen, keittiöön ja toimistoon.",
+    "imageAlt": "Vaatteita ja tavaraa kotiin",
     "whyEyebrow": "Miksi olemme olemassa",
-    "whyTitle": "Tavaraa, joka toimii kotona",
-    "whyBody1": "Kuratoimme valikoiman oikeisiin koteihin — tuotteita, joita käytät, et vain katsele. Yksinkertainen tyyli ilman turhaa säätöä.",
-    "whyBody2": "Jokainen tuote valikoimassa valitaan sen mukaan, että se on hyödyllinen, selkeä ja tuntuu kotoisalta. Ostoksilla olet meillä; tilaus pakataan ja lähetetään fulfillment-kumppaneidemme kautta seurannalla.",
+    "whyTitle": "Vaatteita ja tavaroita, joita oikeasti käytät",
+    "whyBody1": "Valitsemme vaatteet ja tuotteet pohjoiseen arkeen: lämpimiä takkeja ja pehmeitä neuleita kylmiin kuukausiin sekä käytännöllisiä tavaroita, jotka tekevät kodista mukavamman. Selkeä tyyli, selkeät hinnat eikä turhaa monimutkaisuutta.",
+    "whyBody2": "Jokainen tuote valitaan, koska se on käyttökelpoinen ja helppo yhdistää — muun vaatekaapin tai kodin kanssa. Ostat meiltä; tilauksen pakkaavat ja lähettävät logistiikkakumppanimme seurannan kanssa.",
     "howEyebrow": "Näin se toimii",
     "howTitle": "Yksinkertainen kauppa, selkeä toimitus",
     "howBody": "Kassa toimii turvallisesti Shopifyn kautta. Kun olet maksanut, tilauksesi pakataan ja lähetetään seurannalla. Toimitusajat vaihtelevat kohteen mukaan — olemme avoimia siitä ja autamme, jos jotain menee pieleen.",
@@ -289,7 +289,7 @@
   },
   "faq": {
     "metaTitle": "Usein kysytyt",
-    "metaDescription": "Vastauksia toimituksesta, palautuksista, seurannasta ja {brand}-tuotteista.",
+    "metaDescription": "Vastauksia siihen, mitä {brand} myy, sekä kokoihin, toimitukseen, palautuksiin ja seurantaan.",
     "eyebrow": "Tuki",
     "title": "Usein kysytyt kysymykset",
     "intro": "Lyhyesti toimituksesta, palautuksista ja siitä, miten {brand} toimii — ennen tai jälkeen ostosten.",
@@ -297,6 +297,10 @@
     "contactUs": "Ota yhteyttä",
     "shippingReturns": "Toimitus & palautukset",
     "items": [
+      {
+        "question": "Mitä te myytte?",
+        "answer": "Naisten ja miesten vaatteita — kappatakkeja, toppatakkeja, neulepuseroita ja neuletakkeja, mekkoja sekä asusteita kuten huiveja ja pipoja — ja tavaraa kotiin: vilttejä, lamppuja, keittiövälineitä, makuuhuoneen tarvikkeita ja kotitoimiston tarvikkeita. Löydät kaiken valikon kohdasta Kauppa."
+      },
       {
         "question": "Kuinka kauan toimitus kestää?",
         "answer": "Useimmat tilaukset lähtevät varastolta 1–3 arkipäivän kuluessa maksusta. Sen jälkeen toimitus kestää yleensä 7–18 arkipäivää osoitteisiin Suomessa ja EU:ssa. Kansainvälisesti EU:n ulkopuolella se voi kestää kauemmin."
@@ -314,6 +318,10 @@
         "answer": "Kyllä. Kuluttajana sinulla on 14 päivän peruutusoikeus siitä, kun vastaanotit tuotteen. Saat tutkia sen kuten myymälässä. Lähetä meille sähköpostia määräajassa, niin lähetämme palautusosoitteen. Peruuttamisessa maksat palautuspostin. Tuotteen virhe on reklamaatio — katso seuraava kysymys."
       },
       {
+        "question": "Mistä tiedän, minkä koon valitsen?",
+        "answer": "Jos olet epävarma koosta, lähetä meille sähköpostia osoitteeseen {email} ennen tilaamista ja kerro, mitä vaatetta katsot — selvitämme mitat puolestasi. Jos koko meni silti väärin, sinulla on 14 päivän peruutusoikeus."
+      },
+      {
         "question": "Mitä teen, jos tuote on vaurioitunut tai väärä?",
         "answer": "Se on reklamaatio, ei peruutusoikeus. Lähetä meille sähköpostia tilausnumerolla ja kuvilla heti, kun huomaat virheen. Ilmoita virheestä kohtuullisessa ajassa (yleensä kahden kuukauden kuluessa havaitsemisesta). Virheessä maksamme palautuspostin ja hoidamme vaihdon tai hyvityksen."
       },
@@ -323,7 +331,7 @@
       },
       {
         "question": "Miten hoidan tuotteita?",
-        "answer": "Noudata tuotesivun ja pakkauksen ohjeita. Pyyhi kuivalla tai hieman kostealla liinalla, ellei toisin mainita."
+        "answer": "Noudata vaatteen pesulapun ohjeita ja mahdollisia tuotesivun ohjeita. Kodin tuotteet pyyhitään kuivalla tai kevyesti kostealla liinalla, ellei toisin mainita."
       },
       {
         "question": "Miten otan teihin yhteyttä?",

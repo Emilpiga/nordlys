@@ -2,12 +2,15 @@ import type { Metadata } from "next";
 import Image from "@/components/soft-image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/json-ld";
 import { LegalFacts } from "@/components/legal-page";
 import { AmbientSection, SectionRule } from "@/components/section";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
-import { isLocale, localePath } from "@/lib/i18n/locales";
+import { getLocaleConfig, isLocale, localePath } from "@/lib/i18n/locales";
+import { buildAboutPageJsonLd } from "@/lib/json-ld";
 import { getLegalIdentity, identityFactItems } from "@/lib/legal";
 import { shopifyConfig } from "@/lib/shopify/config";
+import { getSiteUrl } from "@/lib/site-url";
 import {
   localeAlternates,
   ogLocaleFor,
@@ -50,6 +53,14 @@ export default async function AboutPage({ params }: Props) {
 
   return (
     <div>
+      <JsonLd
+        data={buildAboutPageJsonLd({
+          url: `${getSiteUrl()}${localePath(locale, "/about")}`,
+          name: `${a.metaTitle} · ${brand}`,
+          description: t(a.metaDescription, { brand }),
+          htmlLang: getLocaleConfig(locale).htmlLang,
+        })}
+      />
       <div className="mx-auto w-full max-w-6xl px-5 pt-12 sm:px-8 sm:pt-16">
         <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
           {t(a.eyebrow, { brand })}

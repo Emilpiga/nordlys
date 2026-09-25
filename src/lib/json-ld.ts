@@ -13,6 +13,11 @@ import {
 
 type JsonLd = Record<string, unknown>;
 
+/** Stable node id so other pages (About, WebSite) can point at the company. */
+export function organizationId() {
+  return `${getSiteUrl()}/#organization`;
+}
+
 export function buildOrganizationJsonLd(
   description = siteDescriptionFor(),
 ): JsonLd {
@@ -22,6 +27,7 @@ export function buildOrganizationJsonLd(
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": organizationId(),
     name: shopifyConfig.storeName,
     url,
     logo: `${url}/brand-mark.svg`,
@@ -42,6 +48,43 @@ export function buildOrganizationJsonLd(
     ...(identity.orgNumber ? { identifier: identity.orgNumber } : {}),
     ...(identity.vatNumber ? { vatID: identity.vatNumber } : {}),
     ...(identity.email ? { email: identity.email } : {}),
+  };
+}
+
+/** The About page is about the company — tell crawlers and AI answers so. */
+export function buildAboutPageJsonLd(input: {
+  url: string;
+  name: string;
+  description: string;
+  htmlLang: string;
+}): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    url: input.url,
+    name: input.name,
+    description: input.description,
+    inLanguage: input.htmlLang,
+    about: { "@id": organizationId() },
+    mainEntity: { "@id": organizationId() },
+  };
+}
+
+export function buildFaqPageJsonLd(
+  url: string,
+  items: { question: string; answer: string }[],
+  htmlLang: string,
+): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    url,
+    inLanguage: htmlLang,
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
   };
 }
 

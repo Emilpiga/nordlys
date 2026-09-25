@@ -269,15 +269,15 @@
   },
   "about": {
     "metaTitle": "Om oss",
-    "metaDescription": "Historien bak {brand} — produkter for hjemmet og hverdagen.",
+    "metaDescription": "{brand} er en svensk nettbutikk for klær til dame og herre og ting til hjemmet — kåper, jakker, strikk, pledd, lamper og mer.",
     "eyebrow": "Om {brand}",
     "title": "Stil for hverdagen",
-    "intro": "{brand} er en nettbutikk for hjemmet og hverdagen — produkter med enkel form, tydelige priser og ting du kan leve med.",
-    "imageAlt": "Hjem og hverdagsprodukter",
+    "intro": "{brand} er en svensk nettbutikk for klær og hjem. Vi selger klær til dame og herre — kåper, jakker, strikk og tilbehør — og utvalgte ting til stue, soverom, kjøkken og kontor.",
+    "imageAlt": "Klær og ting til hjemmet",
     "whyEyebrow": "Hvorfor vi finnes",
-    "whyTitle": "Ting som fungerer hjemme",
-    "whyBody1": "Vi kuraterer et sortiment for ekte hjem — produkter du bruker, ikke bare ser på. Enkel stil uten unødvendig krøll.",
-    "whyBody2": "Hvert produkt i sortimentet velges fordi det skal være nyttig, tydelig og føles hjemme. Du handler hos oss; ordren pakkes og sendes av våre fulfillmentpartnere med sporing.",
+    "whyTitle": "Klær og ting du faktisk bruker",
+    "whyBody1": "Vi velger ut plagg og produkter for en nordisk hverdag: varmt yttertøy og mykt strikk for kalde måneder, og praktiske ting som gjør hjemmet bedre å være i. Enkel stil, tydelige priser og ikke noe unødvendig styr.",
+    "whyBody2": "Hvert produkt velges for å være nyttig og lett å kombinere — med resten av garderoben eller hjemmet. Du handler hos oss; ordren pakkes og sendes av våre logistikkpartnere med sporing.",
     "howEyebrow": "Slik fungerer det",
     "howTitle": "Enkel handel, tydelig levering",
     "howBody": "Kassen kjøres sikkert via Shopify. Når du har betalt, pakkes ordren din og sendes med sporing. Leveringstider varierer med destinasjon — vi er åpne om det, og hjelper deg hvis noe går galt.",
@@ -289,7 +289,7 @@
   },
   "faq": {
     "metaTitle": "Vanlige spørsmål",
-    "metaDescription": "Svar om frakt, retur, sporing og produkter fra {brand}.",
+    "metaDescription": "Svar om hva {brand} selger, størrelser, frakt, retur og sporing.",
     "eyebrow": "Hjelp",
     "title": "Vanlige spørsmål",
     "intro": "Kort om frakt, retur og hvordan {brand} fungerer — før eller etter du handler.",
@@ -297,6 +297,10 @@
     "contactUs": "Kontakt oss",
     "shippingReturns": "Frakt & retur",
     "items": [
+      {
+        "question": "Hva selger dere?",
+        "answer": "Klær til dame og herre — kåper, vatterte jakker, strikkegensere og cardigans, kjoler og tilbehør som sjal og luer — og ting til hjemmet: pledd, lamper, kjøkkenredskaper, soveromstilbehør og tilbehør til hjemmekontoret. Du finner alt under Handle i menyen."
+      },
       {
         "question": "Hvor lang tid tar leveransen?",
         "answer": "De fleste ordrer forlater lageret innen 1–3 virkedager etter betaling. Deretter tar leveransen vanligvis 7–18 virkedager til adresser i Norge og EU. Internasjonalt utenfor EU kan det ta lengre tid."
@@ -314,6 +318,10 @@
         "answer": "Ja. Som forbruker har du 14 dagers angrerett fra du mottok varen. Du kan undersøke den som i en butikk. Send oss e-post innen fristen, så sender vi returadresse. Ved angrerett betaler du returfrakten. Feil ved varen er en reklamasjon — se neste spørsmål."
       },
       {
+        "question": "Hvordan vet jeg hvilken størrelse jeg skal velge?",
+        "answer": "Er du usikker på størrelsen, send oss en e-post til {email} før du bestiller og fortell hvilket plagg du ser på — så finner vi målene for deg. Ble det likevel feil størrelse, har du 14 dagers angrerett."
+      },
+      {
         "question": "Hva gjør jeg hvis produktet er skadet eller feil?",
         "answer": "Det er en reklamasjon, ikke angrerett. Send oss e-post med ordrenummer og bilder så snart du oppdager feilen. I Norge kan du reklamere i to år, og fem år for ting som er ment å vare vesentlig lenger. Ved feil betaler vi returfrakten og ordner erstatning eller refusjon."
       },
@@ -323,7 +331,7 @@
       },
       {
         "question": "Hvordan steller jeg produktene?",
-        "answer": "Følg anvisningene på produktsiden og emballasjen. Tørk av med tørr eller lett fuktig klut med mindre noe annet er angitt."
+        "answer": "Følg vaskeanvisningen på plaggets etikett og eventuelle anvisninger på produktsiden. Produkter til hjemmet tørker du av med en tørr eller lett fuktig klut hvis ikke annet er oppgitt."
       },
       {
         "question": "Hvordan kontakter jeg dere?",

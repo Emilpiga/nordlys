@@ -269,15 +269,15 @@
   },
   "about": {
     "metaTitle": "Om os",
-    "metaDescription": "Historien bag {brand} — produkter til hjemmet og hverdagen.",
+    "metaDescription": "{brand} er en svensk webshop med tøj til damer og herrer og ting til hjemmet — frakker, jakker, strik, tæpper, lamper og mere.",
     "eyebrow": "Om {brand}",
     "title": "Stil til hverdagen",
-    "intro": "{brand} er en webshop til hjemmet og hverdagen — produkter med enkel form, tydelige priser og ting du kan leve med.",
-    "imageAlt": "Hjem og hverdagsprodukter",
+    "intro": "{brand} er en svensk webshop for tøj og hjem. Vi sælger tøj til damer og herrer — frakker, jakker, strik og accessories — og udvalgte ting til stue, soveværelse, køkken og kontor.",
+    "imageAlt": "Tøj og ting til hjemmet",
     "whyEyebrow": "Hvorfor vi findes",
-    "whyTitle": "Ting der virker derhjemme",
-    "whyBody1": "Vi kuraterer et sortiment til rigtige hjem — produkter du bruger, ikke bare ser på. Enkel stil uden unødvendigt bøvl.",
-    "whyBody2": "Hvert produkt i sortimentet vælges, fordi det skal være brugbart, tydeligt og føles hjemme. Du handler hos os; ordren pakkes og sendes af vores fulfillmentpartnere med sporing.",
+    "whyTitle": "Tøj og ting, du faktisk bruger",
+    "whyBody1": "Vi udvælger tøj og produkter til en nordisk hverdag: varmt overtøj og blød strik til de kolde måneder, og praktiske ting, der gør hjemmet rarere at være i. Enkel stil, tydelige priser og ingen unødvendige dikkedarer.",
+    "whyBody2": "Hvert produkt vælges, fordi det er brugbart og nemt at kombinere — med resten af garderoben eller hjemmet. Du handler hos os; ordren pakkes og sendes af vores logistikpartnere med sporing.",
     "howEyebrow": "Sådan fungerer det",
     "howTitle": "Enkel handel, tydelig levering",
     "howBody": "Kassen kører sikkert via Shopify. Når du har betalt, pakkes din ordre og sendes med sporing. Leveringstider varierer med destination — vi er åbne om det og hjælper dig, hvis noget går galt.",
@@ -289,7 +289,7 @@
   },
   "faq": {
     "metaTitle": "Ofte stillede spørgsmål",
-    "metaDescription": "Svar om fragt, returnering, sporing og produkter fra {brand}.",
+    "metaDescription": "Svar om hvad {brand} sælger, størrelser, fragt, returnering og sporing.",
     "eyebrow": "Hjælp",
     "title": "Ofte stillede spørgsmål",
     "intro": "Kort om fragt, returnering og hvordan {brand} fungerer — før eller efter du handler.",
@@ -297,6 +297,10 @@
     "contactUs": "Kontakt os",
     "shippingReturns": "Fragt & returnering",
     "items": [
+      {
+        "question": "Hvad sælger I?",
+        "answer": "Tøj til damer og herrer — frakker, vatterede jakker, strikbluser og cardigans, kjoler og accessories som sjaler og huer — og ting til hjemmet: tæpper, lamper, køkkenredskaber, tilbehør til soveværelset og til hjemmekontoret. Du finder det hele under Shop i menuen."
+      },
       {
         "question": "Hvor lang tid tager leveringen?",
         "answer": "De fleste ordrer forlader lageret inden for 1–3 hverdage efter betaling. Derefter tager leveringen typisk 7–18 hverdage til adresser i Danmark og EU. Internationalt uden for EU kan det tage længere tid."
@@ -314,6 +318,10 @@
         "answer": "Ja. Som forbruger har du 14 dages fortrydelsesret fra du modtog varen. Du må undersøge den som i en butik. Send os en e-mail inden fristen, så sender vi returadressen. Ved fortrydelse betaler du returfragten. Fejl ved varen er en reklamation — se næste spørgsmål."
       },
       {
+        "question": "Hvordan ved jeg, hvilken størrelse jeg skal vælge?",
+        "answer": "Er du i tvivl om størrelsen, så skriv til os på {email}, før du bestiller, og fortæl hvilket stykke tøj du kigger på — så finder vi målene til dig. Blev det alligevel den forkerte størrelse, har du 14 dages fortrydelsesret."
+      },
+      {
         "question": "Hvad gør jeg, hvis produktet er beskadiget eller forkert?",
         "answer": "Det er en reklamation, ikke fortrydelsesret. Send os en e-mail med ordrenummer og fotos, så snart du opdager fejlen. I Danmark kan du reklamere i 24 måneder fra modtagelsen. Ved fejl betaler vi returfragten og sørger for erstatning eller refundering."
       },
@@ -323,7 +331,7 @@
       },
       {
         "question": "Hvordan plejer jeg produkterne?",
-        "answer": "Følg anvisningerne på produktsiden og emballagen. Tør af med en tør eller let fugtig klud, medmindre andet er angivet."
+        "answer": "Følg vaskeanvisningen på tøjets mærke og eventuelle anvisninger på produktsiden. Produkter til hjemmet tørrer du af med en tør eller let fugtig klud, medmindre andet er angivet."
       },
       {
         "question": "Hvordan kontakter jeg jer?",

@@ -269,15 +269,15 @@
   },
   "about": {
     "metaTitle": "Om oss",
-    "metaDescription": "Berättelsen bakom {brand} — produkter för hemmet och vardagen.",
+    "metaDescription": "{brand} är en svensk webbutik för kläder till dam och herr och saker till hemmet — kappor, jackor, stickat, filtar, lampor och mer.",
     "eyebrow": "Om {brand}",
     "title": "Stil för vardagen",
-    "intro": "{brand} är en webbutik för hemmet och vardagen — produkter med enkel form, tydliga priser och saker du kan leva med.",
-    "imageAlt": "Hem och vardagsprodukter",
+    "intro": "{brand} är en svensk webbutik för kläder och hem. Vi säljer kläder för dam och herr — kappor, jackor, stickat och accessoarer — och utvalda saker till vardagsrum, sovrum, kök och kontor.",
+    "imageAlt": "Kläder och saker till hemmet",
     "whyEyebrow": "Varför vi finns",
-    "whyTitle": "Saker som funkar hemma",
-    "whyBody1": "Vi kurerar ett sortiment för riktiga hem — produkter du använder, inte bara tittar på. Enkel stil utan onödigt krångel.",
-    "whyBody2": "Varje produkt i sortimentet väljs för att den ska vara användbar, tydlig och kännas hemma. Du handlar hos oss; ordern packas och skickas av våra fullföljandepartners med spårning.",
+    "whyTitle": "Kläder och saker du faktiskt använder",
+    "whyBody1": "Vi väljer ut plagg och produkter för en nordisk vardag: varma ytterkläder och mjukt stickat för kalla månader, och praktiska saker som gör hemmet skönare. Enkel stil, tydliga priser och inget onödigt krångel.",
+    "whyBody2": "Varje produkt väljs för att vara användbar och lätt att kombinera — med resten av garderoben eller hemmet. Du handlar hos oss; ordern packas och skickas av våra fullföljandepartners med spårning.",
     "howEyebrow": "Så fungerar det",
     "howTitle": "Enkel handel, tydlig leverans",
     "howBody": "Kassan körs säkert via Shopify. När du betalat packas din order och skickas med spårning. Leveranstider varierar med destination — vi är öppna med det, och hjälper dig om något strular.",
@@ -289,7 +289,7 @@
   },
   "faq": {
     "metaTitle": "Vanliga frågor",
-    "metaDescription": "Svar om frakt, returer, spårning och produkter från {brand}.",
+    "metaDescription": "Svar om vad {brand} säljer, storlekar, frakt, returer och spårning.",
     "eyebrow": "Hjälp",
     "title": "Vanliga frågor",
     "intro": "Kort om frakt, returer och hur {brand} fungerar — innan eller efter du handlar.",
@@ -297,6 +297,10 @@
     "contactUs": "Kontakta oss",
     "shippingReturns": "Frakt & returer",
     "items": [
+      {
+        "question": "Vad säljer ni?",
+        "answer": "Kläder för dam och herr — kappor, vadderade jackor, stickade tröjor och koftor, klänningar och accessoarer som sjalar och mössor — och saker till hemmet: filtar, lampor, köksredskap, sovrumstillbehör och tillbehör till hemmakontoret. Du hittar allt under Shoppa i menyn."
+      },
       {
         "question": "Hur lång tid tar leveransen?",
         "answer": "De flesta ordrar lämnar lagret inom 1–3 arbetsdagar efter betalning. Därefter tar leveransen vanligtvis 7–18 arbetsdagar till adresser i Sverige och EU. Internationellt utanför EU kan det ta längre tid."
@@ -314,6 +318,10 @@
         "answer": "Ja. Som konsument har du 14 dagars ångerrätt från att du tog emot varan. Du får undersöka den som i en butik. Mejla oss inom fristen så skickar vi returadress. Vid ångerrätt står du för returfrakten. Fel på varan är en reklamation — se nästa fråga."
       },
       {
+        "question": "Hur vet jag vilken storlek jag ska välja?",
+        "answer": "Är du osäker på storleken, mejla oss till {email} innan du beställer och berätta vilket plagg du tittar på — så tar vi fram måtten åt dig. Blev det ändå fel storlek har du 14 dagars ångerrätt."
+      },
+      {
         "question": "Vad gör jag om produkten är skadad eller fel?",
         "answer": "Det är en reklamation, inte ångerrätt. Mejla oss med ordernummer och foton så snart du märker felet. I Sverige kan du reklamera i tre år från mottagandet. Vid fel står vi för returfrakten och ordnar ersättning eller återbetalning."
       },
@@ -323,7 +331,7 @@
       },
       {
         "question": "Hur sköter jag produkterna?",
-        "answer": "Följ anvisningarna på produktsidan och förpackningen. Torka av med torr eller lätt fuktig trasa om inte annat anges."
+        "answer": "Följ tvättrådet på plaggets etikett och eventuella anvisningar på produktsidan. Produkter till hemmet torkar du av med en torr eller lätt fuktig trasa om inget annat anges."
       },
       {
         "question": "Hur kontaktar jag er?",

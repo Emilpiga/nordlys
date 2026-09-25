@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FaqList } from "@/components/faq-list";
+import { JsonLd } from "@/components/json-ld";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
-import { isLocale, localePath } from "@/lib/i18n/locales";
+import { getLocaleConfig, isLocale, localePath } from "@/lib/i18n/locales";
+import { buildFaqPageJsonLd } from "@/lib/json-ld";
 import { shopifyConfig } from "@/lib/shopify/config";
+import { getSiteUrl } from "@/lib/site-url";
 import {
   localeAlternates,
   ogLocaleFor,
@@ -51,6 +54,13 @@ export default async function FaqPage({ params }: Props) {
 
   return (
     <div className="mx-auto w-full max-w-3xl px-5 pb-20 pt-12 sm:px-8 sm:pb-28 sm:pt-16">
+      <JsonLd
+        data={buildFaqPageJsonLd(
+          `${getSiteUrl()}${localePath(locale, "/faq")}`,
+          items,
+          getLocaleConfig(locale).htmlLang,
+        )}
+      />
       <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
         {dict.faq.eyebrow}
       </p>
