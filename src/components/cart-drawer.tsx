@@ -123,7 +123,9 @@ export function CartDrawer() {
             <div className="flex-1 overflow-y-auto px-5 sm:px-6">
               <ul className="py-2">
                 {lines.map((line) => {
-                  const image = line.merchandise.product.featuredImage;
+                  const image =
+                    line.merchandise.image ??
+                    line.merchandise.product.featuredImage;
                   const options = line.merchandise.selectedOptions
                     .filter((option) => option.value !== "Default Title")
                     .map((option) => option.value)

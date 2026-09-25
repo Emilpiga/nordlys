@@ -74,6 +74,8 @@ export type CartLine = {
     };
     price: Money;
     selectedOptions: { name: string; value: string }[];
+    /** The chosen variant's photo — what the shopper picked, not the product cover. */
+    image: ProductImage | null;
   };
   cost: {
     totalAmount: Money;

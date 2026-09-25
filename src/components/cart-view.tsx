@@ -45,7 +45,8 @@ export function CartView({ cart }: CartViewProps) {
     >
       <ul className="divide-y divide-border/70 border-y border-border/70">
         {cart.lines.map((line) => {
-          const image = line.merchandise.product.featuredImage;
+          const image =
+            line.merchandise.image ?? line.merchandise.product.featuredImage;
           const options = line.merchandise.selectedOptions
             .filter((option) => option.value !== "Default Title")
             .map((option) => option.value)

@@ -239,6 +239,9 @@ export const CART_FRAGMENT = /* GraphQL */ `
             price {
               ...MoneyFields
             }
+            image {
+              ...ImageFields
+            }
             product {
               id
               handle
