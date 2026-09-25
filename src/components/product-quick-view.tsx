@@ -8,6 +8,7 @@ import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
 import { ProductOptionPicker } from "@/components/product-option-picker";
+import { isApparel } from "@/lib/size-guide";
 import { ProductPrice } from "@/components/product-price";
 import { ProductRating } from "@/components/product-rating";
 import { metaContentIdFromGid, trackAddToCart } from "@/lib/ads-events";
@@ -205,6 +206,7 @@ export function ProductQuickView({
                         variants={product.variants}
                         onChange={setSelectedOptions}
                         size="sm"
+                        sizeGuide={isApparel(product.productType)}
                       />
                     );
                   })

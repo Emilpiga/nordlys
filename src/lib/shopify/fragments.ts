@@ -26,6 +26,7 @@ export const PRODUCT_CARD_FRAGMENT = /* GraphQL */ `
     id
     handle
     title
+    productType
     updatedAt
     category {
       id
@@ -83,6 +84,7 @@ export const PRODUCT_FRAGMENT = /* GraphQL */ `
     id
     handle
     title
+    productType
     description
     descriptionHtml
     updatedAt

@@ -6,6 +6,7 @@ import { addToCartAction, beginCheckoutAction } from "@/app/actions/cart";
 import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { ProductOptionPicker } from "@/components/product-option-picker";
+import { isApparel } from "@/lib/size-guide";
 import { ProductTrust } from "@/components/product-trust";
 import { ProductViewingActivity } from "@/components/product-viewing-activity";
 import { ProductPrice } from "@/components/product-price";
@@ -192,6 +193,7 @@ export function ProductForm({
                 selected={selectedOptions}
                 variants={product.variants}
                 onChange={setSelectedOptions}
+                sizeGuide={isApparel(product.productType)}
               />
             );
           })

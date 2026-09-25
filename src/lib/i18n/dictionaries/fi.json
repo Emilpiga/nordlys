@@ -126,6 +126,16 @@
     "summary": "{rating} / 5 · {count}"
   },
   "products": {
+    "sizeRunsSmall": "Vaatteet ovat pienikokoisia — valitse mieluiten yhtä kokoa tavallista suurempi.",
+    "sizeFinderToggle": "Löydä kokoni",
+    "sizeFinderQuestion": "Mitä kokoa käytät yleensä?",
+    "sizeFinderRecommend": "Suosittelemme kokoa {size}",
+    "sizeFinderSelect": "Valitse {size}",
+    "sizeFinderUnavailable": "Kokoa {size} ei ole tälle vaatteelle — lähin on {nearest}.",
+    "sizeFinderYours": "Sinun kokosi",
+    "sizeFinderOurs": "Meillä",
+    "sizeFinderEu": "Vastaa suunnilleen",
+    "sizeFinderClose": "Sulje",
     "backToShop": "← Takaisin kauppaan",
     "fallbackCategory": "Valikoima",
     "fallbackDescription": "Tuote arkeen — yksinkertainen, hyödyllinen ja valmis kotiin.",

@@ -126,6 +126,16 @@
     "summary": "{rating} af 5 · {count}"
   },
   "products": {
+    "sizeRunsSmall": "Tøjet er småt i størrelsen — vælg gerne en størrelse større end normalt.",
+    "sizeFinderToggle": "Find min størrelse",
+    "sizeFinderQuestion": "Hvilken størrelse plejer du at bruge?",
+    "sizeFinderRecommend": "Vi anbefaler {size}",
+    "sizeFinderSelect": "Vælg {size}",
+    "sizeFinderUnavailable": "{size} findes ikke til dette stykke tøj — nærmeste er {nearest}.",
+    "sizeFinderYours": "Din størrelse",
+    "sizeFinderOurs": "Hos os",
+    "sizeFinderEu": "Svarer cirka til",
+    "sizeFinderClose": "Luk",
     "backToShop": "← Tilbage til shoppen",
     "fallbackCategory": "Sortiment",
     "fallbackDescription": "Et produkt til hverdagen — enkelt, brugbart og klar til at bruges derhjemme.",

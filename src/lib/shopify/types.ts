@@ -44,6 +44,8 @@ export type Product = {
   id: string;
   handle: string;
   title: string;
+  /** Shopify product type, e.g. "Ytterkläder" — how we tell clothing apart. */
+  productType: string;
   description: string;
   descriptionHtml: string;
   updatedAt: string | null;

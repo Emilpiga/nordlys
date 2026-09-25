@@ -126,6 +126,16 @@
     "summary": "{rating} av 5 · {count}"
   },
   "products": {
+    "sizeRunsSmall": "Plaggene er små i størrelsen — velg gjerne én størrelse større enn vanlig.",
+    "sizeFinderToggle": "Finn min størrelse",
+    "sizeFinderQuestion": "Hvilken størrelse pleier du å bruke?",
+    "sizeFinderRecommend": "Vi anbefaler {size}",
+    "sizeFinderSelect": "Velg {size}",
+    "sizeFinderUnavailable": "{size} finnes ikke for dette plagget — nærmeste er {nearest}.",
+    "sizeFinderYours": "Din størrelse",
+    "sizeFinderOurs": "Hos oss",
+    "sizeFinderEu": "Tilsvarer omtrent",
+    "sizeFinderClose": "Lukk",
     "backToShop": "← Tilbake til butikken",
     "fallbackCategory": "Sortiment",
     "fallbackDescription": "Et produkt for hverdagen — enkelt, nyttig og klart til å brukes hjemme.",

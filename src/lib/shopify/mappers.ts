@@ -36,6 +36,7 @@ type ShopifyProductCard = {
   id: string;
   handle: string;
   title: string;
+  productType?: string | null;
   updatedAt?: string | null;
   seo?: ShopifySeo;
   collections?: { nodes: ProductCollectionRef[] };
@@ -167,6 +168,7 @@ export function mapProductCard(product: ShopifyProductCard): Product {
     id: product.id,
     handle: product.handle,
     title: product.title,
+    productType: product.productType ?? "",
     description: "",
     descriptionHtml: "",
     updatedAt: product.updatedAt ?? null,
@@ -190,6 +192,7 @@ export function mapProduct(product: ShopifyProduct): Product {
     id: product.id,
     handle: product.handle,
     title: product.title,
+    productType: product.productType ?? "",
     description: product.description,
     descriptionHtml: product.descriptionHtml,
     updatedAt: product.updatedAt ?? null,

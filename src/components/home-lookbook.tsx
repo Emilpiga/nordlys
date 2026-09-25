@@ -12,6 +12,7 @@ import { formatMoney } from "@/lib/format";
 import type { HeroTheme } from "@/lib/hero-images";
 import type { Look } from "@/lib/lookbook";
 import type { Money, Product, ProductVariant } from "@/lib/shopify/types";
+import { sortSizeValues } from "@/lib/size-guide";
 
 /** Collage cells: the outer layer large on the left, two pieces stacked right. */
 const CELLS = [
@@ -24,16 +25,6 @@ const CELLS = [
 const HOTSPOTS = ["left-[38%] top-[44%]", "left-[52%] top-[40%]", "left-[46%] top-[48%]"];
 
 type Choices = Record<string, string>;
-
-const SIZE_ORDER = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "4XL", "5XL"];
-
-/** Supplier imports list sizes in any order ("M, S, XL, L") — show them S→XL. */
-function sortedValues(values: string[]) {
-  const rank = (value: string) => SIZE_ORDER.indexOf(value.trim().toUpperCase());
-  return values.every((value) => rank(value) >= 0)
-    ? [...values].sort((a, b) => rank(a) - rank(b))
-    : values;
-}
 
 /** Options the shopper actually chooses (not Shopify's "Default Title"). */
 function realOptions(product: Product) {
@@ -366,7 +357,7 @@ export function HomeLookbook({
                           <option value="" disabled>
                             {option.name}
                           </option>
-                          {sortedValues(option.values).map((value) => (
+                          {sortSizeValues(option.values).map((value) => (
                             <option key={value} value={value}>
                               {value}
                             </option>

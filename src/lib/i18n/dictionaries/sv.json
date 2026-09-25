@@ -126,6 +126,16 @@
     "summary": "{rating} av 5 · {count}"
   },
   "products": {
+    "sizeRunsSmall": "Plaggen är små i storleken — välj gärna en storlek större än vanligt.",
+    "sizeFinderToggle": "Hitta min storlek",
+    "sizeFinderQuestion": "Vilken storlek brukar du ha?",
+    "sizeFinderRecommend": "Vi rekommenderar {size}",
+    "sizeFinderSelect": "Välj {size}",
+    "sizeFinderUnavailable": "{size} finns inte för det här plagget — närmaste är {nearest}.",
+    "sizeFinderYours": "Din storlek",
+    "sizeFinderOurs": "Hos oss",
+    "sizeFinderEu": "Motsvarar ungefär",
+    "sizeFinderClose": "Stäng",
     "backToShop": "← Tillbaka till shoppen",
     "fallbackCategory": "Sortiment",
     "fallbackDescription": "En produkt för vardagen — enkel, användbar och redo att användas hemma.",

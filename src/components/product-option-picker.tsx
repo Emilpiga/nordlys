@@ -1,9 +1,19 @@
 "use client";
 
 import Image from "@/components/soft-image";
+import { useSyncExternalStore } from "react";
 import { OptionSelect } from "@/components/option-select";
+import { SizeFinder } from "@/components/size-finder";
 import { useDictionary } from "@/components/dictionary-provider";
 import { formatMoney } from "@/lib/format";
+import {
+  isLetterSizeOption,
+  productValueFor,
+  readUsualSize,
+  recommendedSize,
+  sortSizeValues,
+  subscribeUsualSize,
+} from "@/lib/size-guide";
 import type {
   Product,
   ProductImage,
@@ -28,6 +38,8 @@ type ProductOptionPickerProps = {
   variants: ProductVariant[];
   onChange: (next: Record<string, string>) => void;
   size?: "sm" | "md";
+  /** Clothing: show the "runs small" note and size finder for letter sizes. */
+  sizeGuide?: boolean;
 };
 
 const COLOR_OPTION_PATTERN = /^(färg|farge|farve|väri|colou?r)$/i;
@@ -68,11 +80,19 @@ export function ProductOptionPicker({
   variants,
   onChange,
   size = "md",
+  sizeGuide = false,
 }: ProductOptionPickerProps) {
-  const { locale } = useDictionary();
+  const { dict, locale } = useDictionary();
   const current = selected[option.name] ?? values[0];
   const swatches = colorSwatchImages(option.name, values, variants);
-  const useSelect = !swatches && shouldUseOptionSelect(values);
+  const letterSizes = isLetterSizeOption(option.name, values);
+  // Letter sizes stay as chips (they're short), in wearing order.
+  const useSelect = !swatches && !letterSizes && shouldUseOptionSelect(values);
+  const chipValues = letterSizes ? sortSizeValues(values) : values;
+  const usual = useSyncExternalStore(subscribeUsualSize, readUsualSize, () => null);
+  const showGuide = sizeGuide && letterSizes;
+  const ideal = showGuide && usual ? recommendedSize(usual) : null;
+  const yourSize = ideal ? productValueFor(values, ideal) : null;
   const showPrices = optionPricesVary(variants, option.name, values, selected);
   const compact = size === "sm";
 
@@ -160,7 +180,7 @@ export function ProductOptionPicker({
         />
       ) : (
         <div className="flex flex-wrap gap-2">
-          {values.map((value) => {
+          {chipValues.map((value) => {
             const active = current === value;
             const inStock = isOptionValueInStock(
               variants,
@@ -186,6 +206,15 @@ export function ProductOptionPicker({
                 }`}
               >
                 <span className="block">{value}</span>
+                {value === yourSize ? (
+                  <span
+                    className={`block text-[0.58rem] font-medium tracking-[0.08em] uppercase ${
+                      active ? "text-on-accent/80" : "text-glow"
+                    }`}
+                  >
+                    {dict.products.sizeFinderYours}
+                  </span>
+                ) : null}
                 {hint ? (
                   <span
                     className={`block text-[0.68rem] font-light tabular-nums ${
@@ -200,6 +229,17 @@ export function ProductOptionPicker({
           })}
         </div>
       )}
+      {showGuide ? (
+        <SizeFinder
+          values={values}
+          usual={usual}
+          isInStock={(value) =>
+            isOptionValueInStock(variants, option.name, value, selected)
+          }
+          onChoose={choose}
+          compact={compact}
+        />
+      ) : null}
     </fieldset>
   );
 }
