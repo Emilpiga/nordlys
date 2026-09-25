@@ -25,6 +25,13 @@ import type { Product } from "@/lib/shopify/types";
 
 type Props = { params: Promise<{ locale: string }> };
 
+/**
+ * "Veckans look" is switched off for now: many visitors left the home page
+ * right as they reached it. Flip back to true to bring it (and its data
+ * fetch) back — the planner and discount keep running either way.
+ */
+const SHOW_WEEKLY_LOOK = false;
+
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
@@ -37,7 +44,7 @@ export default async function HomePage({ params }: Props) {
     getCollections(50, locale),
     getDictionary(locale),
     getTopTraction(24),
-    getWeeklyLooks(locale),
+    SHOW_WEEKLY_LOOK ? getWeeklyLooks(locale) : null,
   ]);
 
   const clothingIds = new Set(clothingSampleIds(collections, 40));
@@ -125,10 +132,12 @@ export default async function HomePage({ params }: Props) {
 
       <HomeTrustStrip />
 
-      <HomeLookbook
-        looks={weeklyLooks.looks}
-        discountPercent={weeklyLooks.discountPercent}
-      />
+      {weeklyLooks ? (
+        <HomeLookbook
+          looks={weeklyLooks.looks}
+          discountPercent={weeklyLooks.discountPercent}
+        />
+      ) : null}
 
       {!isShopifyConfigured() || homepageCollections.length === 0 ? (
         <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
