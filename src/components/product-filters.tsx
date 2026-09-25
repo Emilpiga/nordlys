@@ -32,6 +32,7 @@ import {
   type CollectionTreeNode,
 } from "@/lib/shopify/collections";
 import type { CollectionSummary } from "@/lib/shopify/types";
+import { lockPageScroll } from "@/lib/scroll-lock";
 
 const chipActive =
   "border-foreground bg-foreground text-[var(--on-accent)]";
@@ -1164,12 +1165,11 @@ export function FilterDrawer({
       if (event.key === "Escape") onClose();
     };
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const releaseScroll = lockPageScroll();
     window.addEventListener("keydown", onKey);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      releaseScroll();
       window.removeEventListener("keydown", onKey);
     };
   }, [open, onClose]);

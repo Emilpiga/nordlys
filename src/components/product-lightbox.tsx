@@ -10,6 +10,7 @@ import {
   type LightboxZoomState,
 } from "@/components/lightbox-zoom-image";
 import type { ProductImage } from "@/lib/shopify/types";
+import { lockPageScroll } from "@/lib/scroll-lock";
 
 type ProductLightboxProps = {
   open: boolean;
@@ -134,13 +135,12 @@ export function ProductLightbox({
       }
     };
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const releaseScroll = lockPageScroll();
     window.addEventListener("keydown", onKey);
     closeRef.current?.focus();
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      releaseScroll();
       window.removeEventListener("keydown", onKey);
     };
   }, [open, images.length, onClose, onIndexChange, index]);

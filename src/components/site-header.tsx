@@ -14,6 +14,7 @@ import {
   type CollectionTreeNode,
 } from "@/lib/shopify/collections";
 import type { CollectionSummary } from "@/lib/shopify/types";
+import { lockPageScroll } from "@/lib/scroll-lock";
 
 type SiteHeaderProps = {
   collections?: CollectionSummary[];
@@ -289,14 +290,13 @@ export function SiteHeader({ collections = [] }: SiteHeaderProps) {
     };
 
     const mobile = window.matchMedia("(max-width: 767px)");
-    const previousOverflow = document.body.style.overflow;
-    if (mobile.matches) document.body.style.overflow = "hidden";
+    const releaseScroll = mobile.matches ? lockPageScroll() : null;
 
     window.addEventListener("keydown", onKey);
     window.addEventListener("mousedown", onPointer);
     window.addEventListener("touchstart", onPointer);
     return () => {
-      document.body.style.overflow = previousOverflow;
+      releaseScroll?.();
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("mousedown", onPointer);
       window.removeEventListener("touchstart", onPointer);

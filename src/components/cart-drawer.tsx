@@ -14,6 +14,7 @@ import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
 import { formatMoney } from "@/lib/format";
+import { lockPageScroll } from "@/lib/scroll-lock";
 
 export function CartDrawer() {
   const { locale, dict, t } = useDictionary();
@@ -32,12 +33,11 @@ export function CartDrawer() {
       if (event.key === "Escape") closeCart();
     };
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const releaseScroll = lockPageScroll();
     window.addEventListener("keydown", onKey);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      releaseScroll();
       window.removeEventListener("keydown", onKey);
     };
   }, [isOpen, closeCart]);

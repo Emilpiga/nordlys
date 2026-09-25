@@ -18,6 +18,7 @@ import {
   hasSelectableOptions,
   optionsFromVariant,
 } from "@/lib/shopify/variants";
+import { lockPageScroll } from "@/lib/scroll-lock";
 
 type ProductQuickViewProps = {
   product: Product;
@@ -62,12 +63,11 @@ export function ProductQuickView({
       if (event.key === "Escape") onClose();
     };
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const releaseScroll = lockPageScroll();
     window.addEventListener("keydown", onKey);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      releaseScroll();
       window.removeEventListener("keydown", onKey);
     };
   }, [open, onClose]);

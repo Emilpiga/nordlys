@@ -14,6 +14,7 @@ import {
   isHesitatingToCheckout,
   syncWelcomeDealBrowse,
 } from "@/lib/welcome-deal-intent";
+import { lockPageScroll } from "@/lib/scroll-lock";
 
 const IDLE_MS = 8000;
 const POLL_MS = 1000;
@@ -116,8 +117,7 @@ export function WelcomeDealPopup() {
   useEffect(() => {
     if (!open) return;
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const releaseScroll = lockPageScroll();
     yesRef.current?.focus();
 
     const onKey = (event: KeyboardEvent) => {
@@ -131,7 +131,7 @@ export function WelcomeDealPopup() {
     window.addEventListener("keydown", onKey);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      releaseScroll();
       window.removeEventListener("keydown", onKey);
     };
   }, [done, open]);
