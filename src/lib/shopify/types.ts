@@ -108,7 +108,6 @@ export type CollectionSummary = {
   image: ProductImage | null;
   productCount: number;
   productIds: string[];
-  sampleImages: ProductImage[];
 };
 
 export type Collection = CollectionSummary & {

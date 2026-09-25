@@ -224,19 +224,14 @@ type ShopifyCollection = ShopifyCollectionCard & {
 export function mapCollectionCard(
   collection: ShopifyCollectionCard,
 ): CollectionSummary {
-  const seen = new Set<string>();
-  const sampleImages: ProductImage[] = [];
+  const nodes = collection.products?.nodes ?? [];
+  // Only the fallback cover is kept — per-product lists would ship to every
+  // client that receives the collection nav.
+  const fallbackImage =
+    nodes.map((node) => mapImage(node.featuredImage)).find((image) => image?.url) ??
+    null;
 
-  for (const node of collection.products?.nodes ?? []) {
-    const image = mapImage(node.featuredImage);
-    if (!image?.url) continue;
-    const key = image.url.split("?")[0] ?? image.url;
-    if (seen.has(key)) continue;
-    seen.add(key);
-    sampleImages.push(image);
-  }
-
-  const productIds = (collection.products?.nodes ?? [])
+  const productIds = nodes
     .map((node) => node.id)
     .filter((id): id is string => Boolean(id));
 
@@ -247,10 +242,9 @@ export function mapCollectionCard(
     description: collection.description,
     updatedAt: collection.updatedAt ?? null,
     seo: mapSeo(collection.seo),
-    image: mapImage(collection.image) ?? sampleImages[0] ?? null,
-    productCount: productIds.length || (collection.products?.nodes?.length ?? 0),
+    image: mapImage(collection.image) ?? fallbackImage,
+    productCount: productIds.length || nodes.length,
     productIds,
-    sampleImages,
   };
 }
 
