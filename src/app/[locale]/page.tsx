@@ -32,7 +32,7 @@ export default async function HomePage({ params }: Props) {
   const brand = shopifyConfig.storeName;
   // Absolute Shopify sales must land in Redis before we read traction ranks.
   await ensureHistoricalSalesSynced();
-  const [catalog, collections, dict, traction, looks] = await Promise.all([
+  const [catalog, collections, dict, traction, weeklyLooks] = await Promise.all([
     getProducts(100, locale),
     getCollections(50, locale),
     getDictionary(locale),
@@ -125,7 +125,10 @@ export default async function HomePage({ params }: Props) {
 
       <HomeTrustStrip />
 
-      <HomeLookbook looks={looks} />
+      <HomeLookbook
+        looks={weeklyLooks.looks}
+        discountPercent={weeklyLooks.discountPercent}
+      />
 
       {!isShopifyConfigured() || homepageCollections.length === 0 ? (
         <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32">

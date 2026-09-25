@@ -105,38 +105,38 @@ export async function getCartAction() {
   return cart;
 }
 
-export async function addToCartAction(merchandiseId: string, quantity = 1) {
+async function addLinesToCart(
+  lines: { merchandiseId: string; quantity: number }[],
+) {
   const locale = await readLocale();
+  const cartId = await readCartId();
 
-  try {
-    const lines = [{ merchandiseId, quantity }];
-    const cartId = await readCartId();
-
-    let cart;
-    if (cartId) {
-      try {
-        cart = await addCartLines(cartId, lines, locale);
-      } catch (error) {
-        console.error("addCartLines failed, creating a new cart:", error);
-        await clearCartId();
-        cart = await createCart(
-          lines,
-          locale,
-          await getAcceptedWelcomeDiscountCodes(),
-        );
-      }
-    } else {
+  let cart;
+  if (cartId) {
+    try {
+      cart = await addCartLines(cartId, lines, locale);
+    } catch (error) {
+      console.error("addCartLines failed, creating a new cart:", error);
+      await clearCartId();
       cart = await createCart(
         lines,
         locale,
         await getAcceptedWelcomeDiscountCodes(),
       );
     }
+  } else {
+    cart = await createCart(
+      lines,
+      locale,
+      await getAcceptedWelcomeDiscountCodes(),
+    );
+  }
 
-    cart = await applyWelcomeDeal(cart, locale);
-    await writeCartId(cart.id);
-    revalidateCartPaths(locale);
+  cart = await applyWelcomeDeal(cart, locale);
+  await writeCartId(cart.id);
+  revalidateCartPaths(locale);
 
+  for (const { merchandiseId, quantity } of lines) {
     const addedLine = cart.lines.find(
       (line) => line.merchandise.id === merchandiseId,
     );
@@ -146,7 +146,14 @@ export async function addToCartAction(merchandiseId: string, quantity = 1) {
         console.error("recordCart failed:", error);
       });
     }
+  }
 
+  return cart;
+}
+
+export async function addToCartAction(merchandiseId: string, quantity = 1) {
+  try {
+    const cart = await addLinesToCart([{ merchandiseId, quantity }]);
     return {
       ok: true as const,
       cart,
@@ -156,6 +163,27 @@ export async function addToCartAction(merchandiseId: string, quantity = 1) {
     throw error instanceof Error
       ? error
       : new Error("Kunde inte lägga till i kassen.");
+  }
+}
+
+/** "Veckans look": every piece in one cart update, so the look discount applies at once. */
+export async function addLookToCartAction(merchandiseIds: string[]) {
+  const ids = [...new Set(merchandiseIds)].filter((id) =>
+    id.startsWith("gid://shopify/ProductVariant/"),
+  );
+  if (ids.length === 0 || ids.length > 6) {
+    throw new Error("Ogiltig look.");
+  }
+  try {
+    const cart = await addLinesToCart(
+      ids.map((merchandiseId) => ({ merchandiseId, quantity: 1 })),
+    );
+    return { ok: true as const, cart };
+  } catch (error) {
+    console.error("addLookToCartAction failed:", error);
+    throw error instanceof Error
+      ? error
+      : new Error("Kunde inte lägga till looken i kassen.");
   }
 }
 

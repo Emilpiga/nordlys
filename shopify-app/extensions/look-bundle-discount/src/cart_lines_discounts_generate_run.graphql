@@ -1,0 +1,25 @@
+query CartInput {
+  cart {
+    lines {
+      id
+      merchandise {
+        ... on ProductVariant {
+          product {
+            id
+          }
+        }
+      }
+    }
+  }
+  shop {
+    localTime {
+      date
+    }
+  }
+  discount {
+    discountClasses
+    metafield(namespace: "$app", key: "looks") {
+      jsonValue
+    }
+  }
+}

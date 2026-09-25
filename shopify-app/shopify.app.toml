@@ -1,18 +1,26 @@
-# This file stores configurations for your Shopify app.
+# Vardagsstil's own app: the weekly-look planner in Shopify admin (served by
+# the storefront at /shopify-admin), the look-bundle discount function and
+# the thank-you "continue" block.
+# https://shopify.dev/docs/apps/tools/cli/configuration
 
-name = "Vardagsstil Thank You Continue"
-client_id = "REPLACE_WITH_SHOPIFY_APP_CLIENT_ID"
-application_url = "https://example.com"
+client_id = "c041910b1bc5ce1c8e9a465ac940ec05"
+name = "Vardagsstil"
+application_url = "https://vardagsstil.se/shopify-admin"
 embedded = true
 
+[build]
+# The planner is served by the storefront — never point the app at a dev tunnel.
+automatically_update_urls_on_dev = false
+include_config_on_deploy = true
+
 [access_scopes]
-scopes = ""
+scopes = "read_products,read_discounts,write_discounts"
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [ "https://vardagsstil.se/shopify-admin" ]
 
 [webhooks]
-api_version = "2026-04"
+api_version = "2025-10"
 
 [pos]
 embedded = false

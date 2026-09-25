@@ -27,6 +27,8 @@
     "resend": "^6.20.0"
   },
   "devDependencies": {
+    "@shopify/app-bridge-types": "^0.7.2",
+    "@shopify/polaris-types": "^1.1.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "@/components/soft-image";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { addLookToCartAction } from "@/app/actions/cart";
+import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { useHomeTheme } from "@/components/home-theme-provider";
 import { LocaleLink } from "@/components/locale-link";
@@ -9,7 +11,7 @@ import { ProductQuickView } from "@/components/product-quick-view";
 import { formatMoney } from "@/lib/format";
 import type { HeroTheme } from "@/lib/hero-images";
 import type { Look } from "@/lib/lookbook";
-import type { Product } from "@/lib/shopify/types";
+import type { Money, Product, ProductVariant } from "@/lib/shopify/types";
 
 /** Collage cells: the outer layer large on the left, two pieces stacked right. */
 const CELLS = [
@@ -21,28 +23,93 @@ const CELLS = [
 /** Where each piece's hotspot sits inside its cell. */
 const HOTSPOTS = ["left-[38%] top-[44%]", "left-[52%] top-[40%]", "left-[46%] top-[48%]"];
 
-function lookTotal(pieces: Product[]) {
-  const first = pieces[0]?.priceRange.minVariantPrice;
-  if (!first) return null;
-  const amount = pieces.reduce(
-    (sum, piece) => sum + Number(piece.priceRange.minVariantPrice.amount),
-    0,
+type Choices = Record<string, string>;
+
+const SIZE_ORDER = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "4XL", "5XL"];
+
+/** Supplier imports list sizes in any order ("M, S, XL, L") — show them S→XL. */
+function sortedValues(values: string[]) {
+  const rank = (value: string) => SIZE_ORDER.indexOf(value.trim().toUpperCase());
+  return values.every((value) => rank(value) >= 0)
+    ? [...values].sort((a, b) => rank(a) - rank(b))
+    : values;
+}
+
+/** Options the shopper actually chooses (not Shopify's "Default Title"). */
+function realOptions(product: Product) {
+  return product.options.filter(
+    (option) =>
+      option.name.toLowerCase() !== "title" &&
+      !(option.values.length === 1 && option.values[0] === "Default Title"),
   );
-  return { amount: amount.toFixed(2), currencyCode: first.currencyCode };
+}
+
+/** Options with a single value need no choice — pre-select them. */
+function initialChoices(product: Product): Choices {
+  return Object.fromEntries(
+    realOptions(product)
+      .filter((option) => option.values.length === 1)
+      .map((option) => [option.name, option.values[0]]),
+  );
+}
+
+/** The variant for the shopper's choices; null until every option is chosen. */
+function chosenVariant(product: Product, choices: Choices): ProductVariant | null {
+  const options = realOptions(product);
+  if (options.length === 0) {
+    return product.variants.find((variant) => variant.availableForSale) ?? null;
+  }
+  if (!options.every((option) => choices[option.name])) return null;
+  return (
+    product.variants.find((variant) =>
+      options.every((option) =>
+        variant.selectedOptions.some(
+          (selected) =>
+            selected.name === option.name &&
+            selected.value === choices[option.name],
+        ),
+      ),
+    ) ?? null
+  );
+}
+
+function sumMoney(amounts: Money[]): Money | null {
+  if (amounts.length === 0) return null;
+  const total = amounts.reduce((sum, money) => sum + Number(money.amount), 0);
+  return { amount: total.toFixed(2), currencyCode: amounts[0].currencyCode };
+}
+
+function withDiscount(money: Money, percent: number): Money {
+  return {
+    amount: ((Number(money.amount) * (100 - percent)) / 100).toFixed(2),
+    currencyCode: money.currencyCode,
+  };
 }
 
 /**
  * "Veckans look": a shoppable collage with numbered hotspots. Follows the
  * Kläder/Hem choice made in the hero — outfits for clothing, a room for home.
+ * Pieces get their size/colour right in the list, and the whole look goes to
+ * the cart in one click (with the planner's look discount when it's live).
  */
-export function HomeLookbook({ looks }: { looks: Look[] }) {
+export function HomeLookbook({
+  looks,
+  discountPercent,
+}: {
+  looks: Look[];
+  discountPercent: number | null;
+}) {
   const { dict, locale, t } = useDictionary();
   const home = dict.home;
   const shared = useHomeTheme();
+  const { setCart, openCart } = useCart();
+  const [adding, startAdding] = useTransition();
   // Remember the picked look per side so switching back restores it.
   const [lookKeys, setLookKeys] = useState<Partial<Record<HeroTheme, string>>>(
     {},
   );
+  // Size/colour picks per piece, keyed by look so each look keeps its own.
+  const [choices, setChoices] = useState<Record<string, Choices>>({});
   const [highlight, setHighlight] = useState<number | null>(null);
   const [openSpot, setOpenSpot] = useState<number | null>(null);
   const [quickProduct, setQuickProduct] = useState<Product | null>(null);
@@ -57,7 +124,6 @@ export function HomeLookbook({ looks }: { looks: Look[] }) {
   const themeLooks = looks.filter((item) => item.theme === theme);
   const look =
     themeLooks.find((item) => item.key === lookKeys[theme]) ?? themeLooks[0];
-  const total = lookTotal(look.pieces);
   const copy =
     theme === "home"
       ? {
@@ -79,6 +145,21 @@ export function HomeLookbook({ looks }: { looks: Look[] }) {
           switchTo: home.lookSwitchToHome,
         };
 
+  const choiceKey = (piece: Product) => `${look.key}:${piece.id}`;
+  const pieceChoices = (piece: Product) =>
+    choices[choiceKey(piece)] ?? initialChoices(piece);
+  const variants = look.pieces.map((piece) =>
+    chosenVariant(piece, pieceChoices(piece)),
+  );
+  const allChosen = variants.every((variant) => variant?.availableForSale);
+  const total = sumMoney(
+    look.pieces.map(
+      (piece, index) => variants[index]?.price ?? piece.priceRange.minVariantPrice,
+    ),
+  );
+  // Only planned looks are known to the discount function.
+  const percent = look.planned ? discountPercent : null;
+
   function reset() {
     setOpenSpot(null);
     setHighlight(null);
@@ -89,6 +170,23 @@ export function HomeLookbook({ looks }: { looks: Look[] }) {
     reset();
   }
 
+  function choose(piece: Product, option: string, value: string) {
+    setChoices((current) => ({
+      ...current,
+      [choiceKey(piece)]: { ...pieceChoices(piece), [option]: value },
+    }));
+  }
+
+  function addWholeLook() {
+    const ids = variants.flatMap((variant) => (variant ? [variant.id] : []));
+    if (ids.length !== look.pieces.length) return;
+    startAdding(async () => {
+      const result = await addLookToCartAction(ids);
+      setCart(result.cart);
+      openCart();
+    });
+  }
+
   return (
     <section
       aria-labelledby="lookbook-heading"
@@ -97,7 +195,7 @@ export function HomeLookbook({ looks }: { looks: Look[] }) {
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-center lg:gap-14">
         <div className="grid aspect-[5/4] grid-cols-5 grid-rows-2 gap-2.5 sm:gap-3">
           {look.pieces.map((piece, index) => {
-            const image = piece.featuredImage;
+            const image = variants[index]?.image ?? piece.featuredImage;
             const active = highlight === index || openSpot === index;
             return (
               <div
@@ -106,6 +204,7 @@ export function HomeLookbook({ looks }: { looks: Look[] }) {
               >
                 {image ? (
                   <Image
+                    key={image.url}
                     src={image.url}
                     alt={image.altText || piece.title}
                     fill
@@ -210,52 +309,102 @@ export function HomeLookbook({ looks }: { looks: Look[] }) {
           ) : null}
 
           <ol className="mt-6 divide-y divide-border/60 border-y border-border/60">
-            {look.pieces.map((piece, index) => (
-              <li
-                key={`${look.key}-${piece.id}`}
-                onMouseEnter={() => setHighlight(index)}
-                onMouseLeave={() => setHighlight(null)}
-                className="flex items-center gap-4 py-3.5"
-              >
-                <span
-                  className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[0.68rem] font-medium tabular-nums transition ${
-                    highlight === index || openSpot === index
-                      ? "bg-foreground text-frost"
-                      : "border border-border text-muted"
-                  }`}
+            {look.pieces.map((piece, index) => {
+              const variant = variants[index];
+              const picked = pieceChoices(piece);
+              const choosable = realOptions(piece).filter(
+                (option) => option.values.length > 1,
+              );
+              const soldOut =
+                realOptions(piece).every((option) => picked[option.name]) &&
+                !variant?.availableForSale;
+              return (
+                <li
+                  key={`${look.key}-${piece.id}`}
+                  onMouseEnter={() => setHighlight(index)}
+                  onMouseLeave={() => setHighlight(null)}
+                  className="py-3.5"
                 >
-                  {index + 1}
-                </span>
-                <LocaleLink
-                  href={`/products/${piece.handle}`}
-                  className="min-w-0 flex-1 truncate text-sm transition hover:text-accent"
-                >
-                  {piece.title}
-                </LocaleLink>
-                <span className="shrink-0 text-sm font-light tabular-nums text-muted">
-                  {formatMoney(piece.priceRange.minVariantPrice, locale)}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setQuickProduct(piece)}
-                  className="shrink-0 border border-border/80 px-3 py-1.5 text-[0.62rem] font-medium tracking-[0.12em] uppercase transition hover:border-foreground"
-                >
-                  {home.lookChoose}
-                </button>
-              </li>
-            ))}
+                  <div className="flex items-center gap-4">
+                    <span
+                      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[0.68rem] font-medium tabular-nums transition ${
+                        highlight === index || openSpot === index
+                          ? "bg-foreground text-frost"
+                          : "border border-border text-muted"
+                      }`}
+                    >
+                      {index + 1}
+                    </span>
+                    <LocaleLink
+                      href={`/products/${piece.handle}`}
+                      className="min-w-0 flex-1 truncate text-sm transition hover:text-accent"
+                    >
+                      {piece.title}
+                    </LocaleLink>
+                    <span className="shrink-0 text-sm font-light tabular-nums text-muted">
+                      {formatMoney(
+                        variant?.price ?? piece.priceRange.minVariantPrice,
+                        locale,
+                      )}
+                    </span>
+                  </div>
+
+                  {choosable.length > 0 || soldOut ? (
+                    <div className="mt-2.5 flex flex-wrap items-center gap-2 pl-10">
+                      {choosable.map((option) => (
+                        <select
+                          key={option.name}
+                          aria-label={`${option.name}, ${piece.title}`}
+                          value={picked[option.name] ?? ""}
+                          onChange={(event) =>
+                            choose(piece, option.name, event.target.value)
+                          }
+                          className={`min-w-0 max-w-[12rem] border border-border/80 bg-transparent py-1.5 pl-2.5 pr-7 text-xs transition focus:border-foreground focus:outline-none ${
+                            picked[option.name] ? "text-foreground" : "text-muted"
+                          }`}
+                        >
+                          <option value="" disabled>
+                            {option.name}
+                          </option>
+                          {sortedValues(option.values).map((value) => (
+                            <option key={value} value={value}>
+                              {value}
+                            </option>
+                          ))}
+                        </select>
+                      ))}
+                      {soldOut ? (
+                        <span className="text-xs text-muted">{home.lookSoldOut}</span>
+                      ) : null}
+                    </div>
+                  ) : null}
+                </li>
+              );
+            })}
           </ol>
 
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
+          <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
             {total ? (
-              <p className="text-sm">
-                <span className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
+              <div>
+                <p className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
                   {copy.total}
-                </span>
-                <span className="ml-3 font-display text-xl font-medium tabular-nums">
-                  {formatMoney(total, locale)}
-                </span>
-              </p>
+                  {percent ? (
+                    <span className="ml-2 text-glow">
+                      {t(home.lookDiscount, { percent })}
+                    </span>
+                  ) : null}
+                </p>
+                <p className="mt-1 flex items-baseline gap-2.5">
+                  <span className="font-display text-2xl font-medium tabular-nums">
+                    {formatMoney(percent ? withDiscount(total, percent) : total, locale)}
+                  </span>
+                  {percent ? (
+                    <s className="text-sm font-light tabular-nums text-muted">
+                      {formatMoney(total, locale)}
+                    </s>
+                  ) : null}
+                </p>
+              </div>
             ) : null}
             <LocaleLink
               href={look.href}
@@ -264,6 +413,20 @@ export function HomeLookbook({ looks }: { looks: Look[] }) {
               {look.label} →
             </LocaleLink>
           </div>
+
+          <button
+            type="button"
+            onClick={addWholeLook}
+            disabled={!allChosen || adding}
+            className="btn-primary btn-primary-block mt-5 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {home.lookAddAll}
+          </button>
+          {!allChosen ? (
+            <p className="mt-2 text-center text-xs font-light text-muted">
+              {home.lookAddAllHint}
+            </p>
+          ) : null}
 
           {otherTheme && shared ? (
             <button

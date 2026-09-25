@@ -13,8 +13,29 @@ function getPreferredLocale(request: NextRequest) {
   return negotiateLocale(request.headers.get("accept-language"));
 }
 
+const SHOP_DOMAIN = /^[a-z0-9][a-z0-9-]*\.myshopify\.com$/;
+
+/** The embedded planner: no locale, and only Shopify admin may frame it. */
+function shopifyAdminResponse(request: NextRequest) {
+  const shop = request.nextUrl.searchParams.get("shop") ?? "";
+  const ancestors = [
+    "https://admin.shopify.com",
+    ...(SHOP_DOMAIN.test(shop) ? [`https://${shop}`] : []),
+  ];
+  const response = NextResponse.next();
+  response.headers.set(
+    "Content-Security-Policy",
+    `frame-ancestors ${ancestors.join(" ")};`,
+  );
+  return response;
+}
+
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (pathname === "/shopify-admin" || pathname.startsWith("/shopify-admin/")) {
+    return shopifyAdminResponse(request);
+  }
 
   if (
     pathname.startsWith("/api") ||
