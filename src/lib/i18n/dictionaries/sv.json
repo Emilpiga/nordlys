@@ -1,7 +1,7 @@
 {
   "meta": {
-    "siteTitle": "{brand} · Hem & vardag",
-    "siteDescription": "{brand} — Produkter till hemmet och vardagen. Enkel stil, tydliga priser och leverans med spårning."
+    "siteTitle": "{brand} · Kläder & hem",
+    "siteDescription": "{brand} — Kläder för dam och herr: jackor, kappor och stickat, plus saker till hemmet. Tydliga priser och leverans med spårning."
   },
   "nav": {
     "shop": "Shoppa",
@@ -61,12 +61,33 @@
   },
   "home": {
     "heroAlt": "{brand} — Produkter för vardagen",
-    "wordmarkTagline": "Hem & vardag",
-    "heroHeadline": "Saker till hemmet och vardagen.",
-    "heroSub": "Enkel stil. Tydliga priser. Produkter du faktiskt använder.",
+    "wordmarkTagline": "Kläder & hem",
+    "heroHeadline": "Varma kläder för kalla dagar.",
+    "heroSub": "Kappor, stickat och vinterjackor för dam och herr. Tidlös stil och tydliga priser.",
     "heroCta": "Köp nu",
-    "heroCtaHome": "Till hemmet",
-    "heroCtaClothing": "Kläder",
+    "heroCtaHome": "Handla till hemmet",
+    "heroCtaClothing": "Handla kläder",
+    "heroCtaAll": "Hela sortimentet",
+    "heroTabClothing": "Kläder",
+    "heroTabHome": "Hem",
+    "heroTabsLabel": "Välj vad du vill se",
+    "heroHomeHeadline": "Mysigt hemma när det mörknar.",
+    "heroHomeSub": "Filtar, lampor och smarta prylar till vardagsrum, kök och sovrum.",
+    "lookEyebrow": "Veckans look",
+    "lookTitle": "Tre plagg som hör ihop",
+    "lookSub": "Ett färdigt klädval för kyliga dagar. Välj storlek och färg på varje plagg – looken byts varje vecka.",
+    "lookTotal": "Hela looken",
+    "lookChoose": "Välj",
+    "lookTabsLabel": "Välj look",
+    "lookPiece": "Plagg {n}",
+    "lookHomeEyebrow": "Veckans hörna",
+    "lookHomeTitle": "Tre saker som lyfter rummet",
+    "lookHomeSub": "Små saker som passar ihop och gör rummet ombonat. Urvalet byts varje vecka.",
+    "lookHomeTotal": "Allt tillsammans",
+    "lookHomePiece": "Del {n}",
+    "lookHomeTabsLabel": "Välj rum",
+    "lookSwitchToHome": "Inreder du hellre? Se veckans hörna",
+    "lookSwitchToClothing": "Hellre kläder? Se veckans look",
     "trustShipping": "Skickas inom {processing}",
     "trustReturns": "14 dagars ångerrätt",
     "trustSecure": "Priser inkl. moms och frakt",
@@ -204,6 +225,9 @@
     "secureCheckout": "Priser inkl. moms och frakt"
   },
   "cart": {
+    "suggestionsTitle": "Passar till",
+    "suggestionAdd": "Lägg till",
+    "suggestionChoose": "Välj",
     "title": "Din kasse",
     "eyebrow": "{brand}",
     "itemOne": "1 vara",
@@ -234,6 +258,7 @@
     "discountApplied": "10% rabatt är tillagd på ordern"
   },
   "collections": {
+    "tileEyebrow": "Upptäck också",
     "metaTitle": "{title} – saker till hemmet och vardagen",
     "metaDescription": "{count} produkter i {title} från {brand}. Enkel stil, tydliga priser och saker du faktiskt använder.",
     "intro": "{title} hos {brand} — praktiska saker med enkel form, utvalda för vardagen."

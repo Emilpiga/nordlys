@@ -5,18 +5,18 @@ import { shopifyConfig } from "@/lib/shopify/config";
 import { getSiteUrl } from "@/lib/site-url";
 
 export function siteTitleFor(brand = shopifyConfig.storeName) {
-  return `${brand} · Hem & vardag`;
+  return `${brand} · Kläder & hem`;
 }
 
 export function siteDescriptionFor(brand = shopifyConfig.storeName) {
-  return `${brand} — Produkter till hemmet och vardagen. Enkel stil, tydliga priser och leverans med spårning.`;
+  return `${brand} — Kläder för dam och herr: jackor, kappor och stickat, plus saker till hemmet. Tydliga priser och leverans med spårning.`;
 }
 
 export const defaultOgImage = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: `${shopifyConfig.storeName} — Produkter till hemmet och vardagen`,
+  alt: `${shopifyConfig.storeName} — Kläder och saker till hemmet`,
 } as const;
 
 export function brandIcons(): NonNullable<Metadata["icons"]> {

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/soft-image";
 import {
   useEffect,
   useId,

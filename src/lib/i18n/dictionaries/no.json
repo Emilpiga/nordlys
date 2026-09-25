@@ -1,7 +1,7 @@
 {
   "meta": {
-    "siteTitle": "{brand} · Hjem & hverdag",
-    "siteDescription": "{brand} — Produkter til hjemmet og hverdagen. Enkel stil, tydelige priser og levering med sporing."
+    "siteTitle": "{brand} · Klær & hjem",
+    "siteDescription": "{brand} — Klær til dame og herre: jakker, kåper og strikk, pluss ting til hjemmet. Tydelige priser og levering med sporing."
   },
   "nav": {
     "shop": "Handle",
@@ -61,12 +61,33 @@
   },
   "home": {
     "heroAlt": "{brand} — Produkter for hverdagen",
-    "wordmarkTagline": "Hjem & hverdag",
-    "heroHeadline": "Ting til hjemmet og hverdagen.",
-    "heroSub": "Enkel stil. Tydelige priser. Produkter du faktisk bruker.",
+    "wordmarkTagline": "Klær & hjem",
+    "heroHeadline": "Varme klær for kalde dager.",
+    "heroSub": "Kåper, strikk og vinterjakker til dame og herre. Tidløs stil og tydelige priser.",
     "heroCta": "Kjøp nå",
-    "heroCtaHome": "Til hjemmet",
-    "heroCtaClothing": "Klær",
+    "heroCtaHome": "Handle til hjemmet",
+    "heroCtaClothing": "Handle klær",
+    "heroCtaAll": "Hele utvalget",
+    "heroTabClothing": "Klær",
+    "heroTabHome": "Hjem",
+    "heroTabsLabel": "Velg hva du vil se",
+    "heroHomeHeadline": "Lunt hjemme når mørket kommer.",
+    "heroHomeSub": "Pledd, lamper og smarte ting til stue, kjøkken og soverom.",
+    "lookEyebrow": "Ukens look",
+    "lookTitle": "Tre plagg som hører sammen",
+    "lookSub": "Et ferdig antrekk for kjølige dager. Velg størrelse og farge på hvert plagg – looken byttes hver uke.",
+    "lookTotal": "Hele looken",
+    "lookChoose": "Velg",
+    "lookTabsLabel": "Velg look",
+    "lookPiece": "Plagg {n}",
+    "lookHomeEyebrow": "Ukens hjørne",
+    "lookHomeTitle": "Tre ting som løfter rommet",
+    "lookHomeSub": "Små ting som passer sammen og gjør rommet lunt. Utvalget byttes hver uke.",
+    "lookHomeTotal": "Alt sammen",
+    "lookHomePiece": "Del {n}",
+    "lookHomeTabsLabel": "Velg rom",
+    "lookSwitchToHome": "Heller interiør? Se ukens hjørne",
+    "lookSwitchToClothing": "Heller klær? Se ukens look",
     "trustShipping": "Sendes innen {processing}",
     "trustReturns": "14 dagers angrerett",
     "trustSecure": "Priser inkl. mva. og frakt",
@@ -204,6 +225,9 @@
     "secureCheckout": "Priser inkl. mva. og frakt"
   },
   "cart": {
+    "suggestionsTitle": "Passer til",
+    "suggestionAdd": "Legg til",
+    "suggestionChoose": "Velg",
     "title": "Din handlekurv",
     "eyebrow": "{brand}",
     "itemOne": "1 vare",
@@ -234,6 +258,7 @@
     "discountApplied": "10% rabatt er lagt til ordren"
   },
   "collections": {
+    "tileEyebrow": "Oppdag også",
     "metaTitle": "{title} – ting til hjemmet og hverdagen",
     "metaDescription": "{count} produkter i {title} fra {brand}. Enkel stil, tydelige priser og ting du faktisk bruker.",
     "intro": "{title} hos {brand} — praktiske ting med enkel form, valgt ut for hverdagen."

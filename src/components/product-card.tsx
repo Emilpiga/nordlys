@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import NextImage from "next/image";
+import Image from "@/components/soft-image";
 import { useState, type MouseEvent } from "react";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
@@ -24,8 +25,17 @@ export function ProductCard({
 }: ProductCardProps) {
   const { dict } = useDictionary();
   const [quickOpen, setQuickOpen] = useState(false);
+  // The alternate photo loads on first hover, not with every card.
+  const [hovered, setHovered] = useState(false);
+  const [altReady, setAltReady] = useState(false);
 
   const image = product.featuredImage;
+  const altImage = image
+    ? product.images.find(
+        (candidate) =>
+          candidate.url.split("?")[0] !== image.url.split("?")[0],
+      )
+    : undefined;
   const defaultVariant =
     product.variants.find((variant) => variant.availableForSale) ??
     product.variants[0];
@@ -49,7 +59,12 @@ export function ProductCard({
 
   return (
     <>
-      <article className="group">
+      <article
+        className="group"
+        onPointerEnter={(event) => {
+          if (event.pointerType === "mouse") setHovered(true);
+        }}
+      >
         <div className="relative aspect-[4/5] overflow-hidden bg-mist">
           <LocaleLink
             href={`/products/${product.handle}`}
@@ -69,6 +84,18 @@ export function ProductCard({
                 {dict.products.noImage}
               </div>
             )}
+            {altImage && hovered ? (
+              <NextImage
+                src={altImage.url}
+                alt=""
+                fill
+                sizes="(max-width: 768px) 50vw, 25vw"
+                onLoad={() => setAltReady(true)}
+                className={`object-cover opacity-0 transition duration-[900ms] ease-out group-hover:scale-[1.035] ${
+                  altReady ? "group-hover:opacity-100" : ""
+                }`}
+              />
+            ) : null}
           </LocaleLink>
 
           <div

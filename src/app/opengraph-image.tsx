@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { BRAND_CREAM, BRAND_INK, BRAND_MARK_V_PATH, BRAND_MUTED, BRAND_PAPER } from "@/lib/brand";
 import { shopifyConfig } from "@/lib/shopify/config";
 
-export const alt = `${shopifyConfig.storeName} — Produkter för vardagen`;
+export const alt = `${shopifyConfig.storeName} — Kläder och saker till hemmet`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -68,7 +68,7 @@ export default function OpenGraphImage() {
             lineHeight: 1.35,
           }}
         >
-          Produkter till hemmet och vardagen
+          Kläder för dam och herr – och saker till hemmet
         </div>
       </div>
     ),

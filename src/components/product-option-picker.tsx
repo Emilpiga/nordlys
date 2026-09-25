@@ -1,9 +1,14 @@
 "use client";
 
+import Image from "@/components/soft-image";
 import { OptionSelect } from "@/components/option-select";
 import { useDictionary } from "@/components/dictionary-provider";
 import { formatMoney } from "@/lib/format";
-import type { Product, ProductVariant } from "@/lib/shopify/types";
+import type {
+  Product,
+  ProductImage,
+  ProductVariant,
+} from "@/lib/shopify/types";
 import {
   isOptionValueInStock,
   optionPricesVary,
@@ -25,6 +30,32 @@ type ProductOptionPickerProps = {
   size?: "sm" | "md";
 };
 
+const COLOR_OPTION_PATTERN = /^(färg|farge|farve|väri|colou?r)$/i;
+
+/** Variant photo per colour value — only when every value has one. */
+export function colorSwatchImages(
+  optionName: string,
+  values: string[],
+  variants: ProductVariant[],
+): Map<string, ProductImage> | null {
+  if (!COLOR_OPTION_PATTERN.test(optionName.trim()) || values.length < 2) {
+    return null;
+  }
+  const images = new Map<string, ProductImage>();
+  for (const value of values) {
+    const image = variants.find(
+      (variant) =>
+        variant.image &&
+        variant.selectedOptions.some(
+          (option) => option.name === optionName && option.value === value,
+        ),
+    )?.image;
+    if (!image) return null;
+    images.set(value, image);
+  }
+  return images;
+}
+
 export function shouldUseOptionSelect(values: string[]) {
   if (values.length > CHIP_OPTION_LIMIT) return true;
   return values.some((value) => value.trim().length > LONG_VALUE_CHARS);
@@ -40,7 +71,8 @@ export function ProductOptionPicker({
 }: ProductOptionPickerProps) {
   const { locale } = useDictionary();
   const current = selected[option.name] ?? values[0];
-  const useSelect = shouldUseOptionSelect(values);
+  const swatches = colorSwatchImages(option.name, values, variants);
+  const useSelect = !swatches && shouldUseOptionSelect(values);
   const showPrices = optionPricesVary(variants, option.name, values, selected);
   const compact = size === "sm";
 
@@ -64,7 +96,53 @@ export function ProductOptionPicker({
           </span>
         ) : null}
       </legend>
-      {useSelect ? (
+      {swatches ? (
+        <div className="flex flex-wrap gap-2.5">
+          {values.map((value) => {
+            const image = swatches.get(value)!;
+            const active = current === value;
+            const inStock = isOptionValueInStock(
+              variants,
+              option.name,
+              value,
+              selected,
+            );
+            const hint = hintFor(value);
+            const label = hint ? `${value}, ${hint}` : value;
+            return (
+              <button
+                key={value}
+                type="button"
+                aria-pressed={active}
+                aria-label={label}
+                title={label}
+                onClick={() => choose(value)}
+                className={`relative shrink-0 overflow-hidden rounded-full bg-mist ring-offset-2 ring-offset-background transition ${
+                  compact ? "h-10 w-10" : "h-12 w-12"
+                } ${
+                  active
+                    ? "ring-[1.5px] ring-foreground"
+                    : "ring-1 ring-border/80 hover:ring-foreground/50"
+                } ${inStock ? "" : "opacity-45"}`}
+              >
+                <Image
+                  src={image.url}
+                  alt=""
+                  fill
+                  sizes={compact ? "40px" : "48px"}
+                  className="object-cover"
+                />
+                {inStock ? null : (
+                  <span
+                    aria-hidden
+                    className="absolute left-1/2 top-1/2 h-px w-[140%] -translate-x-1/2 -translate-y-1/2 -rotate-45 bg-foreground/70"
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
+      ) : useSelect ? (
         <OptionSelect
           label={option.name}
           value={current}

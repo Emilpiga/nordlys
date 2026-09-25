@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/soft-image";
 import { AmbientSection, SectionRule } from "@/components/section";
 import { LocaleLink } from "@/components/locale-link";
 import { ReviewStars } from "@/components/review-stars";

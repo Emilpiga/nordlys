@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Image from "@/components/soft-image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LegalFacts } from "@/components/legal-page";

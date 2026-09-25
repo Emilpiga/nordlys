@@ -22,6 +22,7 @@ import {
   imageAlt,
 } from "@/lib/catalog-seo";
 import { getCollectionCopy } from "@/lib/collection-copy";
+import { collectionTileHandles } from "@/lib/complements";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
 import { buildBreadcrumbJsonLd, buildCollectionJsonLd } from "@/lib/json-ld";
@@ -155,6 +156,22 @@ export default async function CollectionPage({ params, searchParams }: Props) {
   const site = getSiteUrl();
   const collectionUrl = `${site}${localePath(locale, `/collections/${encodeURIComponent(collection.handle)}`)}`;
   const faceted = hasFacetQuery(query);
+  const tiles =
+    pageInfo.page === 1
+      ? collectionTileHandles(collection.handle).flatMap((handle) => {
+          const related = collections.find((item) => item.handle === handle);
+          return related && related.productCount > 0
+            ? [
+                {
+                  handle: related.handle,
+                  title: related.title,
+                  intro: related.description,
+                  image: related.image,
+                },
+              ]
+            : [];
+        })
+      : [];
   const guide =
     !faceted && pageInfo.page === 1
       ? getCollectionCopy(collection.handle, locale)?.body
@@ -209,6 +226,7 @@ export default async function CollectionPage({ params, searchParams }: Props) {
         pageInfo={pageInfo}
         bounds={bounds}
         collectionHandle={collection.handle}
+        tiles={tiles}
       />
       {guide?.length ? (
         <CollectionGuide title={collection.title} paragraphs={guide} />

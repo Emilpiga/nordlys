@@ -3,13 +3,16 @@ import type { Product, ProductImage } from "@/lib/shopify/types";
 /** A short stack of catalog stills for the hero crossfade. */
 export const HERO_STILL_COUNT = 6;
 
-/** Clothing stills reserved inside the hero stack. The rest stay home goods. */
-const CLOTHING_STILL_COUNT = 2;
+/** Clothing stills reserved inside the hero stack — the hero leads with clothing. */
+const CLOTHING_STILL_COUNT = 4;
+
+export type HeroTheme = "clothing" | "home";
 
 export type HeroImage = {
   url: string;
   alt: string;
   product: Product;
+  theme: HeroTheme;
 };
 
 function shuffle<T>(items: T[]) {
@@ -33,16 +36,18 @@ function imageKey(url: string) {
 function stillFromImage(
   product: Product,
   image: ProductImage | null | undefined,
+  theme: HeroTheme,
 ): HeroImage | null {
   if (!image?.url) return null;
   return {
     url: image.url,
     alt: image.altText || product.title,
     product,
+    theme,
   };
 }
 
-function stillsFrom(products: Product[]): HeroImage[] {
+function stillsFrom(products: Product[], theme: HeroTheme): HeroImage[] {
   const seenProducts = new Set<string>();
   const seenImages = new Set<string>();
   const unique: HeroImage[] = [];
@@ -50,9 +55,9 @@ function stillsFrom(products: Product[]): HeroImage[] {
   for (const product of shuffle(products)) {
     if (seenProducts.has(product.id)) continue;
     const still =
-      stillFromImage(product, product.featuredImage) ??
+      stillFromImage(product, product.featuredImage, theme) ??
       product.images
-        .map((image) => stillFromImage(product, image))
+        .map((image) => stillFromImage(product, image, theme))
         .find(Boolean) ??
       null;
     if (!still) continue;
@@ -68,8 +73,9 @@ function stillsFrom(products: Product[]): HeroImage[] {
 
 /**
  * One featured still per product. Any orientation — the hero crops with object-cover.
- * When clothing products are passed, two of the six stills are clothes, interleaved
- * so the first frame stays a home product when one exists.
+ * When clothing products are passed, four of the six stills are clothes, in pairs
+ * (clothing, clothing, home, …) so the hero copy that follows the theme changes
+ * at a calm pace and the first frame is clothing.
  */
 export function heroImagesFromCatalog(
   products: Product[],
@@ -87,8 +93,8 @@ export function heroImagesFromCatalog(
       ? products.filter((product) => !clothingIds.has(product.id))
       : products;
 
-  const clothingStills = stillsFrom(options?.clothingProducts ?? []);
-  const homeStills = stillsFrom(homeProducts);
+  const clothingStills = stillsFrom(options?.clothingProducts ?? [], "clothing");
+  const homeStills = stillsFrom(homeProducts, "home");
 
   const clothingTarget = Math.min(
     CLOTHING_STILL_COUNT,
@@ -110,7 +116,7 @@ export function heroImagesFromCatalog(
   let homeIndex = 0;
   let clothingIndex = 0;
   for (let index = 0; index < limit; index++) {
-    const preferClothing = clothing.length > 0 && index % 3 === 1;
+    const preferClothing = clothing.length > 0 && index % 3 !== 2;
     if (preferClothing && clothingIndex < clothing.length) {
       picked.push(clothing[clothingIndex]);
       clothingIndex += 1;

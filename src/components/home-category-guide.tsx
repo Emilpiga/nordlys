@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/soft-image";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
 import type { CollectionSummary } from "@/lib/shopify/types";

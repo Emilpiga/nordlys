@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/soft-image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useDictionary } from "@/components/dictionary-provider";
 import { ProductLightbox } from "@/components/product-lightbox";

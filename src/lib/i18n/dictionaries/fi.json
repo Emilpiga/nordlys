@@ -1,7 +1,7 @@
 {
   "meta": {
-    "siteTitle": "{brand} · Koti & arki",
-    "siteDescription": "{brand} — Tuotteita kotiin ja arkeen. Yksinkertainen tyyli, selkeät hinnat ja toimitus seurannalla."
+    "siteTitle": "{brand} · Vaatteet & koti",
+    "siteDescription": "{brand} — Naisten ja miesten vaatteet: takit, kappatakit ja neuleet sekä tavaraa kotiin. Selkeät hinnat ja toimitus seurannalla."
   },
   "nav": {
     "shop": "Kauppa",
@@ -61,12 +61,33 @@
   },
   "home": {
     "heroAlt": "{brand} — Tuotteita arkeen",
-    "wordmarkTagline": "Koti & arki",
-    "heroHeadline": "Tavaraa kotiin ja arkeen.",
-    "heroSub": "Yksinkertainen tyyli. Selkeät hinnat. Tuotteita, joita oikeasti käytät.",
+    "wordmarkTagline": "Vaatteet & koti",
+    "heroHeadline": "Lämpimiä vaatteita kylmiin päiviin.",
+    "heroSub": "Kappatakit, neuleet ja talvitakit naisille ja miehille. Ajaton tyyli ja selkeät hinnat.",
     "heroCta": "Osta nyt",
-    "heroCtaHome": "Kotiin",
-    "heroCtaClothing": "Vaatteet",
+    "heroCtaHome": "Osta kotiin",
+    "heroCtaClothing": "Osta vaatteita",
+    "heroCtaAll": "Koko valikoima",
+    "heroTabClothing": "Vaatteet",
+    "heroTabHome": "Koti",
+    "heroTabsLabel": "Valitse, mitä haluat nähdä",
+    "heroHomeHeadline": "Kodikasta, kun ilta pimenee.",
+    "heroHomeSub": "Viltit, lamput ja kätevät tavarat olohuoneeseen, keittiöön ja makuuhuoneeseen.",
+    "lookEyebrow": "Viikon asu",
+    "lookTitle": "Kolme vaatetta, yksi tyyli",
+    "lookSub": "Valmis asu viileisiin päiviin. Valitse koko ja väri jokaiselle vaatteelle – asu vaihtuu joka viikko.",
+    "lookTotal": "Koko asu",
+    "lookChoose": "Valitse",
+    "lookTabsLabel": "Valitse asu",
+    "lookPiece": "Vaate {n}",
+    "lookHomeEyebrow": "Viikon nurkkaus",
+    "lookHomeTitle": "Kolme asiaa, jotka nostavat huoneen",
+    "lookHomeSub": "Pieniä yhteensopivia asioita, jotka tekevät huoneesta kodikkaan. Valikoima vaihtuu viikoittain.",
+    "lookHomeTotal": "Kaikki yhdessä",
+    "lookHomePiece": "Osa {n}",
+    "lookHomeTabsLabel": "Valitse huone",
+    "lookSwitchToHome": "Sisustatko mieluummin? Katso viikon nurkkaus",
+    "lookSwitchToClothing": "Mieluummin vaatteita? Katso viikon asu",
     "trustShipping": "Lähetetään {processing} kuluessa",
     "trustReturns": "14 päivän peruutusoikeus",
     "trustSecure": "Hinnat sis. alv:n ja toimituksen",
@@ -204,6 +225,9 @@
     "secureCheckout": "Hinnat sis. alv:n ja toimituksen"
   },
   "cart": {
+    "suggestionsTitle": "Sopii yhteen",
+    "suggestionAdd": "Lisää",
+    "suggestionChoose": "Valitse",
     "title": "Ostoskorisi",
     "eyebrow": "{brand}",
     "itemOne": "1 tuote",
@@ -234,6 +258,7 @@
     "discountApplied": "10 % alennus on lisätty tilaukseen"
   },
   "collections": {
+    "tileEyebrow": "Tutustu myös",
     "metaTitle": "{title} – tavaroita kotiin ja arkeen",
     "metaDescription": "{count} tuotetta kategoriassa {title} — {brand}. Yksinkertainen tyyli, selkeät hinnat.",
     "intro": "{title} — {brand}. Käytännöllisiä tuotteita arkeen, selkeään hintaan."

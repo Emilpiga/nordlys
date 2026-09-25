@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Image from "@/components/soft-image";
 import { notFound } from "next/navigation";
 import { AccountSection, AccountShell } from "@/components/account-shell";
 import { LocaleLink } from "@/components/locale-link";

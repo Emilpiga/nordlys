@@ -1,8 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useDictionary } from "@/components/dictionary-provider";
+import {
+  CollectionTile,
+  type CollectionTileData,
+} from "@/components/collection-tile";
 import { ProductCard } from "@/components/product-card";
 import {
   CatalogPagination,
@@ -38,7 +42,11 @@ type ProductCatalogProps = {
   bounds?: PriceBounds;
   /** When set, this catalog is a collection landing — facets stay on this path. */
   collectionHandle?: string;
+  /** Related collections woven into the grid (after the 8th and 16th product). */
+  tiles?: CollectionTileData[];
 };
+
+const TILE_SLOTS = [8, 16];
 
 export function ProductCatalog({
   title,
@@ -49,6 +57,7 @@ export function ProductCatalog({
   pageInfo,
   bounds: boundsProp,
   collectionHandle,
+  tiles = [],
 }: ProductCatalogProps) {
   const { dict, t, locale } = useDictionary();
   const copy = dict.products.filters;
@@ -271,9 +280,33 @@ export function ProductCatalog({
         ) : (
           <>
             <div className="grid grid-cols-2 gap-x-5 gap-y-12 lg:grid-cols-4 lg:gap-x-6">
-              {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
+              {products.map((product, index) => {
+                const slot = TILE_SLOTS.indexOf(index);
+                const tile = slot >= 0 ? tiles[slot] : undefined;
+                return (
+                  <Fragment key={product.id}>
+                    {tile ? (
+                      <CollectionTile
+                        tile={tile}
+                        eyebrow={dict.collections.tileEyebrow}
+                      />
+                    ) : null}
+                    <ProductCard product={product} />
+                  </Fragment>
+                );
+              })}
+              {tiles
+                .slice(
+                  TILE_SLOTS.filter((at) => at < products.length).length,
+                  TILE_SLOTS.filter((at) => at < products.length).length + 1,
+                )
+                .map((tile) => (
+                  <CollectionTile
+                    key={tile.handle}
+                    tile={tile}
+                    eyebrow={dict.collections.tileEyebrow}
+                  />
+                ))}
             </div>
             <CatalogPagination
               pageInfo={pageInfo}
