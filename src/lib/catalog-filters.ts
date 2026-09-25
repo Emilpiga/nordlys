@@ -55,6 +55,8 @@ function first(value: string | string[] | undefined) {
 }
 
 function parseNumber(value: string) {
+  // Number("") is 0 — an absent param must stay null, not a 0 kr bound.
+  if (!value) return null;
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : null;
 }

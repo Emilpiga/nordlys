@@ -53,6 +53,7 @@ import {
   categoryParamFromId,
   productsInCategory,
 } from "./taxonomy";
+import { getCollectionCopy, localizeCollection } from "@/lib/collection-copy";
 import { getValidAccessToken } from "@/lib/customer-account/session";
 import { getShopifyContext, type Locale } from "@/lib/i18n/locales";
 
@@ -211,7 +212,8 @@ export async function getCollections(
     return roomsFromCollections(
       data.collections.nodes
         .map(mapCollectionCard)
-        .filter(isBrowsableCollection),
+        .filter(isBrowsableCollection)
+        .map((collection) => localizeCollection(collection, locale)),
     ).slice(0, first);
   } catch (error) {
     if (
@@ -247,7 +249,9 @@ export async function getCollectionByHandle(
       ],
     });
 
-    return data.collection ? mapCollection(data.collection) : null;
+    return data.collection
+      ? localizeCollection(mapCollection(data.collection), locale)
+      : null;
   } catch (error) {
     if (
       error instanceof ShopifyAuthError ||
@@ -315,7 +319,7 @@ export async function predictiveSearch(
       collections: result.collections.map((collection) => ({
         id: collection.id,
         handle: collection.handle,
-        title: collection.title,
+        title: getCollectionCopy(collection.handle, locale)?.title ?? collection.title,
       })),
       suggestions: result.queries
         .map((item) => item.text.trim())
@@ -779,7 +783,9 @@ export async function getCollectionProductsPage(input: {
     }
 
     return {
-      collectionTitle: data.collection.title,
+      collectionTitle:
+        getCollectionCopy(input.handle, input.locale)?.title ??
+        data.collection.title,
       products: data.collection.products.nodes.map(mapProductCard),
       pageInfo: {
         hasNextPage: data.collection.products.pageInfo.hasNextPage,

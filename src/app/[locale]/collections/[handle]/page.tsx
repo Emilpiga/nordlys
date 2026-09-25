@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { JsonLd } from "@/components/json-ld";
+import { CollectionGuide } from "@/components/collection-guide";
 import { ProductCatalog } from "@/components/product-catalog";
 import {
   buildCollectionProductFilters,
@@ -20,6 +21,7 @@ import {
   collectionMetaTitle,
   imageAlt,
 } from "@/lib/catalog-seo";
+import { getCollectionCopy } from "@/lib/collection-copy";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
 import { buildBreadcrumbJsonLd, buildCollectionJsonLd } from "@/lib/json-ld";
@@ -153,6 +155,10 @@ export default async function CollectionPage({ params, searchParams }: Props) {
   const site = getSiteUrl();
   const collectionUrl = `${site}${localePath(locale, `/collections/${encodeURIComponent(collection.handle)}`)}`;
   const faceted = hasFacetQuery(query);
+  const guide =
+    !faceted && pageInfo.page === 1
+      ? getCollectionCopy(collection.handle, locale)?.body
+      : undefined;
   const breadcrumbTrail = [
     {
       name: dict.products.shopTitle,
@@ -204,6 +210,9 @@ export default async function CollectionPage({ params, searchParams }: Props) {
         bounds={bounds}
         collectionHandle={collection.handle}
       />
+      {guide?.length ? (
+        <CollectionGuide title={collection.title} paragraphs={guide} />
+      ) : null}
     </>
   );
 }

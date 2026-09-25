@@ -1,0 +1,646 @@
+{
+  "vardagsrum": {
+    "sv": {
+      "title": "Vardagsrum",
+      "metaTitle": "Inredning och belysning till vardagsrummet",
+      "metaDescription": "Mysiga filtar, lampor med mjukt ljus och smarta småsaker till vardagsrummet. Enkel stil och tydliga priser hos Vardagsstil.",
+      "intro": "Filtar, lampor och smarta småsaker som gör vardagsrummet varmare att vara i.",
+      "body": [
+        "Ett vardagsrum ska kännas ombonat utan att bli rörigt. Här hittar du mjuka flanellfiltar för soffan, lampor som sprider ett varmt och dämpat ljus – som svamplampan i trä med touchfunktion eller vägglampan med vridbar månskiva – och praktiska hjälpmedel som håller rummet fritt från hår och damm.",
+        "Tänk i lager när du inreder: en filt över soffkanten, en lampa i ögonhöjd och en i hörnet ger mer stämning än en enda taklampa. Alla produkter har enkel form, så de passar in oavsett om ditt hem är ljust och skandinaviskt eller mörkare och mer ombonat."
+      ]
+    },
+    "no": {
+      "title": "Stue",
+      "metaTitle": "Interiør og belysning til stuen",
+      "metaDescription": "Myke pledd, lamper med varmt lys og smarte småting til stuen. Enkel stil og tydelige priser hos Vardagsstil.",
+      "intro": "Pledd, lamper og smarte småting som gjør stuen varmere å være i.",
+      "body": [
+        "En stue skal føles lun uten å bli rotete. Her finner du myke flanellpledd til sofaen, lamper som gir et varmt og dempet lys – som soppelampen i tre med berøringsfunksjon eller vegglampen med dreibar måneskive – og praktiske hjelpemidler som holder rommet fritt for hår og støv.",
+        "Tenk i lag når du innreder: et pledd over sofakanten, en lampe i øyehøyde og en i hjørnet gir mer stemning enn én enkelt taklampe. Alle produktene har en enkel form, så de passer inn enten hjemmet ditt er lyst og skandinavisk eller mørkere og mer lunt."
+      ]
+    },
+    "da": {
+      "title": "Stue",
+      "metaTitle": "Indretning og belysning til stuen",
+      "metaDescription": "Bløde tæpper, lamper med varmt lys og smarte småting til stuen. Enkel stil og tydelige priser hos Vardagsstil.",
+      "intro": "Tæpper, lamper og smarte småting, der gør stuen hyggeligere at være i.",
+      "body": [
+        "En stue skal føles hyggelig uden at blive rodet. Her finder du bløde flonelstæpper til sofaen, lamper med et varmt og dæmpet lys – som svampelampen i træ med touchfunktion eller væglampen med drejelig måneskive – og praktiske hjælpemidler, der holder rummet fri for hår og støv.",
+        "Tænk i lag, når du indretter: et tæppe over sofakanten, en lampe i øjenhøjde og en i hjørnet giver mere stemning end én loftslampe. Alle produkter har en enkel form, så de passer ind, uanset om dit hjem er lyst og skandinavisk eller mørkere og mere hyggeligt."
+      ]
+    },
+    "fi": {
+      "title": "Olohuone",
+      "metaTitle": "Sisustus ja valaisimet olohuoneeseen",
+      "metaDescription": "Pehmeät viltit, lämpimästi valaisevat lamput ja kätevät pikkutavarat olohuoneeseen. Selkeä tyyli ja hinnat – Vardagsstil.",
+      "intro": "Viltit, lamput ja kätevät pikkutavarat, jotka tekevät olohuoneesta kodikkaamman.",
+      "body": [
+        "Olohuoneen kuuluu tuntua kodikkaalta ilman sotkua. Täältä löydät pehmeät flanelliviltit sohvalle, lämpimän ja pehmeän valon lamput – kuten kosketuksella toimivan puisen sienilampun tai seinävalaisimen käännettävällä kuulevyllä – sekä käytännöllisiä apuvälineitä, joilla huone pysyy puhtaana karvoista ja pölystä.",
+        "Sisusta kerroksittain: viltti sohvan käsinojalla, lamppu silmien korkeudella ja toinen nurkassa luovat enemmän tunnelmaa kuin yksi kattovalaisin. Kaikki tuotteet ovat muodoltaan yksinkertaisia, joten ne sopivat niin vaaleaan skandinaaviseen kuin tummempaankin kotiin."
+      ]
+    }
+  },
+  "kok": {
+    "sv": {
+      "title": "Kök",
+      "metaTitle": "Köksredskap och smarta köksprylar",
+      "metaDescription": "Köksredskap i silikon, bestickset, skärbrädor i rostfritt stål och smarta prylar som gör matlagningen enklare. Handla hos Vardagsstil.",
+      "intro": "Redskap, bestick och smarta prylar som gör matlagningen enklare varje dag.",
+      "body": [
+        "Ett bra kök handlar mindre om antal prylar och mer om att rätt saker finns nära till hands. Här hittar du kompletta set med köksredskap i silikon som är skonsamma mot stekpannor, bestickset i trälåda, skärbrädor i rostfritt stål och grönsaksskärare som sparar tid när du lagar mat till många.",
+        "Vi har också valt ut små detaljer som gör vardagen smidigare, som kaffemåttet med inbyggd påsklämma och köksställningar som frigör bänkyta. Allt är utvalt för att användas ofta – inte för att stå längst in i ett skåp."
+      ]
+    },
+    "no": {
+      "title": "Kjøkken",
+      "metaTitle": "Kjøkkenredskaper og smarte kjøkkenting",
+      "metaDescription": "Kjøkkenredskaper i silikon, bestikksett, skjærebrett i rustfritt stål og smarte ting som gjør matlagingen enklere. Handle hos Vardagsstil.",
+      "intro": "Redskaper, bestikk og smarte ting som gjør matlagingen enklere hver dag.",
+      "body": [
+        "Et godt kjøkken handler mindre om antall ting og mer om at de riktige tingene er innen rekkevidde. Her finner du komplette sett med kjøkkenredskaper i silikon som er skånsomme mot stekepanner, bestikksett i treboks, skjærebrett i rustfritt stål og grønnsakskuttere som sparer tid når du lager mat til mange.",
+        "Vi har også valgt ut små detaljer som gjør hverdagen enklere, som kaffemålet med innebygd poseklemme og kjøkkenstativer som frigjør benkeplass. Alt er valgt ut for å brukes ofte – ikke for å bli stående innerst i et skap."
+      ]
+    },
+    "da": {
+      "title": "Køkken",
+      "metaTitle": "Køkkenredskaber og smarte køkkenting",
+      "metaDescription": "Køkkenredskaber i silikone, bestiksæt, skærebrætter i rustfrit stål og smarte ting, der gør madlavningen nemmere. Køb hos Vardagsstil.",
+      "intro": "Redskaber, bestik og smarte ting, der gør madlavningen nemmere hver dag.",
+      "body": [
+        "Et godt køkken handler mindre om antallet af ting og mere om, at de rigtige ting er lige ved hånden. Her finder du komplette sæt med køkkenredskaber i silikone, der er skånsomme mod pander, bestiksæt i trææske, skærebrætter i rustfrit stål og grøntsagsskærere, der sparer tid, når du laver mad til mange.",
+        "Vi har også udvalgt små detaljer, der gør hverdagen lettere, som kaffemålet med indbygget poseklemme og køkkenstativer, der frigør bordplads. Alt er udvalgt til at blive brugt ofte – ikke til at stå bagerst i et skab."
+      ]
+    },
+    "fi": {
+      "title": "Keittiö",
+      "metaTitle": "Keittiövälineet ja kätevät keittiötarvikkeet",
+      "metaDescription": "Silikoniset keittiövälineet, aterinsarjat, ruostumattomat leikkuulaudat ja kätevät tarvikkeet helpompaan ruoanlaittoon. Vardagsstil.",
+      "intro": "Välineet, aterimet ja kätevät tarvikkeet, jotka helpottavat ruoanlaittoa joka päivä.",
+      "body": [
+        "Hyvä keittiö ei tarkoita montaa tavaraa vaan sitä, että oikeat asiat ovat käden ulottuvilla. Täältä löydät kokonaisia silikonisia keittiövälinesarjoja, jotka ovat hellävaraisia paistinpannuille, aterinsarjoja puulaatikossa, ruostumattomasta teräksestä valmistettuja leikkuulautoja ja vihannesleikkureita, jotka säästävät aikaa isompia määriä valmistaessa.",
+        "Valikoimassa on myös pieniä arkea helpottavia yksityiskohtia, kuten kahvimitta, jossa on sisäänrakennettu pussinsulkija, sekä keittiötelineitä, jotka vapauttavat tasotilaa. Kaikki on valittu päivittäiseen käyttöön – ei kaapin perälle."
+      ]
+    }
+  },
+  "tradgard": {
+    "sv": {
+      "title": "Trädgård",
+      "metaTitle": "Trädgårdsredskap och tillbehör",
+      "metaDescription": "Vattenkannor, trädgårdshandskar, knäskydd och redskap med träskaft – allt för ett skönare trädgårdsarbete. Handla hos Vardagsstil.",
+      "intro": "Redskap och tillbehör som gör trädgårdsarbetet skönare – från vattenkanna till knäskydd.",
+      "body": [
+        "Trädgårdsarbete blir roligare med redskap som ligger bra i handen. I sortimentet finns trädgårdsredskap med träskaft för plantering och rensning, vattenkannor i stål med lång pip som når in bland rabatterna och trädgårdshandskar med nitrilbeläggning som skyddar mot väta och smuts.",
+        "Knäskydden gör det skönare att jobba nära marken under längre stunder, oavsett om du rensar ogräs, planterar lökar på hösten eller sköter om pallkragarna på våren."
+      ]
+    },
+    "no": {
+      "title": "Hage",
+      "metaTitle": "Hageredskaper og hagetilbehør",
+      "metaDescription": "Vannkanner, hagehansker, knebeskyttere og redskaper med treskaft – alt for et bedre hagearbeid. Handle hos Vardagsstil.",
+      "intro": "Redskaper og tilbehør som gjør hagearbeidet bedre – fra vannkanne til knebeskyttere.",
+      "body": [
+        "Hagearbeid blir morsommere med redskaper som ligger godt i hånden. I utvalget finner du hageredskaper med treskaft for planting og luking, vannkanner i stål med lang tut som når inn mellom bedene, og hagehansker med nitrilbelegg som beskytter mot væte og skitt.",
+        "Knebeskytterne gjør det mer behagelig å jobbe nær bakken over lengre tid, enten du luker ugress, planter løk om høsten eller steller pallekarmene om våren."
+      ]
+    },
+    "da": {
+      "title": "Have",
+      "metaTitle": "Haveredskaber og tilbehør til haven",
+      "metaDescription": "Vandkander, havehandsker, knæbeskyttere og redskaber med træskaft – alt til et bedre havearbejde. Køb hos Vardagsstil.",
+      "intro": "Redskaber og tilbehør, der gør havearbejdet bedre – fra vandkande til knæbeskyttere.",
+      "body": [
+        "Havearbejde bliver sjovere med redskaber, der ligger godt i hånden. I sortimentet finder du haveredskaber med træskaft til plantning og lugning, vandkander i stål med lang tud, der når ind mellem bedene, og havehandsker med nitrilbelægning, der beskytter mod væde og snavs.",
+        "Knæbeskytterne gør det mere behageligt at arbejde tæt på jorden i længere tid, uanset om du luger ukrudt, planter løg om efteråret eller passer højbedene om foråret."
+      ]
+    },
+    "fi": {
+      "title": "Puutarha",
+      "metaTitle": "Puutarhatyökalut ja -tarvikkeet",
+      "metaDescription": "Kastelukannut, puutarhakäsineet, polvisuojat ja puuvartiset työkalut mukavampaan puutarhatyöhön. Tilaa Vardagsstililta.",
+      "intro": "Työkalut ja tarvikkeet mukavampaan puutarhatyöhön – kastelukannusta polvisuojiin.",
+      "body": [
+        "Puutarhatyö on mukavampaa, kun työkalut istuvat hyvin käteen. Valikoimasta löytyy puuvartisia puutarhatyökaluja istutukseen ja kitkemiseen, pitkänokkaisia teräksisiä kastelukannuja, jotka ulottuvat kukkapenkkien väliin, sekä nitriilipinnoitettuja puutarhakäsineitä, jotka suojaavat kosteudelta ja lialta.",
+        "Polvisuojat tekevät maan tasalla työskentelystä mukavampaa pidempäänkin, kitkitpä rikkaruohoja, istutat kukkasipuleita syksyllä tai hoidat kasvulaatikoita keväällä."
+      ]
+    }
+  },
+  "sovrum": {
+    "sv": {
+      "title": "Sovrum",
+      "metaTitle": "Sovrum och sömn – kuddar, sovmasker och tofflor",
+      "metaDescription": "Ergonomiska kuddar i memoryskum, sovmasker, tofflor och förvaring för ett lugnare sovrum och bättre sömn. Handla hos Vardagsstil.",
+      "intro": "Kuddar, sovmasker och förvaring för ett lugnare sovrum och bättre nätter.",
+      "body": [
+        "Sovrummet ska vara en plats för vila. Här hittar du kuddar i memoryskum som formar sig efter kroppen – som benkudden som avlastar höfter och knän och U-kudden som ger stöd under graviditeten – och 3D-sovmasker som stänger ute ljuset utan att trycka mot ögonen.",
+        "För morgonen och kvällen finns tofflor i memoryskum och sminkspeglar, och med förvaringslådor som passar i byrålådan blir det lättare att hålla ordning. Små förändringar som tillsammans gör sovrummet till ett rum du längtar till."
+      ]
+    },
+    "no": {
+      "title": "Soverom",
+      "metaTitle": "Soverom og søvn – puter, sovemasker og tøfler",
+      "metaDescription": "Ergonomiske puter i memoryskum, sovemasker, tøfler og oppbevaring for et roligere soverom og bedre søvn. Handle hos Vardagsstil.",
+      "intro": "Puter, sovemasker og oppbevaring for et roligere soverom og bedre netter.",
+      "body": [
+        "Soverommet skal være et sted for hvile. Her finner du puter i memoryskum som former seg etter kroppen – som benputen som avlaster hofter og knær, og U-puten som gir støtte under graviditeten – og 3D-sovemasker som stenger ute lyset uten å trykke mot øynene.",
+        "Til morgen og kveld finnes tøfler i memoryskum og sminkespeil, og med oppbevaringsbokser som passer i kommodeskuffen blir det lettere å holde orden. Små endringer som til sammen gjør soverommet til et rom du gleder deg til å gå inn i."
+      ]
+    },
+    "da": {
+      "title": "Soveværelse",
+      "metaTitle": "Soveværelse og søvn – puder, sovemasker og hjemmesko",
+      "metaDescription": "Ergonomiske puder i memoryskum, sovemasker, hjemmesko og opbevaring til et roligere soveværelse og bedre søvn. Køb hos Vardagsstil.",
+      "intro": "Puder, sovemasker og opbevaring til et roligere soveværelse og bedre nætter.",
+      "body": [
+        "Soveværelset skal være et sted for hvile. Her finder du puder i memoryskum, der former sig efter kroppen – som benpuden, der aflaster hofter og knæ, og U-puden, der giver støtte under graviditeten – og 3D-sovemasker, der lukker lyset ude uden at trykke på øjnene.",
+        "Til morgen og aften er der hjemmesko i memoryskum og makeupspejle, og med opbevaringsbokse, der passer i kommodeskuffen, bliver det lettere at holde orden. Små ændringer, der tilsammen gør soveværelset til et rum, du glæder dig til."
+      ]
+    },
+    "fi": {
+      "title": "Makuuhuone",
+      "metaTitle": "Makuuhuone ja uni – tyynyt, unimaskit ja tossut",
+      "metaDescription": "Ergonomiset muistivaahtotyynyt, unimaskit, tossut ja säilytys rauhallisempaan makuuhuoneeseen ja parempaan uneen. Vardagsstil.",
+      "intro": "Tyynyt, unimaskit ja säilytysratkaisut rauhallisempaan makuuhuoneeseen ja parempiin öihin.",
+      "body": [
+        "Makuuhuone on lepoa varten. Täältä löydät muistivaahtotyynyjä, jotka mukautuvat kehon muotoihin – kuten lantiota ja polvia keventävän polvityynyn sekä raskausajan tueksi tarkoitetun U-tyynyn – ja 3D-unimaskeja, jotka pimentävät painamatta silmiä.",
+        "Aamuihin ja iltoihin löytyy muistivaahtotossuja ja meikkipeilejä, ja lipaston laatikkoon sopivat säilytyslaatikot helpottavat järjestyksen pitämistä. Pieniä muutoksia, joiden ansiosta makuuhuone on paikka, jonne on mukava palata."
+      ]
+    }
+  },
+  "kontor": {
+    "sv": {
+      "title": "Kontor",
+      "metaTitle": "Hemmakontor och skrivbordstillbehör",
+      "metaDescription": "Laptopställ, ländryggskuddar, kabelhållare och bokstöd för ett ergonomiskt och städat hemmakontor. Handla hos Vardagsstil.",
+      "intro": "Ergonomi och ordning för hemmakontoret – laptopställ, ländkuddar och kabelhållare.",
+      "body": [
+        "Ett hemmakontor behöver inte vara stort, men det ska fungera. Ett vikbart laptopställ höjer skärmen till bättre arbetshöjd, och en ländryggskudde i memoryskum ger stöd åt ryggen under långa arbetsdagar.",
+        "Kabelkrokar som fästs under skrivbordet och kabelclips i silikon håller sladdarna borta från arbetsytan, och bokstöd i smide ger ordning på hyllan. Resultatet är en arbetsplats som är skönare att sitta vid och lättare att hålla städad."
+      ]
+    },
+    "no": {
+      "title": "Kontor",
+      "metaTitle": "Hjemmekontor og skrivebordstilbehør",
+      "metaDescription": "Laptopstativ, korsryggputer, kabelholdere og bokstøtter for et ergonomisk og ryddig hjemmekontor. Handle hos Vardagsstil.",
+      "intro": "Ergonomi og orden for hjemmekontoret – laptopstativ, korsryggputer og kabelholdere.",
+      "body": [
+        "Et hjemmekontor trenger ikke være stort, men det må fungere. Et sammenleggbart laptopstativ løfter skjermen til bedre arbeidshøyde, og en korsryggpute i memoryskum gir støtte til ryggen gjennom lange arbeidsdager.",
+        "Kabelkroker som festes under skrivebordet og kabelklips i silikon holder ledningene unna arbeidsflaten, og bokstøtter i smijern gir orden i hyllen. Resultatet er en arbeidsplass som er behageligere å sitte ved og enklere å holde ryddig."
+      ]
+    },
+    "da": {
+      "title": "Kontor",
+      "metaTitle": "Hjemmekontor og tilbehør til skrivebordet",
+      "metaDescription": "Laptopholdere, lændepuder, kabelholdere og bogstøtter til et ergonomisk og ryddeligt hjemmekontor. Køb hos Vardagsstil.",
+      "intro": "Ergonomi og orden til hjemmekontoret – laptopholdere, lændepuder og kabelholdere.",
+      "body": [
+        "Et hjemmekontor behøver ikke være stort, men det skal fungere. En sammenfoldelig laptopholder løfter skærmen til en bedre arbejdshøjde, og en lændepude i memoryskum giver ryggen støtte gennem lange arbejdsdage.",
+        "Kabelkroge, der monteres under skrivebordet, og kabelclips i silikone holder ledningerne væk fra arbejdsfladen, og bogstøtter i smedejern skaber orden på hylden. Resultatet er en arbejdsplads, der er rarere at sidde ved og nemmere at holde ryddelig."
+      ]
+    },
+    "fi": {
+      "title": "Toimisto",
+      "metaTitle": "Kotitoimisto ja työpöytätarvikkeet",
+      "metaDescription": "Kannettavan telineet, ristiselkätyynyt, kaapelinpitimet ja kirjatuet ergonomiseen ja siistiin kotitoimistoon. Vardagsstil.",
+      "intro": "Ergonomiaa ja järjestystä kotitoimistoon – kannettavan telineet, selkätyynyt ja kaapelinpitimet.",
+      "body": [
+        "Kotitoimiston ei tarvitse olla suuri, mutta sen pitää toimia. Taitettava kannettavan teline nostaa näytön parempaan työskentelykorkeuteen, ja muistivaahtoinen ristiselkätyyny tukee selkää pitkinä työpäivinä.",
+        "Pöydän alle kiinnitettävät kaapelikoukut ja silikoniset kaapelipidikkeet pitävät johdot poissa työtasolta, ja takorautaiset kirjatuet tuovat hyllyyn järjestystä. Tuloksena on työpiste, jonka ääressä on mukavampi istua ja jota on helpompi pitää siistinä."
+      ]
+    }
+  },
+  "klader": {
+    "sv": {
+      "title": "Kläder",
+      "metaTitle": "Kläder för dam och herr – jackor, stickat och mer",
+      "metaDescription": "Jackor, kappor, stickade tröjor, klänningar och varma accessoarer för dam och herr. Tidlös stil och tydliga priser hos Vardagsstil.",
+      "intro": "Jackor, stickat och varma accessoarer för dam och herr – tidlös stil för vardagen.",
+      "body": [
+        "Vårt klädsortiment är byggt kring plagg som går att kombinera och använda länge. För dam finns kappor, trenchcoats och vadderade jackor, stickade tröjor och klänningar samt mjuka sjalar. För herr hittar du vadderade jackor och parkas, flanellskjortor, stickade tröjor och fleecefodrade vinterbyxor.",
+        "Fokus ligger på den kallare delen av året i Norden – plagg som håller värmen men ändå ser genomtänkta ut. Använd filtren för att hitta rätt storlek och färg, eller gå direkt till dam eller herr."
+      ]
+    },
+    "no": {
+      "title": "Klær",
+      "metaTitle": "Klær til dame og herre – jakker, strikk og mer",
+      "metaDescription": "Jakker, kåper, strikkegensere, kjoler og varmt tilbehør til dame og herre. Tidløs stil og tydelige priser hos Vardagsstil.",
+      "intro": "Jakker, strikk og varmt tilbehør til dame og herre – tidløs stil for hverdagen.",
+      "body": [
+        "Klesutvalget vårt er bygget rundt plagg som kan kombineres og brukes lenge. Til dame finnes kåper, trenchcoats og vatterte jakker, strikkegensere og kjoler samt myke sjal. Til herre finner du vatterte jakker og parkaser, flanellskjorter, strikkegensere og fleecefôrede vinterbukser.",
+        "Fokuset ligger på den kaldere delen av året i Norden – plagg som holder på varmen, men som likevel ser gjennomtenkte ut. Bruk filtrene for å finne riktig størrelse og farge, eller gå direkte til dame eller herre."
+      ]
+    },
+    "da": {
+      "title": "Tøj",
+      "metaTitle": "Tøj til dame og herre – jakker, strik og mere",
+      "metaDescription": "Jakker, frakker, strikbluser, kjoler og varmt tilbehør til dame og herre. Tidløs stil og tydelige priser hos Vardagsstil.",
+      "intro": "Jakker, strik og varmt tilbehør til dame og herre – tidløs stil til hverdagen.",
+      "body": [
+        "Vores tøjsortiment er bygget op om beklædning, der kan kombineres og bruges længe. Til dame er der frakker, trenchcoats og vatterede jakker, strikbluser og kjoler samt bløde sjaler. Til herre finder du vatterede jakker og parkaer, flonelsskjorter, strikbluser og fleeceforede vinterbukser.",
+        "Fokus ligger på den koldere del af året i Norden – tøj, der holder på varmen, men som stadig ser gennemtænkt ud. Brug filtrene til at finde den rigtige størrelse og farve, eller gå direkte til dame eller herre."
+      ]
+    },
+    "fi": {
+      "title": "Vaatteet",
+      "metaTitle": "Naisten ja miesten vaatteet – takit, neuleet ja muuta",
+      "metaDescription": "Takit, kappatakit, neuleet, mekot ja lämpimät asusteet naisille ja miehille. Ajaton tyyli ja selkeät hinnat – Vardagsstil.",
+      "intro": "Takit, neuleet ja lämpimät asusteet naisille ja miehille – ajatonta tyyliä arkeen.",
+      "body": [
+        "Vaatevalikoimamme koostuu vaatteista, joita voi yhdistellä ja käyttää pitkään. Naisille on kappoja, trenssitakkeja ja toppatakkeja, neuleita ja mekkoja sekä pehmeitä huiveja. Miehille löytyy toppatakkeja ja parkatakkeja, flanellipaitoja, neuleita ja fleecevuorattuja talvihousuja.",
+        "Painopiste on Pohjolan kylmemmässä vuodenajassa – vaatteissa, jotka pitävät lämpimänä mutta näyttävät silti harkituilta. Käytä suodattimia oikean koon ja värin löytämiseen tai siirry suoraan naisten tai miesten vaatteisiin."
+      ]
+    }
+  },
+  "dam": {
+    "sv": {
+      "title": "Dam",
+      "metaTitle": "Damkläder – jackor, stickat och klänningar",
+      "metaDescription": "Kappor, vadderade jackor, stickade tröjor, klänningar och sjalar för dam. Tidlösa plagg för höst och vinter hos Vardagsstil.",
+      "intro": "Kappor, stickat, klänningar och sjalar – tidlösa damkläder för höst och vinter.",
+      "body": [
+        "Här samlar vi damkläder som är lätta att kombinera: kappor med skärp, trenchcoats och vadderade jackor för kalla dagar, stickade tröjor och koftor i flera modeller, stickade klänningar och matchande set.",
+        "Komplettera med en mjuk vintersjal eller en stor sjal med fransar. Välj en underkategori för att snabbt hitta rätt – ytterkläder, stickat, toppar, klänningar, set eller accessoarer."
+      ]
+    },
+    "no": {
+      "title": "Dame",
+      "metaTitle": "Dameklær – jakker, strikk og kjoler",
+      "metaDescription": "Kåper, vatterte jakker, strikkegensere, kjoler og sjal til dame. Tidløse plagg for høst og vinter hos Vardagsstil.",
+      "intro": "Kåper, strikk, kjoler og sjal – tidløse dameklær for høst og vinter.",
+      "body": [
+        "Her samler vi dameklær som er lette å kombinere: kåper med belte, trenchcoats og vatterte jakker for kalde dager, strikkegensere og cardigans i flere modeller, strikkede kjoler og matchende sett.",
+        "Fullfør antrekket med et mykt vintersjal eller et stort sjal med frynser. Velg en underkategori for å raskt finne riktig – yttertøy, strikk, topper, kjoler, sett eller tilbehør."
+      ]
+    },
+    "da": {
+      "title": "Dame",
+      "metaTitle": "Dametøj – jakker, strik og kjoler",
+      "metaDescription": "Frakker, vatterede jakker, strikbluser, kjoler og sjaler til damer. Tidløst tøj til efterår og vinter hos Vardagsstil.",
+      "intro": "Frakker, strik, kjoler og sjaler – tidløst dametøj til efterår og vinter.",
+      "body": [
+        "Her samler vi dametøj, der er nemt at kombinere: frakker med bælte, trenchcoats og vatterede jakker til kolde dage, strikbluser og cardigans i flere modeller, strikkjoler og matchende sæt.",
+        "Gør outfittet færdigt med et blødt vintersjal eller et stort sjal med frynser. Vælg en underkategori for hurtigt at finde det rigtige – overtøj, strik, toppe, kjoler, sæt eller accessories."
+      ]
+    },
+    "fi": {
+      "title": "Naiset",
+      "metaTitle": "Naisten vaatteet – takit, neuleet ja mekot",
+      "metaDescription": "Kappatakit, toppatakit, neuleet, mekot ja huivit naisille. Ajattomia vaatteita syksyyn ja talveen – Vardagsstil.",
+      "intro": "Kappatakit, neuleet, mekot ja huivit – ajattomia naisten vaatteita syksyyn ja talveen.",
+      "body": [
+        "Tänne on koottu helposti yhdisteltäviä naisten vaatteita: vyöllisiä kappoja, trenssitakkeja ja toppatakkeja kylmiin päiviin, neulepuseroita ja neuletakkeja useina malleina, neulemekkoja ja yhteensopivia asukokonaisuuksia.",
+        "Viimeistele asu pehmeällä talvihuivilla tai isolla hapsuhuivilla. Valitse alakategoria löytääksesi oikean nopeasti – takit, neuleet, topit, mekot, setit tai asusteet."
+      ]
+    }
+  },
+  "herr": {
+    "sv": {
+      "title": "Herr",
+      "metaTitle": "Herrkläder – jackor, flanell och stickat",
+      "metaDescription": "Vadderade jackor, parkas, flanellskjortor, stickade tröjor och fleecefodrade vinterbyxor för herr. Handla hos Vardagsstil.",
+      "intro": "Jackor, flanellskjortor, stickat och vinterbyxor – varma herrkläder för vardagen.",
+      "body": [
+        "Herrsortimentet är byggt för nordiska vintrar. Här finns vadderade parkas med huva, manchesterjackor och rutiga fleecejackor, borstade flanellskjortor och pikéer med dragkedja, stickade tröjor med halvpolo eller polokrage samt fleecefodrade vinterbyxor.",
+        "Komplettera med ett set med mössa, halsduk och vantar för de kallaste dagarna. Välj en underkategori för att snabbt hitta ytterkläder, toppar, stickat eller accessoarer."
+      ]
+    },
+    "no": {
+      "title": "Herre",
+      "metaTitle": "Herreklær – jakker, flanell og strikk",
+      "metaDescription": "Vatterte jakker, parkaser, flanellskjorter, strikkegensere og fleecefôrede vinterbukser til herre. Handle hos Vardagsstil.",
+      "intro": "Jakker, flanellskjorter, strikk og vinterbukser – varme herreklær for hverdagen.",
+      "body": [
+        "Herreutvalget er laget for nordiske vintre. Her finnes vatterte parkaser med hette, kordfløyelsjakker og rutete fleecejakker, børstede flanellskjorter og pikéer med glidelås, strikkegensere med halvpolo eller polokrage samt fleecefôrede vinterbukser.",
+        "Fullfør med et sett med lue, skjerf og votter for de kaldeste dagene. Velg en underkategori for å raskt finne yttertøy, topper, strikk eller tilbehør."
+      ]
+    },
+    "da": {
+      "title": "Herre",
+      "metaTitle": "Herretøj – jakker, flonel og strik",
+      "metaDescription": "Vatterede jakker, parkaer, flonelsskjorter, strikbluser og fleeceforede vinterbukser til herrer. Køb hos Vardagsstil.",
+      "intro": "Jakker, flonelsskjorter, strik og vinterbukser – varmt herretøj til hverdagen.",
+      "body": [
+        "Herresortimentet er skabt til nordiske vintre. Her er vatterede parkaer med hætte, fløjlsjakker og ternede fleecejakker, børstede flonelsskjorter og piketrøjer med lynlås, strikbluser med halv rullekrave eller rullekrave samt fleeceforede vinterbukser.",
+        "Gør det komplet med et sæt med hue, halstørklæde og vanter til de koldeste dage. Vælg en underkategori for hurtigt at finde overtøj, toppe, strik eller accessories."
+      ]
+    },
+    "fi": {
+      "title": "Miehet",
+      "metaTitle": "Miesten vaatteet – takit, flanelli ja neuleet",
+      "metaDescription": "Toppatakit, parkatakit, flanellipaidat, neuleet ja fleecevuoratut talvihousut miehille. Tilaa Vardagsstililta.",
+      "intro": "Takit, flanellipaidat, neuleet ja talvihousut – lämpimiä miesten vaatteita arkeen.",
+      "body": [
+        "Miesten valikoima on tehty pohjoisen talviin. Täältä löytyy hupullisia toppaparkoja, vakosamettitakkeja ja ruudullisia fleecetakkeja, harjattuja flanellipaitoja ja vetoketjullisia pikeepaitoja, neuleita puolipoolo- tai poolokauluksella sekä fleecevuorattuja talvihousuja.",
+        "Täydennä pipon, kaulaliinan ja lapasten setillä kylmimpiä päiviä varten. Valitse alakategoria löytääksesi nopeasti takit, paidat, neuleet tai asusteet."
+      ]
+    }
+  },
+  "dam-ytterklader": {
+    "sv": {
+      "title": "Dam ytterkläder",
+      "metaTitle": "Jackor och kappor dam",
+      "metaDescription": "Kappor med skärp, trenchcoats och vadderade jackor för dam. Varma, tidlösa ytterkläder för höst och vinter hos Vardagsstil.",
+      "intro": "Kappor, trenchcoats och vadderade jackor – ytterkläder för dam som klarar nordiskt väder.",
+      "body": [
+        "En bra jacka är det plagg du använder mest under halva året. Här finns klassiska kappor med skärp och vida ärmar, dubbelknäppta trenchcoats för hösten och jackor i yllekänsla, liksom korta och halvlånga vadderade jackor med huva för riktigt kalla dagar.",
+        "Tänk på hur du ska använda jackan: en kappa eller trenchcoat klär upp även en enkel stickad tröja, medan en vadderad jacka är det praktiska valet för långa promenader och pendling. Kontrollera storleksguiden på varje produkt innan du beställer."
+      ]
+    },
+    "no": {
+      "title": "Yttertøy dame",
+      "metaTitle": "Jakker og kåper til dame",
+      "metaDescription": "Kåper med belte, trenchcoats og vatterte jakker til dame. Varme, tidløse yttertøy for høst og vinter hos Vardagsstil.",
+      "intro": "Kåper, trenchcoats og vatterte jakker – yttertøy til dame som tåler nordisk vær.",
+      "body": [
+        "En god jakke er plagget du bruker mest halve året. Her finnes klassiske kåper med belte og vide ermer, dobbeltspente trenchcoats for høsten og jakker med ullfølelse, samt korte og halvlange vatterte jakker med hette for de virkelig kalde dagene.",
+        "Tenk på hvordan du skal bruke jakken: en kåpe eller trenchcoat pynter opp selv en enkel strikkegenser, mens en vattert jakke er det praktiske valget for lange turer og pendling. Sjekk størrelsesguiden på hvert produkt før du bestiller."
+      ]
+    },
+    "da": {
+      "title": "Overtøj dame",
+      "metaTitle": "Jakker og frakker til damer",
+      "metaDescription": "Frakker med bælte, trenchcoats og vatterede jakker til damer. Varmt, tidløst overtøj til efterår og vinter hos Vardagsstil.",
+      "intro": "Frakker, trenchcoats og vatterede jakker – overtøj til damer, der kan klare nordisk vejr.",
+      "body": [
+        "En god jakke er det stykke tøj, du bruger mest halvdelen af året. Her er klassiske frakker med bælte og vide ærmer, dobbeltradede trenchcoats til efteråret og jakker med uldfornemmelse, samt korte og halvlange vatterede jakker med hætte til de rigtig kolde dage.",
+        "Tænk over, hvordan du vil bruge jakken: en frakke eller trenchcoat klæder selv en enkel strikbluse op, mens en vatteret jakke er det praktiske valg til lange gåture og pendling. Tjek størrelsesguiden på hvert produkt, før du bestiller."
+      ]
+    },
+    "fi": {
+      "title": "Naisten takit",
+      "metaTitle": "Naisten takit ja kappatakit",
+      "metaDescription": "Vyölliset kappatakit, trenssitakit ja toppatakit naisille. Lämpimiä, ajattomia takkeja syksyyn ja talveen – Vardagsstil.",
+      "intro": "Kappatakit, trenssitakit ja toppatakit – naisten takit, jotka kestävät pohjoisen sään.",
+      "body": [
+        "Hyvä takki on vaate, jota käytät eniten puolet vuodesta. Täältä löytyy klassisia vyöllisiä kappoja leveillä hihoilla, kaksirivisiä trenssitakkeja syksyyn ja villantuntuisia takkeja sekä lyhyitä ja puolipitkiä hupullisia toppatakkeja todella kylmiin päiviin.",
+        "Mieti, miten aiot käyttää takkia: kappa tai trenssitakki tekee yksinkertaisestakin neuleesta tyylikkään, kun taas toppatakki on käytännöllinen valinta pitkille kävelyille ja työmatkoille. Tarkista kunkin tuotteen kokotaulukko ennen tilaamista."
+      ]
+    }
+  },
+  "dam-stickat": {
+    "sv": {
+      "title": "Dam stickat",
+      "metaTitle": "Stickade tröjor och koftor dam",
+      "metaDescription": "Stickade tröjor och koftor för dam – med polokrage, rund hals, båtringning eller ränder. Mjukt och varmt hos Vardagsstil.",
+      "intro": "Stickade tröjor och koftor för dam – mjuka favoriter för kyliga dagar.",
+      "body": [
+        "Stickat är grunden i en nordisk höst- och vintergarderob. Här hittar du stickade tröjor med polokrage, rund hals och båtringning, randiga modeller och tröjor i mjuk viskos, liksom smala koftor som fungerar som ett extra lager inomhus.",
+        "Kombinera en polotröja med kappa för ett stilrent intryck, eller en randig tröja med jeans för vardagen. Titta på materialinformationen på varje produkt för att hitta den känsla du söker."
+      ]
+    },
+    "no": {
+      "title": "Strikk dame",
+      "metaTitle": "Strikkegensere og cardigans til dame",
+      "metaDescription": "Strikkegensere og cardigans til dame – med polokrage, rund hals, båthals eller striper. Mykt og varmt hos Vardagsstil.",
+      "intro": "Strikkegensere og cardigans til dame – myke favoritter for kjølige dager.",
+      "body": [
+        "Strikk er grunnlaget i en nordisk høst- og vintergarderobe. Her finner du strikkegensere med polokrage, rund hals og båthals, stripete modeller og gensere i myk viskose, samt smale cardigans som fungerer som et ekstra lag innendørs.",
+        "Kombiner en pologenser med kåpe for et stilrent uttrykk, eller en stripete genser med jeans til hverdags. Se materialinformasjonen på hvert produkt for å finne følelsen du leter etter."
+      ]
+    },
+    "da": {
+      "title": "Strik dame",
+      "metaTitle": "Strikbluser og cardigans til damer",
+      "metaDescription": "Strikbluser og cardigans til damer – med rullekrave, rund hals, bådudskæring eller striber. Blødt og varmt hos Vardagsstil.",
+      "intro": "Strikbluser og cardigans til damer – bløde favoritter til kølige dage.",
+      "body": [
+        "Strik er grundstenen i en nordisk efterårs- og vintergarderobe. Her finder du strikbluser med rullekrave, rund hals og bådudskæring, stribede modeller og bluser i blød viskose, samt smalle cardigans, der fungerer som et ekstra lag indendørs.",
+        "Kombinér en rullekravebluse med en frakke for et stilrent udtryk, eller en stribet bluse med jeans til hverdag. Se materialeoplysningerne på hvert produkt for at finde den følelse, du leder efter."
+      ]
+    },
+    "fi": {
+      "title": "Naisten neuleet",
+      "metaTitle": "Naisten neulepuserot ja neuletakit",
+      "metaDescription": "Naisten neulepuserot ja neuletakit – poolokauluksella, pyöreällä pääntiellä, venepääntiellä tai raidoilla. Vardagsstil.",
+      "intro": "Naisten neulepuserot ja neuletakit – pehmeitä suosikkeja viileisiin päiviin.",
+      "body": [
+        "Neuleet ovat pohjoisen syys- ja talvivaatekaapin perusta. Täältä löydät neulepuseroita poolokauluksella, pyöreällä pääntiellä ja venepääntiellä, raidallisia malleja ja pehmeästä viskoosista tehtyjä puseroita sekä kapeita neuletakkeja lisäkerrokseksi sisätiloihin.",
+        "Yhdistä poolokauluksinen neule kappatakin kanssa tyylikkääseen asuun tai raidallinen neule farkkujen kanssa arkeen. Katso kunkin tuotteen materiaalitiedot löytääksesi etsimäsi tuntuman."
+      ]
+    }
+  },
+  "herr-ytterklader": {
+    "sv": {
+      "title": "Herr ytterkläder",
+      "metaTitle": "Vinterjackor och parkas herr",
+      "metaDescription": "Vadderade parkas, manchesterjackor, fleecejackor och varma vinterkappor för herr. Ytterkläder för nordisk vinter hos Vardagsstil.",
+      "intro": "Parkas, vadderade jackor och fleecejackor – ytterkläder för herr som håller värmen.",
+      "body": [
+        "Nordiska vintrar kräver en jacka som faktiskt värmer. Här hittar du vadderade parkas med huva, varma vinterkappor och vadderade manchesterjackor, samt lättare alternativ som rutiga fleecejackor och huvtröjor med sherpafoder för höst och vår.",
+        "En parkas är det tryggaste valet för kyla och vind, medan en manchester- eller fleecejacka passar när det är milt nog för att klä sig i lager. Kontrollera storleksguiden på varje produkt innan du beställer."
+      ]
+    },
+    "no": {
+      "title": "Yttertøy herre",
+      "metaTitle": "Vinterjakker og parkaser til herre",
+      "metaDescription": "Vatterte parkaser, kordfløyelsjakker, fleecejakker og varme vinterfrakker til herre. Yttertøy for nordisk vinter hos Vardagsstil.",
+      "intro": "Parkaser, vatterte jakker og fleecejakker – yttertøy til herre som holder på varmen.",
+      "body": [
+        "Nordiske vintre krever en jakke som faktisk varmer. Her finner du vatterte parkaser med hette, varme vinterfrakker og vatterte kordfløyelsjakker, samt lettere alternativer som rutete fleecejakker og hettegensere med sherpafôr for høst og vår.",
+        "En parkas er det tryggeste valget for kulde og vind, mens en kordfløyels- eller fleecejakke passer når det er mildt nok til å kle seg i lag. Sjekk størrelsesguiden på hvert produkt før du bestiller."
+      ]
+    },
+    "da": {
+      "title": "Overtøj herre",
+      "metaTitle": "Vinterjakker og parkaer til herrer",
+      "metaDescription": "Vatterede parkaer, fløjlsjakker, fleecejakker og varme vinterfrakker til herrer. Overtøj til nordisk vinter hos Vardagsstil.",
+      "intro": "Parkaer, vatterede jakker og fleecejakker – overtøj til herrer, der holder på varmen.",
+      "body": [
+        "Nordiske vintre kræver en jakke, der faktisk varmer. Her finder du vatterede parkaer med hætte, varme vinterfrakker og vatterede fløjlsjakker samt lettere alternativer som ternede fleecejakker og hættetrøjer med sherpafor til efterår og forår.",
+        "En parka er det sikreste valg til kulde og vind, mens en fløjls- eller fleecejakke passer, når det er mildt nok til at klæde sig i lag. Tjek størrelsesguiden på hvert produkt, før du bestiller."
+      ]
+    },
+    "fi": {
+      "title": "Miesten takit",
+      "metaTitle": "Miesten talvitakit ja parkatakit",
+      "metaDescription": "Toppaparkat, vakosamettitakit, fleecetakit ja lämpimät talvitakit miehille. Takit pohjoiseen talveen – Vardagsstil.",
+      "intro": "Parkatakit, toppatakit ja fleecetakit – miesten takit, jotka pitävät lämpimänä.",
+      "body": [
+        "Pohjoinen talvi vaatii takin, joka todella lämmittää. Täältä löydät hupullisia toppaparkoja, lämpimiä talvitakkeja ja topattuja vakosamettitakkeja sekä kevyempiä vaihtoehtoja, kuten ruudullisia fleecetakkeja ja sherpavuorattuja huppareita syksyyn ja kevääseen.",
+        "Parkatakki on varmin valinta pakkaseen ja tuuleen, kun taas vakosametti- tai fleecetakki sopii, kun on tarpeeksi leutoa kerrospukeutumiseen. Tarkista kunkin tuotteen kokotaulukko ennen tilaamista."
+      ]
+    }
+  },
+  "dam-toppar": {
+    "sv": {
+      "title": "Dam toppar",
+      "metaTitle": "Toppar och blusar dam",
+      "metaDescription": "Långärmade toppar med spets och stickade toppar för dam. Lätta att kombinera under kofta eller kappa – hos Vardagsstil.",
+      "intro": "Långärmade toppar och stickade toppar för dam – lätta att kombinera."
+    },
+    "no": {
+      "title": "Topper dame",
+      "metaTitle": "Topper og bluser til dame",
+      "metaDescription": "Langermede topper med blonder og strikkede topper til dame. Enkle å kombinere under cardigan eller kåpe – hos Vardagsstil.",
+      "intro": "Langermede og strikkede topper til dame – enkle å kombinere."
+    },
+    "da": {
+      "title": "Toppe dame",
+      "metaTitle": "Toppe og bluser til damer",
+      "metaDescription": "Langærmede toppe med blonder og strikkede toppe til damer. Nemme at kombinere under cardigan eller frakke – hos Vardagsstil.",
+      "intro": "Langærmede og strikkede toppe til damer – nemme at kombinere."
+    },
+    "fi": {
+      "title": "Naisten topit",
+      "metaTitle": "Naisten topit ja puserot",
+      "metaDescription": "Pitkähihaiset pitsitopit ja neuletopit naisille. Helppo yhdistää neuletakin tai kappatakin alle – Vardagsstil.",
+      "intro": "Pitkähihaiset topit ja neuletopit naisille – helppo yhdistellä."
+    }
+  },
+  "dam-klanningar": {
+    "sv": {
+      "title": "Dam klänningar",
+      "metaTitle": "Stickade klänningar dam",
+      "metaDescription": "Stickade klänningar för dam – med polokrage, knappar eller off shoulder. Varma och bekväma för höst och vinter hos Vardagsstil.",
+      "intro": "Stickade klänningar för dam – varma, bekväma och enkla att styla."
+    },
+    "no": {
+      "title": "Kjoler dame",
+      "metaTitle": "Strikkede kjoler til dame",
+      "metaDescription": "Strikkede kjoler til dame – med polokrage, knapper eller off shoulder. Varme og behagelige for høst og vinter hos Vardagsstil.",
+      "intro": "Strikkede kjoler til dame – varme, behagelige og enkle å style."
+    },
+    "da": {
+      "title": "Kjoler dame",
+      "metaTitle": "Strikkjoler til damer",
+      "metaDescription": "Strikkjoler til damer – med rullekrave, knapper eller off shoulder. Varme og behagelige til efterår og vinter hos Vardagsstil.",
+      "intro": "Strikkjoler til damer – varme, behagelige og nemme at style."
+    },
+    "fi": {
+      "title": "Naisten mekot",
+      "metaTitle": "Naisten neulemekot",
+      "metaDescription": "Neulemekot naisille – poolokauluksella, napeilla tai olkapäät paljastavana. Lämpimiä ja mukavia syksyyn ja talveen – Vardagsstil.",
+      "intro": "Naisten neulemekot – lämpimiä, mukavia ja helppoja yhdistellä."
+    }
+  },
+  "dam-set": {
+    "sv": {
+      "title": "Dam set",
+      "metaTitle": "Matchande set dam",
+      "metaDescription": "Matchande set för dam – stickat set med tröja och kjol eller mjukt set med huvtröja och byxor. Handla hos Vardagsstil.",
+      "intro": "Matchande set för dam – en färdig outfit i ett köp."
+    },
+    "no": {
+      "title": "Sett dame",
+      "metaTitle": "Matchende sett til dame",
+      "metaDescription": "Matchende sett til dame – strikket sett med genser og skjørt eller mykt sett med hettegenser og bukse. Handle hos Vardagsstil.",
+      "intro": "Matchende sett til dame – et ferdig antrekk i ett kjøp."
+    },
+    "da": {
+      "title": "Sæt dame",
+      "metaTitle": "Matchende sæt til damer",
+      "metaDescription": "Matchende sæt til damer – strikket sæt med bluse og nederdel eller blødt sæt med hættetrøje og bukser. Køb hos Vardagsstil.",
+      "intro": "Matchende sæt til damer – et færdigt outfit i ét køb."
+    },
+    "fi": {
+      "title": "Naisten setit",
+      "metaTitle": "Naisten asukokonaisuudet",
+      "metaDescription": "Yhteensopivat asukokonaisuudet naisille – neulesetti puserolla ja hameella tai pehmeä huppari ja housut. Vardagsstil.",
+      "intro": "Yhteensopivat asukokonaisuudet naisille – valmis asu yhdellä ostolla."
+    }
+  },
+  "dam-accessoarer": {
+    "sv": {
+      "title": "Dam accessoarer",
+      "metaTitle": "Sjalar och halsdukar dam",
+      "metaDescription": "Mjuka vintersjalar, dubbelsidiga mönstrade sjalar och stora sjalar med fransar för dam. Handla hos Vardagsstil.",
+      "intro": "Mjuka sjalar och halsdukar för dam – värme och färg till höstgarderoben."
+    },
+    "no": {
+      "title": "Tilbehør dame",
+      "metaTitle": "Sjal og skjerf til dame",
+      "metaDescription": "Myke vintersjal, dobbeltsidige mønstrede sjal og store sjal med frynser til dame. Handle hos Vardagsstil.",
+      "intro": "Myke sjal og skjerf til dame – varme og farge til høstgarderoben."
+    },
+    "da": {
+      "title": "Accessories dame",
+      "metaTitle": "Sjaler og halstørklæder til damer",
+      "metaDescription": "Bløde vintersjaler, dobbeltsidede mønstrede sjaler og store sjaler med frynser til damer. Køb hos Vardagsstil.",
+      "intro": "Bløde sjaler og halstørklæder til damer – varme og farve til efterårsgarderoben."
+    },
+    "fi": {
+      "title": "Naisten asusteet",
+      "metaTitle": "Naisten huivit ja kaulaliinat",
+      "metaDescription": "Pehmeät talvihuivit, kaksipuoliset kuvioidut huivit ja isot hapsuhuivit naisille. Tilaa Vardagsstililta.",
+      "intro": "Pehmeät huivit ja kaulaliinat naisille – lämpöä ja väriä syksyn asuihin."
+    }
+  },
+  "herr-toppar": {
+    "sv": {
+      "title": "Herr toppar",
+      "metaTitle": "Flanellskjortor och pikéer herr",
+      "metaDescription": "Borstade flanellskjortor och långärmade pikéer med dragkedja för herr. Varma och enkla vardagsplagg hos Vardagsstil.",
+      "intro": "Flanellskjortor och långärmade pikéer för herr – varma vardagsplagg."
+    },
+    "no": {
+      "title": "Topper herre",
+      "metaTitle": "Flanellskjorter og pikéer til herre",
+      "metaDescription": "Børstede flanellskjorter og langermede pikéer med glidelås til herre. Varme og enkle hverdagsplagg hos Vardagsstil.",
+      "intro": "Flanellskjorter og langermede pikéer til herre – varme hverdagsplagg."
+    },
+    "da": {
+      "title": "Toppe herre",
+      "metaTitle": "Flonelsskjorter og piketrøjer til herrer",
+      "metaDescription": "Børstede flonelsskjorter og langærmede piketrøjer med lynlås til herrer. Varmt og enkelt hverdagstøj hos Vardagsstil.",
+      "intro": "Flonelsskjorter og langærmede piketrøjer til herrer – varmt hverdagstøj."
+    },
+    "fi": {
+      "title": "Miesten paidat",
+      "metaTitle": "Miesten flanellipaidat ja pikeepaidat",
+      "metaDescription": "Harjatut flanellipaidat ja vetoketjulliset pitkähihaiset pikeepaidat miehille. Lämpimiä arkivaatteita – Vardagsstil.",
+      "intro": "Flanellipaidat ja pitkähihaiset pikeepaidat miehille – lämpimiä arkivaatteita."
+    }
+  },
+  "herr-stickat": {
+    "sv": {
+      "title": "Herr stickat",
+      "metaTitle": "Stickade tröjor och koftor herr",
+      "metaDescription": "Stickade tröjor med halvpolo eller polokrage och stickade koftor med fickor för herr. Varmt och stilrent hos Vardagsstil.",
+      "intro": "Stickade tröjor och koftor för herr – varma lager för kalla dagar."
+    },
+    "no": {
+      "title": "Strikk herre",
+      "metaTitle": "Strikkegensere og cardigans til herre",
+      "metaDescription": "Strikkegensere med halvpolo eller polokrage og strikkede cardigans med lommer til herre. Varmt og stilrent hos Vardagsstil.",
+      "intro": "Strikkegensere og cardigans til herre – varme lag for kalde dager."
+    },
+    "da": {
+      "title": "Strik herre",
+      "metaTitle": "Strikbluser og cardigans til herrer",
+      "metaDescription": "Strikbluser med halv rullekrave eller rullekrave og strikcardigans med lommer til herrer. Varmt og stilrent hos Vardagsstil.",
+      "intro": "Strikbluser og cardigans til herrer – varme lag til kolde dage."
+    },
+    "fi": {
+      "title": "Miesten neuleet",
+      "metaTitle": "Miesten neulepuserot ja neuletakit",
+      "metaDescription": "Neulepuserot puolipoolo- tai poolokauluksella ja taskulliset neuletakit miehille. Lämmintä ja tyylikästä – Vardagsstil.",
+      "intro": "Miesten neulepuserot ja neuletakit – lämpimiä kerroksia kylmiin päiviin."
+    }
+  },
+  "herr-accessoarer": {
+    "sv": {
+      "title": "Herr accessoarer",
+      "metaTitle": "Mössa, halsduk och vantar herr",
+      "metaDescription": "Set med mössa, halsduk och vantar samt varma vinterhalsdukar för herr. Håll värmen hela vintern – hos Vardagsstil.",
+      "intro": "Mössor, halsdukar och vantar för herr – det som behövs för de kallaste dagarna."
+    },
+    "no": {
+      "title": "Tilbehør herre",
+      "metaTitle": "Lue, skjerf og votter til herre",
+      "metaDescription": "Sett med lue, skjerf og votter samt varme vinterskjerf til herre. Hold varmen hele vinteren – hos Vardagsstil.",
+      "intro": "Luer, skjerf og votter til herre – det du trenger for de kaldeste dagene."
+    },
+    "da": {
+      "title": "Accessories herre",
+      "metaTitle": "Hue, halstørklæde og vanter til herrer",
+      "metaDescription": "Sæt med hue, halstørklæde og vanter samt varme vinterhalstørklæder til herrer. Hold varmen hele vinteren – hos Vardagsstil.",
+      "intro": "Huer, halstørklæder og vanter til herrer – det du skal bruge på de koldeste dage."
+    },
+    "fi": {
+      "title": "Miesten asusteet",
+      "metaTitle": "Miesten pipot, kaulaliinat ja lapaset",
+      "metaDescription": "Pipon, kaulaliinan ja lapasten setit sekä lämpimät talvikaulaliinat miehille. Pysy lämpimänä koko talven – Vardagsstil.",
+      "intro": "Pipot, kaulaliinat ja lapaset miehille – kaikki mitä tarvitset kylmimpiin päiviin."
+    }
+  }
+}
