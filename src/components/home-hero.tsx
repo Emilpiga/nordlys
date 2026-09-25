@@ -72,7 +72,8 @@ export function HomeHero({
           src="/hero-lighting.png"
           alt=""
           fill
-          priority
+          preload
+          fetchPriority="high"
           className="animate-soft-zoom object-cover object-[72%_center] sm:object-[60%_40%]"
           sizes="100vw"
         />

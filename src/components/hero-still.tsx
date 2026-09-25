@@ -45,7 +45,8 @@ export function HeroStill({ images }: HeroStillProps) {
               src={image.url}
               alt={active ? image.alt : ""}
               fill
-              priority={i === 0}
+              preload={i === 0}
+              fetchPriority={i === 0 ? "high" : "low"}
               sizes="100vw"
               className="object-cover object-[center_40%]"
             />

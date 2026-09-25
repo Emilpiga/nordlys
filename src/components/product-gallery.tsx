@@ -96,7 +96,8 @@ export function ProductGallery({
           src={active.url}
           alt={active.altText || productTitle}
           fill
-          priority
+          preload
+          fetchPriority="high"
           className="animate-image-in object-cover"
           sizes="(max-width: 1024px) 100vw, 55vw"
         />
