@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "@/components/soft-image";
-import { useEffect, useId, useTransition } from "react";
+import { useEffect, useId, useRef, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
   removeCartLineAction,
@@ -14,6 +14,7 @@ import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { LocaleLink } from "@/components/locale-link";
 import { formatMoney } from "@/lib/format";
+import { trackCartOpened } from "@/lib/posthog";
 import { lockPageScroll } from "@/lib/scroll-lock";
 
 export function CartDrawer() {
@@ -25,6 +26,21 @@ export function CartDrawer() {
 
   const lines = cart?.lines ?? [];
   const isEmpty = !cart || cart.totalQuantity === 0;
+  const trackedOpenRef = useRef(false);
+
+  useEffect(() => {
+    if (!isOpen) {
+      trackedOpenRef.current = false;
+      return;
+    }
+    if (trackedOpenRef.current) return;
+    trackedOpenRef.current = true;
+    trackCartOpened({
+      itemCount: cart?.totalQuantity ?? 0,
+      value: cart ? Number(cart.cost.totalAmount.amount) : undefined,
+      currency: cart?.cost.totalAmount.currencyCode,
+    });
+  }, [isOpen, cart]);
 
   useEffect(() => {
     if (!isOpen) return;

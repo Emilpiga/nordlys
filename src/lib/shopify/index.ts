@@ -15,6 +15,7 @@ import {
   mapProductCard,
 } from "./mappers";
 import {
+  CART_ATTRIBUTES_UPDATE_MUTATION,
   CART_BUYER_IDENTITY_UPDATE_MUTATION,
   CART_CREATE_MUTATION,
   CART_DISCOUNT_CODES_UPDATE_MUTATION,
@@ -558,6 +559,24 @@ export async function updateCartBuyerIdentity(
   }
 
   return mapCart(data.cartBuyerIdentityUpdate.cart);
+}
+
+export async function updateCartAttributes(
+  cartId: string,
+  attributes: { key: string; value: string }[],
+): Promise<void> {
+  const data = await shopifyFetch<{
+    cartAttributesUpdate: {
+      cart: { id: string } | null;
+      userErrors: UserErrors;
+    };
+  }>({
+    query: CART_ATTRIBUTES_UPDATE_MUTATION,
+    variables: { cartId, attributes },
+    cache: "no-store",
+  });
+
+  assertNoUserErrors(data.cartAttributesUpdate.userErrors);
 }
 
 export async function updateCartDiscountCodes(

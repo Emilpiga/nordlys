@@ -7,6 +7,7 @@ import {
   trackInitiateCheckout,
 } from "@/lib/ads-events";
 import { decorateCheckoutUrl } from "@/lib/ads-linker";
+import { getPostHogIds } from "@/lib/posthog";
 import type { Cart } from "@/lib/shopify/types";
 
 type CheckoutButtonProps = {
@@ -34,7 +35,7 @@ export function CheckoutButton({
     });
 
     startTransition(async () => {
-      const result = await beginCheckoutAction();
+      const result = await beginCheckoutAction(getPostHogIds());
       const url = result.checkoutUrl || cart.checkoutUrl;
       if (url) window.location.assign(decorateCheckoutUrl(url));
     });

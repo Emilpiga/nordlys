@@ -13,6 +13,12 @@ import {
   trackViewContent as trackMetaViewContent,
   type MetaContentPayload,
 } from "@/lib/meta-pixel";
+import {
+  trackCheckoutClicked,
+  trackOrderConfirmed,
+  trackProductAdded,
+  trackProductViewed,
+} from "@/lib/posthog";
 
 export { metaContentIdFromGid } from "@/lib/meta-pixel";
 export type { MetaContentPayload };
@@ -20,16 +26,19 @@ export type { MetaContentPayload };
 export function trackViewContent(payload: MetaContentPayload) {
   trackMetaViewContent(payload);
   trackGoogleViewItem(payload);
+  trackProductViewed(payload);
 }
 
 export function trackAddToCart(payload: MetaContentPayload) {
   trackMetaAddToCart(payload);
   trackGoogleAddToCart(payload);
+  trackProductAdded(payload);
 }
 
 export function trackInitiateCheckout(payload: MetaContentPayload) {
   trackMetaInitiateCheckout(payload);
   trackGoogleBeginCheckout(payload);
+  trackCheckoutClicked(payload);
 }
 
 export function trackPurchase(
@@ -37,4 +46,5 @@ export function trackPurchase(
 ) {
   trackMetaPurchase(payload);
   trackGooglePurchase(payload);
+  trackOrderConfirmed(payload);
 }

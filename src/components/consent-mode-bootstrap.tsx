@@ -1,7 +1,8 @@
 import Script from "next/script";
 
 /**
- * Google Consent Mode v2 defaults + bridge for Meta Pixel.
+ * Google Consent Mode v2 defaults + bridge for Meta Pixel and PostHog
+ * (`store-consent` window event).
  * Must run before AdSense / gtag / Meta (strategy: beforeInteractive).
  *
  * EEA/UK/CH → denied until Google’s certified CMP updates consent.
@@ -22,6 +23,9 @@ export function ConsentModeBootstrap() {
     if (typeof window.fbq === "function") {
       window.fbq("consent", granted ? "grant" : "revoke");
     }
+    try {
+      window.dispatchEvent(new CustomEvent("store-consent", { detail: granted }));
+    } catch (e) {}
   };
 
   var denied = {

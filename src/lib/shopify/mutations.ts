@@ -107,6 +107,21 @@ export const CART_BUYER_IDENTITY_UPDATE_MUTATION = /* GraphQL */ `
   ${CART_FRAGMENT}
 `;
 
+/** Replaces all cart attributes — the storefront sets no others. */
+export const CART_ATTRIBUTES_UPDATE_MUTATION = /* GraphQL */ `
+  mutation CartAttributesUpdate($cartId: ID!, $attributes: [AttributeInput!]!) {
+    cartAttributesUpdate(cartId: $cartId, attributes: $attributes) {
+      cart {
+        id
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+`;
+
 export const CART_DISCOUNT_CODES_UPDATE_MUTATION = /* GraphQL */ `
   mutation CartDiscountCodesUpdate(
     $cartId: ID!

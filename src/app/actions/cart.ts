@@ -7,6 +7,7 @@ import {
   createCart,
   getCart,
   removeCartLines,
+  updateCartAttributes,
   updateCartBuyerIdentity,
   updateCartLines,
 } from "@/lib/shopify";
@@ -232,8 +233,28 @@ export async function syncCartBuyerIdentity() {
   }
 }
 
+/** PostHog ids from the browser, stored on the cart for the checkout pixel. */
+async function tagCartForAnalytics(
+  analytics: { distinctId: string; sessionId: string } | null | undefined,
+) {
+  if (!analytics?.distinctId) return;
+  const cartId = await readCartId();
+  if (!cartId) return;
+  try {
+    await updateCartAttributes(cartId, [
+      { key: "_posthog_distinct_id", value: analytics.distinctId.slice(0, 200) },
+      { key: "_posthog_session_id", value: analytics.sessionId.slice(0, 200) },
+    ]);
+  } catch (error) {
+    console.error("tagCartForAnalytics failed:", error);
+  }
+}
+
 /** Refresh buyer identity, then return the Shopify checkout URL. */
-export async function beginCheckoutAction() {
+export async function beginCheckoutAction(
+  analytics?: { distinctId: string; sessionId: string } | null,
+) {
+  await tagCartForAnalytics(analytics);
   const synced = await syncCartBuyerIdentity();
   if (synced.ok && synced.cart?.checkoutUrl) {
     return { ok: true as const, checkoutUrl: synced.cart.checkoutUrl };

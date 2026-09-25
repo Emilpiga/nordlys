@@ -17,6 +17,7 @@ import {
   trackInitiateCheckout,
 } from "@/lib/ads-events";
 import { decorateCheckoutUrl } from "@/lib/ads-linker";
+import { getPostHogIds } from "@/lib/posthog";
 import type { Product, ProductVariant } from "@/lib/shopify/types";
 import {
   findVariant,
@@ -136,7 +137,7 @@ export function ProductForm({
           setPendingMode(null);
           return;
         }
-        const checkout = await beginCheckoutAction();
+        const checkout = await beginCheckoutAction(getPostHogIds());
         const checkoutUrl = checkout.checkoutUrl || result.cart.checkoutUrl;
         trackCartPixel(selectedVariant, quantity);
         trackInitiateCheckout({
