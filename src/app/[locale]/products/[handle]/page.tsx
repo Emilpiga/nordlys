@@ -25,7 +25,6 @@ import {
 } from "@/lib/seo";
 import {
   imageAlt,
-  meaningfulOptions,
   productMetaDescription,
   productMetaTitle,
 } from "@/lib/catalog-seo";
@@ -114,7 +113,6 @@ export default async function ProductPage({ params, searchParams }: Props) {
 
   const detailsHtml = sanitizeDescriptionHtml(product.descriptionHtml);
   const plainDescription = product.description.replace(/\s+/g, " ").trim();
-  const specs = meaningfulOptions(product.options);
   const parentHref = room
     ? localePath(locale, `/collections/${encodeURIComponent(room.handle)}`)
     : localePath(locale, "/products");
@@ -162,31 +160,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
         wishlistSaved={wishlistSaved}
         header={
           <>
-            <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
-              {room ? (
-                <>
-                  {shopifyConfig.storeName}
-                  {" · "}
-                  <Link
-                    href={parentHref}
-                    className="underline-offset-4 transition hover:text-foreground hover:underline"
-                  >
-                    {room.title}
-                  </Link>
-                </>
-              ) : product.category ? (
-                <>
-                  {shopifyConfig.storeName}
-                  {" · "}
-                  {product.category.name}
-                </>
-              ) : (
-                <>
-                  {shopifyConfig.storeName} · {dict.products.fallbackCategory}
-                </>
-              )}
-            </p>
-            <h1 className="mt-4 font-display text-[2.75rem] font-medium leading-[1.05] tracking-tight sm:text-6xl">
+            <h1 className="font-display text-[2.75rem] font-medium leading-[1.05] tracking-tight sm:text-6xl">
               {product.title}
             </h1>
             <div className="mt-4">
@@ -209,63 +183,6 @@ export default async function ProductPage({ params, searchParams }: Props) {
               {plainDescription || dict.products.fallbackDescription}
             </p>
           )
-        }
-        footer={
-          <dl className="mt-10 grid gap-5 border-t border-border/70 pt-8 text-sm">
-            {specs.map((spec) => (
-              <div key={spec.name}>
-                <dt className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
-                  {spec.name}
-                </dt>
-                <dd className="mt-1.5 font-light text-foreground">
-                  {spec.values.join(" · ")}
-                </dd>
-              </div>
-            ))}
-            <div>
-              <dt className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
-                {dict.products.shippingLabel}
-              </dt>
-              <dd className="mt-1.5 font-light text-foreground">
-                <Link
-                  href={localePath(locale, "/returns")}
-                  className="underline-offset-4 transition hover:text-accent hover:underline"
-                >
-                  {t(dict.products.shippingValue, {
-                    processing: dict.fulfillment.processingShort,
-                  })}
-                </Link>
-              </dd>
-            </div>
-            <div>
-              <dt className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
-                {dict.products.careLabel}
-              </dt>
-              <dd className="mt-1.5 font-light text-foreground">
-                {dict.products.careValue}
-              </dd>
-            </div>
-            <div>
-              <dt className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
-                {dict.products.questionsLabel}
-              </dt>
-              <dd className="mt-1.5 font-light text-foreground">
-                <Link
-                  href={localePath(locale, "/faq")}
-                  className="underline-offset-4 transition hover:text-accent hover:underline"
-                >
-                  {dict.products.faqLink}
-                </Link>
-                {" · "}
-                <Link
-                  href={localePath(locale, "/contact")}
-                  className="underline-offset-4 transition hover:text-accent hover:underline"
-                >
-                  {dict.products.contactLink}
-                </Link>
-              </dd>
-            </div>
-          </dl>
         }
       />
 

@@ -127,25 +127,8 @@
   },
   "products": {
     "sizeRunsSmall": "Tøjet er småt i størrelsen — vælg gerne en størrelse større end normalt.",
-    "sizeFinderToggle": "Find min størrelse",
-    "sizeFinderQuestion": "Hvilken størrelse plejer du at bruge?",
-    "sizeFinderRecommend": "Vi anbefaler {size}",
-    "sizeFinderSelect": "Vælg {size}",
-    "sizeFinderUnavailable": "{size} findes ikke til dette stykke tøj — nærmeste er {nearest}.",
-    "sizeFinderYours": "Din størrelse",
-    "sizeFinderOurs": "Hos os",
-    "sizeFinderEu": "Svarer cirka til",
-    "sizeFinderClose": "Luk",
     "backToShop": "← Tilbage til shoppen",
-    "fallbackCategory": "Sortiment",
     "fallbackDescription": "Et produkt til hverdagen — enkelt, brugbart og klar til at bruges derhjemme.",
-    "shippingLabel": "Afsendelse",
-    "shippingValue": "Sendes inden {processing} efter betaling · Sporing på hver ordre",
-    "careLabel": "Pleje",
-    "careValue": "Følg plejerådene på produktsiden og emballagen.",
-    "questionsLabel": "Spørgsmål",
-    "faqLink": "Ofte stillede spørgsmål",
-    "contactLink": "Kontakt",
     "relatedTitle": "Mere fra sortimentet",
     "relatedInCollection": "Mere til {title}",
     "relatedAll": "Se alle",
@@ -220,14 +203,9 @@
     }
   },
   "trust": {
-    "shippingTitle": "Afsendelse",
-    "shippingBody": "De fleste ordrer sendes inden {processing}, når betalingen er gennemført.",
     "shippingMore": "Mere om fragt",
-    "trackingTitle": "Sporing",
-    "trackingBody": "Du får sporing, så snart transportøren har scannet pakken.",
-    "safetyTitle": "Tryghed",
-    "safetyBody": "14 dages fortrydelsesret · fejl afhjælpes efter loven.",
-    "faqLink": "Ofte stillede spørgsmål"
+    "trackingShort": "Sporing på hver ordre",
+    "returnsShort": "14 dages fortrydelsesret"
   },
   "fulfillment": {
     "processingShort": "1–3 hverdage",

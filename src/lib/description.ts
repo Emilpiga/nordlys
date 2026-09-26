@@ -5,7 +5,7 @@
 export function sanitizeDescriptionHtml(html: string): string {
   if (!html.trim()) return "";
 
-  let cleaned = html
+  const cleaned = html
     // Media and common wrapper noise from supplier descriptions
     .replace(/<img\b[^>]*>/gi, "")
     .replace(/<picture\b[^>]*>[\s\S]*?<\/picture>/gi, "")
@@ -13,6 +13,12 @@ export function sanitizeDescriptionHtml(html: string): string {
     .replace(/<video\b[^>]*>[\s\S]*?<\/video>/gi, "")
     .replace(/<iframe\b[^>]*>[\s\S]*?<\/iframe>/gi, "")
     .replace(/<svg\b[^>]*>[\s\S]*?<\/svg>/gi, "")
+    // Copy that repeats the page: "runs small" sits under the size picker and
+    // "choose … above" points at the options (sv / nb / da / fi).
+    .replace(/<li>(?:(?!<\/li>).)*(?:Asiatisk|Aasialai)(?:(?!<\/li>).)*<\/li>/gi, "")
+    .replace(/ ?(?:Asiatisk|Aasialai)\w* \w+(?: ?[,—–][^.<]*)?\./gi, "")
+    .replace(/ ?(?:Välj [^.<]*ovan|Velg [^.<]*over|Vælg [^.<]*ovenfor|Valitse [^.<]*yllä)\./g, "")
+    .replace(/<p>\s+/gi, "<p>")
     // Empty paragraphs / divs left behind after stripping images
     .replace(/<(p|div|span)([^>]*)>(\s|&nbsp;|<br\s*\/?>)*<\/\1>/gi, "")
     .replace(/(<br\s*\/?>\s*){3,}/gi, "<br /><br />")

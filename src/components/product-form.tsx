@@ -45,7 +45,7 @@ export function ProductForm({
   imageRequest = null,
   wishlistSaved = false,
 }: ProductFormProps) {
-  const { dict, t } = useDictionary();
+  const { dict } = useDictionary();
   const router = useRouter();
   const { openCart, setCart } = useCart();
   const [isPending, startTransition] = useTransition();
@@ -262,14 +262,8 @@ export function ProductForm({
           initialSaved={wishlistSaved}
           variant="labeled"
         />
-        <p className="text-center text-xs font-light leading-relaxed text-muted">
-          {t(dict.products.secureEta, {
-            processing: dict.fulfillment.processingShort,
-          })}
-        </p>
+        <ProductTrust />
       </div>
-
-      <ProductTrust />
 
       {error ? <p className="text-sm text-red-700">{error}</p> : null}
     </div>
