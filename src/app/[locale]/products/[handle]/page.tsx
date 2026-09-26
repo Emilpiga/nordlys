@@ -34,6 +34,11 @@ type Props = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
+/** Shopify serves one photo under URLs that differ only in `?v=`. */
+function imagePath(url: string) {
+  return url.split("?")[0];
+}
+
 function firstQuery(value: string | string[] | undefined) {
   if (Array.isArray(value)) return value[0]?.trim() ?? "";
   return value?.trim() ?? "";
@@ -100,12 +105,23 @@ export default async function ProductPage({ params, searchParams }: Props) {
   const wishlistSaved = Boolean(
     customer?.wishlistProductIds.includes(product.id),
   );
-  const gallery =
+  const baseImages =
     product.images.length > 0
       ? product.images
       : product.featuredImage
         ? [product.featuredImage]
         : [];
+  // Every variant's photo up front: the query caps product images, and a
+  // colour whose photo fell outside the cap used to add a thumbnail on pick,
+  // pushing the page down.
+  const gallery = [...baseImages];
+  const galleryUrls = new Set(gallery.map((image) => imagePath(image.url)));
+  for (const variant of product.variants) {
+    if (variant.image && !galleryUrls.has(imagePath(variant.image.url))) {
+      galleryUrls.add(imagePath(variant.image.url));
+      gallery.push(variant.image);
+    }
+  }
 
   const related = (collection?.products ?? catalog)
     .filter((item) => item.id !== product.id)

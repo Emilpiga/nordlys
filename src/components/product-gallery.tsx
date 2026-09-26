@@ -15,6 +15,11 @@ type ProductGalleryProps = {
   onImageSelect?: (url: string) => void;
 };
 
+/** Shopify serves one photo under URLs that differ only in `?v=`. */
+function samePhoto(a: string, b: string) {
+  return a.split("?")[0] === b.split("?")[0];
+}
+
 function ExpandIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -45,7 +50,9 @@ export function ProductGallery({
 
   const galleryImages = useMemo(() => {
     if (!activeImageUrl) return images;
-    if (images.some((image) => image.url === activeImageUrl)) return images;
+    if (images.some((image) => samePhoto(image.url, activeImageUrl))) {
+      return images;
+    }
     return [
       {
         url: activeImageUrl,
@@ -59,7 +66,9 @@ export function ProductGallery({
 
   const preferredIndex = useMemo(() => {
     if (!activeImageUrl) return 0;
-    const index = galleryImages.findIndex((image) => image.url === activeImageUrl);
+    const index = galleryImages.findIndex(
+      (image) => samePhoto(image.url, activeImageUrl),
+    );
     return index >= 0 ? index : 0;
   }, [activeImageUrl, galleryImages]);
 
