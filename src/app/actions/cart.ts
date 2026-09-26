@@ -233,13 +233,14 @@ export async function syncCartBuyerIdentity() {
   }
 }
 
+type AnalyticsIds = { distinctId: string; sessionId: string } | null | undefined;
+
 /** PostHog ids from the browser, stored on the cart for the checkout pixel. */
 async function tagCartForAnalytics(
-  analytics: { distinctId: string; sessionId: string } | null | undefined,
+  analytics: AnalyticsIds,
+  cartId: string | null,
 ) {
-  if (!analytics?.distinctId) return;
-  const cartId = await readCartId();
-  if (!cartId) return;
+  if (!analytics?.distinctId || !cartId) return;
   try {
     await updateCartAttributes(cartId, [
       { key: "_posthog_distinct_id", value: analytics.distinctId.slice(0, 200) },
@@ -251,10 +252,8 @@ async function tagCartForAnalytics(
 }
 
 /** Refresh buyer identity, then return the Shopify checkout URL. */
-export async function beginCheckoutAction(
-  analytics?: { distinctId: string; sessionId: string } | null,
-) {
-  await tagCartForAnalytics(analytics);
+export async function beginCheckoutAction(analytics?: AnalyticsIds) {
+  await tagCartForAnalytics(analytics, await readCartId());
   const synced = await syncCartBuyerIdentity();
   if (synced.ok && synced.cart?.checkoutUrl) {
     return { ok: true as const, checkoutUrl: synced.cart.checkoutUrl };
@@ -266,6 +265,33 @@ export async function beginCheckoutAction(
   const locale = await readLocale();
   const cart = await getCart(cartId, locale);
   if (!cart?.checkoutUrl) return { ok: false as const, checkoutUrl: null };
+  return { ok: true as const, checkoutUrl: cart.checkoutUrl };
+}
+
+/**
+ * "Köp nu": a one-off cart holding only this item, like Shopify's own Buy it
+ * now. The shopper's regular cart is left alone — adding to it made a second
+ * tap after backing out of checkout order the item twice.
+ */
+export async function buyNowAction(
+  merchandiseId: string,
+  quantity = 1,
+  analytics?: AnalyticsIds,
+) {
+  const locale = await readLocale();
+  const codes = await getAcceptedWelcomeDiscountCodes();
+  let cart = await createCart([{ merchandiseId, quantity }], locale, codes);
+  cart = await applyWelcomeDeal(cart, locale, codes);
+  await tagCartForAnalytics(analytics, cart.id);
+
+  const productId = cart.lines[0]?.merchandise.product.id;
+  if (productId) {
+    void recordCart(productId, quantity).catch((error) => {
+      console.error("recordCart failed:", error);
+    });
+  }
+
+  if (!cart.checkoutUrl) return { ok: false as const, checkoutUrl: null };
   return { ok: true as const, checkoutUrl: cart.checkoutUrl };
 }
 

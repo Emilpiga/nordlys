@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { addToCartAction, beginCheckoutAction } from "@/app/actions/cart";
+import { addToCartAction, buyNowAction } from "@/app/actions/cart";
 import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
 import { ProductOptionPicker } from "@/components/product-option-picker";
@@ -131,14 +131,16 @@ export function ProductForm({
 
     startTransition(async () => {
       try {
-        const result = await addToCartAction(selectedVariant.id, quantity);
-        if (!result?.ok || !result.cart.checkoutUrl) {
+        const result = await buyNowAction(
+          selectedVariant.id,
+          quantity,
+          getPostHogIds(),
+        );
+        if (!result.ok) {
           setError(dict.products.checkoutError);
           setPendingMode(null);
           return;
         }
-        const checkout = await beginCheckoutAction(getPostHogIds());
-        const checkoutUrl = checkout.checkoutUrl || result.cart.checkoutUrl;
         trackCartPixel(selectedVariant, quantity);
         trackInitiateCheckout({
           contentIds: [metaContentIdFromGid(selectedVariant.id)],
@@ -148,7 +150,7 @@ export function ProductForm({
           currency: selectedVariant.price.currencyCode,
           numItems: quantity,
         });
-        window.location.assign(decorateCheckoutUrl(checkoutUrl));
+        window.location.assign(decorateCheckoutUrl(result.checkoutUrl));
       } catch (err) {
         setError(
           err instanceof Error ? err.message : dict.products.checkoutError,
