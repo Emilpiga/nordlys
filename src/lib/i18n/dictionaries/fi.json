@@ -198,7 +198,8 @@
       "size": "Koko",
       "shown": "Näytetään {shown}/{total}",
       "loadMore": "Näytä lisää"
-    }
+    },
+    "similarTitle": "Samankaltaisia"
   },
   "trust": {
     "shippingMore": "Lisää toimituksesta",

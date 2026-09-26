@@ -198,7 +198,8 @@
       "size": "Størrelse",
       "shown": "Viser {shown} av {total}",
       "loadMore": "Vis flere"
-    }
+    },
+    "similarTitle": "Lignende"
   },
   "trust": {
     "shippingMore": "Mer om frakt",

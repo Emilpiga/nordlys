@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { AmbientSection, SectionRule } from "@/components/section";
 import { JsonLd } from "@/components/json-ld";
 import { ProductCard } from "@/components/product-card";
+import { ProductCarousel } from "@/components/product-carousel";
 import { ProductPurchase } from "@/components/product-purchase";
 import { ProductRating } from "@/components/product-rating";
 import { ProductReviews } from "@/components/product-reviews";
@@ -17,6 +18,7 @@ import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
 import { buildBreadcrumbJsonLd, buildProductJsonLd } from "@/lib/json-ld";
 import { getReviewSummary } from "@/lib/reviews";
+import { isApparel } from "@/lib/size-guide";
 import { getProductByHandle, getCollectionByHandle, getProducts } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
 import { getSiteUrl } from "@/lib/site-url";
@@ -126,9 +128,21 @@ export default async function ProductPage({ params, searchParams }: Props) {
     }
   }
 
-  const related = (collection?.products ?? catalog)
-    .filter((item) => item.id !== product.id)
-    .slice(0, 4);
+  const others = (collection?.products ?? catalog).filter(
+    (item) => item.id !== product.id,
+  );
+  // "Liknande": same Shopify product type in the same collection (coat →
+  // other Ytterkläder in Dam). Clothing only — home goods mostly carry the
+  // placeholder type "Home page" or their room's name, which say nothing
+  // about similarity. Shown from two matches up.
+  const similarMatches = isApparel(product.productType)
+    ? others
+        .filter((item) => item.productType === product.productType)
+        .slice(0, 8)
+    : [];
+  const similar = similarMatches.length >= 2 ? similarMatches : [];
+  const similarIds = new Set(similar.map((item) => item.id));
+  const related = others.filter((item) => !similarIds.has(item.id)).slice(0, 4);
 
   const { lead, rest: detailsHtml } = splitDescriptionLead(
     sanitizeDescriptionHtml(product.descriptionHtml),
@@ -211,6 +225,22 @@ export default async function ProductPage({ params, searchParams }: Props) {
           )
         }
       />
+
+      {similar.length > 0 ? (
+        <>
+          <SectionRule />
+          <AmbientSection className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
+            <h2 className="mb-8 font-display text-3xl font-medium tracking-tight sm:mb-10 sm:text-4xl">
+              {dict.products.similarTitle}
+            </h2>
+            <ProductCarousel
+              products={similar}
+              prevLabel={dict.home.featuredPrev}
+              nextLabel={dict.home.featuredNext}
+            />
+          </AmbientSection>
+        </>
+      ) : null}
 
       {getReviewSummary(product.handle) ? (
         <>
