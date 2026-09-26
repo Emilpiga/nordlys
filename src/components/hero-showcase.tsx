@@ -186,7 +186,7 @@ export function HeroShowcase({
       />
 
       <div
-        className="relative z-10 w-full px-5 pb-10 pt-16 sm:px-8 sm:pb-12 md:px-12 md:py-20 lg:px-16"
+        className="relative z-10 w-full px-5 pb-8 pt-12 sm:px-8 sm:pb-12 sm:pt-16 md:px-12 md:py-20 lg:px-16"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}
@@ -238,7 +238,7 @@ export function HeroShowcase({
             </p>
           )}
 
-          <h1 className="animate-rise delay-1 mt-5 font-display text-[2.05rem] font-medium leading-[1.12] tracking-tight text-foreground sm:mt-6 sm:text-[2.55rem] md:text-[2.85rem]">
+          <h1 className="animate-rise delay-1 mt-4 font-display text-[2.05rem] font-medium leading-[1.12] tracking-tight text-foreground sm:mt-6 sm:text-[2.55rem] md:text-[2.85rem]">
             <Crossfade
               order={order}
               active={activeTheme}
@@ -247,7 +247,7 @@ export function HeroShowcase({
             />
           </h1>
 
-          <p className="animate-rise delay-2 mt-5 max-w-sm text-base font-light leading-relaxed text-muted">
+          <p className="animate-rise delay-2 mt-3 max-w-sm text-base font-light leading-relaxed text-muted sm:mt-5">
             <Crossfade
               order={order}
               active={activeTheme}
@@ -255,7 +255,7 @@ export function HeroShowcase({
             />
           </p>
 
-          <div className="animate-rise delay-3 mt-9 flex flex-wrap gap-3">
+          <div className="animate-rise delay-3 mt-6 flex flex-wrap gap-3 sm:mt-9">
             <Crossfade
               order={order}
               active={activeTheme}
@@ -270,9 +270,12 @@ export function HeroShowcase({
               )}
             />
             {secondaryCta && secondaryCtaHref ? (
-              <HeroCta href={secondaryCtaHref} className="btn-secondary">
-                {secondaryCta}
-              </HeroCta>
+              // Hidden on phones: "Till hela sortimentet" sits right below.
+              <span className="hidden sm:contents">
+                <HeroCta href={secondaryCtaHref} className="btn-secondary">
+                  {secondaryCta}
+                </HeroCta>
+              </span>
             ) : null}
           </div>
         </div>

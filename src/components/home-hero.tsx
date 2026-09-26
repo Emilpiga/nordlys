@@ -30,7 +30,7 @@ export function HomeHero({
 }: HomeHeroProps) {
   return (
     <section
-      className="relative flex min-h-[max(22rem,calc(80svh-var(--header-height)-var(--announcement-height)))] flex-col justify-end overflow-hidden md:justify-center"
+      className="relative flex flex-col justify-end overflow-hidden md:min-h-[max(22rem,calc(80svh-var(--header-height)-var(--announcement-height)))] md:justify-center"
       aria-label={alt}
     >
       {images.length > 0 ? (
