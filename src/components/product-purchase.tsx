@@ -25,17 +25,9 @@ export function ProductPurchase({
   wishlistSaved = false,
 }: ProductPurchaseProps) {
   const [activeImageUrl, setActiveImageUrl] = useState<string | null>(null);
-  const [imageRequest, setImageRequest] = useState<{
-    id: number;
-    url: string;
-  } | null>(null);
 
   const onVariantChange = useCallback((variant: ProductVariant | null) => {
     setActiveImageUrl(variant?.image?.url ?? null);
-  }, []);
-
-  const onImageSelect = useCallback((url: string) => {
-    setImageRequest((current) => ({ id: (current?.id ?? 0) + 1, url }));
   }, []);
 
   return (
@@ -45,7 +37,6 @@ export function ProductPurchase({
           images={gallery}
           productTitle={product.title}
           activeImageUrl={activeImageUrl}
-          onImageSelect={onImageSelect}
         />
       </div>
 
@@ -56,7 +47,6 @@ export function ProductPurchase({
             product={product}
             initialVariantId={initialVariantId}
             onVariantChange={onVariantChange}
-            imageRequest={imageRequest}
             wishlistSaved={wishlistSaved}
           />
         </div>

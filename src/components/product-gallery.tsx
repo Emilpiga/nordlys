@@ -11,8 +11,6 @@ type ProductGalleryProps = {
   productTitle: string;
   /** Prefer this image when a variant with its own media is selected. */
   activeImageUrl?: string | null;
-  /** Called when the shopper picks a photo, including in the lightbox. */
-  onImageSelect?: (url: string) => void;
 };
 
 /** Shopify serves one photo under URLs that differ only in `?v=`. */
@@ -43,7 +41,6 @@ export function ProductGallery({
   images,
   productTitle,
   activeImageUrl = null,
-  onImageSelect,
 }: ProductGalleryProps) {
   const { dict, t } = useDictionary();
   const expandRef = useRef<HTMLButtonElement>(null);
@@ -81,8 +78,6 @@ export function ProductGallery({
 
   function selectIndex(index: number) {
     setActiveIndex(index);
-    const image = galleryImages[index];
-    if (image) onImageSelect?.(image.url);
   }
 
   const active = galleryImages[activeIndex] ?? galleryImages[0];
