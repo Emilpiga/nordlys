@@ -45,12 +45,12 @@ export default async function CartPage({ params }: Props) {
 
   return (
     <div>
-      <div className="mx-auto w-full max-w-6xl px-5 pt-12 sm:px-8 sm:pt-16">
+      <div className="mx-auto w-full max-w-6xl px-5 pt-8 sm:px-8 sm:pt-16">
         <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
           {t(dict.cart.eyebrow, { brand: shopifyConfig.storeName })}
         </p>
         <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
-          <h1 className="font-display text-5xl font-medium tracking-tight sm:text-6xl">
+          <h1 className="font-display text-4xl font-medium tracking-tight sm:text-6xl">
             {dict.cart.title}
           </h1>
           {itemLabel ? (
@@ -94,7 +94,7 @@ export default async function CartPage({ params }: Props) {
           ) : null}
         </section>
       ) : (
-        <section className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
+        <section className="mx-auto w-full max-w-6xl px-5 py-6 sm:px-8 sm:py-14">
           <CartView cart={cart} />
           <div className="mt-10">
             <Link

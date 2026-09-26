@@ -39,10 +39,23 @@ export function CartView({ cart }: CartViewProps) {
 
   return (
     <div
-      className={`grid gap-12 lg:grid-cols-[1.35fr_0.85fr] lg:gap-16 ${
+      className={`grid grid-cols-1 gap-6 sm:gap-12 lg:grid-cols-[1.35fr_0.85fr] lg:gap-16 ${
         isPending ? "opacity-70 transition-opacity" : ""
       }`}
     >
+      {/* Mobile: total and checkout before the list, not after every line. */}
+      <div className="flex items-center justify-between gap-4 border border-border/70 p-4 lg:hidden">
+        <div>
+          <p className="text-xs font-light text-muted">{dict.cart.total}</p>
+          <p className="font-display text-xl font-medium tracking-tight tabular-nums">
+            {formatMoney(cart.cost.totalAmount, locale)}
+          </p>
+        </div>
+        <CheckoutButton cart={cart} className="btn-primary shrink-0">
+          {dict.cart.checkout}
+        </CheckoutButton>
+      </div>
+
       <ul className="divide-y divide-border/70 border-y border-border/70">
         {cart.lines.map((line) => {
           const image =
@@ -55,7 +68,7 @@ export function CartView({ cart }: CartViewProps) {
           return (
             <li
               key={line.id}
-              className="grid grid-cols-[72px_1fr] gap-4 py-6 sm:grid-cols-[88px_1fr] sm:gap-5"
+              className="grid grid-cols-[72px_minmax(0,1fr)] gap-4 py-5 sm:grid-cols-[88px_minmax(0,1fr)] sm:gap-5 sm:py-6"
             >
               <LocaleLink
                 href={`/products/${line.merchandise.product.handle}`}
@@ -77,22 +90,22 @@ export function CartView({ cart }: CartViewProps) {
                   <div className="min-w-0">
                     <LocaleLink
                       href={`/products/${line.merchandise.product.handle}`}
-                      className="font-display text-2xl font-medium leading-tight tracking-tight transition hover:text-accent"
+                      className="line-clamp-2 font-display text-base font-medium leading-snug tracking-tight transition hover:text-accent sm:text-2xl sm:leading-tight"
                     >
                       {line.merchandise.product.title}
                     </LocaleLink>
                     {options ? (
-                      <p className="mt-2 text-sm font-light text-muted">
+                      <p className="mt-1 text-sm font-light text-muted sm:mt-2">
                         {options}
                       </p>
                     ) : null}
-                    <p className="mt-2 text-sm font-light text-muted">
+                    <p className="mt-1 text-sm font-light text-muted sm:mt-2">
                       {t(dict.cart.each, {
                         price: formatMoney(line.merchandise.price, locale),
                       })}
                     </p>
                   </div>
-                  <p className="shrink-0 font-display text-xl font-medium tracking-tight">
+                  <p className="shrink-0 font-display text-base font-medium tracking-tight tabular-nums sm:text-xl">
                     {formatMoney(line.cost.totalAmount, locale)}
                   </p>
                 </div>
