@@ -15,7 +15,6 @@ import { useDictionary } from "@/components/dictionary-provider";
 import {
   activeFilterCount,
   catalogPriceStep,
-  paginationItems,
   resolvedPriceRange,
   sanitizeFilters,
   SORT_KEYS,
@@ -49,6 +48,10 @@ function FilterHeading({ children }: { children: string }) {
 
 type FilterPanelProps = {
   collections: CollectionSummary[];
+  /** Collection page: list only this collection's branch (e.g. Kläder → Dam, Herr). */
+  scopeHandle?: string;
+  /** Size values to offer as chips (exact Shopify values). */
+  sizes?: string[];
   filters: CatalogFilters;
   bounds: PriceBounds;
   currencyCode: string;
@@ -58,6 +61,8 @@ type FilterPanelProps = {
 
 export function FilterPanel({
   collections,
+  scopeHandle,
+  sizes = [],
   filters,
   bounds,
   currencyCode,
@@ -68,11 +73,15 @@ export function FilterPanel({
   const copy = dict.products.filters;
   const current = sanitizeFilters(filters, bounds);
   const price = resolvedPriceRange(current, bounds);
-  const canClear = activeFilterCount(current, bounds) > 0;
+  const canClear =
+    activeFilterCount(current, bounds, {
+      ignoreCollection: Boolean(scopeHandle),
+    }) > 0;
   const tree = useMemo(
-    () => collectionFilterTree(collections),
-    [collections],
+    () => scopedTree(collectionFilterTree(collections), scopeHandle),
+    [collections, scopeHandle],
   );
+  const scopeRoot = scopeHandle ? (tree[0]?.collection.handle ?? null) : null;
   const [openBranches, setOpenBranches] = useState<ReadonlySet<string>>(
     () => new Set(branchesToReveal(tree, current.collection)),
   );
@@ -99,20 +108,25 @@ export function FilterPanel({
 
   return (
     <div className="space-y-8">
-      <div className="flex items-end justify-between gap-3">
-        {showHeading ? <FilterHeading>{copy.title}</FilterHeading> : (
-          <div className="h-px flex-1 bg-border/70" />
-        )}
-        {canClear ? (
-          <button
-            type="button"
-            onClick={() => onChange({ ...filters, ...emptyKeepSort(filters) })}
-            className="shrink-0 text-[0.62rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground"
-          >
-            {copy.clear}
-          </button>
-        ) : null}
-      </div>
+      {showHeading || canClear ? (
+        <div className="flex items-end justify-between gap-3">
+          {showHeading ? <FilterHeading>{copy.title}</FilterHeading> : <span />}
+          {canClear ? (
+            <button
+              type="button"
+              onClick={() =>
+                onChange({
+                  ...emptyKeepSort(filters),
+                  collection: scopeHandle ?? null,
+                })
+              }
+              className="shrink-0 text-[0.62rem] font-medium tracking-[0.14em] uppercase text-muted underline underline-offset-4 transition hover:text-foreground"
+            >
+              {copy.clear}
+            </button>
+          ) : null}
+        </div>
+      ) : null}
 
       {tree.length > 0 ? (
         <fieldset className="min-w-0">
@@ -120,22 +134,58 @@ export function FilterPanel({
             <FilterHeading>{copy.category}</FilterHeading>
           </legend>
           <div>
-            <CollectionRow
-              label={copy.allCategories}
-              count={null}
-              active={!current.collection}
-              onSelect={() => onChange({ ...filters, collection: null })}
-            />
+            {scopeRoot ? null : (
+              <CollectionRow
+                label={copy.allCategories}
+                count={null}
+                active={!current.collection}
+                onSelect={() => onChange({ ...filters, collection: null })}
+              />
+            )}
             <CollectionTree
               nodes={tree}
               depth={0}
-              parentHandle={null}
+              parentHandle={scopeRoot}
               selected={current.collection}
               filters={filters}
               openBranches={openBranches}
               onToggle={toggleBranch}
               onChange={onChange}
             />
+          </div>
+        </fieldset>
+      ) : null}
+
+      {sizes.length > 0 ? (
+        <fieldset className="min-w-0">
+          <legend className="mb-3">
+            <FilterHeading>{copy.size}</FilterHeading>
+          </legend>
+          <div className="flex flex-wrap gap-2">
+            {sizes.map((size) => {
+              const checked = current.sizes.includes(size);
+              return (
+                <button
+                  key={size}
+                  type="button"
+                  role="checkbox"
+                  aria-checked={checked}
+                  onClick={() =>
+                    onChange({
+                      ...filters,
+                      sizes: checked
+                        ? filters.sizes.filter((value) => value !== size)
+                        : [...filters.sizes, size],
+                    })
+                  }
+                  className={`min-w-12 border px-3 py-2 text-center text-sm transition ${
+                    checked ? chipActive : chipIdle
+                  }`}
+                >
+                  {size}
+                </button>
+              );
+            })}
           </div>
         </fieldset>
       ) : null}
@@ -189,8 +239,26 @@ function emptyKeepSort(filters: CatalogFilters): CatalogFilters {
     max: null,
     sale: false,
     stock: false,
+    sizes: [],
     sort: filters.sort,
   };
+}
+
+/**
+ * On a collection page, only the branch it belongs to — Kläder with Dam and
+ * Herr — and nothing when it has no sub-collections. Elsewhere, everything.
+ */
+function scopedTree(
+  tree: CollectionTreeNode[],
+  scopeHandle: string | undefined,
+): CollectionTreeNode[] {
+  if (!scopeHandle) return tree;
+  const root = tree.find(
+    (node) =>
+      node.collection.handle === scopeHandle ||
+      collectionAncestorHandles(node.children, scopeHandle) !== null,
+  );
+  return root && root.children.length > 0 ? [root] : [];
 }
 
 function CollectionTree({
@@ -742,11 +810,14 @@ export function CollectionChips({
   collections,
   value,
   allCount,
+  scoped = false,
   onChange,
 }: {
   collections: CollectionSummary[];
   value: string | null;
   allCount: number | null;
+  /** Collection page: only sub-collection chips, none for a leaf collection. */
+  scoped?: boolean;
   onChange: (handle: string | null) => void;
 }) {
   const { dict } = useDictionary();
@@ -761,24 +832,32 @@ export function CollectionChips({
       : path && path.length >= 2
         ? path[path.length - 2]
         : null;
+  if (scoped && !menuParent) return null;
   const level = menuParent ? menuParent.children : tree;
+  // Up one level when there is a real parent (Dam → Kläder). At the top of
+  // a branch there is none: "Alla" already means the whole branch.
   const menuIndex = menuParent && path ? path.indexOf(menuParent) : -1;
-  const backNode = menuIndex > 0 ? path?.[menuIndex - 1] : null;
-  const backHandle = menuParent ? (backNode?.collection.handle ?? null) : null;
-  const backLabel = menuParent
-    ? (backNode?.collection.title ?? dict.products.filters.allCategories)
-    : null;
+  const parentNode = menuIndex > 0 ? path?.[menuIndex - 1] : null;
 
   return (
     <nav
       aria-label={dict.products.filters.category}
       className="flex flex-wrap gap-2"
     >
-      {menuParent ? (
+      {parentNode ? (
         <Chip
           active={false}
-          onClick={() => onChange(backHandle)}
-          label={`← ${backLabel}`}
+          onClick={() => onChange(parentNode.collection.handle)}
+          label={`← ${parentNode.collection.title}`}
+        />
+      ) : null}
+      {menuParent ? (
+        // "Alla" = everything in this branch (all of Kläder), not the shop.
+        <Chip
+          active={value === menuParent.collection.handle}
+          onClick={() => onChange(menuParent.collection.handle)}
+          label={dict.products.filters.allCategories}
+          count={menuParent.collection.productCount}
         />
       ) : (
         <Chip
@@ -1047,100 +1126,34 @@ export function SortControl({
   );
 }
 
-export function CatalogPagination({
+/** "Visa fler": the next link shows the first N + PAGE_SIZE products. */
+export function LoadMore({
   pageInfo,
   hrefForPage,
-  onNavigate,
 }: {
   pageInfo: CatalogPageInfo;
   hrefForPage: (page: number) => string;
-  onNavigate?: () => void;
 }) {
   const { dict, t } = useDictionary();
   const copy = dict.products.filters;
+  // Everything fit in the first step: the count above already says it all.
   if (pageInfo.pages <= 1) return null;
 
-  const items = paginationItems(pageInfo.page, pageInfo.pages);
-  const linkClass =
-    "px-3 py-2 text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted transition hover:text-foreground";
-
   return (
-    <nav
-      aria-label={t(copy.page, {
-        page: pageInfo.page,
-        pages: pageInfo.pages,
-      })}
-      className="mt-16 flex flex-col items-center gap-5 border-t border-border/60 pt-12"
-    >
+    <div className="mt-14 flex flex-col items-center gap-4">
       <p className="text-sm font-light tabular-nums text-muted">
-        {t(copy.page, {
-          page: pageInfo.page,
-          pages: pageInfo.pages,
-        })}
+        {t(copy.shown, { shown: pageInfo.to, total: pageInfo.total })}
       </p>
-      <div className="flex flex-wrap items-center justify-center gap-1">
-        {pageInfo.hasPreviousPage ? (
-          <Link
-            href={hrefForPage(pageInfo.page - 1)}
-            scroll={false}
-            onClick={onNavigate}
-            className={linkClass}
-          >
-            {copy.previous}
-          </Link>
-        ) : (
-          <span className={`${linkClass} cursor-not-allowed opacity-30`}>
-            {copy.previous}
-          </span>
-        )}
-
-        {items.map((item, index) =>
-          item === "gap" ? (
-            <span
-              key={`gap-${index}`}
-              aria-hidden
-              className="px-1.5 text-sm font-light text-muted/70"
-            >
-              …
-            </span>
-          ) : item === pageInfo.page ? (
-            <span
-              key={item}
-              aria-current="page"
-              className="min-w-9 bg-foreground px-2.5 py-2 text-center text-[0.68rem] font-medium tabular-nums text-[var(--on-accent)]"
-            >
-              {item}
-            </span>
-          ) : (
-            <Link
-              key={item}
-              href={hrefForPage(item)}
-              scroll={false}
-              onClick={onNavigate}
-              aria-label={t(copy.goToPage, { page: item })}
-              className="min-w-9 px-2.5 py-2 text-center text-[0.68rem] font-medium tabular-nums text-muted transition hover:text-foreground"
-            >
-              {item}
-            </Link>
-          ),
-        )}
-
-        {pageInfo.hasNextPage ? (
-          <Link
-            href={hrefForPage(pageInfo.page + 1)}
-            scroll={false}
-            onClick={onNavigate}
-            className={linkClass}
-          >
-            {copy.next}
-          </Link>
-        ) : (
-          <span className={`${linkClass} cursor-not-allowed opacity-30`}>
-            {copy.next}
-          </span>
-        )}
-      </div>
-    </nav>
+      {pageInfo.hasNextPage ? (
+        <Link
+          href={hrefForPage(pageInfo.page + 1)}
+          scroll={false}
+          className="btn-secondary min-w-56"
+        >
+          {copy.loadMore}
+        </Link>
+      ) : null}
+    </div>
   );
 }
 

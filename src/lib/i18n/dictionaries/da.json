@@ -190,16 +190,14 @@
       "inStock": "På lager",
       "countOne": "1 produkt",
       "countMany": "{count} produkter",
-      "range": "Viser {from}–{to} af {total}",
-      "page": "Side {page} af {pages}",
-      "previous": "Forrige",
-      "next": "Næste",
-      "goToPage": "Gå til side {page}",
       "emptyTitle": "Ingen match",
       "emptyBody": "Ingen produkter passer til disse filtre. Prøv at fjerne noget.",
       "emptyCta": "Ryd filtre",
       "active": "Aktive filtre",
-      "remove": "Fjern {label}"
+      "remove": "Fjern {label}",
+      "size": "Størrelse",
+      "shown": "Viser {shown} af {total}",
+      "loadMore": "Vis flere"
     }
   },
   "trust": {

@@ -190,16 +190,14 @@
       "inStock": "Varastossa",
       "countOne": "1 tuote",
       "countMany": "{count} tuotetta",
-      "range": "Näytetään {from}–{to} / {total}",
-      "page": "Sivu {page}/{pages}",
-      "previous": "Edellinen",
-      "next": "Seuraava",
-      "goToPage": "Siirry sivulle {page}",
       "emptyTitle": "Ei osumia",
       "emptyBody": "Mikään tuote ei vastaa näitä suodattimia. Kokeile poistaa jokin.",
       "emptyCta": "Tyhjennä suodattimet",
       "active": "Aktiiviset suodattimet",
-      "remove": "Poista {label}"
+      "remove": "Poista {label}",
+      "size": "Koko",
+      "shown": "Näytetään {shown}/{total}",
+      "loadMore": "Näytä lisää"
     }
   },
   "trust": {

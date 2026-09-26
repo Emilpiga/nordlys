@@ -190,16 +190,14 @@
       "inStock": "I lager",
       "countOne": "1 produkt",
       "countMany": "{count} produkter",
-      "range": "Visar {from}–{to} av {total}",
-      "page": "Sida {page} av {pages}",
-      "previous": "Föregående",
-      "next": "Nästa",
-      "goToPage": "Gå till sida {page}",
       "emptyTitle": "Inget matchade",
       "emptyBody": "Inga produkter passar de här filtren. Prova att ta bort något.",
       "emptyCta": "Rensa filter",
       "active": "Aktiva filter",
-      "remove": "Ta bort {label}"
+      "remove": "Ta bort {label}",
+      "size": "Storlek",
+      "shown": "Visar {shown} av {total}",
+      "loadMore": "Visa fler"
     }
   },
   "trust": {

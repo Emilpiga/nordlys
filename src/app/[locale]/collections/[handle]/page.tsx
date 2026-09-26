@@ -26,7 +26,13 @@ import { collectionTileHandles } from "@/lib/complements";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
 import { buildBreadcrumbJsonLd, buildCollectionJsonLd } from "@/lib/json-ld";
-import { getCatalogSlice, getCollectionByHandle, getCollections } from "@/lib/shopify";
+import { productHasSize, sizeFacet } from "@/lib/catalog-sizes";
+import {
+  getCatalogSlice,
+  getCollectionByHandle,
+  getCollectionProductsPage,
+  getCollections,
+} from "@/lib/shopify";
 import {
   catalogCollectionNav,
   isClothingBranchHandle,
@@ -127,19 +133,43 @@ export default async function CollectionPage({ params, searchParams }: Props) {
   };
   const bounds = catalogPriceBounds(collection.products);
   const sort = shopifySortFromFilters(filters);
-  const slice = await getCatalogSlice({
-    page: requestedPage,
-    pageSize: PAGE_SIZE,
-    collectionHandle: collection.handle,
-    sortKey: sort.sortKey,
-    collectionSortKey: sort.collectionSortKey,
-    reverse: sort.reverse,
-    filters: buildCollectionProductFilters(filters, bounds),
-    locale,
-  });
+  const sizes = sizeFacet(collection.products);
+  const limit = Math.min(requestedPage * PAGE_SIZE, 250);
+  const shopifyFilters = buildCollectionProductFilters(filters, bounds);
+  // Shopify can't filter on size for this store, so a size filter runs over
+  // the whole (sorted) collection here; otherwise Shopify returns the first
+  // `limit` products directly.
+  const slice =
+    filters.sizes.length > 0
+      ? await getCollectionProductsPage({
+          handle: collection.handle,
+          first: 250,
+          sortKey: sort.collectionSortKey,
+          reverse: sort.reverse,
+          filters: shopifyFilters,
+          locale,
+        }).then((page) => {
+          const matching = page.products.filter((product) =>
+            productHasSize(product, filters.sizes),
+          );
+          return {
+            products: matching.slice(0, limit),
+            total: matching.length,
+          };
+        })
+      : await getCatalogSlice({
+          page: 1,
+          pageSize: limit,
+          collectionHandle: collection.handle,
+          sortKey: sort.sortKey,
+          collectionSortKey: sort.collectionSortKey,
+          reverse: sort.reverse,
+          filters: shopifyFilters,
+          locale,
+        });
   const pageInfo = catalogPageInfo(
     slice.total,
-    slice.page,
+    requestedPage,
     slice.products.length,
   );
 
@@ -156,22 +186,20 @@ export default async function CollectionPage({ params, searchParams }: Props) {
   const site = getSiteUrl();
   const collectionUrl = `${site}${localePath(locale, `/collections/${encodeURIComponent(collection.handle)}`)}`;
   const faceted = hasFacetQuery(query);
-  const tiles =
-    pageInfo.page === 1
-      ? collectionTileHandles(collection.handle).flatMap((handle) => {
-          const related = collections.find((item) => item.handle === handle);
-          return related && related.productCount > 0
-            ? [
-                {
-                  handle: related.handle,
-                  title: related.title,
-                  intro: related.description,
-                  image: related.image,
-                },
-              ]
-            : [];
-        })
+  // On every "Visa fler" step, so the grid doesn't reshuffle as it grows.
+  const tiles = collectionTileHandles(collection.handle).flatMap((handle) => {
+    const related = collections.find((item) => item.handle === handle);
+    return related && related.productCount > 0
+      ? [
+          {
+            handle: related.handle,
+            title: related.title,
+            intro: related.description,
+            image: related.image,
+          },
+        ]
       : [];
+  });
   const guide =
     !faceted && pageInfo.page === 1
       ? getCollectionCopy(collection.handle, locale)?.body
@@ -226,6 +254,7 @@ export default async function CollectionPage({ params, searchParams }: Props) {
         pageInfo={pageInfo}
         bounds={bounds}
         collectionHandle={collection.handle}
+        sizes={sizes}
         tiles={tiles}
       />
       {guide?.length ? (

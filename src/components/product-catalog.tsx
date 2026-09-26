@@ -9,11 +9,11 @@ import {
 } from "@/components/collection-tile";
 import { ProductCard } from "@/components/product-card";
 import {
-  CatalogPagination,
   CollectionChips,
   FilterButton,
   FilterDrawer,
   FilterPanel,
+  LoadMore,
   SortControl,
 } from "@/components/product-filters";
 import {
@@ -42,6 +42,8 @@ type ProductCatalogProps = {
   bounds?: PriceBounds;
   /** When set, this catalog is a collection landing — facets stay on this path. */
   collectionHandle?: string;
+  /** Size values offered as a filter (exact Shopify values). */
+  sizes?: string[];
   /** Related collections woven into the grid (after the 8th and 16th product). */
   tiles?: CollectionTileData[];
 };
@@ -57,6 +59,7 @@ export function ProductCatalog({
   pageInfo,
   bounds: boundsProp,
   collectionHandle,
+  sizes = [],
   tiles = [],
 }: ProductCatalogProps) {
   const { dict, t, locale } = useDictionary();
@@ -96,14 +99,6 @@ export function ProductCatalog({
       : pageInfo.total === 1
         ? copy.countOne
         : t(copy.countMany, { count: pageInfo.total });
-  const headerLabel =
-    pageInfo.pages > 1
-      ? t(copy.range, {
-          from: pageInfo.from,
-          to: pageInfo.to,
-          total: pageInfo.total,
-        })
-      : countLabel;
 
   useEffect(() => {
     const parsed = parseFilters(initialQuery);
@@ -201,6 +196,8 @@ export function ProductCatalog({
   const panel = (
     <FilterPanel
       collections={collections}
+      scopeHandle={collectionHandle}
+      sizes={sizes}
       filters={current}
       bounds={bounds}
       currencyCode={currencyCode}
@@ -224,21 +221,14 @@ export function ProductCatalog({
         <p className="mt-5 text-base font-light leading-relaxed text-muted">
           {description}
         </p>
-        <p className="mt-3 text-sm font-light tabular-nums text-muted">
-          {countLabel}
-        </p>
 
         <div className="mt-8 hidden w-full md:block">{panel}</div>
       </aside>
 
       <div className="min-w-0 flex-1 px-5 py-8 sm:px-8 md:py-12 lg:px-10">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-          <p
-            className={`text-sm font-light tabular-nums text-muted ${
-              pageInfo.pages <= 1 ? "md:sr-only" : ""
-            }`}
-          >
-            {headerLabel}
+          <p className="text-sm font-light tabular-nums text-muted">
+            {countLabel}
           </p>
           <div className="flex items-center gap-2">
             <FilterButton
@@ -257,6 +247,7 @@ export function ProductCatalog({
             collections={collections}
             value={current.collection}
             allCount={null}
+            scoped={Boolean(collectionHandle)}
             onChange={(collection) => changeFilters({ ...current, collection })}
           />
         </div>
@@ -279,7 +270,7 @@ export function ProductCatalog({
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-2 gap-x-5 gap-y-12 lg:grid-cols-4 lg:gap-x-6">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-5 sm:gap-y-12 lg:grid-cols-4 lg:gap-x-6">
               {products.map((product, index) => {
                 const slot = TILE_SLOTS.indexOf(index);
                 const tile = slot >= 0 ? tiles[slot] : undefined;
@@ -308,16 +299,7 @@ export function ProductCatalog({
                   />
                 ))}
             </div>
-            <CatalogPagination
-              pageInfo={pageInfo}
-              hrefForPage={hrefForPage}
-              onNavigate={() =>
-                catalogRef.current?.scrollIntoView({
-                  behavior: "smooth",
-                  block: "start",
-                })
-              }
-            />
+            <LoadMore pageInfo={pageInfo} hrefForPage={hrefForPage} />
           </>
         )}
       </div>
@@ -327,14 +309,7 @@ export function ProductCatalog({
         onClose={() => setDrawerOpen(false)}
         resultLabel={countLabel}
       >
-        <FilterPanel
-          collections={collections}
-          filters={current}
-          bounds={bounds}
-          currencyCode={currencyCode}
-          showHeading={false}
-          onChange={changeFilters}
-        />
+        {panel}
       </FilterDrawer>
     </section>
   );

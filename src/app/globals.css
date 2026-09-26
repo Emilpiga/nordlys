@@ -15,7 +15,8 @@
   --frost: #f7f5f1;
   --header-height: 4.25rem;
   --announcement-height: 2.25rem;
-  --rail-width: min(38rem, 46vw);
+  /* Left rail: catalog filters, header logo column, footer, home guide. */
+  --rail-width: clamp(16rem, 24vw, 21rem);
 }
 
 @theme inline {

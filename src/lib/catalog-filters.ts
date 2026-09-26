@@ -10,7 +10,8 @@ export const SORT_KEYS = [
 
 export type SortKey = (typeof SORT_KEYS)[number];
 
-export const PAGE_SIZE = 12;
+/** Products per "Visa fler" step; `?page=N` shows the first N × PAGE_SIZE. */
+export const PAGE_SIZE = 24;
 
 export type CatalogQuery = Record<string, string | string[] | undefined>;
 
@@ -20,6 +21,8 @@ export type CatalogFilters = {
   max: number | null;
   sale: boolean;
   stock: boolean;
+  /** Exact Shopify size values, e.g. ["M", "L"]. */
+  sizes: string[];
   sort: SortKey;
 };
 
@@ -45,6 +48,7 @@ export function emptyFilters(): CatalogFilters {
     max: null,
     sale: false,
     stock: false,
+    sizes: [],
     sort: "featured",
   };
 }
@@ -74,6 +78,14 @@ export function parseFilters(query: CatalogQuery): CatalogFilters {
     max: parseNumber(first(query.max)),
     sale: first(query.sale) === "1",
     stock: first(query.stock) === "1",
+    sizes: [
+      ...new Set(
+        first(query.size)
+          .split(",")
+          .map((value) => value.trim())
+          .filter(Boolean),
+      ),
+    ],
     sort: isSortKey(sortValue) ? sortValue : "featured",
   };
 }
@@ -97,12 +109,17 @@ export function serializeFilters(
   if (next.max != null) params.set("max", String(next.max));
   if (next.sale) params.set("sale", "1");
   if (next.stock) params.set("stock", "1");
+  if (next.sizes.length) params.set("size", next.sizes.join(","));
   if (next.sort !== "featured") params.set("sort", next.sort);
   if (extras?.page && extras.page > 1) params.set("page", String(extras.page));
 
   return params.toString();
 }
 
+/**
+ * `page` counts "Visa fler" steps: the grid shows products 1 … `to`.
+ * `pages` is how many steps it takes to show everything.
+ */
 export function catalogPageInfo(
   total: number,
   page: number,
@@ -113,21 +130,16 @@ export function catalogPageInfo(
   const pages =
     safeTotal === 0 ? 0 : Math.max(1, Math.ceil(safeTotal / pageSize));
   const current = pages === 0 ? 1 : Math.min(Math.max(1, page), pages);
-  const from =
-    safeTotal === 0 || visible === 0 ? 0 : (current - 1) * pageSize + 1;
-  const to =
-    safeTotal === 0 || visible === 0
-      ? 0
-      : Math.min(safeTotal, from + visible - 1);
+  const to = Math.min(safeTotal, visible);
 
   return {
     page: current,
     pages,
     total: safeTotal,
-    from,
+    from: to === 0 ? 0 : 1,
     to,
-    hasNextPage: pages > 0 && current < pages,
-    hasPreviousPage: current > 1,
+    hasNextPage: to < safeTotal,
+    hasPreviousPage: false,
   };
 }
 
@@ -160,6 +172,7 @@ export function isCollectionLanding(
     next.max == null &&
     !next.sale &&
     !next.stock &&
+    next.sizes.length === 0 &&
     next.sort === "featured"
   );
 }
@@ -217,10 +230,11 @@ export function activeFilterCount(
   if (price.min > bounds.min || price.max < bounds.max) count += 1;
   if (next.sale) count += 1;
   if (next.stock) count += 1;
+  count += next.sizes.length;
   return count;
 }
 
-/** Price / sale / stock / sort / page — not the collection itself. */
+/** Price / sale / stock / size / sort / page — not the collection itself. */
 export function hasFacetQuery(query: CatalogQuery) {
   const filters = parseFilters(query);
   return (
@@ -228,6 +242,7 @@ export function hasFacetQuery(query: CatalogQuery) {
     filters.max != null ||
     filters.sale ||
     filters.stock ||
+    filters.sizes.length > 0 ||
     filters.sort !== "featured" ||
     parsePage(query) > 1
   );
@@ -307,24 +322,6 @@ export function buildCollectionProductFilters(
   }
 
   return result;
-}
-
-export function paginationItems(current: number, pages: number) {
-  if (pages <= 1) return pages === 1 ? [1] : [];
-  if (pages <= 9) {
-    return Array.from({ length: pages }, (_, index) => index + 1);
-  }
-
-  const items: (number | "gap")[] = [1];
-  const start = Math.max(2, current - 1);
-  const end = Math.min(pages - 1, current + 1);
-
-  if (start > 2) items.push("gap");
-  for (let page = start; page <= end; page += 1) items.push(page);
-  if (end < pages - 1) items.push("gap");
-  items.push(pages);
-
-  return items;
 }
 
 /** Kept for any remaining client-side helpers. */

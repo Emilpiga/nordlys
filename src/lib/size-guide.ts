@@ -37,10 +37,15 @@ function normalizeSize(value: string): LetterSize | null {
 
 const SIZE_OPTION = /^(storlek|størrelse|koko|size)$/i;
 
+/** The size option's name in any of our languages ("Storlek", "Koko" …). */
+export function isSizeOptionName(name: string) {
+  return SIZE_OPTION.test(name.trim());
+}
+
 /** A size option with letter sizes (S, M, L …) — i.e. clothing, not "15 × 25 cm". */
 export function isLetterSizeOption(name: string, values: string[]) {
   return (
-    SIZE_OPTION.test(name.trim()) &&
+    isSizeOptionName(name) &&
     values.length > 0 &&
     values.every((value) => normalizeSize(value) !== null)
   );

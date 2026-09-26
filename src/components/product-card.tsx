@@ -131,7 +131,9 @@ export function ProductCard({
               type="button"
               onClick={onQuickView}
               aria-label={dict.products.quickView}
-              className="group/qv relative inline-flex h-9 w-9 items-center justify-center bg-[color-mix(in_oklab,var(--frost)_92%,white)] text-foreground shadow-sm transition hover:text-accent"
+              // Desktop only: on a phone the card is too small for two
+              // buttons, and tapping through to the product is quicker.
+              className="group/qv relative hidden h-9 w-9 md:inline-flex items-center justify-center bg-[color-mix(in_oklab,var(--frost)_92%,white)] text-foreground shadow-sm transition hover:text-accent"
             >
               <EyeIcon />
               <span className="pointer-events-none absolute right-full top-1/2 mr-2 hidden -translate-y-1/2 whitespace-nowrap bg-foreground px-2 py-1 text-[0.62rem] font-medium tracking-[0.12em] uppercase text-on-accent opacity-0 transition group-hover/qv:opacity-100 md:block">
@@ -143,9 +145,9 @@ export function ProductCard({
 
         <LocaleLink
           href={`/products/${product.handle}`}
-          className="mt-4 flex flex-col gap-1 px-0.5 focus-visible:outline-none"
+          className="mt-3 flex flex-col gap-1 px-0.5 focus-visible:outline-none sm:mt-4"
         >
-          <h3 className="font-display text-xl font-medium leading-tight tracking-tight transition group-hover:text-accent">
+          <h3 className="line-clamp-2 font-display text-base font-medium leading-snug tracking-tight transition group-hover:text-accent sm:text-lg md:text-xl md:leading-tight">
             {product.title}
           </h3>
           <ProductRating handle={product.handle} />

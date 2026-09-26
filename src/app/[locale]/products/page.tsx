@@ -107,8 +107,8 @@ export default async function ProductsPage({ params, searchParams }: Props) {
   const sort = shopifySortFromFilters(filters);
 
   const slice = await getCatalogSlice({
-    page: requestedPage,
-    pageSize: PAGE_SIZE,
+    page: 1,
+    pageSize: Math.min(requestedPage * PAGE_SIZE, 250),
     collectionHandle: filters.collection,
     sortKey: sort.sortKey,
     collectionSortKey: sort.collectionSortKey,
@@ -119,7 +119,7 @@ export default async function ProductsPage({ params, searchParams }: Props) {
   });
   const pageInfo = catalogPageInfo(
     slice.total,
-    slice.page,
+    requestedPage,
     slice.products.length,
   );
 
