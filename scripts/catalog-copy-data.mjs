@@ -2800,6 +2800,55 @@ export const catalogCopy = [
       { sourceName: "Size", name: SIZE, values: APPAREL_SIZE },
     ],
   }),
+
+  pack({
+    handle: "multifunctional-pillow-for-pregnant-women",
+    title: t(
+      "Gravidkudde för mage och rygg",
+      "Gravidpute for mage og rygg",
+      "Graviditetspude til mave og ryg",
+      "Raskaustyyny vatsalle ja selälle",
+    ),
+    metaTitle: t(
+      "Gravidkudde för mage och rygg",
+      "Gravidpute for mage og rygg",
+      "Graviditetspude til mave og ryg",
+      "Raskaustyyny vatsalle ja selälle",
+    ),
+    metaDescription: t(
+      "Gravidkudde med två kilar som stöttar magen och ryggen när du sover på sidan. Justerbar längd 65–80 cm, överdrag i bomull. 11 färger.",
+      "Gravidpute med to kiler som støtter magen og ryggen når du sover på siden. Justerbar lengde 65–80 cm, trekk i bomull. 11 farger.",
+      "Graviditetspude med to kiler, der støtter maven og ryggen, når du sover på siden. Justerbar længde 65–80 cm, betræk i bomuld. 11 farver.",
+      "Raskaustyyny, jonka kaksi kiilaa tukevat vatsaa ja selkää kyljellään nukkuessa. Säädettävä pituus 65–80 cm, puuvillapäällinen. 11 väriä.",
+    ),
+    body: t(
+      "<p>En gravidkudde med två kilar — en under magen och en mot ryggen — så att du ligger stadigt när du sover på sidan.</p><ul><li><strong>Stöd fram och bak.</strong> Ena kilen bär upp magen, den andra stöttar ryggen så att du inte rullar över på rygg.</li><li><strong>Justerbar längd.</strong> Med mittbandet ställer du in längden mellan 65 och 80 cm efter hur du ligger.</li><li><strong>Tar inte hela sängen.</strong> 40 cm bred och 15 cm hög — betydligt mindre än en helkroppskudde.</li></ul><p>Mått: 65–80 × 40 × 15 cm. Överdrag i bomull eller bomullsblandning beroende på färg, innerfodral i polypropen och fyllning av hålfiber. Välj färg ovan.</p>",
+      "<p>En gravidpute med to kiler — én under magen og én mot ryggen — så du ligger stødig når du sover på siden.</p><ul><li><strong>Støtte foran og bak.</strong> Den ene kilen bærer magen, den andre støtter ryggen så du ikke ruller over på ryggen.</li><li><strong>Justerbar lengde.</strong> Med midtbåndet stiller du inn lengden mellom 65 og 80 cm etter hvordan du ligger.</li><li><strong>Tar ikke hele sengen.</strong> 40 cm bred og 15 cm høy — betydelig mindre enn en helkroppspute.</li></ul><p>Mål: 65–80 × 40 × 15 cm. Trekk i bomull eller bomullsblanding avhengig av farge, innertrekk i polypropylen og fyll av hulfiber. Velg farge over.</p>",
+      "<p>En graviditetspude med to kiler — én under maven og én mod ryggen — så du ligger stabilt, når du sover på siden.</p><ul><li><strong>Støtte foran og bagpå.</strong> Den ene kile bærer maven, den anden støtter ryggen, så du ikke ruller om på ryggen.</li><li><strong>Justerbar længde.</strong> Med midterbåndet indstiller du længden mellem 65 og 80 cm efter, hvordan du ligger.</li><li><strong>Fylder ikke hele sengen.</strong> 40 cm bred og 15 cm høj — betydeligt mindre end en helkropspude.</li></ul><p>Mål: 65–80 × 40 × 15 cm. Betræk i bomuld eller bomuldsblanding afhængigt af farve, inderbetræk i polypropylen og fyld af hulfiber. Vælg farve ovenfor.</p>",
+      "<p>Raskaustyyny, jossa on kaksi kiilaa — toinen vatsan alle ja toinen selän taakse — joten pysyt tukevasti kyljelläsi nukkuessa.</p><ul><li><strong>Tuki edessä ja takana.</strong> Toinen kiila kannattelee vatsaa, toinen tukee selkää, ettet kierähdä selällesi.</li><li><strong>Säädettävä pituus.</strong> Keskinauhalla säädät pituuden 65–80 senttiin sen mukaan, miten makaat.</li><li><strong>Ei vie koko sänkyä.</strong> 40 cm leveä ja 15 cm korkea — selvästi pienempi kuin kokovartalotyyny.</li></ul><p>Mitat: 65–80 × 40 × 15 cm. Päällinen puuvillaa tai puuvillasekoitetta värin mukaan, sisäpäällinen polypropeenia ja täyte onttokuitua. Valitse väri yllä.</p>",
+    ),
+    options: [
+      {
+        sourceName: "Color",
+        name: COLOR,
+        // Supplier labels don't match the photos (e.g. "Khaki" is a pink check),
+        // so values name what the shopper actually sees.
+        values: {
+          Blue: t("Blårutig", "Blårutet", "Blåternet", "Siniruudullinen"),
+          "Blue pink": t("Vit med trianglar", "Hvit med trekanter", "Hvid med trekanter", "Valkoinen, kolmiokuvio"),
+          Green: t("Grönrutig", "Grønnrutet", "Grønternet", "Vihreäruudullinen"),
+          "Green  White": t("Grön med djurmönster", "Grønn med dyremønster", "Grøn med dyremønster", "Vihreä, eläinkuvio"),
+          Khaki: t("Rosarutig", "Rosarutet", "Rosaternet", "Vaaleanpunaruudullinen"),
+          Orange: t("Orangerutig", "Oransjerutet", "Orangeternet", "Oranssiruudullinen"),
+          Purple: t("Lila", "Lilla", "Lilla", "Liila"),
+          "Rose Red": t("Rosa", "Rosa", "Rosa", "Vaaleanpunainen"),
+          "Sky Blue": t("Turkos", "Turkis", "Turkis", "Turkoosi"),
+          White: t("Vit med prickar", "Hvit med prikker", "Hvid med prikker", "Valkoinen, pilkullinen"),
+          Yellow: t("Gul med ankor", "Gul med ender", "Gul med ænder", "Keltainen, ankkakuvio"),
+        },
+      },
+    ],
+  }),
 ];
 
 // Products that get a new slug stay reachable under the supplier handle too, so
