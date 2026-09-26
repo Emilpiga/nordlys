@@ -1,51 +1,34 @@
 /**
- * Shopify Admin → Settings → Customer events → Add custom pixel
+ * Shopify Admin → Settings → Customer events → Custom pixel "Google Ads Purchase"
+ * Must be Connected.
  *
- * Purchase must fire here: checkout runs on Shopify, not the Next.js storefront.
- * The storefront only sends view_item / add_to_cart / begin_checkout (no labeled
- * funnel conversions) plus a purchase backup on /order/confirmed.
+ * Google Shopping App Purchase (1):
+ *   send_to AW-18391431736/zMJHCLHuw-IcELj028FE
  *
- * 1. Paste this entire file into a custom pixel named "Google Ads Purchase"
- * 2. Permission: not required beyond Customer events defaults
- * 3. Connect the pixel (Customer events → Connect) so it runs on checkout / thank-you
- * 4. PURCHASE_LABEL must be the label from Google Ads → Google Shopping App Purchase
- *    (or your primary Website Purchase action) tag setup: AW-…/LABEL
- *
- * In Google & YouTube app → Conversion event settings → Checkout completed:
- * either keep Shopping App Purchase OR check "Add custom conversion ID/label"
- * with the same AW-…/LABEL. Only Purchase should be Primary in Ads.
- *
- * Keep Page view / Add to cart / Begin checkout secondary or unused for bidding.
+ * Note: Google does not officially support gtag inside Shopify custom pixels.
+ * We fire both gtag and the googleadservices conversion beacon so at least
+ * one path can register a tag ping on checkout_completed (Shopify thank-you).
  */
 
 const GOOGLE_ADS_ID = "AW-18391431736";
 const PURCHASE_LABEL = "zMJHCLHuw-IcELj028FE";
+const CONVERSION_ID = "18391431736";
 
 window.dataLayer = window.dataLayer || [];
 function gtag() {
   window.dataLayer.push(arguments);
 }
 
-function applyConsent(privacy) {
-  const marketing = Boolean(privacy?.marketingAllowed);
-  const analyticsAllowed = Boolean(privacy?.analyticsProcessingAllowed);
-  gtag("consent", "update", {
-    ad_storage: marketing ? "granted" : "denied",
-    ad_user_data: marketing ? "granted" : "denied",
-    ad_personalization: marketing ? "granted" : "denied",
-    analytics_storage: analyticsAllowed ? "granted" : "denied",
-  });
-}
+const privacy0 =
+  typeof init !== "undefined" ? init.customerPrivacy : null;
+const marketing0 = Boolean(privacy0 && privacy0.marketingAllowed);
+const analytics0 = Boolean(privacy0 && privacy0.analyticsProcessingAllowed);
 
-const initialPrivacy =
-  typeof init !== "undefined" ? init.customerPrivacy : undefined;
 gtag("consent", "default", {
-  ad_storage: initialPrivacy?.marketingAllowed ? "granted" : "denied",
-  ad_user_data: initialPrivacy?.marketingAllowed ? "granted" : "denied",
-  ad_personalization: initialPrivacy?.marketingAllowed ? "granted" : "denied",
-  analytics_storage: initialPrivacy?.analyticsProcessingAllowed
-    ? "granted"
-    : "denied",
+  ad_storage: marketing0 ? "granted" : "denied",
+  ad_user_data: marketing0 ? "granted" : "denied",
+  ad_personalization: marketing0 ? "granted" : "denied",
+  analytics_storage: analytics0 ? "granted" : "denied",
   wait_for_update: 500,
 });
 
@@ -54,105 +37,89 @@ if (
   api.customerPrivacy &&
   typeof api.customerPrivacy.subscribe === "function"
 ) {
-  api.customerPrivacy.subscribe("visitorConsentCollected", (event) => {
-    applyConsent(event.customerPrivacy);
+  api.customerPrivacy.subscribe("visitorConsentCollected", function (event) {
+    var p = event.customerPrivacy || {};
+    var m = Boolean(p.marketingAllowed);
+    var a = Boolean(p.analyticsProcessingAllowed);
+    gtag("consent", "update", {
+      ad_storage: m ? "granted" : "denied",
+      ad_user_data: m ? "granted" : "denied",
+      ad_personalization: m ? "granted" : "denied",
+      analytics_storage: a ? "granted" : "denied",
+    });
   });
 }
 
 gtag("js", new Date());
 gtag("config", GOOGLE_ADS_ID, { allow_enhanced_conversions: true });
 
-const script = document.createElement("script");
+var script = document.createElement("script");
 script.async = true;
-script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GOOGLE_ADS_ID)}`;
+script.src =
+  "https://www.googletagmanager.com/gtag/js?id=" +
+  encodeURIComponent(GOOGLE_ADS_ID);
 document.head.appendChild(script);
 
-function numericId(gid) {
-  const value = String(gid || "");
-  const parts = value.split("/");
-  return parts[parts.length - 1] || value;
+function txId(checkout) {
+  return (checkout.order && checkout.order.id) || checkout.token || "";
 }
 
-function checkoutItems(checkout) {
-  return (checkout.lineItems || [])
-    .map((item) => {
-      const id = numericId(item.variant?.id || item.id);
-      if (!id) return null;
-      const amount = Number(
-        item.variant?.price?.amount || item.finalLinePrice?.amount || 0,
-      );
-      return {
-        id,
-        item_id: id,
-        google_business_vertical: "retail",
-        item_name: item.title || item.variant?.title,
-        ...(Number.isFinite(amount) && amount > 0 ? { price: amount } : {}),
-        quantity: item.quantity || 1,
-      };
-    })
-    .filter(Boolean);
+/** Image/fetch beacon — often survives custom-pixel sandbox limits better than gtag alone. */
+function fireConversionBeacon(value, currency, transactionId) {
+  var params = new URLSearchParams({
+    label: PURCHASE_LABEL,
+    guid: "ON",
+    script: "0",
+    value: String(value),
+    currency_code: currency || "SEK",
+  });
+  if (transactionId) params.set("oid", String(transactionId));
+
+  var url =
+    "https://www.googleadservices.com/pagead/conversion/" +
+    CONVERSION_ID +
+    "/?" +
+    params.toString();
+
+  try {
+    var img = new Image(1, 1);
+    img.src = url;
+  } catch (e) {}
+
+  try {
+    fetch(url, { mode: "no-cors", keepalive: true, credentials: "omit" }).catch(
+      function () {},
+    );
+  } catch (e) {}
 }
 
-function userData(checkout) {
-  const email = String(checkout.email || "")
-    .trim()
-    .toLowerCase();
-  const phone =
-    checkout.phone ||
-    checkout.shippingAddress?.phone ||
-    checkout.billingAddress?.phone ||
-    "";
-  const addr = checkout.shippingAddress || checkout.billingAddress || {};
-  const data = {};
-  if (email) data.email = email;
-  if (phone) data.phone_number = String(phone).trim();
-  if (addr.firstName || addr.lastName || addr.address1 || addr.zip) {
-    data.address = {
-      first_name: addr.firstName,
-      last_name: addr.lastName,
-      street: addr.address1,
-      city: addr.city,
-      region: addr.province,
-      postal_code: addr.zip,
-      country: addr.countryCode,
-    };
-  }
-  return data;
-}
-
-function transactionId(checkout) {
-  return checkout.order?.id || checkout.token || "";
-}
-
-analytics.subscribe("checkout_completed", (event) => {
-  if (!GOOGLE_ADS_ID || !PURCHASE_LABEL) return;
-
-  const checkout = event.data.checkout;
+analytics.subscribe("checkout_completed", function (event) {
+  var checkout = event.data && event.data.checkout;
   if (!checkout) return;
 
-  const privacy =
-    typeof init !== "undefined" ? init.customerPrivacy : undefined;
-  const currency = checkout.currencyCode || checkout.totalPrice?.currencyCode;
-  const value = Number(checkout.totalPrice?.amount || 0);
-  const txid = transactionId(checkout);
-  const params = {
-    send_to: GOOGLE_ADS_ID,
-    value,
-    currency,
-    items: checkoutItems(checkout),
-    ...(txid ? { transaction_id: txid } : {}),
-  };
+  var currency =
+    checkout.currencyCode ||
+    (checkout.totalPrice && checkout.totalPrice.currencyCode) ||
+    "SEK";
+  var value = Number(
+    (checkout.totalPrice && checkout.totalPrice.amount) || 0,
+  );
+  if (!Number.isFinite(value) || value <= 0) value = 1.0;
+  var transactionId = txId(checkout);
 
-  const enhanced = userData(checkout);
-  if (Object.keys(enhanced).length && privacy?.marketingAllowed !== false) {
-    gtag("set", "user_data", enhanced);
+  var email = String(checkout.email || "")
+    .trim()
+    .toLowerCase();
+  if (email) {
+    gtag("set", "user_data", { email: email });
   }
 
-  gtag("event", "purchase", params);
   gtag("event", "conversion", {
-    send_to: `${GOOGLE_ADS_ID}/${PURCHASE_LABEL}`,
-    value,
-    currency,
-    ...(txid ? { transaction_id: txid } : {}),
+    send_to: GOOGLE_ADS_ID + "/" + PURCHASE_LABEL,
+    value: value,
+    currency: currency,
+    transaction_id: transactionId || undefined,
   });
+
+  fireConversionBeacon(value, currency, transactionId);
 });
