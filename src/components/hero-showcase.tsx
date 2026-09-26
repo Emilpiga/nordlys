@@ -199,7 +199,8 @@ export function HeroShowcase({
             <div
               role="group"
               aria-label={tabsLabel}
-              className="animate-rise flex items-center gap-6"
+              // A solid toggle: it sits on the photo, where thin text vanished.
+              className="animate-rise inline-flex border border-border/70 bg-[color-mix(in_oklab,var(--frost)_88%,transparent)] p-1 shadow-sm backdrop-blur-sm"
             >
               {order.map((theme) => {
                 const isActive = theme === activeTheme;
@@ -209,21 +210,19 @@ export function HeroShowcase({
                     type="button"
                     aria-pressed={isActive}
                     onClick={() => showTheme(theme)}
-                    className={`group relative py-2 text-[0.68rem] font-medium tracking-[0.2em] uppercase transition-colors duration-500 ${
-                      isActive ? "text-glow" : "text-muted hover:text-foreground"
+                    className={`relative min-w-24 overflow-hidden px-4 py-3 text-xs font-semibold tracking-[0.16em] uppercase transition-colors duration-500 ${
+                      isActive
+                        ? "bg-foreground text-[var(--on-accent)]"
+                        : "text-foreground/75 hover:text-foreground"
                     }`}
                   >
                     {themes[theme].label}
-                    <span
-                      aria-hidden
-                      className="absolute inset-x-0 bottom-0 h-px bg-foreground/15"
-                    />
                     {isActive ? (
                       <span
                         key={rotating ? index : "still"}
                         aria-hidden
                         style={progressStyle}
-                        className={`absolute inset-x-0 bottom-0 h-px origin-left bg-glow ${
+                        className={`absolute inset-x-0 bottom-0 h-0.5 origin-left bg-glow ${
                           rotating ? "hero-progress" : ""
                         }`}
                       />
