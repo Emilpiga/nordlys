@@ -711,3 +711,10 @@ body {
     display: none;
   }
 }
+
+/* Product page buy bar (mobile): keep the footer clear of it. */
+@media (max-width: 1023px) {
+  html.has-buy-bar body {
+    padding-bottom: 5rem;
+  }
+}

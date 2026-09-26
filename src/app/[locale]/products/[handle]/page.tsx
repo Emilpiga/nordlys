@@ -9,7 +9,10 @@ import { ProductRating } from "@/components/product-rating";
 import { ProductReviews } from "@/components/product-reviews";
 import { ProductViewTracker } from "@/components/product-view-tracker";
 import { getCustomerProfile } from "@/lib/customer-account";
-import { sanitizeDescriptionHtml } from "@/lib/description";
+import {
+  sanitizeDescriptionHtml,
+  splitDescriptionLead,
+} from "@/lib/description";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
 import { buildBreadcrumbJsonLd, buildProductJsonLd } from "@/lib/json-ld";
@@ -127,7 +130,9 @@ export default async function ProductPage({ params, searchParams }: Props) {
     .filter((item) => item.id !== product.id)
     .slice(0, 4);
 
-  const detailsHtml = sanitizeDescriptionHtml(product.descriptionHtml);
+  const { lead, rest: detailsHtml } = splitDescriptionLead(
+    sanitizeDescriptionHtml(product.descriptionHtml),
+  );
   const plainDescription = product.description.replace(/\s+/g, " ").trim();
   const parentHref = room
     ? localePath(locale, `/collections/${encodeURIComponent(room.handle)}`)
@@ -160,7 +165,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
         ]}
       />
       <ProductViewTracker product={product} variantId={variantParam} />
-      <div className="mx-auto w-full max-w-6xl px-5 pt-12 sm:px-8 sm:pt-16">
+      <div className="mx-auto w-full max-w-6xl px-5 pt-6 sm:px-8 sm:pt-16">
         <Link
           href={parentHref}
           className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted transition hover:text-foreground"
@@ -176,9 +181,14 @@ export default async function ProductPage({ params, searchParams }: Props) {
         wishlistSaved={wishlistSaved}
         header={
           <>
-            <h1 className="font-display text-[2.75rem] font-medium leading-[1.05] tracking-tight sm:text-6xl">
+            <h1 className="font-display text-[2rem] font-medium leading-[1.1] tracking-tight sm:text-6xl sm:leading-[1.05]">
               {product.title}
             </h1>
+            {lead ? (
+              <p className="mt-3 max-w-md text-base font-light leading-relaxed text-muted">
+                {lead}
+              </p>
+            ) : null}
             <div className="mt-4">
               <ProductRating
                 handle={product.handle}
@@ -194,7 +204,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
               className="product-description max-w-md text-base font-light leading-relaxed text-muted"
               dangerouslySetInnerHTML={{ __html: detailsHtml }}
             />
-          ) : (
+          ) : lead ? null : (
             <p className="max-w-md text-base font-light leading-relaxed text-muted">
               {plainDescription || dict.products.fallbackDescription}
             </p>

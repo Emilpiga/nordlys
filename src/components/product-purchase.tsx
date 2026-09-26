@@ -31,7 +31,7 @@ export function ProductPurchase({
   }, []);
 
   return (
-    <section className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:py-12 sm:px-8">
+    <section className="mx-auto grid w-full max-w-6xl gap-6 px-5 pt-4 pb-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:py-12 sm:px-8">
       <div className="animate-fade lg:sticky lg:top-28 lg:self-start">
         <ProductGallery
           images={gallery}
@@ -42,7 +42,7 @@ export function ProductPurchase({
 
       <div className="animate-rise lg:sticky lg:top-28 lg:self-start lg:py-4">
         <div>{header}</div>
-        <div className="mt-10 border-t border-border/70 pt-8">
+        <div className="mt-6 border-t border-border/70 pt-6 lg:mt-10 lg:pt-8">
           <ProductForm
             product={product}
             initialVariantId={initialVariantId}
@@ -50,7 +50,7 @@ export function ProductPurchase({
             wishlistSaved={wishlistSaved}
           />
         </div>
-        {details ? <div className="mt-10">{details}</div> : null}
+        {details ? <div className="mt-8 lg:mt-10">{details}</div> : null}
         {footer ? <div>{footer}</div> : null}
       </div>
     </section>

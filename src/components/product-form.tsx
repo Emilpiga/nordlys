@@ -1,6 +1,14 @@
 "use client";
 
-import { useEffect, useMemo, useState, useTransition } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  useTransition,
+} from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { addToCartAction, buyNowAction } from "@/app/actions/cart";
 import { useCart } from "@/components/cart-provider";
@@ -17,6 +25,7 @@ import {
   trackInitiateCheckout,
 } from "@/lib/ads-events";
 import { decorateCheckoutUrl } from "@/lib/ads-linker";
+import { formatMoney } from "@/lib/format";
 import { getPostHogIds } from "@/lib/posthog";
 import type { Product, ProductVariant } from "@/lib/shopify/types";
 import {
@@ -36,13 +45,17 @@ type ProductFormProps = {
 
 type PendingMode = "add" | "buy" | null;
 
+function subscribeNever() {
+  return () => {};
+}
+
 export function ProductForm({
   product,
   initialVariantId,
   onVariantChange,
   wishlistSaved = false,
 }: ProductFormProps) {
-  const { dict } = useDictionary();
+  const { dict, locale } = useDictionary();
   const router = useRouter();
   const { openCart, setCart } = useCart();
   const [isPending, startTransition] = useTransition();
@@ -60,6 +73,33 @@ export function ProductForm({
   }, [initialVariantId, product.variants]);
 
   const [selectedOptions, setSelectedOptions] = useState(initialOptions);
+
+  // Mobile buy bar: shown once the real buttons have scrolled up out of view.
+  const buttonsRef = useRef<HTMLDivElement>(null);
+  const [barVisible, setBarVisible] = useState(false);
+  useEffect(() => {
+    const buttons = buttonsRef.current;
+    if (!buttons) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      setBarVisible(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+    });
+    observer.observe(buttons);
+    return () => observer.disconnect();
+  }, []);
+
+  // The bar renders into <body>: the product column animates in with a
+  // transform, which would pin a fixed child to the column, not the screen.
+  const isClient = useSyncExternalStore(
+    subscribeNever,
+    () => true,
+    () => false,
+  );
+
+  // Room under the footer so the bar never covers the last line of the page.
+  useEffect(() => {
+    document.documentElement.classList.toggle("has-buy-bar", barVisible);
+    return () => document.documentElement.classList.remove("has-buy-bar");
+  }, [barVisible]);
 
   const selectedVariant = useMemo(
     () => findVariant(product.variants, selectedOptions),
@@ -149,7 +189,7 @@ export function ProductForm({
   const busy = isPending || pendingMode !== null;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 lg:space-y-8">
       <ProductPrice
         handle={product.handle}
         price={
@@ -216,7 +256,7 @@ export function ProductForm({
 
       <ProductViewingActivity productId={product.id} />
 
-      <div className="space-y-3">
+      <div ref={buttonsRef} className="space-y-3">
         <button
           type="button"
           disabled={soldOut || busy}
@@ -250,6 +290,47 @@ export function ProductForm({
       </div>
 
       {error ? <p className="text-sm text-red-700">{error}</p> : null}
+
+      {isClient
+        ? createPortal(
+            <div
+              inert={!barVisible}
+              className={`fixed inset-x-0 bottom-0 z-40 border-t border-border/70 bg-background/95 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur transition-transform duration-300 lg:hidden ${
+                barVisible ? "translate-y-0" : "translate-y-full"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-medium">{product.title}</p>
+                  <p className="truncate text-xs font-light text-muted">
+                    {[
+                      ...(selectedVariant?.selectedOptions ?? [])
+                        .filter((option) => option.value !== "Default Title")
+                        .map((option) => option.value),
+                      formatMoney(
+                        selectedVariant?.price ?? product.priceRange.minVariantPrice,
+                        locale,
+                      ),
+                    ].join(" · ")}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  disabled={soldOut || busy}
+                  onClick={onBuyNow}
+                  className="btn-primary shrink-0 disabled:cursor-not-allowed disabled:opacity-45"
+                >
+                  {soldOut
+                    ? dict.products.soldOut
+                    : pendingMode === "buy"
+                      ? dict.products.openingCheckout
+                      : dict.products.buyNow}
+                </button>
+              </div>
+            </div>,
+            document.body,
+          )
+        : null}
     </div>
   );
 }

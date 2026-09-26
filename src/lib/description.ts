@@ -35,3 +35,23 @@ export function sanitizeDescriptionHtml(html: string): string {
 
   return cleaned;
 }
+
+/**
+ * The description's opening paragraph as plain text, for a one-line summary
+ * under the title, plus the rest of the HTML. No lead when the description
+ * doesn't open with a short paragraph.
+ */
+export function splitDescriptionLead(html: string): {
+  lead: string | null;
+  rest: string;
+} {
+  const match = html.match(/^\s*<p>([\s\S]*?)<\/p>/i);
+  if (!match) return { lead: null, rest: html };
+  const lead = match[1]
+    .replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (lead.length < 20 || lead.length > 240) return { lead: null, rest: html };
+  return { lead, rest: html.slice(match[0].length).trim() };
+}

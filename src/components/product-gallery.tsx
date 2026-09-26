@@ -69,57 +69,107 @@ export function ProductGallery({
     return index >= 0 ? index : 0;
   }, [activeImageUrl, galleryImages]);
 
+  const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(preferredIndex);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
+  // The strip is the source of truth: moving it (swipe, thumbnail, colour,
+  // lightbox) fires a scroll event, and the scroll sets the active photo.
+  function scrollToIndex(index: number) {
+    const track = trackRef.current;
+    if (!track) return;
+    track.scrollTo({ left: index * track.clientWidth, behavior: "instant" });
+  }
+
   useEffect(() => {
-    setActiveIndex(preferredIndex);
+    scrollToIndex(preferredIndex);
   }, [preferredIndex]);
+
+  function onTrackScroll() {
+    const track = trackRef.current;
+    if (!track || track.clientWidth === 0) return;
+    const index = Math.round(track.scrollLeft / track.clientWidth);
+    if (index !== activeIndex) setActiveIndex(index);
+  }
 
   function selectIndex(index: number) {
     setActiveIndex(index);
+    scrollToIndex(index);
   }
 
-  const active = galleryImages[activeIndex] ?? galleryImages[0];
-
-  if (!active) {
+  if (galleryImages.length === 0) {
     return <div className="aspect-[4/5] bg-mist" />;
   }
 
   return (
     <div className="space-y-4">
-      <button
-        ref={expandRef}
-        type="button"
-        onClick={() => setLightboxOpen(true)}
-        aria-label={dict.products.expandImage}
-        className="group relative aspect-[4/5] w-full cursor-zoom-in overflow-hidden bg-mist"
-      >
-        <Image
-          key={active.url}
-          src={active.url}
-          alt={active.altText || productTitle}
-          fill
-          preload
-          fetchPriority="high"
-          className="animate-image-in object-cover"
-          sizes="(max-width: 1024px) 100vw, 55vw"
-        />
+      <div className="relative">
         <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-[rgba(20,28,34,0.06)]"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(241,238,232,0.14)_0%,transparent_22%,transparent_72%,rgba(26,24,20,0.08)_100%)]"
-        />
-        <span className="pointer-events-none absolute right-3 bottom-3 flex h-9 w-9 items-center justify-center bg-[rgba(20,28,34,0.42)] text-white opacity-90 transition group-hover:bg-[rgba(20,28,34,0.58)] group-hover:opacity-100">
+          ref={trackRef}
+          onScroll={onTrackScroll}
+          className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {galleryImages.map((image, index) => (
+            <button
+              key={`${image.url}-${index}`}
+              ref={index === activeIndex ? expandRef : undefined}
+              type="button"
+              onClick={() => setLightboxOpen(true)}
+              aria-label={dict.products.expandImage}
+              tabIndex={index === activeIndex ? 0 : -1}
+              className="group relative aspect-[4/5] w-full shrink-0 snap-center cursor-zoom-in overflow-hidden bg-mist"
+            >
+              <Image
+                src={image.url}
+                alt={image.altText || `${productTitle} ${index + 1}`}
+                fill
+                preload={index === 0}
+                fetchPriority={index === 0 ? "high" : undefined}
+                loading={index <= 1 ? "eager" : undefined}
+                className="animate-image-in object-cover"
+                sizes="(max-width: 1024px) 100vw, 55vw"
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-[rgba(20,28,34,0.06)]"
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(241,238,232,0.14)_0%,transparent_22%,transparent_72%,rgba(26,24,20,0.08)_100%)]"
+              />
+            </button>
+          ))}
+        </div>
+        <span className="pointer-events-none absolute right-3 bottom-3 flex h-9 w-9 items-center justify-center bg-[rgba(20,28,34,0.42)] text-white opacity-90">
           <ExpandIcon className="h-4 w-4" />
         </span>
-      </button>
+      </div>
 
       {galleryImages.length > 1 ? (
-        <div className="grid grid-cols-4 gap-3 sm:grid-cols-5">
+        <div className="flex justify-center gap-1.5 lg:hidden">
+          {galleryImages.map((image, index) => (
+            <button
+              key={`${image.url}-dot-${index}`}
+              type="button"
+              onClick={() => selectIndex(index)}
+              aria-label={t(dict.products.thumbnailLabel, { index: index + 1 })}
+              aria-current={index === activeIndex ? "true" : undefined}
+              className="flex h-6 items-center"
+            >
+              <span
+                className={`block h-1.5 rounded-full transition-all ${
+                  index === activeIndex
+                    ? "w-4 bg-foreground"
+                    : "w-1.5 bg-foreground/25"
+                }`}
+              />
+            </button>
+          ))}
+        </div>
+      ) : null}
+
+      {galleryImages.length > 1 ? (
+        <div className="hidden grid-cols-5 gap-3 lg:grid">
           {galleryImages.map((image, index) => {
             const selected = index === activeIndex;
             return (
