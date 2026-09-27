@@ -8,6 +8,14 @@
  * Note: Google does not officially support gtag inside Shopify custom pixels.
  * We fire both gtag and the googleadservices conversion beacon so at least
  * one path can register a tag ping on checkout_completed (Shopify thank-you).
+ *
+ * The pixel runs in a sandboxed iframe without cookie access, so gtag here
+ * cannot see the ad click, and the `gclid` on the checkout URL is gone after
+ * a Klarna / Swish / 3-D Secure redirect. The storefront tag keeps the click
+ * in `_gcl_aw` / `_gcl_gb` on the root domain checkout shares; we read those
+ * through `browser.cookie` and put them on the beacon ourselves — only when
+ * the shopper allowed marketing (the storefront passes its consent on to
+ * Shopify, see ShopifyConsentBridge).
  */
 
 const GOOGLE_ADS_ID = "AW-18391431736";
@@ -21,14 +29,16 @@ function gtag() {
 
 const privacy0 =
   typeof init !== "undefined" ? init.customerPrivacy : null;
-const marketing0 = Boolean(privacy0 && privacy0.marketingAllowed);
-const analytics0 = Boolean(privacy0 && privacy0.analyticsProcessingAllowed);
+var consent = {
+  marketing: Boolean(privacy0 && privacy0.marketingAllowed),
+  analytics: Boolean(privacy0 && privacy0.analyticsProcessingAllowed),
+};
 
 gtag("consent", "default", {
-  ad_storage: marketing0 ? "granted" : "denied",
-  ad_user_data: marketing0 ? "granted" : "denied",
-  ad_personalization: marketing0 ? "granted" : "denied",
-  analytics_storage: analytics0 ? "granted" : "denied",
+  ad_storage: consent.marketing ? "granted" : "denied",
+  ad_user_data: consent.marketing ? "granted" : "denied",
+  ad_personalization: consent.marketing ? "granted" : "denied",
+  analytics_storage: consent.analytics ? "granted" : "denied",
   wait_for_update: 500,
 });
 
@@ -39,13 +49,13 @@ if (
 ) {
   api.customerPrivacy.subscribe("visitorConsentCollected", function (event) {
     var p = event.customerPrivacy || {};
-    var m = Boolean(p.marketingAllowed);
-    var a = Boolean(p.analyticsProcessingAllowed);
+    consent.marketing = Boolean(p.marketingAllowed);
+    consent.analytics = Boolean(p.analyticsProcessingAllowed);
     gtag("consent", "update", {
-      ad_storage: m ? "granted" : "denied",
-      ad_user_data: m ? "granted" : "denied",
-      ad_personalization: m ? "granted" : "denied",
-      analytics_storage: a ? "granted" : "denied",
+      ad_storage: consent.marketing ? "granted" : "denied",
+      ad_user_data: consent.marketing ? "granted" : "denied",
+      ad_personalization: consent.marketing ? "granted" : "denied",
+      analytics_storage: consent.analytics ? "granted" : "denied",
     });
   });
 }
@@ -64,18 +74,84 @@ function txId(checkout) {
   return (checkout.order && checkout.order.id) || checkout.token || "";
 }
 
+/** URL of the checkout page (top frame), from the event or from pixel init. */
+function pageUrl(event) {
+  var ctx =
+    (event && event.context) ||
+    (typeof init !== "undefined" && init.context) ||
+    {};
+  return (ctx.document && ctx.document.location && ctx.document.location.href) || "";
+}
+
+function urlParam(href, name) {
+  try {
+    return new URL(href).searchParams.get(name) || "";
+  } catch (e) {
+    return "";
+  }
+}
+
+/** `_gcl_aw` / `_gcl_gb` hold `GCL.<timestamp>.<click id>[.<labels>]`. */
+function gclCookie(name) {
+  return browser.cookie
+    .get(name)
+    .then(function (raw) {
+      var parts = String(raw || "").split(".");
+      return parts.length >= 3 && parts[0] === "GCL" ? parts[2] : "";
+    })
+    .catch(function () {
+      return "";
+    });
+}
+
+/**
+ * Click ids named the way gtag's own conversion hits name them: `gclaw` /
+ * `gclgb` from the storefront cookies, `gclid` / `gbraid` / `wbraid` from
+ * the checkout URL (the storefront appends `gclid` on the way to checkout).
+ */
+function clickIds(event) {
+  var urls = [pageUrl(event), pageUrl(null)];
+  function fromUrls(name) {
+    for (var i = 0; i < urls.length; i++) {
+      var value = urlParam(urls[i], name);
+      if (value) return value;
+    }
+    return "";
+  }
+  return Promise.all([gclCookie("_gcl_aw"), gclCookie("_gcl_gb")]).then(
+    function (cookies) {
+      return {
+        gclaw: cookies[0],
+        gclgb: cookies[1],
+        gclid: fromUrls("gclid"),
+        gbraid: fromUrls("gbraid"),
+        wbraid: fromUrls("wbraid"),
+      };
+    },
+  );
+}
+
 /** Image/fetch beacon — often survives custom-pixel sandbox limits better than gtag alone. */
-function fireConversionBeacon(value, currency, transactionId) {
+function fireConversionBeacon(value, currency, transactionId, url, ids) {
   var params = new URLSearchParams({
     label: PURCHASE_LABEL,
     guid: "ON",
     script: "0",
     value: String(value),
     currency_code: currency || "SEK",
+    // Consent Mode state: G1<ad_storage><analytics_storage>.
+    gcs: "G1" + (consent.marketing ? "1" : "0") + (consent.analytics ? "1" : "0"),
+    npa: consent.marketing ? "0" : "1",
   });
   if (transactionId) params.set("oid", String(transactionId));
+  if (url) params.set("url", url);
+  if (consent.marketing) {
+    Object.keys(ids).forEach(function (key) {
+      if (ids[key]) params.set(key, ids[key]);
+    });
+  }
 
-  var url =
+  var beaconUrl =
     "https://www.googleadservices.com/pagead/conversion/" +
     CONVERSION_ID +
     "/?" +
@@ -83,13 +159,15 @@ function fireConversionBeacon(value, currency, transactionId) {
 
   try {
     var img = new Image(1, 1);
-    img.src = url;
+    img.src = beaconUrl;
   } catch (e) {}
 
   try {
-    fetch(url, { mode: "no-cors", keepalive: true, credentials: "omit" }).catch(
-      function () {},
-    );
+    fetch(beaconUrl, {
+      mode: "no-cors",
+      keepalive: true,
+      credentials: "omit",
+    }).catch(function () {});
   } catch (e) {}
 }
 
@@ -121,5 +199,8 @@ analytics.subscribe("checkout_completed", function (event) {
     transaction_id: transactionId || undefined,
   });
 
-  fireConversionBeacon(value, currency, transactionId);
+  var url = pageUrl(event);
+  clickIds(event).then(function (ids) {
+    fireConversionBeacon(value, currency, transactionId, url, ids);
+  });
 });

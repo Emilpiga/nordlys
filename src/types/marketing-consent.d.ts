@@ -17,5 +17,17 @@ declare global {
     };
     __storeMarketingConsent?: boolean | null;
     __storeSetMarketingConsent?: (granted: boolean) => void;
+    /** Shopify Customer Privacy API (consent-tracking-api.js). */
+    Shopify?: {
+      customerPrivacy?: {
+        currentVisitorConsent?: () => Partial<
+          Record<"marketing" | "analytics" | "preferences", string>
+        >;
+        setTrackingConsent?: (
+          consent: Record<string, unknown>,
+          callback?: (result?: { error?: string } | null) => void,
+        ) => void;
+      };
+    };
   }
 }

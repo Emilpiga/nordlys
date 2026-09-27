@@ -9,6 +9,7 @@ import { CartDrawer } from "@/components/cart-drawer";
 import { CartProvider } from "@/components/cart-provider";
 import { WelcomeDealPopup } from "@/components/welcome-deal-popup";
 import { ConsentModeBootstrap } from "@/components/consent-mode-bootstrap";
+import { ShopifyConsentBridge } from "@/components/shopify-consent-bridge";
 import { DictionaryProvider } from "@/components/dictionary-provider";
 import { ReviewSummariesProvider } from "@/components/review-summaries-provider";
 import { JsonLd } from "@/components/json-ld";
@@ -33,7 +34,10 @@ import {
 } from "@/lib/json-ld";
 import { getCollections } from "@/lib/shopify";
 import { shopifyConfig } from "@/lib/shopify/config";
-import { getMarketingPixelConfig } from "@/lib/consent";
+import {
+  getMarketingPixelConfig,
+  getShopifyConsentConfig,
+} from "@/lib/consent";
 import { getAllReviewSummaries } from "@/lib/reviews";
 import { socialMetadata, brandIcons } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
@@ -120,6 +124,7 @@ export default async function LocaleLayout({
       isWelcomeDealEligible(),
     ]);
   const reviewSummaries = getAllReviewSummaries();
+  const shopifyConsent = getShopifyConsentConfig();
 
   const siteDescription = t(dict.meta.siteDescription, {
     brand: shopifyConfig.storeName,
@@ -143,6 +148,7 @@ export default async function LocaleLayout({
         <SetupBanner />
         <Analytics />
         <AdPixels />
+        {shopifyConsent ? <ShopifyConsentBridge {...shopifyConsent} /> : null}
         <DictionaryProvider locale={locale} dict={dict}>
           <ReviewSummariesProvider summaries={reviewSummaries}>
             <CartProvider cart={cart}>

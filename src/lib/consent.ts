@@ -1,3 +1,6 @@
+import { shopifyConfig } from "@/lib/shopify/config";
+import { getSiteUrl } from "@/lib/site-url";
+
 function cleanHost(value: string | undefined) {
   return (
     value
@@ -42,6 +45,30 @@ export function getGoogleAdsLinkerDomains() {
   }
 
   return [...domains];
+}
+
+/**
+ * Where Shopify's Customer Privacy API should store the storefront's consent
+ * so checkout can read it. Only possible when checkout is on the storefront's
+ * root domain (`checkout.vardagsstil.se` under `vardagsstil.se`).
+ */
+export function getShopifyConsentConfig() {
+  const checkout = shopifyConfig.checkoutDomain;
+  const storefrontAccessToken = shopifyConfig.publicStorefrontToken;
+  let site = "";
+  try {
+    site = new URL(getSiteUrl()).hostname.replace(/^www\./, "");
+  } catch {
+    return null;
+  }
+  if (!checkout || !storefrontAccessToken || !checkout.endsWith(`.${site}`)) {
+    return null;
+  }
+  return {
+    checkoutRootDomain: checkout,
+    storefrontRootDomain: site,
+    storefrontAccessToken,
+  };
 }
 
 /** Marketing / ads env config (Consent Mode + Google CMP handle runtime consent). */

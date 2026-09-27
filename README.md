@@ -196,6 +196,7 @@ Headless setup: ads land on Next.js (`NEXT_PUBLIC_SITE_URL`), checkout/thank-you
 4. Google & YouTube app → Conversion event settings → **Checkout completed**: set destination to that Purchase action, or check **Add custom conversion ID/label** with the same `AW-…/LABEL`.
 5. Campaign goals: **Purchase** primary only. Set **Page view**, **Add to basket**, **Begin checkout**, and duplicate `*(1)` actions to **Secondary** / remove from campaign goals. Do not bid on page views.
 6. Thank-you extension must pass `txid`, `value`, `currency` so `/order/confirmed` can fire a deduped purchase backup.
+7. Consent: Shopify checkout runs its own consent check. `ShopifyConsentBridge` passes the storefront CMP answer to Shopify's Customer Privacy API (`_tracking_consent` on the root domain), so it only works while checkout is a subdomain of `NEXT_PUBLIC_SITE_URL`. Without it every EU shopper counts as "no consent" at checkout and the Purchase pixels stay silent.
 
 Storefront `gtag` sends `view_item` / `add_to_cart` / `begin_checkout` for remarketing only — it does **not** fire labeled funnel conversions (avoids double hits into Shopping App actions).
 
