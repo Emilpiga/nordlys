@@ -1,18 +1,28 @@
 import Script from "next/script";
+import { CONSENT_REGIONS } from "@/lib/consent";
 
 /**
- * Google Consent Mode v2 defaults + bridge for Meta Pixel and PostHog
- * (`store-consent` window event).
+ * Google Consent Mode v2 defaults + bridge for Meta Pixel, PostHog and
+ * Shopify checkout (`store-consent` window event).
  * Must run before AdSense / gtag / Meta (strategy: beforeInteractive).
  *
  * EEA/UK/CH → denied until Google’s certified CMP updates consent.
  * Elsewhere → granted (Google CMP is not shown in those regions).
+ *
+ * `consentRequired` comes from the visitor's country on the server: only
+ * visitors outside those regions may fall back to "granted" when no CMP
+ * answers — in the EEA silence stays silence.
  */
-export function ConsentModeBootstrap() {
+export function ConsentModeBootstrap({
+  consentRequired,
+}: {
+  consentRequired: boolean;
+}) {
   return (
     <Script id="consent-mode-defaults" strategy="beforeInteractive">
       {`
 (function () {
+  var consentRequired = ${JSON.stringify(consentRequired)};
   window.dataLayer = window.dataLayer || [];
   function gtag(){ window.dataLayer.push(arguments); }
   window.gtag = gtag;
@@ -44,11 +54,7 @@ export function ConsentModeBootstrap() {
 
   // GDPR / UK / CH regions — Google’s AdSense CMP covers these.
   gtag("consent", "default", Object.assign({}, denied, {
-    region: [
-      "AT","BE","BG","CH","CY","CZ","DE","DK","EE","ES","FI","FR","GB","GR",
-      "HR","HU","IE","IS","IT","LI","LT","LU","LV","MT","NL","NO","PL","PT",
-      "RO","SE","SI","SK"
-    ]
+    region: ${JSON.stringify(CONSENT_REGIONS)}
   }));
   // Rest of world
   gtag("consent", "default", granted);
@@ -80,7 +86,10 @@ export function ConsentModeBootstrap() {
         var purpose1 = tcData.purpose && tcData.purpose.consents
           ? tcData.purpose.consents[1]
           : false;
-        window.__storeSetMarketingConsent(Boolean(purpose1));
+        // Outside GDPR regions the CMP reports no purposes — nothing to ask.
+        window.__storeSetMarketingConsent(
+          tcData.gdprApplies === false || Boolean(purpose1)
+        );
       }
     });
     return true;
@@ -94,10 +103,11 @@ export function ConsentModeBootstrap() {
     }
   });
 
-  // Non-regulated regions never get TCF/CMP — apply granted default after wait.
+  // Non-regulated regions never get TCF/CMP — apply granted default after
+  // wait. In the EEA only the CMP may answer; until it does, nothing runs.
   setTimeout(function () {
     if (attachTcf()) return;
-    if (window.__storeMarketingConsent === null) {
+    if (!consentRequired && window.__storeMarketingConsent === null) {
       window.__storeSetMarketingConsent(true);
     }
   }, 1200);

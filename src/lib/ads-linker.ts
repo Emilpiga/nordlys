@@ -16,19 +16,36 @@ function readCookie(name: string) {
   return "";
 }
 
-/** `_gcl_aw` is `GCL.<timestamp>.<gclid>`. */
+/** `_gcl_aw` / `_gcl_gb` hold `GCL.<timestamp>.<click id>[.<labels>]`. */
+function gclCookie(name: string) {
+  const parts = readCookie(name).split(".");
+  return parts.length >= 3 && parts[0] === "GCL" ? parts[2] : "";
+}
+
+function queryParam(name: string) {
+  return new URLSearchParams(window.location.search).get(name)?.trim() || "";
+}
+
 export function gclidFromBrowser() {
   if (typeof window === "undefined") return "";
-  const fromQuery = new URLSearchParams(window.location.search).get("gclid");
-  if (fromQuery?.trim()) return fromQuery.trim();
+  return queryParam("gclid") || gclCookie("_gcl_aw");
+}
 
-  const aw = readCookie("_gcl_aw");
-  if (!aw) return "";
-  const parts = aw.split(".");
-  if (parts.length >= 3 && parts[0] === "GCL") {
-    return parts.slice(2).join(".");
+/**
+ * Google ad click ids to store on the cart, so the checkout pixel still has
+ * them after a payment redirect (and the order shows where it came from).
+ * Only once the shopper has allowed marketing.
+ */
+export function adClickIdsFromBrowser() {
+  if (typeof window === "undefined" || window.__storeMarketingConsent !== true) {
+    return null;
   }
-  return "";
+  const ids = {
+    gclid: gclidFromBrowser(),
+    gbraid: queryParam("gbraid") || gclCookie("_gcl_gb"),
+    wbraid: queryParam("wbraid"),
+  };
+  return ids.gclid || ids.gbraid || ids.wbraid ? ids : null;
 }
 
 export function decorateCheckoutUrl(checkoutUrl: string) {

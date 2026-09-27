@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getCartAction } from "@/app/actions/cart";
 import { AdPixels } from "@/components/ad-pixels";
@@ -37,6 +38,7 @@ import { shopifyConfig } from "@/lib/shopify/config";
 import {
   getMarketingPixelConfig,
   getShopifyConsentConfig,
+  isConsentRequired,
 } from "@/lib/consent";
 import { getAllReviewSummaries } from "@/lib/reviews";
 import { socialMetadata, brandIcons } from "@/lib/seo";
@@ -115,16 +117,20 @@ export default async function LocaleLayout({
   const locale: Locale = localeParam;
   const config = getLocaleConfig(locale);
 
-  const [cart, collections, dict, customer, welcomeDealEligible] =
+  const [cart, collections, dict, customer, welcomeDealEligible, requestHeaders] =
     await Promise.all([
       getCartAction(),
       getCollections(50, locale),
       getDictionary(locale),
       getCustomerProfile(),
       isWelcomeDealEligible(),
+      headers(),
     ]);
   const reviewSummaries = getAllReviewSummaries();
   const shopifyConsent = getShopifyConsentConfig();
+  const consentRequired = isConsentRequired(
+    requestHeaders.get("x-vercel-ip-country"),
+  );
 
   const siteDescription = t(dict.meta.siteDescription, {
     brand: shopifyConfig.storeName,
@@ -136,7 +142,7 @@ export default async function LocaleLayout({
       className={`${jakarta.variable} ${jakarta.className} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <ConsentModeBootstrap />
+        <ConsentModeBootstrap consentRequired={consentRequired} />
         <JsonLd
           data={[
             buildOrganizationJsonLd(siteDescription),

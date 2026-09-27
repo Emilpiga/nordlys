@@ -1,6 +1,21 @@
 import { shopifyConfig } from "@/lib/shopify/config";
 import { getSiteUrl } from "@/lib/site-url";
 
+/** GDPR / UK / CH countries — visitors here must answer Google's CMP first. */
+export const CONSENT_REGIONS = [
+  "AT", "BE", "BG", "CH", "CY", "CZ", "DE", "DK", "EE", "ES", "FI", "FR",
+  "GB", "GR", "HR", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MT",
+  "NL", "NO", "PL", "PT", "RO", "SE", "SI", "SK",
+];
+
+/**
+ * Whether this visitor needs to consent before marketing tags run, from
+ * Vercel's `x-vercel-ip-country`. No country (local dev) → not required.
+ */
+export function isConsentRequired(country: string | null | undefined) {
+  return Boolean(country && CONSENT_REGIONS.includes(country.toUpperCase()));
+}
+
 function cleanHost(value: string | undefined) {
   return (
     value

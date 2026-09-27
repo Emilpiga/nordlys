@@ -235,25 +235,50 @@ export async function syncCartBuyerIdentity() {
 
 type AnalyticsIds = { distinctId: string; sessionId: string } | null | undefined;
 
-/** PostHog ids from the browser, stored on the cart for the checkout pixel. */
+type AdClickIds =
+  | { gclid?: string; gbraid?: string; wbraid?: string }
+  | null
+  | undefined;
+
+const CLICK_ID = /^[\w-]{1,200}$/;
+
+/**
+ * PostHog ids and Google ad click ids (only sent after marketing consent)
+ * from the browser, stored on the cart for the checkout pixels.
+ */
 async function tagCartForAnalytics(
   analytics: AnalyticsIds,
+  adClick: AdClickIds,
   cartId: string | null,
 ) {
-  if (!analytics?.distinctId || !cartId) return;
-  try {
-    await updateCartAttributes(cartId, [
+  if (!cartId) return;
+  const attributes: { key: string; value: string }[] = [];
+  if (analytics?.distinctId) {
+    attributes.push(
       { key: "_posthog_distinct_id", value: analytics.distinctId.slice(0, 200) },
       { key: "_posthog_session_id", value: analytics.sessionId.slice(0, 200) },
-    ]);
+    );
+  }
+  for (const key of ["gclid", "gbraid", "wbraid"] as const) {
+    const value = adClick?.[key];
+    if (typeof value === "string" && CLICK_ID.test(value)) {
+      attributes.push({ key: `_${key}`, value });
+    }
+  }
+  if (!attributes.length) return;
+  try {
+    await updateCartAttributes(cartId, attributes);
   } catch (error) {
     console.error("tagCartForAnalytics failed:", error);
   }
 }
 
 /** Refresh buyer identity, then return the Shopify checkout URL. */
-export async function beginCheckoutAction(analytics?: AnalyticsIds) {
-  await tagCartForAnalytics(analytics, await readCartId());
+export async function beginCheckoutAction(
+  analytics?: AnalyticsIds,
+  adClick?: AdClickIds,
+) {
+  await tagCartForAnalytics(analytics, adClick, await readCartId());
   const synced = await syncCartBuyerIdentity();
   if (synced.ok && synced.cart?.checkoutUrl) {
     return { ok: true as const, checkoutUrl: synced.cart.checkoutUrl };
@@ -277,12 +302,13 @@ export async function buyNowAction(
   merchandiseId: string,
   quantity = 1,
   analytics?: AnalyticsIds,
+  adClick?: AdClickIds,
 ) {
   const locale = await readLocale();
   const codes = await getAcceptedWelcomeDiscountCodes();
   let cart = await createCart([{ merchandiseId, quantity }], locale, codes);
   cart = await applyWelcomeDeal(cart, locale, codes);
-  await tagCartForAnalytics(analytics, cart.id);
+  await tagCartForAnalytics(analytics, adClick, cart.id);
 
   const productId = cart.lines[0]?.merchandise.product.id;
   if (productId) {

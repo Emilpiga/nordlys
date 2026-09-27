@@ -24,7 +24,7 @@ import {
   trackAddToCart,
   trackInitiateCheckout,
 } from "@/lib/ads-events";
-import { decorateCheckoutUrl } from "@/lib/ads-linker";
+import { adClickIdsFromBrowser, decorateCheckoutUrl } from "@/lib/ads-linker";
 import { formatMoney } from "@/lib/format";
 import { getPostHogIds } from "@/lib/posthog";
 import type { Product, ProductVariant } from "@/lib/shopify/types";
@@ -159,6 +159,7 @@ export function ProductForm({
           selectedVariant.id,
           quantity,
           getPostHogIds(),
+          adClickIdsFromBrowser(),
         );
         if (!result.ok) {
           setError(dict.products.checkoutError);

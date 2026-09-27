@@ -12,10 +12,11 @@
  * The pixel runs in a sandboxed iframe without cookie access, so gtag here
  * cannot see the ad click, and the `gclid` on the checkout URL is gone after
  * a Klarna / Swish / 3-D Secure redirect. The storefront tag keeps the click
- * in `_gcl_aw` / `_gcl_gb` on the root domain checkout shares; we read those
- * through `browser.cookie` and put them on the beacon ourselves — only when
- * the shopper allowed marketing (the storefront passes its consent on to
- * Shopify, see ShopifyConsentBridge).
+ * in `_gcl_aw` / `_gcl_gb` on the root domain checkout shares, and after
+ * consent also as `_gclid` / `_gbraid` / `_wbraid` cart attributes; we read
+ * those and put them on the beacon ourselves — only when the shopper allowed
+ * marketing (the storefront passes its consent on to Shopify, see
+ * ShopifyConsentBridge).
  */
 
 const GOOGLE_ADS_ID = "AW-18391431736";
@@ -104,19 +105,28 @@ function gclCookie(name) {
     });
 }
 
+function attribute(checkout, key) {
+  var list = (checkout && checkout.attributes) || [];
+  for (var i = 0; i < list.length; i++) {
+    if (list[i] && list[i].key === key) return String(list[i].value || "");
+  }
+  return "";
+}
+
 /**
  * Click ids named the way gtag's own conversion hits name them: `gclaw` /
  * `gclgb` from the storefront cookies, `gclid` / `gbraid` / `wbraid` from
- * the checkout URL (the storefront appends `gclid` on the way to checkout).
+ * the checkout URL (the storefront appends `gclid` on the way to checkout)
+ * or from the cart attributes the storefront sets after consent.
  */
-function clickIds(event) {
+function clickIds(event, checkout) {
   var urls = [pageUrl(event), pageUrl(null)];
   function fromUrls(name) {
     for (var i = 0; i < urls.length; i++) {
       var value = urlParam(urls[i], name);
       if (value) return value;
     }
-    return "";
+    return attribute(checkout, "_" + name);
   }
   return Promise.all([gclCookie("_gcl_aw"), gclCookie("_gcl_gb")]).then(
     function (cookies) {
@@ -200,7 +210,7 @@ analytics.subscribe("checkout_completed", function (event) {
   });
 
   var url = pageUrl(event);
-  clickIds(event).then(function (ids) {
+  clickIds(event, checkout).then(function (ids) {
     fireConversionBeacon(value, currency, transactionId, url, ids);
   });
 });
