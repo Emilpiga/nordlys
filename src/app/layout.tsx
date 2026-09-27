@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   icons: brandIcons(),
   verification: {
     google: "bSh4H3La9pPmKiYkKZU5-UlDiHSzk3c4mV6WCHExLho",
+    other: {
+      "facebook-domain-verification": "gcfvcq5q46bhbdxn70zwreu6q1uh0g",
+    },
   },
 };
 
