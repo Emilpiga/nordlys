@@ -213,7 +213,7 @@ function PublishStatus({ view }: { view: PlannerView }) {
     <s-banner tone="success" heading={`Hela looken ger ${settings.discountPercent} % rabatt`}>
       <s-paragraph>
         Rabatten gäller automatiskt när alla tre delarna i veckans look ligger
-        i kassen.
+        i varukorgen.
         {settings.lastPublishedAt
           ? ` Senast uppdaterad ${new Date(settings.lastPublishedAt).toLocaleString("sv-SE")}.`
           : ""}

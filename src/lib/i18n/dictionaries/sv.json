@@ -8,8 +8,8 @@
     "categories": "Kategorier",
     "exploreCatalog": "Utforska sortimentet",
     "viewAll": "Visa alla",
-    "openCart": "Öppna kasse",
-    "openCartWithCount": "Öppna kasse, {count} varor",
+    "openCart": "Öppna varukorg",
+    "openCartWithCount": "Öppna varukorg, {count} varor",
     "language": "Språk",
     "account": "Konto",
     "login": "Logga in"
@@ -46,7 +46,7 @@
     "blurb": "Kläder för dam och herr — enkel stil, tydliga priser och leverans med spårning.",
     "shopHeading": "Shoppa",
     "collection": "Kollektion",
-    "cart": "Kasse",
+    "cart": "Varukorg",
     "helpHeading": "Kundcenter",
     "about": "Om oss",
     "faq": "Vanliga frågor",
@@ -119,12 +119,12 @@
     "soldOut": "Slutsåld",
     "buyNow": "Köp nu",
     "openingCheckout": "Öppnar kassan…",
-    "addToCart": "Lägg i kassen",
+    "addToCart": "Lägg i varukorgen",
     "adding": "Lägger till…",
     "quantity": "Antal",
     "decreaseQty": "Minska antal",
     "increaseQty": "Öka antal",
-    "addError": "Kunde inte lägga till i kassen.",
+    "addError": "Kunde inte lägga till i varukorgen.",
     "checkoutError": "Kunde inte gå till kassan.",
     "secureEta": "Skickas inom {processing}",
     "viewingOne": "1 annan tittar på den här produkten just nu",
@@ -203,7 +203,7 @@
     "suggestionsTitle": "Passar till",
     "suggestionAdd": "Lägg till",
     "suggestionChoose": "Välj",
-    "title": "Din kasse",
+    "title": "Din varukorg",
     "eyebrow": "{brand}",
     "itemOne": "1 vara",
     "itemMany": "{count} varor",
@@ -219,15 +219,15 @@
     "total": "Totalt",
     "checkout": "Till kassan",
     "trustLine": "Priser inkl. moms och frakt",
-    "savedNote": "Behöver du en stund? Din kasse sparas på den här enheten medan du fortsätter handla.",
-    "drawerEyebrow": "Kasse",
-    "closeCart": "Stäng kassen",
+    "savedNote": "Behöver du en stund? Din varukorg sparas på den här enheten medan du fortsätter handla.",
+    "drawerEyebrow": "Varukorg",
+    "closeCart": "Stäng varukorgen",
     "close": "Stäng",
-    "emptyDrawerBody": "Lägg till en produkt och fortsätt handla — kassen följer med dig.",
+    "emptyDrawerBody": "Lägg till en produkt och fortsätt handla — varukorgen följer med dig.",
     "toShop": "Till shoppen",
     "each": "{price} styck",
     "remove": "Ta bort",
-    "viewFullCart": "Visa full kasse",
+    "viewFullCart": "Visa hela varukorgen",
     "drawerTrust": "Priser inkl. moms och frakt",
     "discount": "{percent}% rabatt",
     "discountApplied": "10% rabatt är tillagd på ordern"
@@ -441,7 +441,7 @@
         "Kontakt- och leveransuppgifter som du lämnar i kassan (namn, e-post, adress, telefon)",
         "Orderhistorik, betalningsstatus och leveransuppdateringar",
         "Tekniska uppgifter som enhetstyp, webbläsare och ungefärlig plats som behövs för att driva butiken",
-        "Kassainformation som lagras i en cookie på din enhet så att din kasse sparas medan du surfar",
+        "Varukorgsinformation som lagras i en cookie på din enhet så att din varukorg sparas medan du surfar",
         "Uppgifter du skickar till support, till exempel ordernummer och foton vid reklamation"
       ],
       "paragraphs": [
@@ -486,14 +486,14 @@
     "cookies": {
       "title": "Cookies",
       "paragraphs": [
-        "Vi använder nödvändiga cookies för att din kasse och session ska fungera. Shopify kan sätta cookies som krävs för säker utcheckning. Om du blockerar nödvändiga cookies kanske kassen eller utcheckningen inte fungerar korrekt.",
+        "Vi använder nödvändiga cookies för att din varukorg och session ska fungera. Shopify kan sätta cookies som krävs för säker utcheckning. Om du blockerar nödvändiga cookies kanske varukorgen eller utcheckningen inte fungerar korrekt.",
         "För besökare i EES, Storbritannien och Schweiz samlar vi in samtycke till annonscookies via Googles certifierade samtyckesplattform (CMP) som visas på webbplatsen. Där kan du godkänna, neka eller hantera alternativ för Google AdSense och relaterad annonsmätning. Meta- (Facebook) och Google Ads-taggar följer samma samtyckesval via Google Consent Mode. Du kan ändra ditt val senare via Googles samtyckesverktyg på sidan när det visas."
       ]
     },
     "retention": {
       "title": "Hur länge vi sparar det",
       "paragraphs": [
-        "Order- och kunduppgifter sparas så länge det behövs för att fullfölja köp, hantera returer, reklamationer eller tvister och uppfylla lagstadgade sparkrav. Bokföringsunderlag sparas i Sverige i regel sju år. Kasscookies upphör när de raderas eller åldras ut i din webbläsare."
+        "Order- och kunduppgifter sparas så länge det behövs för att fullfölja köp, hantera returer, reklamationer eller tvister och uppfylla lagstadgade sparkrav. Bokföringsunderlag sparas i Sverige i regel sju år. Varukorgscookies upphör när de raderas eller åldras ut i din webbläsare."
       ]
     },
     "yourChoices": {

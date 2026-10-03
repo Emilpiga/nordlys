@@ -163,7 +163,7 @@ export async function addToCartAction(merchandiseId: string, quantity = 1) {
     console.error("addToCartAction failed:", error);
     throw error instanceof Error
       ? error
-      : new Error("Kunde inte lägga till i kassen.");
+      : new Error("Kunde inte lägga till i varukorgen.");
   }
 }
 
@@ -184,14 +184,14 @@ export async function addLookToCartAction(merchandiseIds: string[]) {
     console.error("addLookToCartAction failed:", error);
     throw error instanceof Error
       ? error
-      : new Error("Kunde inte lägga till looken i kassen.");
+      : new Error("Kunde inte lägga till looken i varukorgen.");
   }
 }
 
 export async function updateCartLineAction(lineId: string, quantity: number) {
   const locale = await readLocale();
   const cartId = await readCartId();
-  if (!cartId) throw new Error("Kassan hittades inte.");
+  if (!cartId) throw new Error("Varukorgen hittades inte.");
 
   const cart =
     quantity <= 0
