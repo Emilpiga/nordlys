@@ -20,6 +20,7 @@ import {
   type ClothingGender,
   clothingGenders,
   clothingSampleIds,
+  clothingTypesFor,
   topLevelCollections,
 } from "@/lib/shopify/collections";
 import { isShopifyConfigured, shopifyConfig } from "@/lib/shopify/config";
@@ -116,6 +117,10 @@ export default async function HomePage({ params }: Props) {
       (collection) => collection.handle !== CLOTHING_ROOT,
     ),
   ].filter((collection) => collection.productCount > 0);
+  const typesIn = (gender: ClothingGender) =>
+    clothingTypesFor(gender, collections).filter(
+      (collection) => collection.productCount > 0,
+    );
   return (
     <HomeGenderProvider>
       <HomeHero
@@ -164,7 +169,10 @@ export default async function HomePage({ params }: Props) {
           <EmptyCatalog />
         </div>
       ) : (
-        <HomeCategoryGuide collections={homepageCollections} />
+        <HomeCategoryGuide
+          collections={homepageCollections}
+          byGender={{ dam: typesIn("dam"), herr: typesIn("herr") }}
+        />
       )}
 
       <HomeTestimonials locale={locale} dict={dict} products={catalog} />

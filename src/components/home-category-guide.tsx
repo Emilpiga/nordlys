@@ -2,15 +2,25 @@
 
 import Image from "@/components/soft-image";
 import { useDictionary } from "@/components/dictionary-provider";
+import { useHomeGender } from "@/components/home-gender-provider";
 import { LocaleLink } from "@/components/locale-link";
+import type { ClothingGender } from "@/lib/shopify/collections";
 import type { CollectionSummary } from "@/lib/shopify/types";
 
 type HomeCategoryGuideProps = {
+  /** Shown when the chosen side has no subcategories. */
   collections: CollectionSummary[];
+  /** Subcategories of Dam and Herr; the guide follows the hero's choice. */
+  byGender: Record<ClothingGender, CollectionSummary[]>;
 };
 
-export function HomeCategoryGuide({ collections }: HomeCategoryGuideProps) {
+export function HomeCategoryGuide({
+  collections: fallback,
+  byGender,
+}: HomeCategoryGuideProps) {
   const { dict } = useDictionary();
+  const gender = useHomeGender()?.gender ?? "dam";
+  const collections = byGender[gender].length > 0 ? byGender[gender] : fallback;
 
   if (collections.length === 0) return null;
 
