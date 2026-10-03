@@ -4,7 +4,10 @@ import Image from "@/components/soft-image";
 import { useDictionary } from "@/components/dictionary-provider";
 import { useHomeGender } from "@/components/home-gender-provider";
 import { LocaleLink } from "@/components/locale-link";
-import type { ClothingGender } from "@/lib/shopify/collections";
+import {
+  shortCollectionLabel,
+  type ClothingGender,
+} from "@/lib/shopify/collections";
 import type { CollectionSummary } from "@/lib/shopify/types";
 
 type HomeCategoryGuideProps = {
@@ -20,7 +23,8 @@ export function HomeCategoryGuide({
 }: HomeCategoryGuideProps) {
   const { dict } = useDictionary();
   const gender = useHomeGender()?.gender ?? "dam";
-  const collections = byGender[gender].length > 0 ? byGender[gender] : fallback;
+  const bySide = byGender[gender].length > 0;
+  const collections = bySide ? byGender[gender] : fallback;
 
   if (collections.length === 0) return null;
 
@@ -81,7 +85,9 @@ export function HomeCategoryGuide({
                 />
                 <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
                   <p className="font-display text-2xl font-medium tracking-tight text-white sm:text-3xl">
-                    {collection.title}
+                    {bySide
+                      ? shortCollectionLabel(collection.title)
+                      : collection.title}
                   </p>
                   <p className="mt-1 text-[0.72rem] font-medium tracking-[0.14em] uppercase text-white/75">
                     {collection.productCount}{" "}

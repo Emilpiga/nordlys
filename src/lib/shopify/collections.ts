@@ -308,6 +308,13 @@ export function topLevelCollections(
   );
 }
 
+/** "Dam ytterkläder", "Yttertøy dame" and "Naisten takit" all lose the gender. */
+function stripGender(title: string) {
+  return title
+    .replace(/^(Dam|Herr|Naisten|Miesten)\s+/i, "")
+    .replace(/\s+(dame|herre)$/i, "");
+}
+
 export function shortCollectionLabel(title: string, parentTitle?: string) {
   const trimmed = title.trim();
   let short = trimmed;
@@ -316,10 +323,10 @@ export function shortCollectionLabel(title: string, parentTitle?: string) {
     if (trimmed.toLowerCase().startsWith(`${prefix.toLowerCase()} `)) {
       short = trimmed.slice(prefix.length).trim();
     } else {
-      short = trimmed.replace(/^(Dam|Herr)\s+/i, "");
+      short = stripGender(trimmed);
     }
   } else {
-    short = trimmed.replace(/^(Dam|Herr)\s+/i, "");
+    short = stripGender(trimmed);
   }
   if (!short) return trimmed;
   return short.charAt(0).toLocaleUpperCase("sv") + short.slice(1);
