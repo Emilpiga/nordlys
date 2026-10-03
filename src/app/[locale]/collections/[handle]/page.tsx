@@ -35,7 +35,6 @@ import {
 } from "@/lib/shopify";
 import {
   catalogCollectionNav,
-  isClothingBranchHandle,
 } from "@/lib/shopify/collections";
 import { shopifyConfig } from "@/lib/shopify/config";
 import {
@@ -118,7 +117,6 @@ export default async function CollectionPage({ params, searchParams }: Props) {
   if (!collection) notFound();
 
   const clothingNav = catalogCollectionNav(collections, collection.handle);
-  const inClothing = isClothingBranchHandle(collection.handle);
 
   const intro = collectionIntro(
     collection,
@@ -209,17 +207,6 @@ export default async function CollectionPage({ params, searchParams }: Props) {
       name: dict.products.shopTitle,
       url: `${site}${localePath(locale, "/products")}`,
     },
-    ...(inClothing && clothingNav.clothingRoot
-      ? [
-          {
-            name: clothingNav.clothingRoot.title,
-            url: `${site}${localePath(
-              locale,
-              `/collections/${encodeURIComponent(clothingNav.clothingRoot.handle)}`,
-            )}`,
-          },
-        ]
-      : []),
     ...(clothingNav.clothingGender &&
     clothingNav.clothingGender.handle !== collection.handle
       ? [

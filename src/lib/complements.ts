@@ -21,7 +21,6 @@ export const CART_COMPLEMENTS: Record<string, string[]> = {
 
 /** Collections worth a detour from this one — never the page itself. */
 const TILE_LINKS: Record<string, string[]> = {
-  klader: ["dam", "herr"],
   dam: ["dam-ytterklader", "dam-stickat"],
   herr: ["herr-ytterklader", "herr-stickat"],
 };

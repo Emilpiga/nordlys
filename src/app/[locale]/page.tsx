@@ -16,7 +16,6 @@ import { getTopTraction } from "@/lib/product-traction";
 import { ensureHistoricalSalesSynced } from "@/lib/product-traction-sales-sync";
 import { getCollections, getProducts, getProductsByIds } from "@/lib/shopify";
 import {
-  CLOTHING_ROOT,
   type ClothingGender,
   clothingGenders,
   clothingSampleIds,
@@ -110,13 +109,9 @@ export default async function HomePage({ params }: Props) {
     traction,
     tractionProducts,
   });
-  // Dam and Herr stand in for the Kläder umbrella, so the guide has a real choice.
-  const homepageCollections = [
-    ...genderCollections,
-    ...topLevelCollections(collections).filter(
-      (collection) => collection.handle !== CLOTHING_ROOT,
-    ),
-  ].filter((collection) => collection.productCount > 0);
+  const homepageCollections = topLevelCollections(collections).filter(
+    (collection) => collection.productCount > 0,
+  );
   const typesIn = (gender: ClothingGender) =>
     clothingTypesFor(gender, collections).filter(
       (collection) => collection.productCount > 0,
@@ -144,7 +139,7 @@ export default async function HomePage({ params }: Props) {
           headline: dict.home.heroHeadline,
           sub: dict.home.heroSub,
           cta: dict.home.heroCtaClothing,
-          ctaHref: "/collections/klader",
+          ctaHref: "/products",
         }}
         secondaryCta={dict.home.heroCtaAll}
         secondaryCtaHref="/products"

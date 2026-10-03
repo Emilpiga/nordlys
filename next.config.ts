@@ -18,6 +18,17 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // Retired collections: the Kläder umbrella and the old home categories.
+  async redirects() {
+    return [
+      {
+        source:
+          "/:locale/collections/:handle(klader|kontor|kok|sovrum|tradgard|vardagsrum)",
+        destination: "/:locale/products",
+        permanent: true,
+      },
+    ];
+  },
   skipTrailingSlashRedirect: true,
   images: {
     loader: "custom",

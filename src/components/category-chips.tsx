@@ -61,10 +61,9 @@ export function CategoryChips({
           ) : null}
         </ChipLink>
         {nav.primary.map((collection) => {
-          const clothingActive =
-            collection.handle === "klader" && nav.inClothingBranch;
           const active =
-            collection.handle === activeHandle || clothingActive;
+            collection.handle === activeHandle ||
+            collection.handle === nav.clothingGenderKey;
           return (
             <ChipLink
               key={collection.id}
@@ -79,28 +78,6 @@ export function CategoryChips({
           );
         })}
       </nav>
-
-      {nav.genders.length > 0 ? (
-        <nav aria-label={nav.clothingRoot?.title ?? "Kläder"} className="flex flex-wrap gap-2">
-          {nav.genders.map((collection) => {
-            const active =
-              collection.handle === activeHandle ||
-              nav.clothingGenderKey === collection.handle;
-            return (
-              <ChipLink
-                key={collection.id}
-                href={`/collections/${encodeURIComponent(collection.handle)}`}
-                active={active}
-              >
-                {collection.title}
-                <span className="ml-1.5 tabular-nums opacity-70">
-                  {collection.productCount}
-                </span>
-              </ChipLink>
-            );
-          })}
-        </nav>
-      ) : null}
 
       {nav.types.length > 0 ? (
         <nav

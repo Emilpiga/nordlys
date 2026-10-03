@@ -1,46 +1,4 @@
 {
-  "klader": {
-    "sv": {
-      "title": "Kläder",
-      "metaTitle": "Kläder för dam och herr – jackor, stickat och mer",
-      "metaDescription": "Jackor, kappor, stickade tröjor, klänningar och varma accessoarer för dam och herr. Tidlös stil och tydliga priser hos Vardagsstil.",
-      "intro": "Jackor, stickat och varma accessoarer för dam och herr – tidlös stil för vardagen.",
-      "body": [
-        "Vårt klädsortiment är byggt kring plagg som går att kombinera och använda länge. För dam finns kappor, trenchcoats och vadderade jackor, stickade tröjor och klänningar samt mjuka sjalar. För herr hittar du vadderade jackor och parkas, flanellskjortor, stickade tröjor och fleecefodrade vinterbyxor.",
-        "Fokus ligger på den kallare delen av året i Norden – plagg som håller värmen men ändå ser genomtänkta ut. Använd filtren för att hitta rätt storlek, eller gå direkt till dam eller herr."
-      ]
-    },
-    "no": {
-      "title": "Klær",
-      "metaTitle": "Klær til dame og herre – jakker, strikk og mer",
-      "metaDescription": "Jakker, kåper, strikkegensere, kjoler og varmt tilbehør til dame og herre. Tidløs stil og tydelige priser hos Vardagsstil.",
-      "intro": "Jakker, strikk og varmt tilbehør til dame og herre – tidløs stil for hverdagen.",
-      "body": [
-        "Klesutvalget vårt er bygget rundt plagg som kan kombineres og brukes lenge. Til dame finnes kåper, trenchcoats og vatterte jakker, strikkegensere og kjoler samt myke sjal. Til herre finner du vatterte jakker og parkaser, flanellskjorter, strikkegensere og fleecefôrede vinterbukser.",
-        "Fokuset ligger på den kaldere delen av året i Norden – plagg som holder på varmen, men som likevel ser gjennomtenkte ut. Bruk filtrene for å finne riktig størrelse, eller gå direkte til dame eller herre."
-      ]
-    },
-    "da": {
-      "title": "Tøj",
-      "metaTitle": "Tøj til dame og herre – jakker, strik og mere",
-      "metaDescription": "Jakker, frakker, strikbluser, kjoler og varmt tilbehør til dame og herre. Tidløs stil og tydelige priser hos Vardagsstil.",
-      "intro": "Jakker, strik og varmt tilbehør til dame og herre – tidløs stil til hverdagen.",
-      "body": [
-        "Vores tøjsortiment er bygget op om beklædning, der kan kombineres og bruges længe. Til dame er der frakker, trenchcoats og vatterede jakker, strikbluser og kjoler samt bløde sjaler. Til herre finder du vatterede jakker og parkaer, flonelsskjorter, strikbluser og fleeceforede vinterbukser.",
-        "Fokus ligger på den koldere del af året i Norden – tøj, der holder på varmen, men som stadig ser gennemtænkt ud. Brug filtrene til at finde den rigtige størrelse, eller gå direkte til dame eller herre."
-      ]
-    },
-    "fi": {
-      "title": "Vaatteet",
-      "metaTitle": "Naisten ja miesten vaatteet – takit, neuleet ja muuta",
-      "metaDescription": "Takit, kappatakit, neuleet, mekot ja lämpimät asusteet naisille ja miehille. Ajaton tyyli ja selkeät hinnat – Vardagsstil.",
-      "intro": "Takit, neuleet ja lämpimät asusteet naisille ja miehille – ajatonta tyyliä arkeen.",
-      "body": [
-        "Vaatevalikoimamme koostuu vaatteista, joita voi yhdistellä ja käyttää pitkään. Naisille on kappoja, trenssitakkeja ja toppatakkeja, neuleita ja mekkoja sekä pehmeitä huiveja. Miehille löytyy toppatakkeja ja parkatakkeja, flanellipaitoja, neuleita ja fleecevuorattuja talvihousuja.",
-        "Painopiste on Pohjolan kylmemmässä vuodenajassa – vaatteissa, jotka pitävät lämpimänä mutta näyttävät silti harkituilta. Käytä suodattimia oikean koon löytämiseen tai siirry suoraan naisten tai miesten vaatteisiin."
-      ]
-    }
-  },
   "dam": {
     "sv": {
       "title": "Dam",

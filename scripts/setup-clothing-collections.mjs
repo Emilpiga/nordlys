@@ -434,36 +434,6 @@ async function main() {
     await sleep(300);
   }
 
-  // Keep umbrella "klader" useful: ensure it is (or becomes) smart on clothing tag.
-  if (existing.has("klader") && !dryRun) {
-    const klader = existing.get("klader");
-    const result = await gql(
-      `mutation ($input: CollectionInput!) {
-        collectionUpdate(input: $input) {
-          collection { id handle }
-          userErrors { field message }
-        }
-      }`,
-      {
-        input: {
-          id: klader.id,
-          ruleSet: {
-            appliedDisjunctively: false,
-            rules: [
-              { column: "TAG", relation: "EQUALS", condition: "clothing" },
-            ],
-          },
-        },
-      },
-    );
-    const errors = result.collectionUpdate.userErrors;
-    if (errors?.length) {
-      console.warn(`klader update skipped: ${JSON.stringify(errors)}`);
-    } else {
-      console.log("UPDATED klader → smart rule tag:clothing");
-    }
-  }
-
   console.log(dryRun ? "Dry run done." : "Done.");
 }
 

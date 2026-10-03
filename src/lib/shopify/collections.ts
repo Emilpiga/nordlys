@@ -13,16 +13,9 @@ const EXCLUDED_HANDLES = new Set([
 const EXCLUDED_TITLE_PATTERN =
   /^(home\s*page|homepage|frontpage|startsida|alla produkter|all products)$/i;
 
-/** Umbrella clothing collection. Dam/Herr nest under this. */
-export const CLOTHING_ROOT = "klader";
-
-/** Gender collections under Kläder. */
+/** Top-level shop categories. Type collections nest under these. */
 export const CLOTHING_GENDERS = ["dam", "herr"] as const;
 export type ClothingGender = (typeof CLOTHING_GENDERS)[number];
-
-/** @deprecated Prefer CLOTHING_GENDERS — kept for older call sites. */
-export const CLOTHING_PARENTS = CLOTHING_GENDERS;
-export type ClothingParent = ClothingGender;
 
 export const CLOTHING_CHILDREN: Record<ClothingGender, readonly string[]> = {
   dam: [
@@ -54,8 +47,6 @@ export type NavCollectionGroup = {
   /** Parent handle when grouping children without a published parent row. */
   key: string;
   children: CollectionSummary[];
-  /** Optional nested groups (e.g. Dam/Herr under Kläder). */
-  nested?: NavCollectionGroup[];
 };
 
 function byHandleMap(collections: CollectionSummary[]) {
@@ -84,26 +75,8 @@ export function isClothingTypeHandle(handle: string) {
   return CLOTHING_TYPE_HANDLES.has(handle.trim().toLowerCase());
 }
 
-/** @deprecated Use isClothingTypeHandle */
-export function isClothingChildHandle(handle: string) {
-  return isClothingTypeHandle(handle);
-}
-
 export function isClothingGenderHandle(handle: string) {
   return CLOTHING_GENDER_HANDLES.has(handle.trim().toLowerCase());
-}
-
-/** Dam, Herr, or any type subcategory — not the Kläder root. */
-export function isClothingNestedHandle(handle: string) {
-  const normalized = handle.trim().toLowerCase();
-  return (
-    isClothingGenderHandle(normalized) || isClothingTypeHandle(normalized)
-  );
-}
-
-export function isClothingBranchHandle(handle: string) {
-  const normalized = handle.trim().toLowerCase();
-  return normalized === CLOTHING_ROOT || isClothingNestedHandle(normalized);
 }
 
 export function clothingGenderFromHandle(
@@ -117,11 +90,6 @@ export function clothingGenderFromHandle(
     if (CLOTHING_CHILDREN[gender].includes(normalized)) return gender;
   }
   return null;
-}
-
-/** @deprecated Prefer clothingGenderFromHandle */
-export function clothingParentFromHandle(handle: string) {
-  return clothingGenderFromHandle(handle);
 }
 
 /** The collection a product page links back to when a product sits in several. */
@@ -145,14 +113,6 @@ export function clothingTypesFor(
     .filter((collection): collection is CollectionSummary =>
       Boolean(collection),
     );
-}
-
-/** @deprecated Prefer clothingTypesFor */
-export function clothingChildrenFor(
-  parent: ClothingGender,
-  collections: CollectionSummary[],
-) {
-  return clothingTypesFor(parent, collections);
 }
 
 export function clothingGenders(
@@ -181,13 +141,7 @@ export function clothingSampleIds(
     ids.push(id);
   };
 
-  if (lists.length === 0) {
-    for (const collection of collections) {
-      if (!isClothingBranchHandle(collection.handle)) continue;
-      for (const id of collection.productIds) push(id);
-    }
-    return ids;
-  }
+  if (lists.length === 0) return ids;
 
   const maxLen = Math.max(...lists.map((list) => list.length));
   for (let index = 0; index < maxLen; index++) {
@@ -198,8 +152,8 @@ export function clothingSampleIds(
 }
 
 /**
- * Shop menu: Kläder (with Dam/Herr → types nested), then any other
- * top-level collections. Dam/Herr are never top-level.
+ * Shop menu: Dam and Herr with their types nested, then any other
+ * top-level collection.
  */
 export function navGroupsFromCollections(
   collections: CollectionSummary[],
@@ -207,45 +161,31 @@ export function navGroupsFromCollections(
   const browsable = collections.filter(isBrowsableCollection);
   const byHandle = byHandleMap(browsable);
   const groups: NavCollectionGroup[] = [];
-  const used = new Set<string>();
-
-  const klader = byHandle.get(CLOTHING_ROOT) ?? null;
-  const genderGroups: NavCollectionGroup[] = [];
 
   for (const gender of CLOTHING_GENDERS) {
     const parent = byHandle.get(gender) ?? null;
     const children = clothingTypesFor(gender, browsable);
     if (!parent && children.length === 0) continue;
-    if (parent) used.add(parent.handle.toLowerCase());
-    for (const child of children) used.add(child.handle.toLowerCase());
-    genderGroups.push({ parent, key: gender, children });
+    groups.push({ parent, key: gender, children });
   }
 
-  if (klader || genderGroups.length > 0) {
-    if (klader) used.add(klader.handle.toLowerCase());
-    groups.push({
-      parent: klader,
-      key: CLOTHING_ROOT,
-      children: [],
-      nested: genderGroups,
-    });
-  }
-
-  const remaining = sortByTitle(
-    browsable.filter(
-      (collection) => !used.has(collection.handle.toLowerCase()),
-    ),
-  ).filter((collection) => !isClothingNestedHandle(collection.handle));
-
-  for (const collection of remaining) {
-    groups.push({
-      parent: collection,
-      key: collection.handle,
-      children: [],
-    });
+  for (const collection of otherCollections(browsable)) {
+    groups.push({ parent: collection, key: collection.handle, children: [] });
   }
 
   return groups;
+}
+
+/** Browsable collections outside Dam/Herr and their types. */
+function otherCollections(collections: CollectionSummary[]) {
+  return sortByTitle(
+    collections.filter(
+      (collection) =>
+        isBrowsableCollection(collection) &&
+        !isClothingGenderHandle(collection.handle) &&
+        !isClothingTypeHandle(collection.handle),
+    ),
+  );
 }
 
 export type CollectionTreeNode = {
@@ -280,12 +220,9 @@ export function collectionAncestorHandles(
 function navGroupsToTree(groups: NavCollectionGroup[]): CollectionTreeNode[] {
   const nodes: CollectionTreeNode[] = [];
   for (const group of groups) {
-    const children = [
-      ...navGroupsToTree(group.nested ?? []),
-      ...group.children.map(
-        (collection): CollectionTreeNode => ({ collection, children: [] }),
-      ),
-    ];
+    const children = group.children.map(
+      (collection): CollectionTreeNode => ({ collection, children: [] }),
+    );
     if (group.parent) {
       nodes.push({ collection: group.parent, children });
     } else {
@@ -295,17 +232,11 @@ function navGroupsToTree(groups: NavCollectionGroup[]): CollectionTreeNode[] {
   return nodes;
 }
 
-/** Top chips: Kläder and any other top-level collection — never Dam/Herr/types. */
+/** Top chips: Dam, Herr and any other top-level collection — never types. */
 export function topLevelCollections(
   collections: CollectionSummary[],
 ): CollectionSummary[] {
-  return sortByTitle(
-    collections.filter(
-      (collection) =>
-        isBrowsableCollection(collection) &&
-        !isClothingNestedHandle(collection.handle),
-    ),
-  );
+  return [...clothingGenders(collections), ...otherCollections(collections)];
 }
 
 /** "Dam ytterkläder", "Yttertøy dame" and "Naisten takit" all lose the gender. */
@@ -333,49 +264,32 @@ export function shortCollectionLabel(title: string, parentTitle?: string) {
 }
 
 export type CatalogCollectionNav = {
-  /** Top-level chips/filters (Kläder, …). */
+  /** Top-level chips/filters (Dam, Herr, …). */
   primary: CollectionSummary[];
-  /** Dam / Herr when browsing the clothing branch. */
-  genders: CollectionSummary[];
   /** Type subcats when browsing a gender. */
   types: CollectionSummary[];
-  clothingRoot: CollectionSummary | null;
   clothingGender: CollectionSummary | null;
   clothingGenderKey: ClothingGender | null;
-  inClothingBranch: boolean;
 };
 
 /**
- * Catalog chips/filters:
- * - Top level never lists Dam/Herr
- * - On Kläder or any clothing collection → show Dam/Herr
- * - On Dam/Herr or a type → also show that gender's type chips
+ * Catalog chips/filters: Dam and Herr on top; on Dam/Herr or one of
+ * their types, also that gender's type chips.
  */
 export function catalogCollectionNav(
   collections: CollectionSummary[],
   activeHandle?: string | null,
 ): CatalogCollectionNav {
-  const primary = topLevelCollections(collections);
-  const byHandle = byHandleMap(collections);
-  const clothingRoot = byHandle.get(CLOTHING_ROOT) ?? null;
   const genderKey = activeHandle
     ? clothingGenderFromHandle(activeHandle)
     : null;
-  const inClothingBranch = activeHandle
-    ? isClothingBranchHandle(activeHandle)
-    : false;
-
-  const genders = inClothingBranch ? clothingGenders(collections) : [];
-  const clothingGender = genderKey ? (byHandle.get(genderKey) ?? null) : null;
-  const types = genderKey ? clothingTypesFor(genderKey, collections) : [];
 
   return {
-    primary,
-    genders,
-    types,
-    clothingRoot,
-    clothingGender,
+    primary: topLevelCollections(collections),
+    types: genderKey ? clothingTypesFor(genderKey, collections) : [],
+    clothingGender: genderKey
+      ? (byHandleMap(collections).get(genderKey) ?? null)
+      : null,
     clothingGenderKey: genderKey,
-    inClothingBranch,
   };
 }
