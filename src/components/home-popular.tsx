@@ -1,14 +1,23 @@
+"use client";
+
+import { useDictionary } from "@/components/dictionary-provider";
+import { useHomeGender } from "@/components/home-gender-provider";
 import { ProductCarousel } from "@/components/product-carousel";
 import { LocaleLink } from "@/components/locale-link";
-import type { Dictionary } from "@/lib/i18n/get-dictionary";
 import type { PopularProduct } from "@/lib/popular-products";
+import type { ClothingGender } from "@/lib/shopify/collections";
 
 type HomePopularProps = {
-  dict: Dictionary;
+  /** Shown when the chosen side has nothing to show. */
   products: PopularProduct[];
+  byGender: Record<ClothingGender, PopularProduct[]>;
 };
 
-export function HomePopular({ dict, products }: HomePopularProps) {
+export function HomePopular({ products: all, byGender }: HomePopularProps) {
+  const { dict } = useDictionary();
+  const gender = useHomeGender()?.gender ?? "dam";
+  const picked = byGender[gender];
+  const products = picked.length > 0 ? picked : all;
   if (products.length === 0) return null;
 
   return (
@@ -35,6 +44,7 @@ export function HomePopular({ dict, products }: HomePopularProps) {
         </div>
 
         <ProductCarousel
+          key={gender}
           products={products}
           prevLabel={dict.home.featuredPrev}
           nextLabel={dict.home.featuredNext}

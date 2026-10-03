@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { HomeGenderProvider } from "@/components/home-gender-provider";
 import { HomeHero } from "@/components/home-hero";
 import { HomeCategoryGuide } from "@/components/home-category-guide";
 import { HomeLookbook } from "@/components/home-lookbook";
@@ -75,12 +76,25 @@ export default async function HomePage({ params }: Props) {
     .filter((product): product is Product => Boolean(product));
 
   const genderCollections = clothingGenders(collections);
-  const productsIn = (gender: ClothingGender) => {
-    const ids = new Set(
+  const idsIn = (gender: ClothingGender) =>
+    new Set(
       genderCollections.find((collection) => collection.handle === gender)
         ?.productIds,
     );
+  const productsIn = (gender: ClothingGender) => {
+    const ids = idsIn(gender);
     return clothingProducts.filter((product) => ids.has(product.id));
+  };
+  const popularIn = (gender: ClothingGender) => {
+    const ids = idsIn(gender);
+    return ids.size > 0
+      ? pickPopularProducts(catalog, {
+          clothingProducts: productsIn(gender),
+          clothingIds: ids,
+          traction,
+          tractionProducts,
+        })
+      : [];
   };
   const titleOf = (gender: ClothingGender) =>
     genderCollections.find((collection) => collection.handle === gender)
@@ -103,7 +117,7 @@ export default async function HomePage({ params }: Props) {
     ),
   ].filter((collection) => collection.productCount > 0);
   return (
-    <>
+    <HomeGenderProvider>
       <HomeHero
         images={heroImages}
         eyebrow={dict.home.wordmarkTagline}
@@ -131,7 +145,10 @@ export default async function HomePage({ params }: Props) {
         secondaryCtaHref="/products"
       />
 
-      <HomePopular dict={dict} products={popularProducts} />
+      <HomePopular
+        products={popularProducts}
+        byGender={{ dam: popularIn("dam"), herr: popularIn("herr") }}
+      />
 
       <HomeTrustStrip />
 
@@ -151,6 +168,6 @@ export default async function HomePage({ params }: Props) {
       )}
 
       <HomeTestimonials locale={locale} dict={dict} products={catalog} />
-    </>
+    </HomeGenderProvider>
   );
 }

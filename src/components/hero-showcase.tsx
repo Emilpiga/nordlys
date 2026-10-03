@@ -3,6 +3,7 @@
 import Image from "@/components/soft-image";
 import Link from "next/link";
 import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
+import { useHomeGender } from "@/components/home-gender-provider";
 import { LocaleLink } from "@/components/locale-link";
 import type { HeroImage } from "@/lib/hero-images";
 import {
@@ -88,6 +89,7 @@ export function HeroShowcase({
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const homeGender = useHomeGender();
 
   const order = CLOTHING_GENDERS.filter((gender) =>
     images.some((image) => image.gender === gender),
@@ -112,6 +114,8 @@ export function HeroShowcase({
   }, [rotating, index, images.length]);
 
   function showGender(gender: ClothingGender) {
+    // A click is a choice — sections further down follow it.
+    homeGender?.setGender(gender);
     if (gender === activeGender) return;
     for (let step = 1; step <= images.length; step++) {
       const next = (index + step) % images.length;
