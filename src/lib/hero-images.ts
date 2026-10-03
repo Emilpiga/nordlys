@@ -1,18 +1,14 @@
+import type { ClothingGender } from "@/lib/shopify/collections";
 import type { Product, ProductImage } from "@/lib/shopify/types";
 
 /** A short stack of catalog stills for the hero crossfade. */
 export const HERO_STILL_COUNT = 6;
 
-/** Clothing stills reserved inside the hero stack — the hero leads with clothing. */
-const CLOTHING_STILL_COUNT = 4;
-
-export type HeroTheme = "clothing" | "home";
-
 export type HeroImage = {
   url: string;
   alt: string;
   product: Product;
-  theme: HeroTheme;
+  gender: ClothingGender;
 };
 
 function shuffle<T>(items: T[]) {
@@ -36,18 +32,19 @@ function imageKey(url: string) {
 function stillFromImage(
   product: Product,
   image: ProductImage | null | undefined,
-  theme: HeroTheme,
+  gender: ClothingGender,
 ): HeroImage | null {
   if (!image?.url) return null;
   return {
     url: image.url,
     alt: image.altText || product.title,
     product,
-    theme,
+    gender,
   };
 }
 
-function stillsFrom(products: Product[], theme: HeroTheme): HeroImage[] {
+/** One featured still per product. Any orientation — the hero crops with object-cover. */
+function stillsFrom(products: Product[], gender: ClothingGender): HeroImage[] {
   const seenProducts = new Set<string>();
   const seenImages = new Set<string>();
   const unique: HeroImage[] = [];
@@ -55,9 +52,9 @@ function stillsFrom(products: Product[], theme: HeroTheme): HeroImage[] {
   for (const product of shuffle(products)) {
     if (seenProducts.has(product.id)) continue;
     const still =
-      stillFromImage(product, product.featuredImage, theme) ??
+      stillFromImage(product, product.featuredImage, gender) ??
       product.images
-        .map((image) => stillFromImage(product, image, theme))
+        .map((image) => stillFromImage(product, image, gender))
         .find(Boolean) ??
       null;
     if (!still) continue;
@@ -72,65 +69,27 @@ function stillsFrom(products: Product[], theme: HeroTheme): HeroImage[] {
 }
 
 /**
- * One featured still per product. Any orientation — the hero crops with object-cover.
- * When clothing products are passed, four of the six stills are clothes, in pairs
- * (clothing, clothing, home, …) so the hero copy that follows the theme changes
- * at a calm pace and the first frame is clothing.
+ * Stills from Dam and Herr in pairs (dam, dam, herr, herr, …), so the hero tab
+ * that follows them changes at a calm pace and the first frame is Dam. When
+ * one side runs out, the other fills the rest.
  */
 export function heroImagesFromCatalog(
-  products: Product[],
-  options?: {
-    limit?: number;
-    clothingProducts?: Product[];
-  },
+  products: Record<ClothingGender, Product[]>,
+  options?: { limit?: number },
 ): HeroImage[] {
   const limit = options?.limit ?? HERO_STILL_COUNT;
-  const clothingIds = new Set(
-    (options?.clothingProducts ?? []).map((product) => product.id),
-  );
-  const homeProducts =
-    clothingIds.size > 0
-      ? products.filter((product) => !clothingIds.has(product.id))
-      : products;
-
-  const clothingStills = stillsFrom(options?.clothingProducts ?? [], "clothing");
-  const homeStills = stillsFrom(homeProducts, "home");
-
-  const clothingTarget = Math.min(
-    CLOTHING_STILL_COUNT,
-    clothingStills.length,
-    limit,
-  );
-  let homeTarget = Math.min(limit - clothingTarget, homeStills.length);
-  const clothingExtra = Math.min(
-    clothingStills.length - clothingTarget,
-    limit - homeTarget - clothingTarget,
-  );
-  const clothing = clothingStills.slice(0, clothingTarget + clothingExtra);
-  if (homeTarget + clothing.length < limit) {
-    homeTarget = Math.min(homeStills.length, limit - clothing.length);
-  }
-  const home = homeStills.slice(0, homeTarget);
-
+  const stills = {
+    dam: stillsFrom(products.dam, "dam"),
+    herr: stillsFrom(products.herr, "herr"),
+  };
   const picked: HeroImage[] = [];
-  let homeIndex = 0;
-  let clothingIndex = 0;
-  for (let index = 0; index < limit; index++) {
-    const preferClothing = clothing.length > 0 && index % 3 !== 2;
-    if (preferClothing && clothingIndex < clothing.length) {
-      picked.push(clothing[clothingIndex]);
-      clothingIndex += 1;
-      continue;
-    }
-    if (homeIndex < home.length) {
-      picked.push(home[homeIndex]);
-      homeIndex += 1;
-      continue;
-    }
-    if (clothingIndex < clothing.length) {
-      picked.push(clothing[clothingIndex]);
-      clothingIndex += 1;
-    }
+
+  for (let index = 0; picked.length < limit; index++) {
+    const gender: ClothingGender = index % 4 < 2 ? "dam" : "herr";
+    const other: ClothingGender = gender === "dam" ? "herr" : "dam";
+    const still = stills[gender].shift() ?? stills[other].shift();
+    if (!still) break;
+    picked.push(still);
   }
 
   return picked;

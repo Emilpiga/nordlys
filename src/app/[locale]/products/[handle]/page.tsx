@@ -132,9 +132,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
     (item) => item.id !== product.id,
   );
   // "Liknande": same Shopify product type in the same collection (coat →
-  // other Ytterkläder in Dam). Clothing only — home goods mostly carry the
-  // placeholder type "Home page" or their room's name, which say nothing
-  // about similarity. Shown from two matches up.
+  // other Ytterkläder in Dam). Shown from two matches up.
   const similarMatches = isApparel(product.productType)
     ? others
         .filter((item) => item.productType === product.productType)

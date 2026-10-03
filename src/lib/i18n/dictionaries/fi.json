@@ -1,7 +1,7 @@
 {
   "meta": {
-    "siteTitle": "{brand} · Vaatteet & koti",
-    "siteDescription": "{brand} — Naisten ja miesten vaatteet: takit, kappatakit ja neuleet sekä tavaraa kotiin. Selkeät hinnat ja toimitus seurannalla."
+    "siteTitle": "{brand} · Naisten ja miesten vaatteet",
+    "siteDescription": "{brand} — Naisten ja miesten vaatteet: takit, kappatakit ja neuleet. Selkeät hinnat ja toimitus seurannalla."
   },
   "nav": {
     "shop": "Kauppa",
@@ -42,8 +42,8 @@
     "countMany": "{count} tuotetta"
   },
   "footer": {
-    "tagline": "Tuotteita arkeen.",
-    "blurb": "Tavaraa kotiin ja arkeen — yksinkertainen tyyli, selkeät hinnat ja toimitus seurannalla.",
+    "tagline": "Vaatteita arkeen.",
+    "blurb": "Naisten ja miesten vaatteita — yksinkertainen tyyli, selkeät hinnat ja toimitus seurannalla.",
     "shopHeading": "Kauppa",
     "collection": "Kokoelma",
     "cart": "Ostoskori",
@@ -60,19 +60,15 @@
     "vatNumber": "ALV {vatNumber}"
   },
   "home": {
-    "heroAlt": "{brand} — Tuotteita arkeen",
-    "wordmarkTagline": "Vaatteet & koti",
+    "heroAlt": "{brand} — Vaatteita arkeen",
+    "wordmarkTagline": "Naiset & miehet",
     "heroHeadline": "Lämpimiä vaatteita kylmiin päiviin.",
     "heroSub": "Kappatakit, neuleet ja talvitakit naisille ja miehille. Ajaton tyyli ja selkeät hinnat.",
-    "heroCta": "Osta nyt",
-    "heroCtaHome": "Osta kotiin",
     "heroCtaClothing": "Osta vaatteita",
+    "heroCtaDam": "Naisten vaatteet",
+    "heroCtaHerr": "Miesten vaatteet",
+    "heroTabsLabel": "Valitse naiset tai miehet",
     "heroCtaAll": "Koko valikoima",
-    "heroTabClothing": "Vaatteet",
-    "heroTabHome": "Koti",
-    "heroTabsLabel": "Valitse, mitä haluat nähdä",
-    "heroHomeHeadline": "Kodikasta, kun ilta pimenee.",
-    "heroHomeSub": "Viltit, lamput ja kätevät tavarat olohuoneeseen, keittiöön ja makuuhuoneeseen.",
     "lookEyebrow": "Viikon asu",
     "lookTitle": "Kolme vaatetta, yksi tyyli",
     "lookSub": "Valmis asu viileisiin päiviin. Valitse koko ja väri jokaiselle vaatteelle – asu vaihtuu joka viikko.",
@@ -80,14 +76,6 @@
     "lookChoose": "Valitse",
     "lookTabsLabel": "Valitse asu",
     "lookPiece": "Vaate {n}",
-    "lookHomeEyebrow": "Viikon nurkkaus",
-    "lookHomeTitle": "Kolme asiaa, jotka nostavat huoneen",
-    "lookHomeSub": "Pieniä yhteensopivia asioita, jotka tekevät huoneesta kodikkaan. Valikoima vaihtuu viikoittain.",
-    "lookHomeTotal": "Kaikki yhdessä",
-    "lookHomePiece": "Osa {n}",
-    "lookHomeTabsLabel": "Valitse huone",
-    "lookSwitchToHome": "Sisustatko mieluummin? Katso viikon nurkkaus",
-    "lookSwitchToClothing": "Mieluummin vaatteita? Katso viikon asu",
     "lookAddAll": "Lisää koko asu ostoskoriin",
     "lookAddAllHint": "Valitse koko ja väri kaikille osille",
     "lookSoldOut": "Loppu tässä yhdistelmässä",
@@ -101,10 +89,6 @@
     "featuredAll": "Koko valikoimaan →",
     "featuredPrev": "Edelliset tuotteet",
     "featuredNext": "Seuraavat tuotteet",
-    "atmosphereEyebrow": "Arki",
-    "atmosphereTitle": "Tehty oikeisiin koteihin",
-    "atmosphereBody": "Keräämme tuotteita, jotka sopivat arkeen — ilman säätöä ja turhaa tyyliä. {brand} pitää asiat yksinkertaisina.",
-    "atmosphereAlt": "Koti- ja arkituotteita",
     "categoryEyebrow": "Löydä oikea",
     "categoryTitle": "Osta kategorioittain",
     "categorySub": "Aloita siitä, mitä tarvitset — jatka sitten omaan tahtiin.",
@@ -114,8 +98,8 @@
     "productOne": "tuote",
     "productMany": "tuotetta",
     "testimonialEyebrow": "Arvostelut",
-    "testimonialTitle": "Tavaraa, jota ihmiset oikeasti käyttävät.",
-    "testimonialSub": "Lyhyitä arvioita asiakkailta, joilla tuotteet ovat jo kotona."
+    "testimonialTitle": "Vaatteita, joita ihmiset oikeasti käyttävät.",
+    "testimonialSub": "Lyhyitä arvioita asiakkailta, jotka ovat jo saaneet vaatteensa."
   },
   "reviews": {
     "eyebrow": "Arvostelut",
@@ -128,7 +112,7 @@
   "products": {
     "sizeRunsSmall": "Vaatteet ovat pienikokoisia — valitse mieluiten yhtä kokoa tavallista suurempi.",
     "backToShop": "← Takaisin kauppaan",
-    "fallbackDescription": "Tuote arkeen — yksinkertainen, hyödyllinen ja valmis kotiin.",
+    "fallbackDescription": "Vaate arkeen — yksinkertainen, mukava ja helppo yhdistellä.",
     "relatedTitle": "Lisää valikoimasta",
     "relatedInCollection": "Lisää: {title}",
     "relatedAll": "Näytä kaikki",
@@ -160,7 +144,7 @@
     "thumbnailLabel": "Näytä kuva {index}",
     "viewFullDetails": "Näytä täydet tiedot",
     "shopTitle": "Kauppa",
-    "shopDescription": "Tuotteita kotiin ja arkeen — yksinkertainen tyyli, selkeät hinnat.",
+    "shopDescription": "Naisten ja miesten vaatteita — yksinkertainen tyyli, selkeät hinnat.",
     "saleBadge": "−{percent} %",
     "badgeBestseller": "Myydyin",
     "badgeTrending": "Nousussa",
@@ -250,21 +234,21 @@
   },
   "collections": {
     "tileEyebrow": "Tutustu myös",
-    "metaTitle": "{title} – tavaroita kotiin ja arkeen",
+    "metaTitle": "{title} – vaatteita arkeen",
     "metaDescription": "{count} tuotetta kategoriassa {title} — {brand}. Yksinkertainen tyyli, selkeät hinnat.",
-    "intro": "{title} — {brand}. Käytännöllisiä tuotteita arkeen, selkeään hintaan."
+    "intro": "{title} — {brand}. Helposti yhdisteltäviä vaatteita arkeen, selkeään hintaan."
   },
   "about": {
     "metaTitle": "Tietoa meistä",
-    "metaDescription": "{brand} on ruotsalainen verkkokauppa, joka myy naisten ja miesten vaatteita sekä tavaraa kotiin — takkeja, neuleita, vilttejä, lamppuja ja muuta.",
+    "metaDescription": "{brand} on ruotsalainen verkkokauppa, joka myy naisten ja miesten vaatteita — kappatakkeja, takkeja, neuleita, mekkoja ja asusteita.",
     "eyebrow": "Tietoa: {brand}",
     "title": "Tyyliä arkeen",
-    "intro": "{brand} on ruotsalainen vaatteiden ja kodin verkkokauppa. Myymme naisten ja miesten vaatteita — kappatakkeja, takkeja, neuleita ja asusteita — sekä valikoituja tavaroita olohuoneeseen, makuuhuoneeseen, keittiöön ja toimistoon.",
-    "imageAlt": "Vaatteita ja tavaraa kotiin",
+    "intro": "{brand} on ruotsalainen vaatteiden verkkokauppa. Myymme naisten ja miesten vaatteita — kappatakkeja, takkeja, neuleita ja asusteita.",
+    "imageAlt": "Naisten ja miesten vaatteita",
     "whyEyebrow": "Miksi olemme olemassa",
-    "whyTitle": "Vaatteita ja tavaroita, joita oikeasti käytät",
-    "whyBody1": "Valitsemme vaatteet ja tuotteet pohjoiseen arkeen: lämpimiä takkeja ja pehmeitä neuleita kylmiin kuukausiin sekä käytännöllisiä tavaroita, jotka tekevät kodista mukavamman. Selkeä tyyli, selkeät hinnat eikä turhaa monimutkaisuutta.",
-    "whyBody2": "Jokainen tuote valitaan, koska se on käyttökelpoinen ja helppo yhdistää — muun vaatekaapin tai kodin kanssa. Ostat meiltä; tilauksen pakkaavat ja lähettävät logistiikkakumppanimme seurannan kanssa.",
+    "whyTitle": "Vaatteita, joita oikeasti käytät",
+    "whyBody1": "Valitsemme vaatteet pohjoiseen arkeen: lämpimiä takkeja ja pehmeitä neuleita kylmiin kuukausiin. Selkeä tyyli, selkeät hinnat eikä turhaa monimutkaisuutta.",
+    "whyBody2": "Jokainen vaate valitaan, koska se on käyttökelpoinen ja helppo yhdistää muun vaatekaapin kanssa. Ostat meiltä; tilauksen pakkaavat ja lähettävät logistiikkakumppanimme seurannan kanssa.",
     "howEyebrow": "Näin se toimii",
     "howTitle": "Yksinkertainen kauppa, selkeä toimitus",
     "howBody": "Kassa toimii turvallisesti Shopifyn kautta. Kun olet maksanut, tilauksesi pakataan ja lähetetään seurannalla. Toimitusajat vaihtelevat kohteen mukaan — olemme avoimia siitä ja autamme, jos jotain menee pieleen.",
@@ -286,7 +270,7 @@
     "items": [
       {
         "question": "Mitä te myytte?",
-        "answer": "Naisten ja miesten vaatteita — kappatakkeja, toppatakkeja, neulepuseroita ja neuletakkeja, mekkoja sekä asusteita kuten huiveja ja pipoja — ja tavaraa kotiin: vilttejä, lamppuja, keittiövälineitä, makuuhuoneen tarvikkeita ja kotitoimiston tarvikkeita. Löydät kaiken valikon kohdasta Kauppa."
+        "answer": "Naisten ja miesten vaatteita — kappatakkeja, toppatakkeja, neulepuseroita ja neuletakkeja, mekkoja sekä asusteita kuten huiveja ja pipoja. Löydät kaiken valikon kohdasta Kauppa."
       },
       {
         "question": "Kuinka kauan toimitus kestää?",
@@ -318,7 +302,7 @@
       },
       {
         "question": "Miten hoidan tuotteita?",
-        "answer": "Noudata vaatteen pesulapun ohjeita ja mahdollisia tuotesivun ohjeita. Kodin tuotteet pyyhitään kuivalla tai kevyesti kostealla liinalla, ellei toisin mainita."
+        "answer": "Noudata vaatteen pesulapun ohjeita ja mahdollisia tuotesivun ohjeita."
       },
       {
         "question": "Miten otan teihin yhteyttä?",
@@ -550,7 +534,7 @@
     "store": {
       "title": "Kauppa",
       "paragraphs": [
-        "{brand} myy tuotteita kotiin ja arkeen verkossa. Tuotesivut, hinnat ja saatavuus näytetään Shopify-pohjaisen katalogimme kautta ja voivat muuttua ilman ennakkoilmoitusta. Pyrimme pitämään kuvaukset paikkansapitävinä; pieniä eroja pakkauksessa, värissä tai kuvissa voi esiintyä.",
+        "{brand} myy vaatteita verkossa. Tuotesivut, hinnat ja saatavuus näytetään Shopify-pohjaisen katalogimme kautta ja voivat muuttua ilman ennakkoilmoitusta. Pyrimme pitämään kuvaukset paikkansapitävinä; pieniä eroja pakkauksessa, värissä tai kuvissa voi esiintyä.",
         "Se, että tuotteen voi ostaa, tarkoittaa että sen voi tilata logistiikkaverkostomme kautta — ei että se välttämättä olisi pohjoismaisessa myymälävarastossa."
       ]
     },

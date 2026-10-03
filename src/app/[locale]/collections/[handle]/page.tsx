@@ -58,7 +58,7 @@ export async function generateMetadata({
   if (!isLocale(locale)) return {};
 
   const collection = await getCollectionByHandle(handle, locale);
-  if (!collection) return { title: "Rum" };
+  if (!collection) return { title: "Kategori" };
 
   const dict = await getDictionary(locale);
   const title = collectionMetaTitle(

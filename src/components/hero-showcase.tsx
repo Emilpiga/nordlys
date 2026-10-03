@@ -3,26 +3,35 @@
 import Image from "@/components/soft-image";
 import Link from "next/link";
 import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
-import { useHomeTheme } from "@/components/home-theme-provider";
 import { LocaleLink } from "@/components/locale-link";
-import type { HeroImage, HeroTheme } from "@/lib/hero-images";
+import type { HeroImage } from "@/lib/hero-images";
+import {
+  CLOTHING_GENDERS,
+  type ClothingGender,
+} from "@/lib/shopify/collections";
 
 const INTERVAL_MS = 8000;
 
-export type HeroThemeCopy = {
-  label: string;
+export type HeroCopy = {
   headline: string;
   sub: string;
   cta: string;
   ctaHref: string;
 };
 
+export type HeroTab = {
+  label: string;
+  cta: string;
+  ctaHref: string;
+};
+
 type HeroShowcaseProps = {
   images: HeroImage[];
-  themes: Record<HeroTheme, HeroThemeCopy>;
-  /** Shown above the headline when only one theme has images. */
-  eyebrow: string;
+  tabs: Record<ClothingGender, HeroTab>;
   tabsLabel: string;
+  copy: HeroCopy;
+  /** Shown above the headline when only one side has images. */
+  eyebrow: string;
   secondaryCta?: string;
   secondaryCtaHref?: string;
 };
@@ -63,64 +72,29 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-/** Stacks every theme's copy in one grid cell so switching never shifts layout. */
-function Crossfade({
-  order,
-  active,
-  render,
-  alignEnd = false,
-}: {
-  order: HeroTheme[];
-  active: HeroTheme;
-  render: (theme: HeroTheme, isActive: boolean) => ReactNode;
-  /** Sit the shorter copy against what follows, so spare height lands above it. */
-  alignEnd?: boolean;
-}) {
-  return (
-    <span className={`grid ${alignEnd ? "items-end" : ""}`}>
-      {order.map((theme) => {
-        const isActive = theme === active;
-        return (
-          <span
-            key={theme}
-            aria-hidden={!isActive}
-            className={`[grid-area:1/1] transition-[opacity,translate] duration-700 ease-out motion-reduce:transition-none ${
-              isActive
-                ? "translate-y-0 opacity-100"
-                : "pointer-events-none translate-y-1.5 opacity-0"
-            }`}
-          >
-            {render(theme, isActive)}
-          </span>
-        );
-      })}
-    </span>
-  );
-}
-
 /**
- * Hero that walks the catalog stills and lets the copy follow them: clothing
- * frames show the clothing pitch, home frames the home pitch. The tabs show
- * which side is on screen and jump straight to it.
+ * Hero that walks the catalog stills. The Dam/Herr tabs show which side is on
+ * screen, jump straight to it, and point the CTA at that side's collection.
  */
 export function HeroShowcase({
   images,
-  themes,
-  eyebrow,
+  tabs,
   tabsLabel,
+  copy,
+  eyebrow,
   secondaryCta,
   secondaryCtaHref,
 }: HeroShowcaseProps) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const homeTheme = useHomeTheme();
 
-  const order = (["clothing", "home"] as const).filter((theme) =>
-    images.some((image) => image.theme === theme),
+  const order = CLOTHING_GENDERS.filter((gender) =>
+    images.some((image) => image.gender === gender),
   );
-  const activeTheme = images[index]?.theme ?? order[0] ?? "clothing";
+  const activeGender = images[index]?.gender ?? order[0] ?? "dam";
   const switchable = order.length > 1;
+  const cta = switchable ? tabs[activeGender] : copy;
   const rotating = images.length > 1 && !paused && !reducedMotion;
 
   useEffect(() => {
@@ -137,13 +111,11 @@ export function HeroShowcase({
     return () => window.clearTimeout(timeout);
   }, [rotating, index, images.length]);
 
-  function showTheme(theme: HeroTheme) {
-    // A click is a choice — sections further down follow it.
-    homeTheme?.setTheme(theme);
-    if (theme === activeTheme) return;
+  function showGender(gender: ClothingGender) {
+    if (gender === activeGender) return;
     for (let step = 1; step <= images.length; step++) {
       const next = (index + step) % images.length;
-      if (images[next]?.theme === theme) {
+      if (images[next]?.gender === gender) {
         setIndex(next);
         return;
       }
@@ -202,21 +174,21 @@ export function HeroShowcase({
               // A solid toggle: it sits on the photo, where thin text vanished.
               className="animate-rise inline-flex border border-border/70 bg-[color-mix(in_oklab,var(--frost)_88%,transparent)] p-1 shadow-sm backdrop-blur-sm"
             >
-              {order.map((theme) => {
-                const isActive = theme === activeTheme;
+              {order.map((gender) => {
+                const isActive = gender === activeGender;
                 return (
                   <button
-                    key={theme}
+                    key={gender}
                     type="button"
                     aria-pressed={isActive}
-                    onClick={() => showTheme(theme)}
+                    onClick={() => showGender(gender)}
                     className={`relative min-w-24 overflow-hidden px-4 py-3 text-xs font-semibold tracking-[0.16em] uppercase transition-colors duration-500 ${
                       isActive
                         ? "bg-foreground text-[var(--on-accent)]"
                         : "text-foreground/75 hover:text-foreground"
                     }`}
                   >
-                    {themes[theme].label}
+                    {tabs[gender].label}
                     {isActive ? (
                       <span
                         key={rotating ? index : "still"}
@@ -238,36 +210,17 @@ export function HeroShowcase({
           )}
 
           <h1 className="animate-rise delay-1 mt-4 font-display text-[2.05rem] font-medium leading-[1.12] tracking-tight text-foreground sm:mt-6 sm:text-[2.55rem] md:text-[2.85rem]">
-            <Crossfade
-              order={order}
-              active={activeTheme}
-              render={(theme) => themes[theme].headline}
-              alignEnd
-            />
+            {copy.headline}
           </h1>
 
           <p className="animate-rise delay-2 mt-3 max-w-sm text-base font-light leading-relaxed text-muted sm:mt-5">
-            <Crossfade
-              order={order}
-              active={activeTheme}
-              render={(theme) => themes[theme].sub}
-            />
+            {copy.sub}
           </p>
 
           <div className="animate-rise delay-3 mt-6 flex flex-wrap gap-3 sm:mt-9">
-            <Crossfade
-              order={order}
-              active={activeTheme}
-              render={(theme, isActive) => (
-                <HeroCta
-                  href={themes[theme].ctaHref}
-                  className="btn-primary"
-                  tabIndex={isActive ? undefined : -1}
-                >
-                  {themes[theme].cta}
-                </HeroCta>
-              )}
-            />
+            <HeroCta href={cta.ctaHref} className="btn-primary">
+              {cta.cta}
+            </HeroCta>
             {secondaryCta && secondaryCtaHref ? (
               // Hidden on phones: "Till hela sortimentet" sits right below.
               <span className="hidden sm:contents">

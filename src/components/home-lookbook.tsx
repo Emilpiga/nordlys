@@ -5,11 +5,9 @@ import { useState, useTransition } from "react";
 import { addLookToCartAction } from "@/app/actions/cart";
 import { useCart } from "@/components/cart-provider";
 import { useDictionary } from "@/components/dictionary-provider";
-import { useHomeTheme } from "@/components/home-theme-provider";
 import { LocaleLink } from "@/components/locale-link";
 import { ProductQuickView } from "@/components/product-quick-view";
 import { formatMoney } from "@/lib/format";
-import type { HeroTheme } from "@/lib/hero-images";
 import type { Look } from "@/lib/lookbook";
 import type { Money, Product, ProductVariant } from "@/lib/shopify/types";
 import { sortSizeValues } from "@/lib/size-guide";
@@ -78,8 +76,7 @@ function withDiscount(money: Money, percent: number): Money {
 }
 
 /**
- * "Veckans look": a shoppable collage with numbered hotspots. Follows the
- * Kläder/Hem choice made in the hero — outfits for clothing, a room for home.
+ * "Veckans look": a shoppable collage of an outfit with numbered hotspots.
  * Pieces get their size/colour right in the list, and the whole look goes to
  * the cart in one click (with the planner's look discount when it's live).
  */
@@ -92,49 +89,17 @@ export function HomeLookbook({
 }) {
   const { dict, locale, t } = useDictionary();
   const home = dict.home;
-  const shared = useHomeTheme();
   const { setCart, openCart } = useCart();
   const [adding, startAdding] = useTransition();
-  // Remember the picked look per side so switching back restores it.
-  const [lookKeys, setLookKeys] = useState<Partial<Record<HeroTheme, string>>>(
-    {},
-  );
+  const [lookKey, setLookKey] = useState<string | null>(null);
   // Size/colour picks per piece, keyed by look so each look keeps its own.
   const [choices, setChoices] = useState<Record<string, Choices>>({});
   const [highlight, setHighlight] = useState<number | null>(null);
   const [openSpot, setOpenSpot] = useState<number | null>(null);
   const [quickProduct, setQuickProduct] = useState<Product | null>(null);
 
-  const available = (["clothing", "home"] as const).filter((theme) =>
-    looks.some((item) => item.theme === theme),
-  );
-  const wanted = shared?.theme ?? "clothing";
-  const theme = available.includes(wanted) ? wanted : available[0];
-  if (!theme) return null;
-  const otherTheme = available.find((item) => item !== theme);
-  const themeLooks = looks.filter((item) => item.theme === theme);
-  const look =
-    themeLooks.find((item) => item.key === lookKeys[theme]) ?? themeLooks[0];
-  const copy =
-    theme === "home"
-      ? {
-          eyebrow: home.lookHomeEyebrow,
-          title: home.lookHomeTitle,
-          sub: home.lookHomeSub,
-          total: home.lookHomeTotal,
-          piece: home.lookHomePiece,
-          tabsLabel: home.lookHomeTabsLabel,
-          switchTo: home.lookSwitchToClothing,
-        }
-      : {
-          eyebrow: home.lookEyebrow,
-          title: home.lookTitle,
-          sub: home.lookSub,
-          total: home.lookTotal,
-          piece: home.lookPiece,
-          tabsLabel: home.lookTabsLabel,
-          switchTo: home.lookSwitchToHome,
-        };
+  const look = looks.find((item) => item.key === lookKey) ?? looks[0];
+  if (!look) return null;
 
   const choiceKey = (piece: Product) => `${look.key}:${piece.id}`;
   const pieceChoices = (piece: Product) =>
@@ -157,7 +122,7 @@ export function HomeLookbook({
   }
 
   function selectLook(key: string) {
-    setLookKeys((current) => ({ ...current, [theme!]: key }));
+    setLookKey(key);
     reset();
   }
 
@@ -214,7 +179,7 @@ export function HomeLookbook({
                   <button
                     type="button"
                     aria-expanded={openSpot === index}
-                    aria-label={`${t(copy.piece, { n: index + 1 })}: ${piece.title}`}
+                    aria-label={`${t(home.lookPiece, { n: index + 1 })}: ${piece.title}`}
                     onClick={() =>
                       setOpenSpot((current) => (current === index ? null : index))
                     }
@@ -256,25 +221,25 @@ export function HomeLookbook({
 
         <div>
           <p className="text-[0.68rem] font-medium tracking-[0.2em] uppercase text-glow">
-            {copy.eyebrow}
+            {home.lookEyebrow}
           </p>
           <h2
             id="lookbook-heading"
             className="mt-3 font-display text-[1.65rem] font-medium leading-[1.15] tracking-tight sm:text-[1.9rem]"
           >
-            {copy.title}
+            {home.lookTitle}
           </h2>
           <p className="mt-4 max-w-sm text-base font-light leading-relaxed text-muted">
-            {copy.sub}
+            {home.lookSub}
           </p>
 
-          {themeLooks.length > 1 ? (
+          {looks.length > 1 ? (
             <div
               role="group"
-              aria-label={copy.tabsLabel}
+              aria-label={home.lookTabsLabel}
               className="mt-7 flex items-center gap-6"
             >
-              {themeLooks.map((item) => {
+              {looks.map((item) => {
                 const isActive = item.key === look.key;
                 return (
                   <button
@@ -378,7 +343,7 @@ export function HomeLookbook({
             {total ? (
               <div>
                 <p className="text-[0.68rem] font-medium tracking-[0.16em] uppercase text-muted">
-                  {copy.total}
+                  {home.lookTotal}
                   {percent ? (
                     <span className="ml-2 text-glow">
                       {t(home.lookDiscount, { percent })}
@@ -417,19 +382,6 @@ export function HomeLookbook({
             <p className="mt-2 text-center text-xs font-light text-muted">
               {home.lookAddAllHint}
             </p>
-          ) : null}
-
-          {otherTheme && shared ? (
-            <button
-              type="button"
-              onClick={() => {
-                shared.setTheme(otherTheme);
-                reset();
-              }}
-              className="mt-8 text-sm font-light text-muted underline decoration-border underline-offset-4 transition hover:text-foreground hover:decoration-foreground"
-            >
-              {copy.switchTo} →
-            </button>
           ) : null}
         </div>
       </div>

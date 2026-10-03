@@ -1,7 +1,7 @@
 {
   "meta": {
-    "siteTitle": "{brand} · Klær & hjem",
-    "siteDescription": "{brand} — Klær til dame og herre: jakker, kåper og strikk, pluss ting til hjemmet. Tydelige priser og levering med sporing."
+    "siteTitle": "{brand} · Klær til dame og herre",
+    "siteDescription": "{brand} — Klær til dame og herre: jakker, kåper og strikk. Tydelige priser og levering med sporing."
   },
   "nav": {
     "shop": "Handle",
@@ -42,8 +42,8 @@
     "countMany": "{count} produkter"
   },
   "footer": {
-    "tagline": "Produkter for hverdagen.",
-    "blurb": "Ting til hjemmet og hverdagen — enkel stil, tydelige priser og levering med sporing.",
+    "tagline": "Klær for hverdagen.",
+    "blurb": "Klær til dame og herre — enkel stil, tydelige priser og levering med sporing.",
     "shopHeading": "Handle",
     "collection": "Kolleksjon",
     "cart": "Handlekurv",
@@ -60,19 +60,15 @@
     "shippingBadge": "Sendes innen {processing} · Sporing på hver ordre"
   },
   "home": {
-    "heroAlt": "{brand} — Produkter for hverdagen",
-    "wordmarkTagline": "Klær & hjem",
+    "heroAlt": "{brand} — Klær for hverdagen",
+    "wordmarkTagline": "Dame & herre",
     "heroHeadline": "Varme klær for kalde dager.",
     "heroSub": "Kåper, strikk og vinterjakker til dame og herre. Tidløs stil og tydelige priser.",
-    "heroCta": "Kjøp nå",
-    "heroCtaHome": "Handle til hjemmet",
     "heroCtaClothing": "Handle klær",
+    "heroCtaDam": "Handle dame",
+    "heroCtaHerr": "Handle herre",
+    "heroTabsLabel": "Velg dame eller herre",
     "heroCtaAll": "Hele utvalget",
-    "heroTabClothing": "Klær",
-    "heroTabHome": "Hjem",
-    "heroTabsLabel": "Velg hva du vil se",
-    "heroHomeHeadline": "Lunt hjemme når mørket kommer.",
-    "heroHomeSub": "Pledd, lamper og smarte ting til stue, kjøkken og soverom.",
     "lookEyebrow": "Ukens look",
     "lookTitle": "Tre plagg som hører sammen",
     "lookSub": "Et ferdig antrekk for kjølige dager. Velg størrelse og farge på hvert plagg – looken byttes hver uke.",
@@ -80,14 +76,6 @@
     "lookChoose": "Velg",
     "lookTabsLabel": "Velg look",
     "lookPiece": "Plagg {n}",
-    "lookHomeEyebrow": "Ukens hjørne",
-    "lookHomeTitle": "Tre ting som løfter rommet",
-    "lookHomeSub": "Små ting som passer sammen og gjør rommet lunt. Utvalget byttes hver uke.",
-    "lookHomeTotal": "Alt sammen",
-    "lookHomePiece": "Del {n}",
-    "lookHomeTabsLabel": "Velg rom",
-    "lookSwitchToHome": "Heller interiør? Se ukens hjørne",
-    "lookSwitchToClothing": "Heller klær? Se ukens look",
     "lookAddAll": "Legg hele looken i handlekurven",
     "lookAddAllHint": "Velg størrelse og farge for alle delene",
     "lookSoldOut": "Utsolgt i den kombinasjonen",
@@ -101,10 +89,6 @@
     "featuredAll": "Til hele sortimentet →",
     "featuredPrev": "Forrige produkter",
     "featuredNext": "Neste produkter",
-    "atmosphereEyebrow": "Hverdag",
-    "atmosphereTitle": "Laget for ekte hjem",
-    "atmosphereBody": "Vi samler produkter som passer inn i hverdagen — uten krøll og uten unødvendig styling. {brand} holder det enkelt.",
-    "atmosphereAlt": "Hjem og hverdagsprodukter",
     "categoryEyebrow": "Finn riktig",
     "categoryTitle": "Handle etter kategori",
     "categorySub": "Start der du trenger noe — så bygger du videre i ditt tempo.",
@@ -114,8 +98,8 @@
     "productOne": "produkt",
     "productMany": "produkter",
     "testimonialEyebrow": "Omtaler",
-    "testimonialTitle": "Ting folk faktisk bruker.",
-    "testimonialSub": "Korte omtaler fra kunder som allerede har produktene hjemme."
+    "testimonialTitle": "Plagg folk faktisk bruker.",
+    "testimonialSub": "Korte omtaler fra kunder som allerede har fått plaggene sine."
   },
   "reviews": {
     "eyebrow": "Omtaler",
@@ -128,7 +112,7 @@
   "products": {
     "sizeRunsSmall": "Plaggene er små i størrelsen — velg gjerne én størrelse større enn vanlig.",
     "backToShop": "← Tilbake til butikken",
-    "fallbackDescription": "Et produkt for hverdagen — enkelt, nyttig og klart til å brukes hjemme.",
+    "fallbackDescription": "Et plagg for hverdagen — enkelt, behagelig og lett å kombinere.",
     "relatedTitle": "Mer fra sortimentet",
     "relatedInCollection": "Mer til {title}",
     "relatedAll": "Vis alle",
@@ -160,7 +144,7 @@
     "thumbnailLabel": "Vis bilde {index}",
     "viewFullDetails": "Vis fullstendig info",
     "shopTitle": "Handle",
-    "shopDescription": "Produkter til hjemmet og hverdagen — enkel stil, tydelige priser.",
+    "shopDescription": "Klær til dame og herre — enkel stil, tydelige priser.",
     "saleBadge": "−{percent} %",
     "badgeBestseller": "Bestselger",
     "badgeTrending": "Trender",
@@ -250,21 +234,21 @@
   },
   "collections": {
     "tileEyebrow": "Oppdag også",
-    "metaTitle": "{title} – ting til hjemmet og hverdagen",
-    "metaDescription": "{count} produkter i {title} fra {brand}. Enkel stil, tydelige priser og ting du faktisk bruker.",
-    "intro": "{title} hos {brand} — praktiske ting med enkel form, valgt ut for hverdagen."
+    "metaTitle": "{title} – klær for hverdagen",
+    "metaDescription": "{count} produkter i {title} fra {brand}. Enkel stil, tydelige priser og plagg du faktisk bruker.",
+    "intro": "{title} hos {brand} — plagg med enkel stil, valgt ut for hverdagen."
   },
   "about": {
     "metaTitle": "Om oss",
-    "metaDescription": "{brand} er en svensk nettbutikk for klær til dame og herre og ting til hjemmet — kåper, jakker, strikk, pledd, lamper og mer.",
+    "metaDescription": "{brand} er en svensk nettbutikk for klær til dame og herre — kåper, jakker, strikk, kjoler og tilbehør.",
     "eyebrow": "Om {brand}",
     "title": "Stil for hverdagen",
-    "intro": "{brand} er en svensk nettbutikk for klær og hjem. Vi selger klær til dame og herre — kåper, jakker, strikk og tilbehør — og utvalgte ting til stue, soverom, kjøkken og kontor.",
-    "imageAlt": "Klær og ting til hjemmet",
+    "intro": "{brand} er en svensk nettbutikk for klær. Vi selger klær til dame og herre — kåper, jakker, strikk og tilbehør.",
+    "imageAlt": "Klær til dame og herre",
     "whyEyebrow": "Hvorfor vi finnes",
-    "whyTitle": "Klær og ting du faktisk bruker",
-    "whyBody1": "Vi velger ut plagg og produkter for en nordisk hverdag: varmt yttertøy og mykt strikk for kalde måneder, og praktiske ting som gjør hjemmet bedre å være i. Enkel stil, tydelige priser og ikke noe unødvendig styr.",
-    "whyBody2": "Hvert produkt velges for å være nyttig og lett å kombinere — med resten av garderoben eller hjemmet. Du handler hos oss; ordren pakkes og sendes av våre logistikkpartnere med sporing.",
+    "whyTitle": "Klær du faktisk bruker",
+    "whyBody1": "Vi velger ut plagg for en nordisk hverdag: varmt yttertøy og mykt strikk for kalde måneder. Enkel stil, tydelige priser og ikke noe unødvendig styr.",
+    "whyBody2": "Hvert plagg velges for å være nyttig og lett å kombinere med resten av garderoben. Du handler hos oss; ordren pakkes og sendes av våre logistikkpartnere med sporing.",
     "howEyebrow": "Slik fungerer det",
     "howTitle": "Enkel handel, tydelig levering",
     "howBody": "Kassen kjøres sikkert via Shopify. Når du har betalt, pakkes ordren din og sendes med sporing. Leveringstider varierer med destinasjon — vi er åpne om det, og hjelper deg hvis noe går galt.",
@@ -286,7 +270,7 @@
     "items": [
       {
         "question": "Hva selger dere?",
-        "answer": "Klær til dame og herre — kåper, vatterte jakker, strikkegensere og cardigans, kjoler og tilbehør som sjal og luer — og ting til hjemmet: pledd, lamper, kjøkkenredskaper, soveromstilbehør og tilbehør til hjemmekontoret. Du finner alt under Handle i menyen."
+        "answer": "Klær til dame og herre — kåper, vatterte jakker, strikkegensere og cardigans, kjoler og tilbehør som sjal og luer. Du finner alt under Handle i menyen."
       },
       {
         "question": "Hvor lang tid tar leveransen?",
@@ -318,7 +302,7 @@
       },
       {
         "question": "Hvordan steller jeg produktene?",
-        "answer": "Følg vaskeanvisningen på plaggets etikett og eventuelle anvisninger på produktsiden. Produkter til hjemmet tørker du av med en tørr eller lett fuktig klut hvis ikke annet er oppgitt."
+        "answer": "Følg vaskeanvisningen på plaggets etikett og eventuelle anvisninger på produktsiden."
       },
       {
         "question": "Hvordan kontakter jeg dere?",
@@ -557,7 +541,7 @@
     "store": {
       "title": "Butikken",
       "paragraphs": [
-        "{brand} selger produkter for hjem og hverdag online. Produktsider, priser og tilgjengelighet vises via vår Shopify-drevne katalog og kan endres uten forhåndsvarsel. Vi gjør vårt beste for å holde beskrivelser korrekte; små forskjeller i emballasje, farge eller bilder kan forekomme.",
+        "{brand} selger klær online. Produktsider, priser og tilgjengelighet vises via vår Shopify-drevne katalog og kan endres uten forhåndsvarsel. Vi gjør vårt beste for å holde beskrivelser korrekte; små forskjeller i emballasje, farge eller bilder kan forekomme.",
         "At en vare kan kjøpes betyr at den kan bestilles via logistikknettet vårt — ikke at den nødvendigvis ligger på et nordisk butikklager."
       ]
     },

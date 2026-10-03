@@ -7,16 +7,15 @@ import type {
 import type { Product } from "@/lib/shopify/types";
 
 const POPULAR_COUNT = 8;
-const CLOTHING_RATIO = 0.5;
 
 export type PopularProduct = Product & {
   tractionBadge?: TractionBadge;
 };
 
 /**
- * Prefer Redis traction leaders (views / carts / sales), keeping two clothing
- * and two home slots. Fall back to curated handles + Shopify BEST_SELLING
- * when traction data is cold or incomplete.
+ * Prefer Redis traction leaders (views / carts / sales) among the clothing.
+ * Fall back to curated handles + Shopify BEST_SELLING when traction data is
+ * cold or incomplete.
  *
  * Badges are assigned relatively across the final featured set. Sales ties
  * for Bästsäljare go to the 2 products with the most recent paid orders.
@@ -34,10 +33,6 @@ export function pickPopularProducts(
   const limit = options?.limit ?? POPULAR_COUNT;
   const clothingIds = options?.clothingIds ?? new Set<string>();
   const clothingPool = options?.clothingProducts ?? [];
-  const clothingTarget =
-    clothingPool.length > 0 || clothingIds.size > 0
-      ? Math.min(Math.floor(limit * CLOTHING_RATIO), limit)
-      : 0;
 
   const byId = new Map<string, Product>();
   for (const product of [
@@ -56,74 +51,20 @@ export function pickPopularProducts(
     (options?.traction ?? []).map((entry) => [entry.productId, entry]),
   );
 
-  const take = (product: Product | undefined, into: Product[]) => {
-    if (!product || seen.has(product.id) || !product.featuredImage) return;
+  const featured: Product[] = [];
+  const take = (product: Product | undefined) => {
+    if (!product || featured.length >= limit) return;
+    if (seen.has(product.id) || !product.featuredImage) return;
+    // Until the clothing collections load, anything in the catalog may show.
+    if (clothingIds.size > 0 && !clothingIds.has(product.id)) return;
     seen.add(product.id);
-    into.push(product);
+    featured.push(product);
   };
 
-  const clothing: Product[] = [];
-  const home: Product[] = [];
-
-  for (const entry of options?.traction ?? []) {
-    if (
-      clothing.length >= clothingTarget &&
-      home.length >= limit - clothingTarget
-    ) {
-      break;
-    }
-    const product = byId.get(entry.productId);
-    if (!product) continue;
-    const isClothing = clothingIds.has(product.id);
-    if (isClothing) {
-      if (clothing.length >= clothingTarget) continue;
-      take(product, clothing);
-    } else {
-      if (home.length >= limit - clothingTarget) continue;
-      take(product, home);
-    }
-  }
-
-  for (const handle of popularData.clothingHandles) {
-    if (clothing.length >= clothingTarget) break;
-    const product = byHandle.get(handle);
-    if (product && clothingIds.size > 0 && !clothingIds.has(product.id)) {
-      continue;
-    }
-    take(product, clothing);
-  }
-  for (const product of clothingPool) {
-    if (clothing.length >= clothingTarget) break;
-    take(product, clothing);
-  }
-
-  const homeTarget = limit - clothing.length;
-  for (const handle of popularData.handles) {
-    if (home.length >= homeTarget) break;
-    const product = byHandle.get(handle);
-    if (product && clothingIds.has(product.id)) continue;
-    take(product, home);
-  }
-  for (const product of catalog) {
-    if (home.length >= homeTarget) break;
-    if (clothingIds.has(product.id)) continue;
-    take(product, home);
-  }
-
-  if (clothing.length < clothingTarget) {
-    for (const product of clothingPool) {
-      if (clothing.length >= clothingTarget) break;
-      take(product, clothing);
-    }
-  }
-
-  const picked: Product[] = [];
-  const rows = Math.max(home.length, clothing.length);
-  for (let index = 0; index < rows; index++) {
-    if (home[index]) picked.push(home[index]);
-    if (clothing[index]) picked.push(clothing[index]);
-  }
-  const featured = picked.slice(0, limit);
+  for (const entry of options?.traction ?? []) take(byId.get(entry.productId));
+  for (const handle of popularData.handles) take(byHandle.get(handle));
+  for (const product of clothingPool) take(product);
+  for (const product of catalog) take(product);
 
   const featuredMetrics = featured.map((product) => {
     const metrics = metricsById.get(product.id);

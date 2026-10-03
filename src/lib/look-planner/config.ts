@@ -1,8 +1,5 @@
-import type { HeroTheme } from "@/lib/hero-images";
-
 export type LookSlot = {
   key: string;
-  theme: HeroTheme;
   /** Planner label (Swedish admin). The storefront uses the collection title. */
   label: string;
   /** One piece per slot, each from the first collection that has one to give. */
@@ -13,7 +10,6 @@ export type LookSlot = {
 export const LOOK_SLOTS: LookSlot[] = [
   {
     key: "dam",
-    theme: "clothing",
     label: "Dam",
     recipe: [
       ["dam-ytterklader"],
@@ -23,31 +19,12 @@ export const LOOK_SLOTS: LookSlot[] = [
   },
   {
     key: "herr",
-    theme: "clothing",
     label: "Herr",
     recipe: [
       ["herr-ytterklader"],
       ["herr-stickat", "herr-toppar"],
       ["herr-accessoarer", "herr-byxor"],
     ],
-  },
-  {
-    key: "vardagsrum",
-    theme: "home",
-    label: "Vardagsrum",
-    recipe: [["vardagsrum"], ["vardagsrum"], ["vardagsrum", "sovrum"]],
-  },
-  {
-    key: "sovrum",
-    theme: "home",
-    label: "Sovrum",
-    recipe: [["sovrum"], ["sovrum"], ["sovrum", "vardagsrum"]],
-  },
-  {
-    key: "kok",
-    theme: "home",
-    label: "Kök",
-    recipe: [["kok"], ["kok"], ["kok"]],
   },
 ];
 

@@ -13,29 +13,6 @@ const EXCLUDED_HANDLES = new Set([
 const EXCLUDED_TITLE_PATTERN =
   /^(home\s*page|homepage|frontpage|startsida|alla produkter|all products)$/i;
 
-/** Canonical room walk for the landing page and nav. */
-export const ROOM_ORDER = [
-  "vardagsrum",
-  "sovrum",
-  "kok",
-  "tradgard",
-] as const;
-
-type RoomKey = (typeof ROOM_ORDER)[number];
-
-const ROOM_ALIASES: Record<string, RoomKey> = {
-  vardagsrum: "vardagsrum",
-  livingroom: "vardagsrum",
-  living: "vardagsrum",
-  sovrum: "sovrum",
-  bedroom: "sovrum",
-  kok: "kok",
-  kitchen: "kok",
-  tradgard: "tradgard",
-  garden: "tradgard",
-  outdoor: "tradgard",
-};
-
 /** Umbrella clothing collection. Dam/Herr nest under this. */
 export const CLOTHING_ROOT = "klader";
 
@@ -81,15 +58,6 @@ export type NavCollectionGroup = {
   nested?: NavCollectionGroup[];
 };
 
-function normalizeKey(value: string) {
-  return value
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "");
-}
-
 function byHandleMap(collections: CollectionSummary[]) {
   return new Map(
     collections.map((collection) => [
@@ -110,20 +78,6 @@ export function isBrowsableCollection(
   if (EXCLUDED_TITLE_PATTERN.test(title)) return false;
 
   return true;
-}
-
-export function roomKeyFromCollection(
-  collection: Pick<CollectionSummary, "handle" | "title">,
-): RoomKey | null {
-  const handle = normalizeKey(collection.handle);
-  const title = normalizeKey(collection.title);
-  return ROOM_ALIASES[handle] ?? ROOM_ALIASES[title] ?? null;
-}
-
-export function isRoomCollection(
-  collection: Pick<CollectionSummary, "handle" | "title">,
-): boolean {
-  return roomKeyFromCollection(collection) !== null;
 }
 
 export function isClothingTypeHandle(handle: string) {
@@ -170,40 +124,15 @@ export function clothingParentFromHandle(handle: string) {
   return clothingGenderFromHandle(handle);
 }
 
-/** Prefer a room collection (Kök, Sovrum…) when a product sits in several. */
+/** The collection a product page links back to when a product sits in several. */
 export function primaryCollection(
   collections: { handle: string; title: string }[],
 ): { handle: string; title: string } | null {
-  const browsable = collections.filter(isBrowsableCollection);
-  if (browsable.length === 0) return null;
-
-  const rooms = browsable.filter(isRoomCollection);
-  const pool = rooms.length > 0 ? rooms : browsable;
-
-  return (
-    [...pool].sort((a, b) => {
-      const aKey = roomKeyFromCollection(a);
-      const bKey = roomKeyFromCollection(b);
-      const aIndex = aKey ? ROOM_ORDER.indexOf(aKey) : ROOM_ORDER.length;
-      const bIndex = bKey ? ROOM_ORDER.indexOf(bKey) : ROOM_ORDER.length;
-      if (aIndex !== bIndex) return aIndex - bIndex;
-      return a.title.localeCompare(b.title, "sv");
-    })[0] ?? null
-  );
+  return sortByTitle(collections.filter(isBrowsableCollection))[0] ?? null;
 }
 
-/** Known rooms first, then every other published collection. */
-export function roomsFromCollections(
-  collections: CollectionSummary[],
-): CollectionSummary[] {
-  return [...collections].sort((a, b) => {
-    const aKey = roomKeyFromCollection(a);
-    const bKey = roomKeyFromCollection(b);
-    const aIndex = aKey ? ROOM_ORDER.indexOf(aKey) : ROOM_ORDER.length;
-    const bIndex = bKey ? ROOM_ORDER.indexOf(bKey) : ROOM_ORDER.length;
-    if (aIndex !== bIndex) return aIndex - bIndex;
-    return a.title.localeCompare(b.title, "sv");
-  });
+export function sortByTitle<T extends { title: string }>(collections: T[]): T[] {
+  return [...collections].sort((a, b) => a.title.localeCompare(b.title, "sv"));
 }
 
 export function clothingTypesFor(
@@ -269,7 +198,7 @@ export function clothingSampleIds(
 }
 
 /**
- * Shop menu: rooms + Kläder (with Dam/Herr → types nested), then other
+ * Shop menu: Kläder (with Dam/Herr → types nested), then any other
  * top-level collections. Dam/Herr are never top-level.
  */
 export function navGroupsFromCollections(
@@ -302,7 +231,7 @@ export function navGroupsFromCollections(
     });
   }
 
-  const remaining = roomsFromCollections(
+  const remaining = sortByTitle(
     browsable.filter(
       (collection) => !used.has(collection.handle.toLowerCase()),
     ),
@@ -316,25 +245,7 @@ export function navGroupsFromCollections(
     });
   }
 
-  // Rooms first, then Kläder, then the rest — keep room sort among rooms.
-  return groups.sort((a, b) => {
-    const aRoom = a.parent ? roomKeyFromCollection(a.parent) : null;
-    const bRoom = b.parent ? roomKeyFromCollection(b.parent) : null;
-    const aIndex = aRoom
-      ? ROOM_ORDER.indexOf(aRoom)
-      : a.key === CLOTHING_ROOT
-        ? ROOM_ORDER.length
-        : ROOM_ORDER.length + 1;
-    const bIndex = bRoom
-      ? ROOM_ORDER.indexOf(bRoom)
-      : b.key === CLOTHING_ROOT
-        ? ROOM_ORDER.length
-        : ROOM_ORDER.length + 1;
-    if (aIndex !== bIndex) return aIndex - bIndex;
-    const aTitle = a.parent?.title ?? a.key;
-    const bTitle = b.parent?.title ?? b.key;
-    return aTitle.localeCompare(bTitle, "sv");
-  });
+  return groups;
 }
 
 export type CollectionTreeNode = {
@@ -384,11 +295,11 @@ function navGroupsToTree(groups: NavCollectionGroup[]): CollectionTreeNode[] {
   return nodes;
 }
 
-/** Homepage / top chips: rooms, Kläder, Kontor — never Dam/Herr/types. */
+/** Top chips: Kläder and any other top-level collection — never Dam/Herr/types. */
 export function topLevelCollections(
   collections: CollectionSummary[],
 ): CollectionSummary[] {
-  return roomsFromCollections(
+  return sortByTitle(
     collections.filter(
       (collection) =>
         isBrowsableCollection(collection) &&
@@ -415,7 +326,7 @@ export function shortCollectionLabel(title: string, parentTitle?: string) {
 }
 
 export type CatalogCollectionNav = {
-  /** Top-level chips/filters (rooms, Kläder, …). */
+  /** Top-level chips/filters (Kläder, …). */
   primary: CollectionSummary[];
   /** Dam / Herr when browsing the clothing branch. */
   genders: CollectionSummary[];

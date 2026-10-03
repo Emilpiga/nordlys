@@ -1,6 +1,5 @@
 import "server-only";
 
-import type { HeroTheme } from "@/lib/hero-images";
 import { LOOK_SLOTS, PIECES_PER_LOOK, type LookSlot } from "@/lib/look-planner/config";
 import { getSettings, getWeek, type PlannedLook } from "@/lib/look-planner/store";
 import { currentWeekStart } from "@/lib/look-planner/weeks";
@@ -16,7 +15,6 @@ const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
 export type Look = {
   key: string;
-  theme: HeroTheme;
   label: string;
   href: string;
   pieces: Product[];
@@ -99,7 +97,7 @@ function rotationPieces(
 
 /**
  * "Veckans look": the looks planned for this week in Shopify admin
- * (/shopify-admin), per gender and per room. Any slot without a usable plan
+ * (/shopify-admin), per gender. Any slot without a usable plan
  * falls back to a weekly rotation so the section is never empty.
  */
 export async function getWeeklyLooks(locale: string): Promise<WeeklyLooks> {
@@ -122,7 +120,6 @@ export async function getWeeklyLooks(locale: string): Promise<WeeklyLooks> {
       if (!pieces) return null;
       return {
         key: slot.key,
-        theme: slot.theme,
         label: parent.title,
         href: `/collections/${slot.key}`,
         pieces,

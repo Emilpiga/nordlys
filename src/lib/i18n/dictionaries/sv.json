@@ -1,7 +1,7 @@
 {
   "meta": {
-    "siteTitle": "{brand} · Kläder & hem",
-    "siteDescription": "{brand} — Kläder för dam och herr: jackor, kappor och stickat, plus saker till hemmet. Tydliga priser och leverans med spårning."
+    "siteTitle": "{brand} · Kläder för dam och herr",
+    "siteDescription": "{brand} — Kläder för dam och herr: jackor, kappor och stickat. Tydliga priser och leverans med spårning."
   },
   "nav": {
     "shop": "Shoppa",
@@ -42,8 +42,8 @@
     "countMany": "{count} produkter"
   },
   "footer": {
-    "tagline": "Produkter för vardagen.",
-    "blurb": "Saker till hemmet och vardagen — enkel stil, tydliga priser och leverans med spårning.",
+    "tagline": "Kläder för vardagen.",
+    "blurb": "Kläder för dam och herr — enkel stil, tydliga priser och leverans med spårning.",
     "shopHeading": "Shoppa",
     "collection": "Kollektion",
     "cart": "Kasse",
@@ -60,19 +60,15 @@
     "shippingBadge": "Skickas inom {processing} · Spårning på varje order"
   },
   "home": {
-    "heroAlt": "{brand} — Produkter för vardagen",
-    "wordmarkTagline": "Kläder & hem",
+    "heroAlt": "{brand} — Kläder för vardagen",
+    "wordmarkTagline": "Dam & herr",
     "heroHeadline": "Varma kläder för kalla dagar.",
     "heroSub": "Kappor, stickat och vinterjackor för dam och herr. Tidlös stil och tydliga priser.",
-    "heroCta": "Köp nu",
-    "heroCtaHome": "Handla till hemmet",
     "heroCtaClothing": "Handla kläder",
+    "heroCtaDam": "Handla dam",
+    "heroCtaHerr": "Handla herr",
+    "heroTabsLabel": "Välj dam eller herr",
     "heroCtaAll": "Hela sortimentet",
-    "heroTabClothing": "Kläder",
-    "heroTabHome": "Hem",
-    "heroTabsLabel": "Välj vad du vill se",
-    "heroHomeHeadline": "Mysigt hemma när det mörknar.",
-    "heroHomeSub": "Filtar, lampor och smarta prylar till vardagsrum, kök och sovrum.",
     "lookEyebrow": "Veckans look",
     "lookTitle": "Tre plagg som hör ihop",
     "lookSub": "Ett färdigt klädval för kyliga dagar. Välj storlek och färg på varje plagg – looken byts varje vecka.",
@@ -80,14 +76,6 @@
     "lookChoose": "Välj",
     "lookTabsLabel": "Välj look",
     "lookPiece": "Plagg {n}",
-    "lookHomeEyebrow": "Veckans hörna",
-    "lookHomeTitle": "Tre saker som lyfter rummet",
-    "lookHomeSub": "Små saker som passar ihop och gör rummet ombonat. Urvalet byts varje vecka.",
-    "lookHomeTotal": "Allt tillsammans",
-    "lookHomePiece": "Del {n}",
-    "lookHomeTabsLabel": "Välj rum",
-    "lookSwitchToHome": "Inreder du hellre? Se veckans hörna",
-    "lookSwitchToClothing": "Hellre kläder? Se veckans look",
     "lookAddAll": "Lägg till hela looken",
     "lookAddAllHint": "Välj storlek och färg för alla delar",
     "lookSoldOut": "Slut i den kombinationen",
@@ -101,10 +89,6 @@
     "featuredAll": "Till hela sortimentet →",
     "featuredPrev": "Föregående produkter",
     "featuredNext": "Nästa produkter",
-    "atmosphereEyebrow": "Vardag",
-    "atmosphereTitle": "Gjort för riktiga hem",
-    "atmosphereBody": "Vi samlar produkter som passar in i vardagen — utan krångel och utan onödig styling. {brand} håller det enkelt.",
-    "atmosphereAlt": "Hem och vardagsprodukter",
     "categoryEyebrow": "Hitta rätt",
     "categoryTitle": "Handla efter kategori",
     "categorySub": "Börja där du behöver något — sedan bygger du vidare i din takt.",
@@ -114,8 +98,8 @@
     "productOne": "produkt",
     "productMany": "produkter",
     "testimonialEyebrow": "Omdömen",
-    "testimonialTitle": "Saker folk faktiskt använder.",
-    "testimonialSub": "Korta omdömen från kunder som redan har produkterna hemma."
+    "testimonialTitle": "Plagg folk faktiskt använder.",
+    "testimonialSub": "Korta omdömen från kunder som redan har fått sina plagg."
   },
   "reviews": {
     "eyebrow": "Omdömen",
@@ -128,7 +112,7 @@
   "products": {
     "sizeRunsSmall": "Plaggen är små i storleken — välj gärna en storlek större än vanligt.",
     "backToShop": "← Tillbaka till shoppen",
-    "fallbackDescription": "En produkt för vardagen — enkel, användbar och redo att användas hemma.",
+    "fallbackDescription": "Ett plagg för vardagen — enkelt, bekvämt och lätt att kombinera.",
     "relatedTitle": "Mer ur sortimentet",
     "relatedInCollection": "Mer till {title}",
     "relatedAll": "Visa alla",
@@ -160,7 +144,7 @@
     "thumbnailLabel": "Visa bild {index}",
     "viewFullDetails": "Visa fullständig info",
     "shopTitle": "Shoppa",
-    "shopDescription": "Produkter till hemmet och vardagen — enkel stil, tydliga priser.",
+    "shopDescription": "Kläder för dam och herr — enkel stil, tydliga priser.",
     "saleBadge": "−{percent} %",
     "badgeBestseller": "Bästsäljare",
     "badgeTrending": "Trendande",
@@ -250,21 +234,21 @@
   },
   "collections": {
     "tileEyebrow": "Upptäck också",
-    "metaTitle": "{title} – saker till hemmet och vardagen",
-    "metaDescription": "{count} produkter i {title} från {brand}. Enkel stil, tydliga priser och saker du faktiskt använder.",
-    "intro": "{title} hos {brand} — praktiska saker med enkel form, utvalda för vardagen."
+    "metaTitle": "{title} – kläder för vardagen",
+    "metaDescription": "{count} produkter i {title} från {brand}. Enkel stil, tydliga priser och plagg du faktiskt använder.",
+    "intro": "{title} hos {brand} — plagg med enkel stil, utvalda för vardagen."
   },
   "about": {
     "metaTitle": "Om oss",
-    "metaDescription": "{brand} är en svensk webbutik för kläder till dam och herr och saker till hemmet — kappor, jackor, stickat, filtar, lampor och mer.",
+    "metaDescription": "{brand} är en svensk webbutik för kläder till dam och herr — kappor, jackor, stickat, klänningar och accessoarer.",
     "eyebrow": "Om {brand}",
     "title": "Stil för vardagen",
-    "intro": "{brand} är en svensk webbutik för kläder och hem. Vi säljer kläder för dam och herr — kappor, jackor, stickat och accessoarer — och utvalda saker till vardagsrum, sovrum, kök och kontor.",
-    "imageAlt": "Kläder och saker till hemmet",
+    "intro": "{brand} är en svensk webbutik för kläder. Vi säljer kläder för dam och herr — kappor, jackor, stickat och accessoarer.",
+    "imageAlt": "Kläder för dam och herr",
     "whyEyebrow": "Varför vi finns",
-    "whyTitle": "Kläder och saker du faktiskt använder",
-    "whyBody1": "Vi väljer ut plagg och produkter för en nordisk vardag: varma ytterkläder och mjukt stickat för kalla månader, och praktiska saker som gör hemmet skönare. Enkel stil, tydliga priser och inget onödigt krångel.",
-    "whyBody2": "Varje produkt väljs för att vara användbar och lätt att kombinera — med resten av garderoben eller hemmet. Du handlar hos oss; ordern packas och skickas av våra fullföljandepartners med spårning.",
+    "whyTitle": "Kläder du faktiskt använder",
+    "whyBody1": "Vi väljer ut plagg för en nordisk vardag: varma ytterkläder och mjukt stickat för kalla månader. Enkel stil, tydliga priser och inget onödigt krångel.",
+    "whyBody2": "Varje plagg väljs för att vara användbart och lätt att kombinera med resten av garderoben. Du handlar hos oss; ordern packas och skickas av våra fullföljandepartners med spårning.",
     "howEyebrow": "Så fungerar det",
     "howTitle": "Enkel handel, tydlig leverans",
     "howBody": "Kassan körs säkert via Shopify. När du betalat packas din order och skickas med spårning. Leveranstider varierar med destination — vi är öppna med det, och hjälper dig om något strular.",
@@ -286,7 +270,7 @@
     "items": [
       {
         "question": "Vad säljer ni?",
-        "answer": "Kläder för dam och herr — kappor, vadderade jackor, stickade tröjor och koftor, klänningar och accessoarer som sjalar och mössor — och saker till hemmet: filtar, lampor, köksredskap, sovrumstillbehör och tillbehör till hemmakontoret. Du hittar allt under Shoppa i menyn."
+        "answer": "Kläder för dam och herr — kappor, vadderade jackor, stickade tröjor och koftor, klänningar och accessoarer som sjalar och mössor. Du hittar allt under Shoppa i menyn."
       },
       {
         "question": "Hur lång tid tar leveransen?",
@@ -318,7 +302,7 @@
       },
       {
         "question": "Hur sköter jag produkterna?",
-        "answer": "Följ tvättrådet på plaggets etikett och eventuella anvisningar på produktsidan. Produkter till hemmet torkar du av med en torr eller lätt fuktig trasa om inget annat anges."
+        "answer": "Följ tvättrådet på plaggets etikett och eventuella anvisningar på produktsidan."
       },
       {
         "question": "Hur kontaktar jag er?",
@@ -557,7 +541,7 @@
     "store": {
       "title": "Butiken",
       "paragraphs": [
-        "{brand} säljer produkter för hem och vardag online. Produktsidor, priser och tillgänglighet visas via vår Shopify-drivna katalog och kan ändras utan föregående meddelande. Vi gör vårt bästa för att hålla beskrivningar korrekta; små skillnader i förpackning, färg eller bilder kan förekomma.",
+        "{brand} säljer kläder online. Produktsidor, priser och tillgänglighet visas via vår Shopify-drivna katalog och kan ändras utan föregående meddelande. Vi gör vårt bästa för att hålla beskrivningar korrekta; små skillnader i förpackning, färg eller bilder kan förekomma.",
         "Att en vara kan köpas betyder att den kan beställas via vårt logistiknät — inte att den nödvändigtvis ligger i ett svenskt butikslager."
       ]
     },

@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { HomeHero } from "@/components/home-hero";
 import { HomeCategoryGuide } from "@/components/home-category-guide";
 import { HomeLookbook } from "@/components/home-lookbook";
-import { HomeThemeProvider } from "@/components/home-theme-provider";
 import { HomePopular } from "@/components/home-popular";
 import { HomeTestimonials } from "@/components/home-testimonials";
 import { HomeTrustStrip } from "@/components/home-trust-strip";
@@ -16,6 +15,8 @@ import { getTopTraction } from "@/lib/product-traction";
 import { ensureHistoricalSalesSynced } from "@/lib/product-traction-sales-sync";
 import { getCollections, getProducts, getProductsByIds } from "@/lib/shopify";
 import {
+  CLOTHING_ROOT,
+  type ClothingGender,
   clothingGenders,
   clothingSampleIds,
   topLevelCollections,
@@ -73,57 +74,59 @@ export default async function HomePage({ params }: Props) {
     .map((entry) => catalogById.get(entry.productId) ?? fetchedById.get(entry.productId))
     .filter((product): product is Product => Boolean(product));
 
-  const heroImages = heroImagesFromCatalog(catalog, { clothingProducts });
+  const genderCollections = clothingGenders(collections);
+  const productsIn = (gender: ClothingGender) => {
+    const ids = new Set(
+      genderCollections.find((collection) => collection.handle === gender)
+        ?.productIds,
+    );
+    return clothingProducts.filter((product) => ids.has(product.id));
+  };
+  const titleOf = (gender: ClothingGender) =>
+    genderCollections.find((collection) => collection.handle === gender)
+      ?.title ?? gender;
+  const heroImages = heroImagesFromCatalog({
+    dam: productsIn("dam"),
+    herr: productsIn("herr"),
+  });
   const popularProducts = pickPopularProducts(catalog, {
     clothingProducts,
     clothingIds,
     traction,
     tractionProducts,
   });
-  const clothingCollections = clothingGenders(collections).filter(
-    (collection) => collection.productCount > 0,
-  );
-  const homepageCollections = topLevelCollections(collections).filter(
-    (collection) => collection.productCount > 0,
-  );
+  // Dam and Herr stand in for the Kläder umbrella, so the guide has a real choice.
+  const homepageCollections = [
+    ...genderCollections,
+    ...topLevelCollections(collections).filter(
+      (collection) => collection.handle !== CLOTHING_ROOT,
+    ),
+  ].filter((collection) => collection.productCount > 0);
   return (
-    <HomeThemeProvider>
+    <>
       <HomeHero
         images={heroImages}
         eyebrow={dict.home.wordmarkTagline}
         alt={t(dict.home.heroAlt, { brand })}
         tabsLabel={dict.home.heroTabsLabel}
-        themes={{
-          clothing: {
-            label: dict.home.heroTabClothing,
-            headline: dict.home.heroHeadline,
-            sub: dict.home.heroSub,
-            cta: dict.home.heroCtaClothing,
-            ctaHref: "/collections/klader",
+        tabs={{
+          dam: {
+            label: titleOf("dam"),
+            cta: dict.home.heroCtaDam,
+            ctaHref: "/collections/dam",
           },
-          home: {
-            label: dict.home.heroTabHome,
-            headline: dict.home.heroHomeHeadline,
-            sub: dict.home.heroHomeSub,
-            cta: dict.home.heroCtaHome,
-            ctaHref: "#categories",
+          herr: {
+            label: titleOf("herr"),
+            cta: dict.home.heroCtaHerr,
+            ctaHref: "/collections/herr",
           },
         }}
-        fallback={
-          clothingCollections.length > 0
-            ? {
-                headline: dict.home.heroHeadline,
-                sub: dict.home.heroSub,
-                cta: dict.home.heroCtaClothing,
-                ctaHref: "/collections/klader",
-              }
-            : {
-                headline: dict.home.heroHomeHeadline,
-                sub: dict.home.heroHomeSub,
-                cta: dict.home.heroCta,
-                ctaHref: "/products",
-              }
-        }
+        copy={{
+          headline: dict.home.heroHeadline,
+          sub: dict.home.heroSub,
+          cta: dict.home.heroCtaClothing,
+          ctaHref: "/collections/klader",
+        }}
         secondaryCta={dict.home.heroCtaAll}
         secondaryCtaHref="/products"
       />
@@ -148,6 +151,6 @@ export default async function HomePage({ params }: Props) {
       )}
 
       <HomeTestimonials locale={locale} dict={dict} products={catalog} />
-    </HomeThemeProvider>
+    </>
   );
 }

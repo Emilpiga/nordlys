@@ -47,7 +47,7 @@ import type {
   SearchCollectionHit,
   SearchProductHit,
 } from "./types";
-import { isBrowsableCollection, roomsFromCollections } from "./collections";
+import { isBrowsableCollection, sortByTitle } from "./collections";
 import {
   categoriesFromProducts,
   categoryIdFromParam,
@@ -210,7 +210,7 @@ export async function getCollections(
       tags: [localeTag(locale, "collections"), "collections"],
     });
 
-    return roomsFromCollections(
+    return sortByTitle(
       data.collections.nodes
         .map(mapCollectionCard)
         .filter(isBrowsableCollection)

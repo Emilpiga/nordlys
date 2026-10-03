@@ -2,18 +2,20 @@ import Image from "@/components/soft-image";
 import {
   HeroCta,
   HeroShowcase,
-  type HeroThemeCopy,
+  type HeroCopy,
+  type HeroTab,
 } from "@/components/hero-showcase";
-import type { HeroImage, HeroTheme } from "@/lib/hero-images";
+import type { HeroImage } from "@/lib/hero-images";
+import type { ClothingGender } from "@/lib/shopify/collections";
 
 type HomeHeroProps = {
   images?: HeroImage[];
   eyebrow: string;
   alt: string;
   tabsLabel: string;
-  themes: Record<HeroTheme, HeroThemeCopy>;
-  /** Copy for the static hero when the catalog has no stills. */
-  fallback: Omit<HeroThemeCopy, "label">;
+  tabs: Record<ClothingGender, HeroTab>;
+  /** Headline and sub for the hero; its CTA shows when no tab is on screen. */
+  copy: HeroCopy;
   secondaryCta?: string;
   secondaryCtaHref?: string;
 };
@@ -23,8 +25,8 @@ export function HomeHero({
   eyebrow,
   alt,
   tabsLabel,
-  themes,
-  fallback,
+  tabs,
+  copy,
   secondaryCta,
   secondaryCtaHref,
 }: HomeHeroProps) {
@@ -36,9 +38,10 @@ export function HomeHero({
       {images.length > 0 ? (
         <HeroShowcase
           images={images}
-          themes={themes}
-          eyebrow={eyebrow}
           tabsLabel={tabsLabel}
+          tabs={tabs}
+          copy={copy}
+          eyebrow={eyebrow}
           secondaryCta={secondaryCta}
           secondaryCtaHref={secondaryCtaHref}
         />
@@ -66,16 +69,16 @@ export function HomeHero({
               </p>
 
               <h1 className="animate-rise delay-1 mt-5 font-display text-[2.05rem] font-medium leading-[1.12] tracking-tight text-foreground sm:mt-6 sm:text-[2.55rem] md:text-[2.85rem]">
-                {fallback.headline}
+                {copy.headline}
               </h1>
 
               <p className="animate-rise delay-2 mt-5 max-w-sm text-base font-light leading-relaxed text-muted">
-                {fallback.sub}
+                {copy.sub}
               </p>
 
               <div className="animate-rise delay-3 mt-9 flex flex-wrap gap-3">
-                <HeroCta href={fallback.ctaHref} className="btn-primary">
-                  {fallback.cta}
+                <HeroCta href={copy.ctaHref} className="btn-primary">
+                  {copy.cta}
                 </HeroCta>
                 {secondaryCta && secondaryCtaHref ? (
                   <HeroCta href={secondaryCtaHref} className="btn-secondary">
