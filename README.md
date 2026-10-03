@@ -95,6 +95,26 @@ Copy is written locally in `scripts/catalog-copy-data.mjs` (structured titles, b
 
 Test with a real low-cost SKU end-to-end: place order on the Next.js site → pay in Shopify Checkout → fulfill in CJ → confirm tracking appears on the Shopify order.
 
+### Sourcing products from competitors
+
+New clothing comes from Swedish (SEK) dropshipping stores that already sell it, not from browsing CJ. The competitor's listing — title, description, variants, prices, images — is copied; CJ only fulfils it.
+
+```bash
+npm run source -- <store or collection URL>                    # their best sellers
+npm run source -- <product URL> --q="english search terms"     # CJ candidates
+npm run source -- <product URL> --pid=<CJ pid>                 # pair variants → scripts/sourced-batch.json
+npm run import:cj -- --from=scripts/sourced-batch.json --dry-run
+npm run import:cj -- --from=scripts/sourced-batch.json
+```
+
+The import creates the products, links them to CJ, publishes them, moves them into the shipping profile that reaches Sweden and registers translations — nothing to run afterwards.
+
+**Prices** include shipping and VAT, like the competitor's. A competitor price is kept when it lies between our floor (CJ cost + freight + 70 SEK profit, plus VAT) and a ceiling where profit is 60 % of the ex-VAT price (`--max-margin=`); outside that band it moves to the nearest edge. Both live in `scripts/lib/pricing.mjs`.
+
+**Translations**: Swedish is copied as is. Add `translations.nb/da/fi` to the batch entry for the other markets (they read Swedish until then). Colour and size labels are translated automatically.
+
+Only Shopify storefronts are read automatically. In Claude Code, `/source-products` runs the whole flow, including finding the stores.
+
 ## 3. This storefront
 
 ```bash

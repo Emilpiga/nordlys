@@ -11,20 +11,40 @@
  * inventoryActivate(available) from CJ warehouse totals (shop syncInventoryRate),
  * disconnect merchant locations, then create the CJ product connection.
  *
- * Required after every import: move the new products into the `Scandinavia`
- * shipping profile. Shopify files new products under the General profile,
- * which only ships from `Pölen 1` — CJ stock is then unreachable for the
- * Swedish market and the storefront reports every variant as sold out.
+ * After the batch, the new products are moved into the shipping profile that
+ * ships CJ stock to Sweden (Shopify files them under General, which only
+ * ships from `Pölen 1`, so every variant would read as sold out) and their
+ * availability is re-checked. `--skip-shipping` leaves that to
  *   node scripts/fix-cj-shipping-profile.mjs
- *   node scripts/check-market-availability.mjs
  *
  * Usage:
- *   npm run import:cj -- --from=scripts/cj-import-batch.json
+ *   npm run import:cj -- --from=scripts/sourced-batch.json
  *   npm run import:cj -- --pid=2408230930241620600 --handle=striped-knit-pullover ...
  *   npm run import:cj -- --publish-only=striped-knit-pullover
  *   npm run import:cj -- --dry-run --from=scripts/cj-import-batch.json
  *
- * After import, push Nordic copy when entries exist in catalog-copy-data.mjs:
+ * Sourced entries (written by `npm run source`, see source-products.mjs) carry
+ * a competitor's listing: their option names, the CJ variant behind each of
+ * their variants, their images and their prices. Only the listed variants are
+ * created. Each price is kept when it sits between our minimum profit and
+ * `--max-margin` (percent of the ex-VAT price, default 60), otherwise moved to
+ * the nearest edge. Swedish is the source language; nb/da/fi copy comes from
+ * `translations`, option labels are translated from CJ's English names.
+ * {
+ *   "pid": "CJ product id",
+ *   "handle": "...", "title": "...", "descriptionHtml": "...",
+ *   "options": ["Färg", "Storlek"],
+ *   "images": ["https://..."],
+ *   "variants": [
+ *     { "vid": "CJ variant id", "options": ["Svart", "M"], "priceSek": 349, "image": "https://..." }
+ *   ],
+ *   "translations": {
+ *     "nb": { "title": "...", "descriptionHtml": "...", "metaTitle": "...", "metaDescription": "..." }
+ *   }
+ * }
+ *
+ * Entries without `variants` take everything from CJ. Push their Nordic copy
+ * from catalog-copy-data.mjs afterwards:
  *   npm run translate:products -- --only=handle1,handle2
  *
  * Batch JSON shape:
@@ -61,14 +81,19 @@ import {
 } from "./lib/shopify-admin.mjs";
 import {
   createCjClient,
-  pickCheapestFreight,
   splitVariantKey,
   variantStockTotal,
 } from "./lib/cj-client.mjs";
+import {
+  MAX_MARGIN,
+  followPrice,
+  landedCostFromCj,
+  minRetailSek,
+} from "./lib/pricing.mjs";
+import { registerTranslations } from "./lib/shopify-translations.mjs";
+import { COLOR_OPTION } from "./lib/source-store.mjs";
+import { OPTION_NAMES, VALUES } from "./translate-variant-options.mjs";
 
-const USD_TO_SEK = 10.5;
-const VAT_RATE = 0.25;
-const PROFIT_BEFORE_VAT_SEK = 70;
 const SHOPIFY_SHOP_NAME = "ctn6ds-ua";
 const PUBLICATION_NAMES = ["My Store Headless", "Google & YouTube"];
 const CJ_LOCATION_NAME = "cjdropshipping";
@@ -89,11 +114,17 @@ function parseArgs(argv) {
     publishOnly: null,
     skipConnect: false,
     skipInventory: false,
+    skipShipping: false,
+    maxMargin: MAX_MARGIN,
   };
   for (const raw of argv) {
     if (raw === "--dry-run") args.dryRun = true;
     else if (raw === "--skip-connect") args.skipConnect = true;
     else if (raw === "--skip-inventory") args.skipInventory = true;
+    else if (raw === "--skip-shipping") args.skipShipping = true;
+    else if (raw.startsWith("--max-margin=")) {
+      args.maxMargin = Number(raw.slice(13)) / 100;
+    }
     else if (raw.startsWith("--from=")) args.from = raw.slice(7);
     else if (raw.startsWith("--pid=")) args.pid = raw.slice(6);
     else if (raw.startsWith("--handle=")) args.handle = raw.slice(9);
@@ -119,17 +150,6 @@ function parseArgs(argv) {
     }
   }
   return args;
-}
-
-function roundUpToNine(amount) {
-  const base = Math.ceil(amount);
-  const mod = base % 10;
-  const delta = mod === 9 ? 0 : (9 - mod + 10) % 10;
-  return base + delta;
-}
-
-function retailSek(landedSek) {
-  return roundUpToNine((landedSek + PROFIT_BEFORE_VAT_SEK) * (1 + VAT_RATE));
 }
 
 function loadBatch(args) {
@@ -178,7 +198,33 @@ function normalizeSpec(raw) {
   if (!raw.pid) throw new Error("Each product needs pid");
   if (!raw.handle) throw new Error(`Product ${raw.pid} needs handle`);
   if (!raw.title) throw new Error(`Product ${raw.handle} needs title`);
+  const sourced = Array.isArray(raw.variants) && raw.variants.length > 0;
+  if (sourced) {
+    if (!Array.isArray(raw.options) || !raw.options.length) {
+      throw new Error(`Product ${raw.handle} lists variants but no options`);
+    }
+    for (const variant of raw.variants) {
+      if (!variant.vid || variant.options?.length !== raw.options.length) {
+        throw new Error(
+          `Product ${raw.handle}: each variant needs vid and ${raw.options.length} option value(s)`,
+        );
+      }
+    }
+  }
   return {
+    sourced: sourced
+      ? {
+          options: raw.options.map(String),
+          images: Array.isArray(raw.images) ? raw.images.filter(Boolean) : [],
+          variants: raw.variants.map((variant) => ({
+            vid: String(variant.vid),
+            options: variant.options.map(String),
+            priceSek: variant.priceSek == null ? null : Number(variant.priceSek),
+            image: variant.image || null,
+          })),
+          translations: raw.translations || {},
+        }
+      : null,
     pid: String(raw.pid),
     handle: String(raw.handle),
     title: String(raw.title),
@@ -440,7 +486,7 @@ async function connectAndSync(ctx, {
   shopProduct,
   cjProduct,
   variants,
-  priced,
+  logistics,
   images,
   stockBySku,
 }) {
@@ -469,7 +515,7 @@ async function connectAndSync(ctx, {
       return {
         sku: variant.variantSku,
         title: node.title,
-        price: priced.priceSek,
+        price: Number(node.price),
         weight: Number(variant.variantWeight) || 400,
         image: variant.variantImage || images[0],
         productTitle: shopProduct.title,
@@ -481,7 +527,7 @@ async function connectAndSync(ctx, {
       shopId: cjShopId,
       platformProductId: numericId(shopProduct.id),
       cjProductId: cjProduct.pid || cjProduct.id,
-      logistics: priced.logistics,
+      logistics,
       variantPairs,
     });
     console.log("  CJ connection created");
@@ -553,28 +599,128 @@ async function connectCj(cj, {
   }
 }
 
-async function priceFromCj(cj, variants) {
-  const heaviest = [...variants].sort(
-    (a, b) => Number(b.variantWeight || 0) - Number(a.variantWeight || 0),
-  )[0];
-  const freight = await cj.post("/logistic/freightCalculate", {
-    startCountryCode: "CN",
-    endCountryCode: "SE",
-    products: [{ vid: heaviest.vid, quantity: 1 }],
+/** The CJ variants a spec sells: all of them, or the ones a sourced entry lists. */
+function pickCjVariants(spec, cjVariants) {
+  if (!spec.sourced) return cjVariants;
+  const byVid = new Map(cjVariants.map((variant) => [String(variant.vid), variant]));
+  return spec.sourced.variants.map((row) => {
+    const variant = byVid.get(row.vid);
+    if (!variant) throw new Error(`CJ product has no variant ${row.vid}`);
+    return variant;
   });
-  const ship = pickCheapestFreight(freight);
-  if (!ship) throw new Error("No CJ freight option to Sweden");
-  const maxUsd = Math.max(
-    ...variants.map((variant) => Number(variant.variantSellPrice) || 0),
+}
+
+/**
+ * What the Shopify product looks like: option names, one row per variant
+ * (same order as `variants`) and the gallery.
+ */
+function listingPlan(spec, cjProduct, variants, landedSek, maxMargin) {
+  if (spec.sourced) {
+    const rows = spec.sourced.variants.map((row, index) => ({
+      cj: variants[index],
+      values: row.options,
+      image: row.image,
+      sourceSek: row.priceSek,
+      ...followPrice(row.priceSek, landedSek, maxMargin),
+    }));
+    const images = [
+      ...new Set([
+        ...spec.sourced.images,
+        ...rows.map((row) => row.image).filter(Boolean),
+      ]),
+    ].slice(0, 50);
+    return { optionNames: spec.sourced.options, rows, images };
+  }
+
+  const priceSek =
+    spec.priceSek != null && Number.isFinite(spec.priceSek)
+      ? Math.round(spec.priceSek)
+      : minRetailSek(landedSek);
+  const rows = variants.map((variant) => {
+    const { color, size } = splitVariantKey(variant.variantKey);
+    return { cj: variant, values: [color, size], image: variant.variantImage, priceSek };
+  });
+  const images = [
+    ...new Set([
+      ...(cjProduct.productImageSet || []),
+      ...variants.map((variant) => variant.variantImage).filter(Boolean),
+    ]),
+  ].slice(0, 25);
+  return { optionNames: ["Color", "Size"], rows, images };
+}
+
+/**
+ * nb/da/fi for a sourced product: its copy from the batch entry, option labels
+ * from the tables the rest of the catalog uses (keyed by CJ's English colour).
+ */
+async function translateSourced(ctx, spec, productId, plan) {
+  const { admin, shopLocales } = ctx;
+  const locales = shopLocales
+    .filter((locale) => locale.published && !locale.primary)
+    .map((locale) => ({
+      locale: locale.locale,
+      key: locale.locale === "no" ? "nb" : locale.locale,
+    }));
+  if (!locales.length) return;
+
+  const copy = [];
+  const missing = [];
+  for (const { locale, key } of locales) {
+    const text = spec.sourced.translations[key];
+    if (!text?.title || !text?.descriptionHtml) {
+      missing.push(locale);
+      continue;
+    }
+    copy.push(
+      { locale, key: "title", value: text.title },
+      { locale, key: "body_html", value: text.descriptionHtml },
+      { locale, key: "meta_title", value: text.metaTitle || text.title },
+      { locale, key: "meta_description", value: text.metaDescription },
+    );
+  }
+  await registerTranslations(admin, productId, copy);
+  if (missing.length) {
+    console.log(
+      `  no ${missing.join("/")} copy in the batch entry — those markets read the Swedish text`,
+    );
+  }
+
+  const colorIndex = plan.optionNames.findIndex((name) => COLOR_OPTION.test(name));
+  const cjColorByValue = new Map(
+    colorIndex === -1
+      ? []
+      : plan.rows.map((row) => [
+          row.values[colorIndex],
+          splitVariantKey(row.cj.variantKey).color.trim().toLowerCase(),
+        ]),
   );
-  const landed = (maxUsd + Number(ship.logisticPrice)) * USD_TO_SEK;
-  return {
-    priceSek: retailSek(landed),
-    logistics: ship.logisticName,
-    freightUsd: Number(ship.logisticPrice),
-    maxUsd,
-    landedSek: Math.round(landed),
-  };
+  const labels = (table) =>
+    table
+      ? locales
+          .filter(({ key }) => table[key] && table[key] !== table.sv)
+          .map(({ locale, key }) => ({ locale, key: "name", value: table[key] }))
+      : [];
+
+  const data = await admin.graphql(
+    `query($id: ID!) {
+      product(id: $id) { options { id name optionValues { id name } } }
+    }`,
+    { id: productId },
+  );
+  for (const option of data.product.options) {
+    const nameTable = Object.values(OPTION_NAMES).find(
+      (table) => table.sv.toLowerCase() === option.name.toLowerCase(),
+    );
+    await registerTranslations(admin, option.id, labels(nameTable));
+    if (!COLOR_OPTION.test(option.name)) continue;
+    for (const value of option.optionValues) {
+      // Only when the competitor uses our Swedish word for CJ's colour.
+      const table = VALUES[cjColorByValue.get(value.name)];
+      if (table?.sv.toLowerCase() !== value.name.toLowerCase()) continue;
+      await registerTranslations(admin, value.id, labels(table));
+    }
+  }
+  console.log("  option labels translated");
 }
 
 async function importOne(ctx, spec) {
@@ -603,8 +749,9 @@ async function importOne(ctx, spec) {
   const product = await cj.get(
     `/product/query?pid=${encodeURIComponent(spec.pid)}&features=enable_inventory`,
   );
-  const variants = product.variants || product.variantList || [];
-  if (!variants.length) throw new Error("CJ product has no variants");
+  const cjVariants = product.variants || product.variantList || [];
+  if (!cjVariants.length) throw new Error("CJ product has no variants");
+  const variants = pickCjVariants(spec, cjVariants);
 
   const stockBySku = stockBySkuFromCjProduct(
     product,
@@ -632,35 +779,29 @@ async function importOne(ctx, spec) {
     existingId = existing.products.nodes[0]?.id || null;
   }
 
-  const autoPrice = await priceFromCj(cj, variants);
-  const priced = {
-    ...autoPrice,
-    priceSek:
-      spec.priceSek != null && Number.isFinite(spec.priceSek)
-        ? Math.round(spec.priceSek)
-        : autoPrice.priceSek,
-  };
+  const cost = await landedCostFromCj(cj, variants);
+  const plan = listingPlan(spec, product, variants, cost.landedSek, args.maxMargin);
+  const { images } = plan;
+  const prices = plan.rows.map((row) => row.priceSek);
+  const priceSek = Math.max(...prices);
+  const priceLabel =
+    Math.min(...prices) === priceSek ? `${priceSek}` : `${Math.min(...prices)}–${priceSek}`;
 
   // CJ stock is applied by assignCjInventoryLocation from product inventories.
 
-  const colors = [];
-  const sizes = [];
-  for (const variant of variants) {
-    const { color, size } = splitVariantKey(variant.variantKey);
-    if (!colors.includes(color)) colors.push(color);
-    if (!sizes.includes(size)) sizes.push(size);
-  }
-
-  const images = [
-    ...new Set([
-      ...(product.productImageSet || []),
-      ...variants.map((variant) => variant.variantImage).filter(Boolean),
-    ]),
-  ].slice(0, 25);
-
   console.log(
-    `  variants=${variants.length} price=${priced.priceSek} SEK freight=${priced.logistics} cjStock=[${[...stockBySku.values()].slice(0, 4).join(",")}${stockBySku.size > 4 ? ",…" : ""}]`,
+    `  variants=${variants.length} price=${priceLabel} SEK landed=${Math.round(cost.landedSek)} SEK freight=${cost.logistics} cjStock=[${variants.slice(0, 4).map((variant) => stockBySku.get(variant.variantSku)).join(",")}${variants.length > 4 ? ",…" : ""}]`,
   );
+  if (spec.sourced) {
+    const { minSek, maxSek } = plan.rows[0];
+    const moved = plan.rows.filter((row) => row.verdict !== "source");
+    console.log(
+      `  band ${minSek}–${maxSek} SEK: ${plan.rows.length - moved.length} variant(s) keep the source price` +
+        (moved.length
+          ? `, ${moved.length} moved (${[...new Set(moved.map((row) => `${row.sourceSek ?? "none"} → ${row.priceSek} ${row.verdict}`))].join("; ")})`
+          : ""),
+    );
+  }
 
   if (args.dryRun) {
     console.log(
@@ -670,9 +811,9 @@ async function importOne(ctx, spec) {
     );
     return {
       handle: spec.handle,
-      priceSek: priced.priceSek,
+      priceSek,
       dryRun: true,
-      logistics: priced.logistics,
+      logistics: cost.logistics,
       skippedCreate: Boolean(existingId),
     };
   }
@@ -726,27 +867,27 @@ async function importOne(ctx, spec) {
             title: spec.metaTitle,
             description: spec.metaDescription,
           },
-          productOptions: [
-            { name: "Color", values: colors.map((name) => ({ name })) },
-            { name: "Size", values: sizes.map((name) => ({ name })) },
-          ],
+          productOptions: plan.optionNames.map((name, index) => ({
+            name,
+            values: [...new Set(plan.rows.map((row) => row.values[index]))].map(
+              (value) => ({ name: value }),
+            ),
+          })),
           files: images.map((url) => ({
             originalSource: url,
             alt: spec.title,
             contentType: "IMAGE",
           })),
-          variants: variants.map((variant) => {
-            const { color, size } = splitVariantKey(variant.variantKey);
+          variants: plan.rows.map((row) => {
+            const variant = row.cj;
             const variantImage =
-              variant.variantImage && images.includes(variant.variantImage)
-                ? variant.variantImage
-                : undefined;
+              row.image && images.includes(row.image) ? row.image : undefined;
             return {
-              optionValues: [
-                { optionName: "Color", name: color },
-                { optionName: "Size", name: size },
-              ],
-              price: priced.priceSek.toFixed(2),
+              optionValues: plan.optionNames.map((optionName, index) => ({
+                optionName,
+                name: row.values[index],
+              })),
+              price: row.priceSek.toFixed(2),
               sku: variant.variantSku,
               inventoryPolicy: "DENY",
               inventoryItem: {
@@ -763,7 +904,7 @@ async function importOne(ctx, spec) {
               file: variantImage
                 ? {
                     originalSource: variantImage,
-                    alt: `${color} ${size}`,
+                    alt: row.values.join(" "),
                     contentType: "IMAGE",
                   }
                 : undefined,
@@ -781,10 +922,14 @@ async function importOne(ctx, spec) {
     shopProduct,
     cjProduct: { pid: product.pid || spec.pid },
     variants,
-    priced,
+    logistics: cost.logistics,
     images,
     stockBySku,
   });
+
+  if (spec.sourced) {
+    await translateSourced(ctx, spec, shopProduct.id, plan);
+  }
 
   await publishToChannels(admin, shopProduct.id, publications);
   console.log(`  published → ${PUBLICATION_NAMES.join(", ")}`);
@@ -792,11 +937,12 @@ async function importOne(ctx, spec) {
   return {
     handle: shopProduct.handle,
     productId: numericId(shopProduct.id),
-    priceSek: priced.priceSek,
+    priceSek,
     variants: shopProduct.variants.nodes.length,
-    logistics: priced.logistics,
+    logistics: cost.logistics,
     published: true,
     skippedCreate,
+    sourced: Boolean(spec.sourced),
   };
 }
 
@@ -805,11 +951,18 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   const specs = loadBatch(args);
   const domain = shopDomain();
-  const { token, scope } = await getAdminAccessToken(domain);
-  console.log(`Admin scopes: ${scope || "(unknown)"}`);
+  const tokenResult = await getAdminAccessToken(domain);
+  const token = typeof tokenResult === "string" ? tokenResult : tokenResult.token;
+  console.log(`Admin scopes: ${tokenResult.scope || "(unknown)"}`);
 
   const admin = createShopifyAdmin({ domain, token });
   const cj = await createCjClient();
+
+  const shopLocales =
+    specs.some((spec) => spec.sourced) && !args.dryRun
+      ? (await admin.graphql(`query { shopLocales { locale primary published } }`))
+          .shopLocales
+      : [];
 
   const publications = await resolvePublicationIds(admin);
   console.log(
@@ -852,6 +1005,7 @@ async function main() {
     cjLocationId,
     cjShopId,
     cjSyncInventoryRate,
+    shopLocales,
     args,
   };
   const results = [];
@@ -871,21 +1025,39 @@ async function main() {
 
   console.log("\nSummary");
   console.log(JSON.stringify(results, null, 2));
-  if (failed) {
-    process.exitCode = 1;
-    return;
+  if (failed) process.exitCode = 1;
+
+  const imported = results.filter((row) => row.productId);
+  if (!imported.length || args.dryRun) return;
+  const handles = [...new Set(imported.map((row) => row.handle))];
+
+  if (args.skipShipping) {
+    console.log("\nNext: npm run fix:shipping   # else every variant reads as sold out");
+  } else {
+    console.log("\nShipping profile");
+    try {
+      // Loaded late: it needs the Storefront token, which the import itself doesn't.
+      const { moveToCjShippingProfile, reportShippingMove } = await import(
+        "./fix-cj-shipping-profile.mjs"
+      );
+      const moved = await moveToCjShippingProfile(admin, {
+        handles: new Set(handles),
+      });
+      if (!reportShippingMove(moved)) process.exitCode = 1;
+    } catch (error) {
+      console.error(
+        `  FAILED: ${error.message}\n  Run npm run fix:shipping — until then every variant reads as sold out.`,
+      );
+      process.exitCode = 1;
+    }
   }
 
-  const handles = results
-    .map((row) => row.handle)
-    .filter(Boolean)
-    .filter((handle, index, all) => all.indexOf(handle) === index);
-  if (handles.length && !args.dryRun && !args.publishOnly) {
+  const unsourced = [
+    ...new Set(imported.filter((row) => !row.sourced).map((row) => row.handle)),
+  ];
+  if (unsourced.length) {
     console.log(
-      "\nNext:" +
-        "\n  npm run fix:shipping        # else every variant reads as sold out" +
-        "\n  npm run check:availability" +
-        `\n  npm run translate:products -- --only=${handles.join(",")}`,
+      `\nNext: npm run translate:products -- --only=${unsourced.join(",")}`,
     );
   }
 }

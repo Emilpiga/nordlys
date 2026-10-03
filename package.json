@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "translate:products": "node scripts/rewrite-shopify-catalog.mjs",
+    "descriptions": "node scripts/update-product-descriptions.mjs",
+    "source": "node scripts/source-products.mjs",
     "import:cj": "node scripts/import-cj-products.mjs",
     "check:availability": "node scripts/check-market-availability.mjs",
     "fix:shipping": "node scripts/fix-cj-shipping-profile.mjs",

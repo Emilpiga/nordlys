@@ -150,25 +150,24 @@ async function variantIdsFor(admin, handles) {
   return ids;
 }
 
-async function main() {
-  const args = parseArgs(process.argv.slice(2));
+/**
+ * Moves `handles` (or, when empty, every stocked product the market cannot
+ * buy) into the profile that ships CJ stock to the storefront's market.
+ */
+export async function moveToCjShippingProfile(
+  admin,
+  { handles: wanted = new Set(), profileName = null, dryRun = false } = {},
+) {
   const { country } = marketContext();
-  const domain = shopDomain();
-  const tokenResult = await getAdminAccessToken(domain);
-  const admin = createShopifyAdmin({
-    domain,
-    token: typeof tokenResult === "string" ? tokenResult : tokenResult.token,
-  });
-
   const profiles = await loadDeliveryProfiles(admin);
-  const { broken, sellable } = await marketReport(admin, args.handles);
+  const { broken, sellable } = await marketReport(admin, wanted);
 
   let profile = null;
-  if (args.profile) {
-    profile = profiles.find((entry) => entry.name === args.profile);
+  if (profileName) {
+    profile = profiles.find((entry) => entry.name === profileName);
     if (!profile) {
       throw new Error(
-        `No shipping profile named "${args.profile}". Found: ${profiles
+        `No shipping profile named "${profileName}". Found: ${profiles
           .map((entry) => entry.name)
           .join(", ")}`,
       );
@@ -188,21 +187,20 @@ async function main() {
   }
   console.log(`Shipping profile: ${profile.name} (${profile.id})`);
 
-  const handles =
-    args.handles.size > 0 ? [...args.handles] : broken.map((p) => p.handle);
+  const handles = wanted.size > 0 ? [...wanted] : broken.map((p) => p.handle);
   if (handles.length === 0) {
     console.log(
       `Nothing to fix — every stocked product is sellable in ${country}.`,
     );
-    return;
+    return { country, handles, stillBroken: [] };
   }
   console.log(`Products to move (${handles.length}):\n  ${handles.join("\n  ")}`);
 
   const variantIds = await variantIdsFor(admin, handles);
   console.log(`Variants: ${variantIds.length}`);
-  if (args.dryRun) {
+  if (dryRun) {
     console.log("[dry-run] no changes made");
-    return;
+    return { country, handles, stillBroken: [] };
   }
 
   for (let i = 0; i < variantIds.length; i += VARIANTS_PER_CALL) {
@@ -225,18 +223,43 @@ async function main() {
 
   await sleep(10000);
   const after = await marketReport(admin, new Set(handles));
-  if (after.broken.length === 0) {
+  return { country, handles, stillBroken: after.broken.map((p) => p.handle) };
+}
+
+/** Logs the outcome of moveToCjShippingProfile; false when products are still sold out. */
+export function reportShippingMove({ country, handles, stillBroken }) {
+  if (stillBroken.length === 0) {
     console.log(`\nAll ${handles.length} product(s) now sellable in ${country}.`);
-    return;
+    return true;
   }
   console.log(
     `\nStill sold out in ${country} (Shopify can lag a minute — re-check with` +
-      ` npm run check:availability):\n  ${after.broken.map((p) => p.handle).join("\n  ")}`,
+      ` npm run check:availability):\n  ${stillBroken.join("\n  ")}`,
   );
-  process.exitCode = 1;
+  return false;
 }
 
-main().catch((error) => {
-  console.error(error.message);
-  process.exit(1);
-});
+async function main() {
+  const args = parseArgs(process.argv.slice(2));
+  const domain = shopDomain();
+  const tokenResult = await getAdminAccessToken(domain);
+  const admin = createShopifyAdmin({
+    domain,
+    token: typeof tokenResult === "string" ? tokenResult : tokenResult.token,
+  });
+
+  const result = await moveToCjShippingProfile(admin, {
+    handles: args.handles,
+    profileName: args.profile,
+    dryRun: args.dryRun,
+  });
+  if (args.dryRun || result.handles.length === 0) return;
+  if (!reportShippingMove(result)) process.exitCode = 1;
+}
+
+if (import.meta.filename === process.argv[1]) {
+  main().catch((error) => {
+    console.error(error.message);
+    process.exit(1);
+  });
+}

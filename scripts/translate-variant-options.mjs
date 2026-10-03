@@ -20,7 +20,7 @@ function loc(sv, nb, da, fi) {
   return { sv, nb, da, fi };
 }
 
-const OPTION_NAMES = {
+export const OPTION_NAMES = {
   color: loc("Färg", "Farge", "Farve", "Väri"),
   size: loc("Storlek", "Størrelse", "Størrelse", "Koko"),
   style: loc("Utförande", "Utførelse", "Udførelse", "Toteutus"),
@@ -36,7 +36,8 @@ const OPTION_NAME_OVERRIDES = {
   },
 };
 
-const VALUES = {
+/** Keyed by the supplier's English value, lower-cased. */
+export const VALUES = {
   apricot: loc("Aprikos", "Aprikos", "Abrikos", "Aprikoosi"),
   "army green": loc("Armégrön", "Armygrønn", "Armygrøn", "Armeijanvihreä"),
   beige: loc("Beige", "Beige", "Beige", "Beige"),
@@ -475,7 +476,9 @@ async function main() {
   }
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+if (import.meta.filename === process.argv[1]) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}
