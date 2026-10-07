@@ -86,6 +86,9 @@ export const VALUES = {
   "m8513 green": loc("Grön", "Grønn", "Grøn", "Vihreä"),
   "m8513 medium gray": loc("Mellangrå", "Mellomgrå", "Mellemgrå", "Keskiharmaa"),
   "m8513 black": loc("Svart", "Svart", "Sort", "Musta"),
+  "my5527 apricot color": loc("Aprikos", "Aprikos", "Abrikos", "Aprikoosi"),
+  "my5527 black": loc("Svart", "Svart", "Sort", "Musta"),
+  "my5527 wine red": loc("Vinröd", "Vinrød", "Vinrød", "Viininpunainen"),
   "1950 fleece lined black": loc(
     "Svart, fleecefoder",
     "Svart, fleecefôr",
