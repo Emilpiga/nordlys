@@ -49,6 +49,28 @@ export const GET_CART_QUERY = /* GraphQL */ `
   ${CART_FRAGMENT}
 `;
 
+/**
+ * Checkout link with the shopper's consent baked in (`_cs`). Checkout runs on
+ * its own domain and never sees the storefront's consent otherwise.
+ */
+export const GET_CART_CHECKOUT_URL_QUERY = /* GraphQL */ `
+  query GetCartCheckoutUrl(
+    $cartId: ID!
+    $country: CountryCode
+    $language: LanguageCode
+    $visitorConsent: VisitorConsent
+  )
+  @inContext(
+    country: $country
+    language: $language
+    visitorConsent: $visitorConsent
+  ) {
+    cart(id: $cartId) {
+      checkoutUrl
+    }
+  }
+`;
+
 export const GET_COLLECTIONS_QUERY = /* GraphQL */ `
   query GetCollections(
     $first: Int!

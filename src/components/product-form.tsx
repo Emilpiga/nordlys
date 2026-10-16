@@ -24,7 +24,11 @@ import {
   trackAddToCart,
   trackInitiateCheckout,
 } from "@/lib/ads-events";
-import { adClickIdsFromBrowser, decorateCheckoutUrl } from "@/lib/ads-linker";
+import {
+  adClickIdsFromBrowser,
+  decorateCheckoutUrl,
+  visitorConsentFromBrowser,
+} from "@/lib/ads-linker";
 import { formatMoney } from "@/lib/format";
 import { getPostHogIds } from "@/lib/posthog";
 import type { Product, ProductVariant } from "@/lib/shopify/types";
@@ -160,6 +164,7 @@ export function ProductForm({
           quantity,
           getPostHogIds(),
           adClickIdsFromBrowser(),
+          visitorConsentFromBrowser(),
         );
         if (!result.ok) {
           setError(dict.products.checkoutError);

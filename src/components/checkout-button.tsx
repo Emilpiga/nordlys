@@ -6,7 +6,11 @@ import {
   metaContentIdFromGid,
   trackInitiateCheckout,
 } from "@/lib/ads-events";
-import { adClickIdsFromBrowser, decorateCheckoutUrl } from "@/lib/ads-linker";
+import {
+  adClickIdsFromBrowser,
+  decorateCheckoutUrl,
+  visitorConsentFromBrowser,
+} from "@/lib/ads-linker";
 import { getPostHogIds } from "@/lib/posthog";
 import type { Cart } from "@/lib/shopify/types";
 
@@ -38,6 +42,7 @@ export function CheckoutButton({
       const result = await beginCheckoutAction(
         getPostHogIds(),
         adClickIdsFromBrowser(),
+        visitorConsentFromBrowser(),
       );
       const url = result.checkoutUrl || cart.checkoutUrl;
       if (url) window.location.assign(decorateCheckoutUrl(url));

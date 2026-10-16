@@ -48,6 +48,16 @@ export function adClickIdsFromBrowser() {
   return ids.gclid || ids.gbraid || ids.wbraid ? ids : null;
 }
 
+/**
+ * The shopper's cookie choice for checkout (`null` until they answer), sent
+ * along when the checkout URL is made so Shopify checkout applies it too.
+ */
+export function visitorConsentFromBrowser() {
+  if (typeof window === "undefined") return null;
+  const consent = window.__storeMarketingConsent;
+  return typeof consent === "boolean" ? consent : null;
+}
+
 export function decorateCheckoutUrl(checkoutUrl: string) {
   if (!checkoutUrl || typeof window === "undefined") return checkoutUrl;
   try {

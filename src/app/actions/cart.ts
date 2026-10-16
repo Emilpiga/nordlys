@@ -6,6 +6,7 @@ import {
   addCartLines,
   createCart,
   getCart,
+  getConsentedCheckoutUrl,
   removeCartLines,
   updateCartAttributes,
   updateCartBuyerIdentity,
@@ -273,24 +274,45 @@ async function tagCartForAnalytics(
   }
 }
 
+/**
+ * Checkout URL with the shopper's cookie choice on it (`null` = not answered,
+ * left to Shopify). Falls back to the plain URL if Shopify refuses.
+ */
+async function withConsent(
+  checkoutUrl: string,
+  cartId: string,
+  locale: string,
+  consent: boolean | null | undefined,
+) {
+  if (typeof consent !== "boolean") return checkoutUrl;
+  try {
+    return (
+      (await getConsentedCheckoutUrl(cartId, locale, consent)) ?? checkoutUrl
+    );
+  } catch (error) {
+    console.error("getConsentedCheckoutUrl failed:", error);
+    return checkoutUrl;
+  }
+}
+
 /** Refresh buyer identity, then return the Shopify checkout URL. */
 export async function beginCheckoutAction(
   analytics?: AnalyticsIds,
   adClick?: AdClickIds,
+  consent?: boolean | null,
 ) {
-  await tagCartForAnalytics(analytics, adClick, await readCartId());
-  const synced = await syncCartBuyerIdentity();
-  if (synced.ok && synced.cart?.checkoutUrl) {
-    return { ok: true as const, checkoutUrl: synced.cart.checkoutUrl };
-  }
-
   const cartId = await readCartId();
   if (!cartId) return { ok: false as const, checkoutUrl: null };
+  await tagCartForAnalytics(analytics, adClick, cartId);
 
   const locale = await readLocale();
-  const cart = await getCart(cartId, locale);
+  const synced = await syncCartBuyerIdentity();
+  const cart = synced.cart ?? (await getCart(cartId, locale));
   if (!cart?.checkoutUrl) return { ok: false as const, checkoutUrl: null };
-  return { ok: true as const, checkoutUrl: cart.checkoutUrl };
+  return {
+    ok: true as const,
+    checkoutUrl: await withConsent(cart.checkoutUrl, cart.id, locale, consent),
+  };
 }
 
 /**
@@ -303,6 +325,7 @@ export async function buyNowAction(
   quantity = 1,
   analytics?: AnalyticsIds,
   adClick?: AdClickIds,
+  consent?: boolean | null,
 ) {
   const locale = await readLocale();
   const codes = await getAcceptedWelcomeDiscountCodes();
@@ -318,7 +341,10 @@ export async function buyNowAction(
   }
 
   if (!cart.checkoutUrl) return { ok: false as const, checkoutUrl: null };
-  return { ok: true as const, checkoutUrl: cart.checkoutUrl };
+  return {
+    ok: true as const,
+    checkoutUrl: await withConsent(cart.checkoutUrl, cart.id, locale, consent),
+  };
 }
 
 /** Sync Markets country + Storefront language when the shopper changes locale. */

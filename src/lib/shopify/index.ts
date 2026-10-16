@@ -5,7 +5,11 @@ import {
   ShopifyNotConfiguredError,
   type ShopifyContext,
 } from "./client";
-import { isShopifyConfigured, shopifyConfig } from "./config";
+import {
+  isShopifyConfigured,
+  normalizeCheckoutUrl,
+  shopifyConfig,
+} from "./config";
 import {
   mapCart,
   mapCollection,
@@ -24,6 +28,7 @@ import {
   CART_LINES_UPDATE_MUTATION,
 } from "./mutations";
 import {
+  GET_CART_CHECKOUT_URL_QUERY,
   GET_CART_QUERY,
   GET_COLLECTION_BY_HANDLE_QUERY,
   GET_COLLECTION_PRODUCTS_CONNECTION_META_QUERY,
@@ -413,6 +418,34 @@ export async function getCart(
     console.error("Failed to load cart:", error);
     return null;
   }
+}
+
+/**
+ * The cart's checkout URL carrying the shopper's cookie choice, so Shopify
+ * checkout applies it and runs (or holds back) the Purchase pixels.
+ */
+export async function getConsentedCheckoutUrl(
+  cartId: string,
+  locale: string | undefined,
+  granted: boolean,
+): Promise<string | null> {
+  const data = await shopifyFetch<{ cart: { checkoutUrl: string } | null }>({
+    query: GET_CART_CHECKOUT_URL_QUERY,
+    variables: {
+      cartId,
+      visitorConsent: {
+        analytics: granted,
+        marketing: granted,
+        preferences: granted,
+        saleOfData: granted,
+      },
+    },
+    context: contextFromLocale(locale),
+    cache: "no-store",
+  });
+  return data.cart?.checkoutUrl
+    ? normalizeCheckoutUrl(data.cart.checkoutUrl)
+    : null;
 }
 
 export async function createCart(
