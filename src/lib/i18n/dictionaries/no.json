@@ -57,7 +57,8 @@
     "terms": "Vilkår",
     "orgNumber": "Org.nr {orgNumber}",
     "vatNumber": "MVA {vatNumber}",
-    "shippingBadge": "Sendes innen {processing} · Sporing på hver ordre"
+    "shippingBadge": "Sendes innen {processing} · Sporing på hver ordre",
+    "cookieSettings": "Innstillinger for informasjonskapsler"
   },
   "home": {
     "heroAlt": "{brand} — Klær for hverdagen",
@@ -487,7 +488,7 @@
       "title": "Informasjonskapsler",
       "paragraphs": [
         "Vi bruker nødvendige informasjonskapsler for at handlekurven og økten skal fungere. Shopify kan sette informasjonskapsler som kreves for sikker utsjekking. Hvis du blokkerer nødvendige informasjonskapsler, fungerer kanskje ikke handlekurven eller utsjekkingen korrekt.",
-        "For besøkende i EØS, Storbritannia og Sveits innhenter vi samtykke til annonseinformasjonskapsler via Googles sertifiserte samtykkeplattform (CMP) som vises på nettstedet. Der kan du godkjenne, avslå eller administrere alternativer for Google AdSense og relatert annonsemåling. Meta- (Facebook) og Google Ads-tagger følger samme samtykkevalg via Google Consent Mode. Du kan endre valget senere via Googles samtykkeverktøy på siden når det vises."
+        "For besøkende i EØS, Storbritannia og Sveits ber vi om samtykke i en informasjonskapselboks når du besøker nettstedet. Der kan du godta eller avslå informasjonskapsler for annonsemåling. Google Ads- og Meta- (Facebook) tagger og Shopifys kasse følger valget ditt via Google Consent Mode og Shopifys samtykke-API. Du kan endre valget når som helst via «Innstillinger for informasjonskapsler» nederst på siden."
       ]
     },
     "retention": {
@@ -689,5 +690,12 @@
     "no": "Nei, takk!",
     "applied": "Ferdig — {percent}% rabatt legges på din neste ordre.",
     "error": "Rabatten kunne ikke legges til akkurat nå. Prøv igjen."
+  },
+  "consent": {
+    "title": "Vi bruker informasjonskapsler",
+    "body": "Vi vil bruke informasjonskapsler til å måle annonsene våre (Google Ads, Meta) og forstå hvordan siden brukes. Nødvendige informasjonskapsler for handlekurv og kasse brukes alltid.",
+    "accept": "Godta alle",
+    "reject": "Bare nødvendige",
+    "privacyLink": "Les mer"
   }
 }

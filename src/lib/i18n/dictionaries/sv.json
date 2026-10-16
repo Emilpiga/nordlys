@@ -57,7 +57,8 @@
     "terms": "Villkor",
     "orgNumber": "Org.nr {orgNumber}",
     "vatNumber": "VAT {vatNumber}",
-    "shippingBadge": "Skickas inom {processing} · Spårning på varje order"
+    "shippingBadge": "Skickas inom {processing} · Spårning på varje order",
+    "cookieSettings": "Cookieinställningar"
   },
   "home": {
     "heroAlt": "{brand} — Kläder för vardagen",
@@ -487,7 +488,7 @@
       "title": "Cookies",
       "paragraphs": [
         "Vi använder nödvändiga cookies för att din varukorg och session ska fungera. Shopify kan sätta cookies som krävs för säker utcheckning. Om du blockerar nödvändiga cookies kanske varukorgen eller utcheckningen inte fungerar korrekt.",
-        "För besökare i EES, Storbritannien och Schweiz samlar vi in samtycke till annonscookies via Googles certifierade samtyckesplattform (CMP) som visas på webbplatsen. Där kan du godkänna, neka eller hantera alternativ för Google AdSense och relaterad annonsmätning. Meta- (Facebook) och Google Ads-taggar följer samma samtyckesval via Google Consent Mode. Du kan ändra ditt val senare via Googles samtyckesverktyg på sidan när det visas."
+        "För besökare i EES, Storbritannien och Schweiz frågar vi om samtycke i en cookieruta när du besöker webbplatsen. Där kan du godkänna eller neka cookies för annonsmätning. Google Ads- och Meta- (Facebook) taggar samt Shopifys utcheckning följer ditt val via Google Consent Mode och Shopifys samtyckes-API. Du kan ändra ditt val när som helst via ”Cookieinställningar” längst ned på sidan."
       ]
     },
     "retention": {
@@ -689,5 +690,12 @@
     "no": "Nej, tack!",
     "applied": "Klart — {percent}% rabatt läggs på din nästa order.",
     "error": "Rabatten kunde inte läggas till just nu. Försök igen."
+  },
+  "consent": {
+    "title": "Vi använder cookies",
+    "body": "Vi vill använda cookies för att mäta våra annonser (Google Ads, Meta) och förstå hur sidan används. Nödvändiga cookies för varukorg och utcheckning används alltid.",
+    "accept": "Godkänn alla",
+    "reject": "Endast nödvändiga",
+    "privacyLink": "Läs mer"
   }
 }

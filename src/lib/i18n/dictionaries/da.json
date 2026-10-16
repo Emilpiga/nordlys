@@ -57,7 +57,8 @@
     "terms": "Vilkår",
     "shippingBadge": "Sendes inden {processing} · Sporing på hver ordre",
     "orgNumber": "CVR {orgNumber}",
-    "vatNumber": "VAT {vatNumber}"
+    "vatNumber": "VAT {vatNumber}",
+    "cookieSettings": "Cookieindstillinger"
   },
   "home": {
     "heroAlt": "{brand} — Tøj til hverdagen",
@@ -469,7 +470,7 @@
       "title": "Cookies",
       "paragraphs": [
         "Vi bruger nødvendige cookies, så din kurv og session fungerer. Shopify kan sætte cookies, der kræves til sikker checkout. Hvis du blokerer nødvendige cookies, fungerer kurven eller checkout muligvis ikke korrekt.",
-        "For besøgende i EØS, Storbritannien og Schweiz indsamler vi samtykke til annoncecookies via Googles certificerede samtykkeplatform (CMP), der vises på webstedet. Der kan du godkende, afvise eller administrere alternativer for Google AdSense og relateret annoncemåling. Meta- (Facebook) og Google Ads-tags følger samme samtykkevalg via Google Consent Mode. Du kan ændre dit valg senere via Googles samtykkeværktøj på siden, når det vises."
+        "For besøgende i EØS, Storbritannien og Schweiz beder vi om samtykke i en cookieboks, når du besøger webstedet. Her kan du acceptere eller afvise cookies til annoncemåling. Google Ads- og Meta- (Facebook) tags samt Shopifys checkout følger dit valg via Google Consent Mode og Shopifys samtykke-API. Du kan ændre dit valg når som helst via »Cookieindstillinger« nederst på siden."
       ]
     },
     "retention": {
@@ -689,5 +690,12 @@
     "no": "Nej tak!",
     "applied": "Klar — {percent}% rabat lægges på din næste ordre.",
     "error": "Rabatten kunne ikke tilføjes lige nu. Prøv igen."
+  },
+  "consent": {
+    "title": "Vi bruger cookies",
+    "body": "Vi vil gerne bruge cookies til at måle vores annoncer (Google Ads, Meta) og forstå, hvordan siden bruges. Nødvendige cookies til kurv og betaling bruges altid.",
+    "accept": "Accepter alle",
+    "reject": "Kun nødvendige",
+    "privacyLink": "Læs mere"
   }
 }

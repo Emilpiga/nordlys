@@ -1,6 +1,7 @@
 "use client";
 
 import { useDictionary } from "@/components/dictionary-provider";
+import { openConsentBanner } from "@/components/consent-banner";
 import { LocaleLink } from "@/components/locale-link";
 import { SiteLogo } from "@/components/site-logo";
 import { getLegalIdentity } from "@/lib/legal";
@@ -156,6 +157,15 @@ export function SiteFooter() {
                   <LocaleLink href="/terms" className={linkClass}>
                     {dict.footer.terms}
                   </LocaleLink>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    className={linkClass}
+                    onClick={openConsentBanner}
+                  >
+                    {dict.footer.cookieSettings}
+                  </button>
                 </li>
               </ul>
             </div>

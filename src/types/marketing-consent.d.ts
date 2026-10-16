@@ -17,6 +17,8 @@ declare global {
     };
     __storeMarketingConsent?: boolean | null;
     __storeSetMarketingConsent?: (granted: boolean) => void;
+    /** Store the shopper's own answer (ConsentBanner) and update Consent Mode. */
+    __storeChooseConsent?: (granted: boolean) => void;
     /** Shopify Customer Privacy API (consent-tracking-api.js). */
     Shopify?: {
       customerPrivacy?: {

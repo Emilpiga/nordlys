@@ -57,7 +57,8 @@
     "terms": "Ehdot",
     "shippingBadge": "Lähetetään {processing} kuluessa · Seuranta jokaisessa tilauksessa",
     "orgNumber": "Y-tunnus {orgNumber}",
-    "vatNumber": "ALV {vatNumber}"
+    "vatNumber": "ALV {vatNumber}",
+    "cookieSettings": "Evästeasetukset"
   },
   "home": {
     "heroAlt": "{brand} — Vaatteita arkeen",
@@ -469,7 +470,7 @@
       "title": "Evästeet",
       "paragraphs": [
         "Käytämme välttämättömiä evästeitä, jotta ostoskorisi ja istuntosi toimivat. Shopify voi asettaa evästeitä, joita tarvitaan turvalliseen kassaan. Jos estät välttämättömät evästeet, ostoskori tai kassa ei ehkä toimi oikein.",
-        "ETA-alueen, Yhdistyneen kuningaskunnan ja Sveitsin kävijöiltä keräämme suostumuksen mainosevästeisiin Googlen sertifioidun suostumusalustan (CMP) kautta, joka näytetään sivustolla. Siellä voit hyväksyä, hylätä tai hallita vaihtoehtoja Google AdSenseen ja siihen liittyvään mainosmittaukseen. Meta- (Facebook) ja Google Ads -tunnisteet noudattavat samoja suostumusvalintoja Google Consent Moden kautta. Voit muuttaa valintaasi myöhemmin Googlen suostumustyökalulla sivulla, kun se näytetään."
+        "ETA-alueen, Yhdistyneen kuningaskunnan ja Sveitsin kävijöiltä pyydämme suostumusta evästeikkunassa, kun he vierailevat sivustolla. Siinä voit hyväksyä tai hylätä mainosmittauksen evästeet. Google Ads- ja Meta (Facebook) -tunnisteet sekä Shopifyn kassa noudattavat valintaasi Google Consent Moden ja Shopifyn suostumusrajapinnan kautta. Voit muuttaa valintaasi milloin tahansa sivun alareunan kohdasta ”Evästeasetukset”."
       ]
     },
     "retention": {
@@ -689,5 +690,12 @@
     "no": "Ei kiitos!",
     "applied": "Valmista — {percent} % alennus lisätään seuraavaan tilaukseesi.",
     "error": "Alennusta ei voitu lisätä juuri nyt. Yritä uudelleen."
+  },
+  "consent": {
+    "title": "Käytämme evästeitä",
+    "body": "Haluamme käyttää evästeitä mainostemme mittaamiseen (Google Ads, Meta) ja sivuston käytön ymmärtämiseen. Ostoskorin ja kassan välttämättömiä evästeitä käytetään aina.",
+    "accept": "Hyväksy kaikki",
+    "reject": "Vain välttämättömät",
+    "privacyLink": "Lue lisää"
   }
 }

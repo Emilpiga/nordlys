@@ -6,8 +6,11 @@ import { CONSENT_REGIONS } from "@/lib/consent";
  * Shopify checkout (`store-consent` window event).
  * Must run before AdSense / gtag / Meta (strategy: beforeInteractive).
  *
- * EEA/UK/CH → denied until Google’s certified CMP updates consent.
- * Elsewhere → granted (Google CMP is not shown in those regions).
+ * EEA/UK/CH → denied until the shopper answers the ConsentBanner (or a
+ * Google CMP, when AdSense is on). Elsewhere → granted.
+ *
+ * The answer lives in the `store_consent` cookie and is replayed as a
+ * Consent Mode update on every page load.
  *
  * `consentRequired` comes from the visitor's country on the server: only
  * visitors outside those regions may fall back to "granted" when no CMP
@@ -42,10 +45,9 @@ export function ConsentModeBootstrap({
     ad_storage: "denied",
     ad_user_data: "denied",
     ad_personalization: "denied",
-    analytics_storage: "denied",
-    wait_for_update: 500
+    analytics_storage: "denied"
   };
-  var granted = {
+  var allGranted = {
     ad_storage: "granted",
     ad_user_data: "granted",
     ad_personalization: "granted",
@@ -54,10 +56,11 @@ export function ConsentModeBootstrap({
 
   // GDPR / UK / CH regions — Google’s AdSense CMP covers these.
   gtag("consent", "default", Object.assign({}, denied, {
+    wait_for_update: 500,
     region: ${JSON.stringify(CONSENT_REGIONS)}
   }));
   // Rest of world
-  gtag("consent", "default", granted);
+  gtag("consent", "default", allGranted);
 
   var originalPush = window.dataLayer.push.bind(window.dataLayer);
   window.dataLayer.push = function () {
@@ -74,6 +77,19 @@ export function ConsentModeBootstrap({
     } catch (e) {}
     return result;
   };
+
+  // The shopper's own answer from ConsentBanner, kept for 180 days.
+  window.__storeChooseConsent = function (granted) {
+    try {
+      document.cookie =
+        "store_consent=" + (granted ? "granted" : "denied") +
+        "; path=/; max-age=15552000; SameSite=Lax" +
+        (location.protocol === "https:" ? "; Secure" : "");
+    } catch (e) {}
+    gtag("consent", "update", granted ? allGranted : denied);
+  };
+  var saved = /(?:^|; )store_consent=(granted|denied)/.exec(document.cookie);
+  if (saved) gtag("consent", "update", saved[1] === "granted" ? allGranted : denied);
 
   function attachTcf() {
     if (typeof window.__tcfapi !== "function") return false;
@@ -103,8 +119,8 @@ export function ConsentModeBootstrap({
     }
   });
 
-  // Non-regulated regions never get TCF/CMP — apply granted default after
-  // wait. In the EEA only the CMP may answer; until it does, nothing runs.
+  // Non-regulated regions never get a banner — apply granted default after
+  // wait. In the EEA only the shopper may answer; until they do, nothing runs.
   setTimeout(function () {
     if (attachTcf()) return;
     if (!consentRequired && window.__storeMarketingConsent === null) {

@@ -9,6 +9,7 @@ import { AuroraBackdrop } from "@/components/aurora-backdrop";
 import { CartDrawer } from "@/components/cart-drawer";
 import { CartProvider } from "@/components/cart-provider";
 import { WelcomeDealPopup } from "@/components/welcome-deal-popup";
+import { ConsentBanner } from "@/components/consent-banner";
 import { ConsentModeBootstrap } from "@/components/consent-mode-bootstrap";
 import { ShopifyConsentBridge } from "@/components/shopify-consent-bridge";
 import { DictionaryProvider } from "@/components/dictionary-provider";
@@ -168,6 +169,7 @@ export default async function LocaleLayout({
                 <SiteFooter />
                 <CartDrawer />
                 {welcomeDealEligible ? <WelcomeDealPopup /> : null}
+                <ConsentBanner consentRequired={consentRequired} />
               </WishlistProvider>
             </CartProvider>
           </ReviewSummariesProvider>
