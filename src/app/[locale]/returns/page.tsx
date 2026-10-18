@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { LegalFacts, LegalPage, LegalSection } from "@/components/legal-page";
+import { LegalPage, LegalSection } from "@/components/legal-page";
 import { getDictionary, t } from "@/lib/i18n/get-dictionary";
 import { isLocale, localePath } from "@/lib/i18n/locales";
 import {
@@ -133,16 +133,6 @@ export default async function ReturnsPage({ params }: Props) {
           {section.paragraphs.map((paragraph) => (
             <p key={paragraph}>{t(paragraph, vars)}</p>
           ))}
-          {section.title === r.returns.title && identity.returnsAddress ? (
-            <LegalFacts
-              items={[
-                {
-                  label: dict.common.returnsAddress,
-                  value: identity.returnsAddress,
-                },
-              ]}
-            />
-          ) : null}
         </LegalSection>
       ))}
 
